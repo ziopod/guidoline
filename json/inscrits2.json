@@ -1,0 +1,26 @@
+[
+    {
+     	"id":"1",
+			"prenom": "Bertrand",
+			"nom": "Keller",
+			"adresse": "rue du Sacre 76000 Rouen",
+			"profession": "Compositeur",
+			"email": "bertrand@example.com"
+    },
+    {
+			"id":"2",
+			"prenom": "Steve",
+			"nom": "Beau",
+			"adresse": "Place de la Rougemare 76000 Rouen",
+			"profession": "Orthographeur",
+			"email": "steve@example.com"
+    },
+    {
+			"id":"3",
+			"prenom": "Alexandre",
+			"nom": "Ronsaut",
+			"adresse": "1 place du docteur Alfred Cerné 76000 Rouen",
+			"profession": "Contemporain",
+			"email": "alex@example.com"
+    }
+]
