@@ -1,7 +1,7 @@
 <nav>
 	<ul>
-	{{#items}}
-		<li>{{item}}</li>
-	{{/items}}
+	{{#navigation}}
+		<li><a title="{{link.title}}" href="{{base_url}}{{link.url}}" class="{{#link.current}} current {{/link.current}}">{{link.name}}</a></li>
+	{{/navigation}}
 	</ul>
 </nav>

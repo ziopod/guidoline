@@ -1,5 +1,9 @@
 <?php defined('SYSPATH') or die ('No direct script access');
 
+/**
+* Méthodo : Migrer ce fichier vers une extension directe de la classe Controller?
+**/
+
 class Controller_Website extends Controller {
 	
 	protected $layout;
