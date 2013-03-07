@@ -70,7 +70,7 @@ class View_Layout {
 	* Utilities
 	**/
 
-	function _array_in_object($array, $term = 'item')
+	protected function _array_in_object($array, $term = 'item')
 	{
 		$result = array();
 
@@ -83,4 +83,9 @@ class View_Layout {
 
 		return $result;
 	}
+
+	function json_sample()
+	{
+		return 	
+	}	
 }
