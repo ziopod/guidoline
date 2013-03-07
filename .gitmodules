@@ -13,6 +13,6 @@
 [submodule "modules/kostache"]
 	path = modules/kostache
 	url = git://github.com/zombor/KOstache.git
-[submodule "modules/kostache"]
-	path = modules/kostache
-	url = git://github.com/zombor/KOstache.git
+[submodule "modules/kostache/vendor/mustache"]
+	path = modules/kostache/vendor/mustache
+	url = git://github.com/bobthecow/mustache.php.git
