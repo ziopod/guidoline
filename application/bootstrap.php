@@ -80,6 +80,22 @@ if (isset($_SERVER['KOHANA_ENV']))
 }
 
 /**
+ * Set the environment status by the domain.
+ */
+
+if ($_SERVER['SERVER_ADDR'] == '127.0.0.1')
+{
+  Kohana::$environment = Kohana::DEVELOPMENT;
+
+  // Turn off notices and strict errors
+  error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+}
+else
+{
+  Kohana::$environment = Kohana::PRODUCTION;
+}
+
+/**
  * Initialize Kohana, setting the default options.
  *
  * The following options are available:
@@ -95,8 +111,11 @@ if (isset($_SERVER['KOHANA_ENV']))
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
 Kohana::init(array(
-  'base_url'   => '/guidoline/',
-  'index_file' =>'',
+  'base_url'   => Kohana::$environment === 'production' ? '/' : '/guidoline/',
+  'caching'    => Kohana::$environment === 'production',
+  'profile'    => Kohana::$environment !== 'production',
+  'index_file' => FALSE,
+  'errors'     => TRUE,
 ));
 
 /**
