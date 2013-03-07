@@ -1,0 +1,33 @@
+<i>{users.mustache}</i>
+
+<table>
+	<thead>
+		<tr>
+			<th>Nom &amp; prénom</th>
+			<th>Adresse</th>
+			<th>Email</th>
+		</tr>
+	</thead>
+	<tbody>
+	{{#users.users}}
+		<tr>
+			<td>{{firstname}} {{name}}</td>
+			<td>{{address}} - {{zipcode}} {{city}}</td>
+			<td>{{email}}</td>
+		</tr>
+	{{/users.users}}
+	{{^users}}
+		<tr>
+			<td colspan="3">
+				— Aucun utilisateur pour l'instant —
+				<a href="#">Ajoutez votre premier utilisateur</a>
+			</td>
+		</tr>
+	{{/users}}
+	</tbody>
+</table>
+Nombre total d'utilisateurs : {{users.count}}
+
+<p>
+	<a href="{{base_url}}users.json">Réponse au format JSON</a>
+</p>

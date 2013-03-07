@@ -28,8 +28,8 @@ class View_Layout {
 	*/
 	public $lang;
 	public $partials = array(
-//		'users'	=> 'partials/users',
-		);
+//		'users'	=> 'partials/users', /* Exemple */
+		); /* N'est pas utilisé pour le moment */
 
 	/**
 	* Init some stuff
@@ -37,6 +37,14 @@ class View_Layout {
 	public function __construct()
 	{
 		$this->lang = I18n::lang();
+		// echo '<code><strong>Request::uri()</strong></code>';
+		// echo Debug::vars(Request::initial()->uri());
+		// echo '<code><strong>Request::controller()</strong></code>';
+		// echo Debug::vars(Request::initial()->controller());
+		// echo '<code><strong>Request::action()</strong></code>';
+		// echo Debug::vars(Request::initial()->action());
+		// echo '<code><strong>Request::route()</strong></code>';
+		// echo Debug::vars(Request::initial()->route());
 	}
 
 	/**
@@ -45,14 +53,6 @@ class View_Layout {
 	public function navigation() // get_nav_links
 	{
 		$current = 'home';
-		echo '<code><strong>Request::uri()</strong></code>';
-		echo Debug::vars(Request::initial()->uri());
-		echo '<code><strong>Request::controller()</strong></code>';
-		echo Debug::vars(Request::initial()->controller());
-		echo '<code><strong>Request::action()</strong></code>';
-		echo Debug::vars(Request::initial()->action());
-		echo '<code><strong>Request::route()</strong></code>';
-		echo Debug::vars(Request::initial()->route());
 		$nav = $this->navigation_links;
 		$nav[$current]['current'] = TRUE;
 		return $this->_array_in_object($nav, 'link');
@@ -74,18 +74,17 @@ class View_Layout {
 	{
 		$result = array();
 
-		foreach ($array as $key => $link)
+		if (!empty($array))
 		{
-			$ob = (object) NULL;
-			$ob->$term = $link;
-			$result[] = $ob;
+			foreach ($array as $key => $link)
+			{
+				$ob = (object) NULL;
+				$ob->$term = $link;
+				$result[] = $ob;
+			}
 		}
 
 		return $result;
 	}
 
-	function json_sample()
-	{
-		return 	
-	}	
 }
