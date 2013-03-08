@@ -1,14 +1,14 @@
 # Turn on URL rewriting
-RewriteEngine On
+#RewriteEngine On
 
 # Installation directory
-RewriteBase /
+RewriteBase /guidoline/
 
 # Protect hidden files from being viewed
-<Files .*>
-	Order Deny,Allow
-	Deny From All
-</Files>
+#<Files .*>
+#	Order Deny,Allow
+#	Deny From All
+#</Files>
 
 # Protect application and system files from being viewed
 RewriteRule ^(?:application|modules|system)\b.* index.php/$0 [L]
