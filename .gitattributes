@@ -1,2 +1,3 @@
 .htaccess merge=ours
 application/bootstrap.php merge=ours
+application/config/database.php merge=ours
