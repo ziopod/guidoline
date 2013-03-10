@@ -1,6 +1,16 @@
 <?php defined('SYSPATH') or die ('No direct script access');
 
-class Controller_Users extends Controller_Website {
+/**
+* Le contrôleur "Users" permet de gérer toutes les actions lié à la gestion des utilisateurs
+*
+* @package    Guidoline
+* @category   Controller
+* @author     Ziopod
+* @copyright  BY-SA 2013 Ziopod
+* @license    http://creativecommons.org/licenses/by-sa/3.0/deed.fr
+*/
+
+class Controller_Users extends Controller_App {
 
 	public function action_index()
 	{

@@ -140,7 +140,7 @@ Kohana::modules(array(
   // 'minion'     => MODPATH.'minion',     // CLI Tasks
   // 'orm'        => MODPATH.'orm',        // Object Relationship Mapping
   // 'unittest'   => MODPATH.'unittest',   // Unit testing
-  // 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
+  'userguide'  => MODPATH.'userguide',  // User guide and API documentation
   'kostache'  => MODPATH.'kostache',
   ));
 
@@ -156,13 +156,13 @@ Route::set('api', '<controller>(/<action>)(.<format>)',
 //    'format' => '(json|xml)',
   ))
   ->defaults(array(
-      'controller' => 'reference',
+      'controller' => 'userguide',
       'action' => 'index',
     ));
 
 // Defaults
 Route::set('default', '(<controller>(/<action>(/<id>)))')
   ->defaults(array(
-    'controller' => 'home',
+    'controller' => 'dashboard',
     'action'     => 'index',
   ));

@@ -20,7 +20,13 @@ class View_Layout {
 		'user'	=> array(
 			'url'	=> 'users',
 			'name'	=> 'Users',
-			'title'	=> 'Go to users list')
+			'title'	=> 'Go to users list',
+			),
+		'userguide' => array(
+			'url'	=> 'guide-api',
+			'name'	=> 'API guide',
+			'title'	=> 'Need help?',
+			)
 		);
 
 	/**
