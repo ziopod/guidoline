@@ -14,7 +14,23 @@
 class View_Dashboard extends View_Layout {
 	
 	/**
-	* Titre pour le dashboard
+	* @vars Title Titre pour le dashboard
 	*/
 	public $title = "Guidoline — Dashboard";
+
+	/**
+	* Test de connexion à la base de données
+	**/
+	public function db_connection_test()
+	{
+		 try
+		 {
+		 	Database::instance()->connect();
+		 	return "— Connexion ok —";
+		 }
+		 catch(Exception $e)
+		 {
+		 	return $e;
+		 }
+	}
 }
