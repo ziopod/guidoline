@@ -19,7 +19,6 @@ class Controller_Dashboard extends Controller_App {
 	**/
 	public function action_index()
 	{
-		echo Debug::vars(parse_url(getenv("CLEARDB_DATABASE_URL")));
 		$this->response->body($this->layout->render(new View_Dashboard));
 	}
 }

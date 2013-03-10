@@ -20,7 +20,7 @@ return array
 			 * Ports and sockets may be appended to the hostname.
 			 */
 			'hostname'   => $database_url['host'],
-			'database'   => substr($database_url['pasth'],1),
+			'database'   => substr($database_url['path'],1),
 			'username'   => $database_url['user'],
 			'password'   => $database_url['pass'],
 			'persistent' => FALSE,
