@@ -1,16 +1,26 @@
 <?php
+
 /**
-* View Layout
-*
-* Default values and method for Views
-**/
+* Le modèle de vue `View/Layout.php` fournis les propriétés et méthodes pour le template `templates/layout.mustache`.
+* 
+* @package    Guidoline
+* @category   View model
+* @author     Ziopod
+* @copyright  BY-SA 2013 Ziopod
+* @license    http://creativecommons.org/licenses/by-sa/3.0/deed.fr
+*/
 
 class View_Layout {
 	
 	/**
-	* Custom values for layout
+	* Titre par défaut pour toutes les vues de l'application.
 	*/
 	public $title = "Guidoline";
+	/**
+	* Navigation par défaut pour toute l'application.
+	*
+	* __À noter__ : Le système de navigation ne gère pas les "sous menu" pour le moment.
+	**/
 	public $navigation_links = array(
 		'home'	=> array(
 			'url' => '',
@@ -30,15 +40,22 @@ class View_Layout {
 		);
 
 	/**
-	* System values for layout
-	*/
+	* Propriété de language (internationalisation)
+	**/
 	public $lang;
-	public $partials = array(
-//		'users'	=> 'partials/users', /* Exemple */
-		); /* N'est pas utilisé pour le moment */
 
 	/**
-	* Init some stuff
+	* Permet de modifié l'emplacement des "partials" pour le moteur Mustache (pas utilisé pour le moment).
+	*
+	* Exemple : 
+	*		array(
+	*			'navigation'	=> 'navigation/users',
+	*		)
+	**/
+	public $partials = array();
+
+	/**
+	* Initialisation de quelques valeurs pour le layout de base.
 	**/
 	public function __construct()
 	{
@@ -54,9 +71,11 @@ class View_Layout {
 	}
 
 	/**
-	* Navigation
+	* Retourne les valeurs pour la navigation.
+	*
+	* `current` determine le lien actif (pas implémenté pour le moment).
 	**/
-	public function navigation() // get_nav_links
+	public function navigation()
 	{
 		$current = 'home';
 		$nav = $this->navigation_links;
@@ -65,7 +84,7 @@ class View_Layout {
 	}
 
 	/**
-	* Base URL
+	* Retourne la base URL.
 	**/
 	public function base_url()
 	{
@@ -73,19 +92,18 @@ class View_Layout {
 	}
 
 	/**
-	* Utilities
+	* Méthode utilitaire pour Mustache, encapsule un tableau dans objet.
 	**/
-
 	protected function _array_in_object($array, $term = 'item')
 	{
 		$result = array();
 
 		if (!empty($array))
 		{
-			foreach ($array as $key => $link)
+			foreach ($array as $key => $value)
 			{
 				$ob = (object) NULL;
-				$ob->$term = $link;
+				$ob->$term = $value;
 				$result[] = $ob;
 			}
 		}

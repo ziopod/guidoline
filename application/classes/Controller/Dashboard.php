@@ -1,6 +1,7 @@
 <?php defined('SYSPATH') or die ('No direct script access');
+
 /**
-* Le contrôleur "Dashboard" est utilisé pour gérer les actions Lié à la page d'accueil de l'application.
+* Le contrôleur "Dashboard" est utilisé pour gérer les propiétés et les méthodes liés à la page d'accueil de l'application.
 *
 * @package    Guidoline
 * @category   Controller
@@ -11,6 +12,9 @@
 
 class Controller_Dashboard extends Controller_App {
 
+	/**
+	* Gère les actions liés à la vue par défaut du `View/Dashboard.php`.
+	**/
 	public function action_index()
 	{
 		$this->response->body($this->layout->render(new View_Dashboard));

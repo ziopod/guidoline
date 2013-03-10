@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die ('No direct script access');
 
 /**
-* Le contrôleur "Users" permet de gérer toutes les actions lié à la gestion des utilisateurs
+* Le contrôleur "Users" est utilisé pour gérer les propiétés et les méthodes liés aux utilistateurs.
 *
 * @package    Guidoline
 * @category   Controller
@@ -12,6 +12,9 @@
 
 class Controller_Users extends Controller_App {
 
+	/**
+	* Gère les actions liés la vue de base de la vue `View/Users.php`.
+	**/
 	public function action_index()
 	{
 		$view = new View_User_Index;
