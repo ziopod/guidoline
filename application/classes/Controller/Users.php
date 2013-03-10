@@ -5,7 +5,7 @@
 *
 * @package    Guidoline
 * @category   Controller
-* @author     Ziopod
+* @author     Ziopod | ziopod@gmail.com
 * @copyright  BY-SA 2013 Ziopod
 * @license    http://creativecommons.org/licenses/by-sa/3.0/deed.fr
 */
@@ -26,7 +26,6 @@ class Controller_Users extends Controller_App {
 		// $result->users = $users->as_array();
 		// $result->users_count = count($users);
 		// return $result;
-		// return ORM::factory('user')->find_all();
 		/* La base de données n'est pas encore en place, nous utiliserons le tableau suivant à la place */
 		$DB =  array(
 			array(
@@ -62,16 +61,22 @@ class Controller_Users extends Controller_App {
 
 			);
 		$data = array();
+		
+//		$users = ORM::factory('user')->select('id', 'username', 'email')->find_all()->as_array();
+		$users = DB::select('id', 'username', 'email')->from('users')->execute();
 		$data['users'] = array();
-		/* à utiliser si besoin de filter les données en plus de as_array('var', 'var', 'var') */
+		/* à utiliser si besoin de filter les données en plus de select('var', 'var', 'var') */
 		// foreach ($data as $user)
 		// {
 		// 	$users['users'][] = $user;
 		// }
-		$data['users'] = $DB;
-		$data['count'] = count($DB);
+		$data['count'] = count($users);
+		$data['users'] = $users->as_array();
 
-		$view->users = $data;
+		if ($data['count'])
+		{
+			$view->users = $data;
+		}
 
 		if ($this->request->param('format') == 'json')
 		{
