@@ -13,12 +13,16 @@
 class Controller_App extends Controller {
 	
 	/**
-	* Propiété pour le layout de base de l'application `View/Layout.php`.
+	* @var Layout Propriété pour le layout de base de l'application `View/Layout.php`.
 	**/
 	protected $layout;
 
 	/**
 	* Créer une instance de Kostache pour le layout de base de l'application.
+	*
+	* @param   Request   $request  Request that created the controller
+	* @param   Response  $response The request's response
+	* @return  void
 	**/
 	public function __construct(Request $request, Response $response)
 	{

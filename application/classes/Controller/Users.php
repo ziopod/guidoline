@@ -13,7 +13,9 @@
 class Controller_Users extends Controller_App {
 
 	/**
-	* Gère les actions liés la vue de base de la vue `View/Users.php`.
+	* Gère l'action lié la vue de base de la vue `View/Users/Index.php`.
+	*
+	* @return  void
 	**/
 	public function action_index()
 	{

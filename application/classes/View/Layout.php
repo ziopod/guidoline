@@ -13,49 +13,58 @@
 class View_Layout {
 	
 	/**
-	* Titre par défaut pour toutes les vues de l'application.
+	* @vars Title Titre par défaut pour toutes les vues de l'application.
 	*/
 	public $title = "Guidoline";
 	/**
-	* Navigation par défaut pour toute l'application.
+	* @vars Navigation_links Navigation par défaut pour toute l'application.
 	*
 	* __À noter__ : Le système de navigation ne gère pas les "sous menu" pour le moment.
 	**/
 	public $navigation_links = array(
 		'home'	=> array(
 			'url' => '',
-			'name'	=> 'Home',
-			'title'	=> 'Go to home',
+			'name'	=> "Home",
+			'title'	=> "Go to home",
 			),
 		'user'	=> array(
 			'url'	=> 'users',
-			'name'	=> 'Users',
-			'title'	=> 'Go to users list',
+			'name'	=> "Users",
+			'title'	=> "Go to users list",
 			),
 		'userguide' => array(
 			'url'	=> 'guide-api',
-			'name'	=> 'API guide',
-			'title'	=> 'Need help?',
+			'name'	=> "API guide",
+			'title'	=> "Need help?",
+			),
+		'sandbox'	=> array(
+			'url'	=> 'sandbox',
+			'name'	=> "Sandbox",
+			'title'	=> "let's plays",
 			)
 		);
 
 	/**
-	* Propriété de language (internationalisation)
+	* @vars Lang Propriété de language (internationalisation).
 	**/
 	public $lang;
 
 	/**
-	* Permet de modifié l'emplacement des "partials" pour le moteur Mustache (pas utilisé pour le moment).
+	* @vars Partial Permet de modifié l'emplacement des "partials" pour le moteur Mustache (pas utilisé pour le moment).
 	*
 	* Exemple : 
 	*		array(
 	*			'navigation'	=> 'navigation/users',
 	*		)
 	**/
-	public $partials = array();
+	public $partials = array(
+		'sandbox'	=> 'partials/sandbox',
+	);
 
 	/**
 	* Initialisation de quelques valeurs pour le layout de base.
+	*
+	* @return void
 	**/
 	public function __construct()
 	{
@@ -74,6 +83,8 @@ class View_Layout {
 	* Retourne les valeurs pour la navigation.
 	*
 	* `current` determine le lien actif (pas implémenté pour le moment).
+	*
+	* @return 	Object 	La navigation sous forme d'objet
 	**/
 	public function navigation()
 	{
@@ -84,7 +95,9 @@ class View_Layout {
 	}
 
 	/**
-	* Retourne la base URL.
+	* L'URL racine.
+	*
+	* @return 	String  La portion de base de l'url 
 	**/
 	public function base_url()
 	{
@@ -93,6 +106,10 @@ class View_Layout {
 
 	/**
 	* Méthode utilitaire pour Mustache, encapsule un tableau dans objet.
+	*
+	* @param 	Array 	Tableau de liens
+	* @param 	String 	Le terme à associer à chaque entrée du tableau
+	* @return   Object 	Un objet ou chaque terme "$term" représente une entrée du tableau
 	**/
 	protected function _array_in_object($array, $term = 'item')
 	{

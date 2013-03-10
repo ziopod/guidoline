@@ -13,7 +13,9 @@
 class Controller_Dashboard extends Controller_App {
 
 	/**
-	* Gère les actions liés à la vue par défaut du `View/Dashboard.php`.
+	* Gère l'action lié à la vue par défaut du `View/Dashboard.php`.
+	* 
+	* @return  void
 	**/
 	public function action_index()
 	{

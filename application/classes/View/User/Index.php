@@ -13,17 +13,19 @@
 class View_User_Index extends View_Layout {
 	
 	/**
-	* Le titre de la page
+	* @vars Title Le titre de la page
 	**/
 	public $title = "Guidoline — Users";
 
 	/**
-	* Propriété hébergant le résultat de requête "users"
+	* @vars Users Propriété hébergant le résultat de requête "users"
 	**/
 	public $users;
 
 	/**
-	* Récuperons les utilisateurs
+	* Récuperons les utilisateurs.
+	*
+	* @return 	Array 	Un tableau de tout les utilisateurs
 	**/
 	public function users()
 	{

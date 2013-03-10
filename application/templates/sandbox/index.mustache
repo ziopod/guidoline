@@ -1,0 +1,59 @@
+<h2>Mustache et Kohana</h2>
+<p>
+	Manuel de Mustache : <a href="http://mustache.github.com/mustache.5.html">http://mustache.github.com/mustache.5.html</a>
+</p>
+<p>
+	Les templates mustaches se trouvent dans <code>application/templates</code>.
+	<br />
+	<i>Les template pour PHP sont exploitable tel quel pour JS.</i>
+</p>
+
+<h3>Une simple propriété</h3>
+<p>
+	Doc : <a href="{{base_url}}guide-api/View_Sandbox_Index#property:simple_data">{{base_url}}guide-api/View_Sandbox_Index#property:simple_data</a>
+</p>
+<pre>
+	&#123;&#123;simple_data&#125;&#125;
+</pre>
+<p>
+	{{simple_data}}
+</p>
+
+<h3>Un objet de base</h3>
+<p>
+	Doc : <a href="{{base_url}}guide-api/View_Sandbox_Index#property:simple_object">{{base_url}}guide-api/View_Sandbox_Index#property:simple_object</a>
+</p>
+<pre>
+	&#123;&#123;#simple_object&#125;&#125;&lt;p&gt;&#123;&#123;cat&#125;&#125; &amp;amp; &#123;&#123;dog&#125;&#125;&lt;/p&gt;&#123;&#123;/simple_object&#125;&#125;
+
+</pre>
+<p>
+	{{#simple_object}}<p>{{cat}} &amp; {{dog}}</p>{{/simple_object}}
+</p>
+
+<h3>Un tableau de résultat</h3>
+<p>
+	Doc : <a href="{{base_url}}http://localhost/guidoline/guide-api/View_Sandbox_Index#property:simple_result">{{base_url}}http://localhost/guidoline/guide-api/View_Sandbox_Index#property:simple_result</a>
+</p>
+<pre>
+&lt;ul&gt;
+&#123;&#123;#simple_result&#125;&#125;
+	&lt;li&gt;
+		&lt;b&gt;Nom&lt;/b&gt; : &#123;&#123;name&#125;&#125;
+		&lt;br /&gt;
+		&lt;img src=&quot;&#123;&#123;url&#125;&#125;&quot; /&gt;
+	&lt;/li&gt;
+&#123;&#123;/simple_result&#125;&#125;
+&lt;/ul&gt;	
+</pre>
+<p>
+	<ul>
+	{{#simple_result}}
+		<li>
+			<b>Nom</b> : {{name}}
+			<br />
+			<img src="{{url}}" />
+		</li>
+	{{/simple_result}}
+	</ul>
+</p>
