@@ -65,7 +65,7 @@ class View_Sandbox_Index extends View_Layout {
 	**/
 	public function get_simple_result()
 	{
-
+		return DB::select()->from('unicorns')->execute()->as_array();
 	}
 
 }

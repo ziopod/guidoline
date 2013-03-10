@@ -41,7 +41,7 @@
 	&lt;li&gt;
 		&lt;b&gt;Nom&lt;/b&gt; : &#123;&#123;name&#125;&#125;
 		&lt;br /&gt;
-		&lt;img src=&quot;&#123;&#123;url&#125;&#125;&quot; /&gt;
+		&lt;img src=&quot;&#123;&#123;url&#125;&#125;&quot; alt=&quot;&quot; /&gt;
 	&lt;/li&gt;
 &#123;&#123;/simple_result&#125;&#125;
 &lt;/ul&gt;	
@@ -52,8 +52,33 @@
 		<li>
 			<b>Nom</b> : {{name}}
 			<br />
-			<img src="{{url}}" />
+			<img src="{{url}}" alt="" />
 		</li>
 	{{/simple_result}}
 	</ul>
 </p>
+
+<h3>Résultat depuis la DB</h3>
+<p>
+	Doc : <a href="{{base_url}}guide-api/View_Sandbox_Index#get_simple_result">{{base_url}}guide-api/View_Sandbox_Index#get_simple_result</a>
+</p>
+<pre>
+&lt;ul&gt;
+&#123;&#123;#get_simple_result&#125;&#125;
+	&lt;li&gt;
+		id : &#123;&#123;id&#125;&#125; - name : &lt;strong&gt;&#123;&#123;name&#125;&#125;&lt;/strong&gt;
+		&lt;br /&gt;
+		&lt;img src=&quot;&#123;&#123;url&#125;&#125;&quot; alt=&quot;&#123;&#123;name&#125;&#125;&quot; /&gt;
+	&lt;/li&gt;
+&#123;&#123;/get_simple_result&#125;&#125;
+&lt;/ul&gt;
+</pre>
+<ul>
+{{#get_simple_result}}
+	<li>
+		id : {{id}} - name : <strong>{{name}}</strong>
+		<br />
+		<img src="{{url}}" alt="{{name}}" />
+	</li>
+{{/get_simple_result}}
+</ul>
