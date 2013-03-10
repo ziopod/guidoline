@@ -19,9 +19,9 @@ return array
 			 * Ports and sockets may be appended to the hostname.
 			 */
 			'hostname'   => 'localhost',
-			'database'   => 'kohana',
-			'username'   => 'root',
-			'password'   => 'root',
+			'database'   => 'heroku_41587ad684145ae',
+			'username'   => 'b4ee523d0a71db',
+			'password'   => 'f2b00eb4',
 			'persistent' => FALSE,
 		),
 		'table_prefix' => '',
