@@ -21,5 +21,5 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 # Rewrite all other URLs to index.php/URL
 #RewriteRule .* index.php/$0 [PT]
-RewriteRule . /index.php [L]
+RewriteRule . index.php [L]
 </IfModule>
