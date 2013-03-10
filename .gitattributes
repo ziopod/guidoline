@@ -1,0 +1,2 @@
+.htaccess merge=ours
+application/bootstrap.php merge=ours
