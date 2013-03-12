@@ -7,25 +7,32 @@
 		</tr>
 	</thead>
 	<tbody>
-	{{#users.users}}
+	{{#users}}
 		<tr>
 			<td>{{id}}</th>
 			<td>{{username}}</td>
 			<td>{{email}}</td>
 		</tr>
-	{{/users.users}}
+		<tr>
+			<td  colspan="3">
+				<a href="{{base_url}}users/edit/{{id}}">Modifier</a>
+			</td>
+		</tr>
+	{{/users}}
 	{{^users}}
 		<tr>
 			<td colspan="3">
 				— Aucun utilisateur pour l'instant —
-				<a href="#">Ajoutez votre premier utilisateur</a>
+				<a href="{{base_url}}users/edit/">Ajoutez votre premier utilisateur</a>
 			</td>
 		</tr>
 	{{/users}}
 	</tbody>
 </table>
-{{#users}}Nombre total d'utilisateurs : {{users.count}}{{/users}}
-
+{{#users_count}}Nombre total d'utilisateurs : {{users_count}}{{/users_count}}
+<p>
+	<a href="{{base_url}}users/edit">Ajouter un nouvel utilisateur</a>
+</p>
 <p>
 	<a href="{{base_url}}users.json">Réponse au format JSON</a>
 </p>

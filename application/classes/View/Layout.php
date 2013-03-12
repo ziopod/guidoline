@@ -16,6 +16,7 @@ class View_Layout {
 	* @vars Title Titre par défaut pour toutes les vues de l'application.
 	*/
 	public $title = "Guidoline";
+
 	/**
 	* @vars Navigation_links Navigation par défaut pour toute l'application.
 	*
@@ -62,6 +63,11 @@ class View_Layout {
 	);
 
 	/**
+	* @vars Le profiler de Kohana
+	**/
+	public $profiler;
+
+	/**
 	* Initialisation de quelques valeurs pour le layout de base.
 	*
 	* @return void
@@ -69,6 +75,7 @@ class View_Layout {
 	public function __construct()
 	{
 		$this->lang = I18n::lang();
+		// $this->profiler = View::factory('profiler/stats');
 		// echo '<code><strong>Request::uri()</strong></code>';
 		// echo Debug::vars(Request::initial()->uri());
 		// echo '<code><strong>Request::controller()</strong></code>';
