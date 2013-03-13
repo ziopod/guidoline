@@ -105,21 +105,6 @@ class Controller_Users extends Controller_App {
 		$view->title = $user->loaded() ? "Modifier la fiche de {$user->username}" : "Ajouter un nouvel utilisateur";
 		$roles = array();
 
-		foreach (ORM::factory('role')->find_all() as $user_role)
-		{
-			$role = array();
-			$role['id'] = $user_role->id;
-			$role['name'] = $user_role->name;
-			
-			if ($user->has('roles', $user_role->id))
-			{
-				$role['selected'] = TRUE;
-			}
-
-			$roles[] = $role;
-		}	
-
-		$roles = array();
 		foreach (DB::select()->from('roles')->execute() as $role)
 		{
 			//if ($user->has('roles', $role['id'])) // tout les rôles
@@ -130,6 +115,7 @@ class Controller_Users extends Controller_App {
 			$roles[] = $role;
 			//echo Debug::vars($role);
 		}
+
 		$view->roles = $roles;
 		//$view->user = $user->as_array();
 		$view->user = $user; // Sans as_array(), Permet d'appeler les méthodes du modèle dans les templates?
@@ -150,6 +136,10 @@ class Controller_Users extends Controller_App {
 
 			try
 			{
+				if (! $user->password)
+				{
+					$user->password = TEXT::random(NULL, 64);
+				}
 				$user->save();
 				$this->_redirect_to_list();
 			}
@@ -158,6 +148,7 @@ class Controller_Users extends Controller_App {
 				$errors = $e->errors('models');
 			}
 			
+			echo Debug::vars($errors);
 			$this->_show_edit_form($user, $errors);
 		}
 	}
