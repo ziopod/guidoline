@@ -103,8 +103,36 @@ class Controller_Users extends Controller_App {
 	{
 		$view = new View_Users_Edit;
 		$view->title = $user->loaded() ? "Modifier la fiche de {$user->username}" : "Ajouter un nouvel utilisateur";
-		$view->user = $user->as_array();
-		//$view->user = $user; // fonctionne aussi. Moins performant?
+		$roles = array();
+
+		foreach (ORM::factory('role')->find_all() as $user_role)
+		{
+			$role = array();
+			$role['id'] = $user_role->id;
+			$role['name'] = $user_role->name;
+			
+			if ($user->has('roles', $user_role->id))
+			{
+				$role['selected'] = TRUE;
+			}
+
+			$roles[] = $role;
+		}	
+
+		$roles = array();
+		foreach (DB::select()->from('roles')->execute() as $role)
+		{
+			//if ($user->has('roles', $role['id'])) // tout les rôles
+			if ($user->role->id == $role['id']) // Le rôle le plus haut
+			{
+				$role['selected'] = TRUE;
+			}
+			$roles[] = $role;
+			//echo Debug::vars($role);
+		}
+		$view->roles = $roles;
+		//$view->user = $user->as_array();
+		$view->user = $user; // Sans as_array(), Permet d'appeler les méthodes du modèle dans les templates?
 		$view->errors = $errors;
 		$this->response->body($this->layout->render($view));
 	}

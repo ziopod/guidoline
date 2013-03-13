@@ -11,6 +11,19 @@
 			<label for="email">Email</label>
 			<input type="email" name="email" id="email" value="{{user.email}}" />
 		</p>
+		<p>
+			Rôles actuelles : 
+			{{#user.roles.find_all}}
+				{{name}},
+			{{/user.roles.find_all}}
+			<br />
+			<label for="roles">Roles</label>
+			<select name="roles" id="roles" multiple="multiple">
+				{{#roles}}
+					<option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
+				{{/roles}}
+			</select>
+		</p>
 		{{#errors}}{{#email}}<p class="error">{{errors.email}}</p>{{/email}}{{/errors}}
 		<p>
 			<input type="submit" value="Enregistrer" />

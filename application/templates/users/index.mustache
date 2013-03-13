@@ -4,6 +4,8 @@
 			<th>ID</th>
 			<th>Username</th>
 			<th>Email</th>
+			<th>Rôle</th>
+			<th>Statut</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -12,9 +14,11 @@
 			<td>{{id}}</th>
 			<td>{{username}}</td>
 			<td>{{email}}</td>
+			<td>{{role.name}} <i>{{role.description}}</td>
+			<td>{{member.status.name}}</td>
 		</tr>
 		<tr>
-			<td  colspan="3">
+			<td  colspan="4">
 				<a href="{{base_url}}users/edit/{{id}}">Modifier</a>
 			</td>
 		</tr>
