@@ -1,0 +1,32 @@
+<form action="{{base_url}}users/save" method="post">
+	<fieldset>
+		<input type="hidden" name="id" id="id" value="{{user.id}}" />
+		<legend>{{title}}</legend>
+		<p>
+			<label for="username">Username</label>
+			<input type="text" name="username" id="username" value="{{user.username}}"/>
+		</p>
+		{{#errors}}{{#username}}<p class="error">{{username}}</p>{{/username}}{{/errors}}
+		<p>
+			<label for="email">Email</label>
+			<input type="email" name="email" id="email" value="{{user.email}}" />
+		</p>
+		<p>
+			Rôles actuels : 
+			{{#user.roles.find_all}}
+				{{name}},
+			{{/user.roles.find_all}}
+			<br />
+			<label for="roles">Roles</label>
+			<select name="roles" id="roles" multiple="multiple">
+				{{#roles}}
+					<option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
+				{{/roles}}
+			</select>
+		</p>
+		{{#errors}}{{#email}}<p class="error">{{errors.email}}</p>{{/email}}{{/errors}}
+		<p>
+			<input type="submit" value="Enregistrer" />
+		</p>
+	</fieldset>
+</form>

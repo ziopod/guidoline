@@ -1,0 +1,42 @@
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Username</th>
+			<th>Email</th>
+			<th>Rôle</th>
+			<th>Statut</th>
+		</tr>
+	</thead>
+	<tbody>
+	{{#users}}
+		<tr>
+			<td>{{id}}</th>
+			<td>{{username}}</td>
+			<td>{{email}}</td>
+			<td>{{role.name}} <i>{{role.description}}</td>
+			<td>{{member.status.name}}</td>
+		</tr>
+		<tr>
+			<td  colspan="4">
+				<a href="{{base_url}}users/edit/{{id}}">Modifier</a>
+			</td>
+		</tr>
+	{{/users}}
+	{{^users}}
+		<tr>
+			<td colspan="3">
+				— Aucun utilisateur pour l'instant —
+				<a href="{{base_url}}users/edit/">Ajoutez votre premier utilisateur</a>
+			</td>
+		</tr>
+	{{/users}}
+	</tbody>
+</table>
+{{#users_count}}Nombre total d'utilisateurs : {{users_count}}{{/users_count}}
+<p>
+	<a href="{{base_url}}users/edit">Ajouter un nouvel utilisateur</a>
+</p>
+<p>
+	<a href="{{base_url}}users.json">Réponse au format JSON</a>
+</p>
