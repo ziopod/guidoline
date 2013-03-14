@@ -102,15 +102,19 @@ class Controller_Users extends Controller_App {
 	private function _show_edit_form($user, $errors = NULL)
 	{
 		$view = new View_Users_Edit;
-		$view->title = $user->loaded() ? "Modifier la fiche de {$user->username}" : "Ajouter un nouvel utilisateur";
+		$original_values = $user->original_values();
+		$view->title = $user->loaded() ? "Modifier la fiche de {$original_values['username']}" : "Ajouter un nouvel utilisateur";
 		$roles = array();
 
 		foreach (DB::select()->from('roles')->execute() as $role)
 		{
 			//if ($user->has('roles', $role['id'])) // tout les rôles
-			if ($user->role->id == $role['id']) // Le rôle le plus haut
+			if ($user->has('roles'))
 			{
-				$role['selected'] = TRUE;
+				if ($user->role->id == $role['id']) // Le rôle le plus haut
+				{
+					$role['selected'] = TRUE;
+				}
 			}
 			$roles[] = $role;
 			//echo Debug::vars($role);
@@ -148,7 +152,7 @@ class Controller_Users extends Controller_App {
 				$errors = $e->errors('models');
 			}
 			
-			echo Debug::vars($errors);
+			// echo Debug::vars($errors);
 			$this->_show_edit_form($user, $errors);
 		}
 	}
