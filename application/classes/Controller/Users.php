@@ -91,7 +91,7 @@ class Controller_Users extends Controller_App {
 	public function action_edit()
 	{
 		$id =$this->request->param('id');
-		$user = ORM::factory('user', $id);
+		$user = ORM::factory('User', $id);
 		$this->_show_edit_form($user);
 
 	}
@@ -136,7 +136,7 @@ class Controller_Users extends Controller_App {
 
 		if (count($post))
 		{
-			$user = ORM::factory('user', $post['id'])->values($post);
+			$user = ORM::factory('User', $post['id'])->values($post);
 
 			try
 			{
