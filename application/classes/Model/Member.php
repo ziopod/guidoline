@@ -36,7 +36,6 @@ class Model_Member extends ORM {
 				array('not_empty'),
 				array('min_length', array(':value', 4)),
 				array('max_length', array(':value', 128)),
-	//			array('already_exists', array(':validation', 'user', ':field'))
 			),
 		);
 	}
