@@ -29,7 +29,7 @@ class View_Users_Index extends View_Layout {
 	**/
 	public function users()
 	{
-		$users = ORM::factory('user')->select(array('id', 'username', 'email'));
+		$users = ORM::factory('User')->select(array('id', 'username', 'email'));
 		$this->users_count = $users->count_all();
 		return $users->find_all()->as_array();
 	}
