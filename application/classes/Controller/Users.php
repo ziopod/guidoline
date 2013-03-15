@@ -142,7 +142,7 @@ class Controller_Users extends Controller_App {
 			{
 				if (! $user->password)
 				{
-					$user->password = TEXT::random(NULL, 64);
+					$user->password = Text::random(NULL, 64);
 				}
 				$user->save();
 				$this->_redirect_to_list();
