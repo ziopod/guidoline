@@ -158,6 +158,16 @@ class Controller_Users extends Controller_App {
 	}
 
 	/**
+	* Afficher le profil
+	**/
+	function action_profil()
+	{
+		$view = new View_Users_Profil;
+		$view->user = ORM::factory('user', $this->request->param('id'));
+		$this->response->body($this->layout->render($view));
+	}
+
+	/**
 	* Clean redirection
 	**/
 	private function _redirect_to_list()

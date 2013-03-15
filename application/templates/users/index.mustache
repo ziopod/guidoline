@@ -12,7 +12,7 @@
 	{{#users}}
 		<tr>
 			<td>{{id}}</th>
-			<td>{{username}}</td>
+			<td><a href="{{base_url}}users/profil/{{id}}">{{username}}</a></td>
 			<td>{{email}}</td>
 			<td>{{role.name}} <i>{{role.description}}</td>
 			<td>{{member.status.name}}</td>

@@ -1,0 +1,16 @@
+<b>{{user.member.firstname}} {{user.member.name}}</b>
+<ul>
+	<li>Créer le : {{user.created}}</li>
+	<li>Membre depuis le : {{user.member.created}}</li>
+	<li>Statut : {{user.member.status.name}}</li>
+	<li>Email : {{user.email}}</li>
+	<li>
+		Adresse :
+		<br />
+		{{user.member.street}}
+		<br />
+		{{user.member.zipcode}}
+		<br />
+		{{user.member.city}}
+	</li>
+</ul>
