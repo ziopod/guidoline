@@ -24,7 +24,7 @@ class Controller_Members extends Controller_App {
 		if ($this->request->param('format') == 'json')
 		{
 			$this->request->headers('Content-Type', 'application/json; charset='.Kohana::$charset);
-			$this->response->body(Json_encode(DB::select('email')->from('Users')->execute()->as_array()));
+			$this->response->body(Json_encode(DB::select('id', 'firstname', 'name', 'email')->from('members')->execute()->as_array()));
 			return;
 		}
 

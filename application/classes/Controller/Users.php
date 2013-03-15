@@ -70,7 +70,7 @@ class Controller_Users extends Controller_App {
 			/* Les headers HTTP ne sont pas corrects, à corriger */
 			//$this->request->body(json_encode($users));
 			//$this->response->send_headers();
-			$this->response->body(Json_encode(DB::select('id', 'username', 'email')->from('Users')->execute()->as_array()));
+			$this->response->body(Json_encode(DB::select('id', 'username', 'email')->from('users')->execute()->as_array()));
 			return;
 		}
 
