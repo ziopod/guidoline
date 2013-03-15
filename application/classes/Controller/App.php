@@ -30,4 +30,14 @@ class Controller_App extends Controller {
 		$this->layout = Kostache_Layout::factory();
 	}
 
+	/**
+	* Afficher le profil membre
+	**/
+	function action_profil()
+	{
+		$view = new View_Members_Profil;
+		$view->user = ORM::factory('Member', $this->request->param('id'));
+		$this->response->body($this->layout->render($view));
+	}
+
 }

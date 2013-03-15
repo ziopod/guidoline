@@ -1,16 +1,11 @@
-<b>{{user.member.firstname}} {{user.member.name}}</b>
+{{#user}}
 <ul>
-	<li>Créer le : {{user.created}}</li>
-	<li>Membre depuis le : {{user.member.created}}</li>
-	<li>Statut : {{user.member.status.name}}</li>
-	<li>Email : {{user.email}}</li>
-	<li>
-		Adresse :
-		<br />
-		{{user.member.street}}
-		<br />
-		{{user.member.zipcode}}
-		<br />
-		{{user.member.city}}
-	</li>
+	<li>Nom d'utilisateur : {{username}}</li>
+	<li>Email : {{email}}</li>
+	<li>Nombre de connexion : {{logins}}</li>
+	<li>Dernière connexion le : {{last_logins}}</li>
+	<li>Enregistré le : {{created}}</li>
+	<li>Dernière mise à jour le : {{updated}}</li>
 </ul>
+{{/user}}
+<a href="{{base_url}}members/profil/{{user.member.id}}">Afficher la fiche membre</a>

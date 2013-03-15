@@ -28,10 +28,15 @@ class View_Layout {
 			'name'	=> "Home",
 			'title'	=> "Go to home",
 			),
-		'user'	=> array(
+		'users'	=> array(
 			'url'	=> 'users',
 			'name'	=> "Users",
 			'title'	=> "Go to users list",
+			),
+		'members'	=> array(
+			'url'	=> 'members',
+			'name'	=> "Membres",
+			'title'	=> 'Afficher les Memres de l\'association',
 			),
 		'userguide' => array(
 			'url'	=> 'guide-api',
@@ -75,7 +80,7 @@ class View_Layout {
 	public function __construct()
 	{
 		$this->lang = I18n::lang();
-		// $this->profiler = View::factory('profiler/stats');
+		$this->profiler = View::factory('profiler/stats');
 		// echo '<code><strong>Request::uri()</strong></code>';
 		// echo Debug::vars(Request::initial()->uri());
 		// echo '<code><strong>Request::controller()</strong></code>';

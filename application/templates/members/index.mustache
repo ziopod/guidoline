@@ -1,0 +1,36 @@
+<a href="{{base_url}}members/edit">Ajouter un nouveau membre</a>
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Prénom &amp; Nom</th>
+			<th>première date d'inscription</th>
+			<th>Statut</th>
+			<th>Email</th>
+			<th>Téléphone</th>
+			<th>Adresse</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#members}}
+		<tr>
+			<td>{{id}}</td>
+			<td><a href="{{base_url}}members/profil/{{id}}">{{firstname}} {{name}}</a></td>
+			<td>{{created}}</td>
+			<td>{{status.name}}</td>
+			<td>{{email}}</td>
+			<td>{{phone}}</td>
+			<td>
+				{{street}} - {{zipcode}} {{city}}
+			</td>
+		</tr>
+		<tr>
+			<td colspan="7">
+				<a href="{{base_url}}members/edit/{{id}}">Modifier la fiche membre</a>
+				-
+				<a href="{{base_url}}users/profil/{{user.id}}">Fiche utilisateur</a>
+			</td>
+		</tr>
+		{{/members}}
+	</tbody>
+</table>
