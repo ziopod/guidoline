@@ -13,9 +13,9 @@
 class View_Users_Index extends View_Layout {
 	
 	/**
-	* @vars Title 	Le titre de la page
+	* @vars 	Title 	Le titre de la page
 	**/
-	public $title = "Guidoline - List all users";
+	public $title = "Utilisateurs | Guidoline";
 
 	/**
 	* @vars User_count	Le nombre d'utilisateurs retourné

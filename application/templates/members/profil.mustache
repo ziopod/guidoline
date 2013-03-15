@@ -1,0 +1,20 @@
+{{#member}}
+<ul>
+	<li>Nom : {{name}}</li>
+	<li>Prénom : {{firstname}}</li>
+	<li>Créer le : {{created}}</li>
+	<li>Première adhésion le : {{member.created}}</li>
+	<li>Statut : {{member.status.name}}</li>
+	<li>Email : {{user.email}}</li>
+	<li>
+		Adresse :
+		<br />
+		{{member.street}}
+		<br />
+		{{member.zipcode}}
+		<br />
+		{{member.city}}
+	</li>
+</ul>
+{{/member}}
+<a href="{{base_url}}users/profil/{{member.user.id}}">Affiche la fiche utilisateur</a>
