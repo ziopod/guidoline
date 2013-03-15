@@ -152,7 +152,7 @@ Kohana::modules(array(
 Route::set('api', '<controller>(/<action>)(.<format>)',
   array(
     'format' => '(json|html)',
-    'controller' => '(users)',
+    'controller' => '(users|members)',
 //    'format' => '(json|xml)',
   ))
   ->defaults(array(
