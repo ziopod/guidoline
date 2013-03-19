@@ -27,9 +27,22 @@
 			<td colspan="7">
 				<a href="{{base_url}}members/edit/{{id}}">Modifier la fiche membre</a>
 				-
-				<a href="{{base_url}}users/profil/{{user.id}}">Fiche utilisateur</a>
+				{{#user.id}}
+					<a href="{{base_url}}users/profil/{{user.id}}">Fiche utilisateur</a>
+				{{/user.id}}
+				{{^user.id}}
+					Ce membre n'as pas de compte utilisateur
+				{{/user.id}}
 			</td>
 		</tr>
+		{{/members}}
+		{{^members}}
+			<tr>
+				<td colspan="3">
+					— Aucun membre pour l'instant —
+					<a href="{{base_url}}members/edit/">Ajoutez votre premier membre</a>
+				</td>
+			</tr>
 		{{/members}}
 	</tbody>
 </table>

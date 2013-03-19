@@ -19,7 +19,12 @@
 			<td  colspan="4">
 				<a href="{{base_url}}users/edit/{{id}}">Modifier</a>
 				-
-				<a href="{{base_url}}members/profil/{{member.id}}">Fiche membre</a>
+				{{#member.id}}
+					<a href="{{base_url}}members/profil/{{member.id}}">Fiche membre</a>
+				{{/member.id}}
+				{{^member.id}}
+					Cette utilisateur n'est pas membre de l'association
+				{{/member.id}}
 			</td>
 		</tr>
 	{{/users}}
