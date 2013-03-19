@@ -18,10 +18,17 @@ class View_Members_Index extends View_Layout {
 	public $title = "Membres | Guidoline";
 
 	/**
+	* @vars	Members_count	Le nombre de membres total
+	**/
+	public $members_count;
+
+	/**
 	* Retourne la liste de tous les memebres
 	**/
 	public function members()
 	{
-		return ORM::factory('Member')->find_all()->as_array();
+		$members = ORM::factory('Member');
+		$this->members_count = $members->count_all();
+		return $members->find_all()->as_array();
 	}
 }
