@@ -10,7 +10,7 @@
 * @license    http://creativecommons.org/licenses/by-sa/3.0/deed.fr
  */
  
-class Model_Member extends ORM {
+class Model_Member extends Model_Auth_User {
 
 	/**
 	* Relationship
@@ -29,40 +29,40 @@ class Model_Member extends ORM {
 	/**
 	* Règles de validation
 	**/
-	public function rules()
-	{
-		return array(
-			'email' => array(
-				array('not_empty'),
-				array('min_length', array(':value', 4)),
-				array('max_length', array(':value', 128)),
-				array('email'),
-			//	array('already_exists', array(':validation', 'user', ':field'))
-			),
-		);
-	}
+	// public function rules()
+	// {
+	// 	return array(
+	// 		'email' => array(
+	// 			array('not_empty'),
+	// 			array('min_length', array(':value', 4)),
+	// 			array('max_length', array(':value', 128)),
+	// 			array('email'),
+	// 		//	array('already_exists', array(':validation', 'user', ':field'))
+	// 		),
+	// 	);
+	// }
 
 	/**
 	* Labels
 	**/
-	public function labels()
-	{
-		return array(
-			'email'		=> 'Email',
-		);
-	}
+	// public function labels()
+	// {
+	// 	return array(
+	// 		'email'		=> 'Email',
+	// 	);
+	// }
 
 	/**
 	* Filtres pour les données de formulaires
 	**/
-	public function filters()
-	{
-		return array(
-			'email' => array(
-				array('trim', array(':value')),
-			),
-		);
-	}
+	// public function filters()
+	// {
+	// 	return array(
+	// 		'email' => array(
+	// 			array('trim', array(':value')),
+	// 		),
+	// 	);
+	// }
 
 	/**
 	* Retourne la liste des statut disponibles et "marque" le status courant
