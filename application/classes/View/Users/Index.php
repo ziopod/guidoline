@@ -18,7 +18,7 @@ class View_Users_Index extends View_Layout {
 	public $title = "Utilisateurs | Guidoline";
 
 	/**
-	* @vars User_count	Le nombre d'utilisateurs retourné
+	* @vars User_count	Le nombre d'utilisateurs total
 	**/
 	public $user_count;
 

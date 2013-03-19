@@ -10,7 +10,7 @@
 * @license    http://creativecommons.org/licenses/by-sa/3.0/deed.fr
  */
  
-class Model_Member extends Model_Auth_User {
+class Model_Member extends ORM{
 
 	/**
 	* Relationship
@@ -29,40 +29,63 @@ class Model_Member extends Model_Auth_User {
 	/**
 	* Règles de validation
 	**/
-	// public function rules()
-	// {
-	// 	return array(
-	// 		'email' => array(
-	// 			array('not_empty'),
-	// 			array('min_length', array(':value', 4)),
-	// 			array('max_length', array(':value', 128)),
-	// 			array('email'),
-	// 		//	array('already_exists', array(':validation', 'user', ':field'))
-	// 		),
-	// 	);
-	// }
+	public function rules()
+	{
+		return array(
+			'email' => array(
+				array('not_empty'),
+				array('min_length', array(':value', 4)),
+				array('max_length', array(':value', 128)),
+				array('email'),
+				array(array($this, 'unique'), array('email', ':value')),
+			//	array('already_exists', array(':validation', 'user', ':field'))
+			),
+		);
+	}
 
 	/**
 	* Labels
 	**/
-	// public function labels()
-	// {
-	// 	return array(
-	// 		'email'		=> 'Email',
-	// 	);
-	// }
+	public function labels()
+	{
+		return array(
+			'email'		=> 'Email',
+		);
+	}
 
 	/**
 	* Filtres pour les données de formulaires
 	**/
-	// public function filters()
-	// {
-	// 	return array(
-	// 		'email' => array(
-	// 			array('trim', array(':value')),
-	// 		),
-	// 	);
-	// }
+	public function filters()
+	{
+		return array(
+			'email' => array(
+				array('trim', array(':value')),
+			),
+		);
+	}
+
+	/**
+	* Test si une valeur de clef est unique dans la base de données
+	*
+	* @param	mixte	valeur à tester
+	* @param	string	field name
+	* @return	boolean
+	*/
+	public function unique_key_exists($value, $field = NULL)
+	{
+		if ($field === NULL)
+		{
+			$field = $this->unique_key($value);
+		}
+
+		return (bool) DB::select(array(DB::expr('COUNT(*)'), 'total_count'))
+			->from($this->_table_name)
+			->where($field, '=', $value)
+			->where($this->_primary_key, '!=', $this->pk())
+			->execute($this->_db)
+			->get_('total_count');
+	}
 
 	/**
 	* Retourne la liste des statut disponibles et "marque" le status courant
