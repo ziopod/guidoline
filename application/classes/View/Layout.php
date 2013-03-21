@@ -36,7 +36,7 @@ class View_Layout {
 		'members'	=> array(
 			'url'	=> 'members',
 			'name'	=> "Membres",
-			'title'	=> 'Afficher les Memres de l\'association',
+			'title'	=> 'Afficher les Membres de l\'association',
 			),
 		'userguide' => array(
 			'url'	=> 'guide-api',
@@ -50,6 +50,13 @@ class View_Layout {
 			)
 		);
 
+	/**
+	* @vars Scripts	Scripts par défaut pour le header HTML
+	**/
+	public $scripts = array(
+		array('script' => 'http://code.jquery.com/jquery-1.9.1.min.js'),
+	);
+	
 	/**
 	* @vars Lang Propriété de language (internationalisation).
 	**/
@@ -79,6 +86,12 @@ class View_Layout {
 	**/
 	public function __construct()
 	{
+		// Ajout de la balise "script" pour les liens vers les scripts
+		foreach ($this->scripts as $key => $ob)
+		{
+			$this->scripts[$key]['script'] = HTML::script($ob['script']);
+		}
+
 		$this->lang = I18n::lang();
 		$this->profiler = View::factory('profiler/stats');
 		// echo '<code><strong>Request::uri()</strong></code>';
