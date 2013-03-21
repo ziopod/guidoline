@@ -24,7 +24,15 @@ class Model_Member extends ORM{
 		),
 	);
 
-
+	protected $_has_many = array(
+		'subscription' => array(
+			'model'		=> 'subscription',
+			'through'	=> 'subscriptions_members'
+		),
+		'subscriptions_member' => array(
+			'model'		=> 'subscriptions_member',
+		),
+	);
 
 	/**
 	* Règles de validation
@@ -103,5 +111,59 @@ class Model_Member extends ORM{
 			), $statuses);
 		$statuses[$current_status_key]['selected'] = TRUE;
 		return $statuses;
+	}
+
+	/**
+	* Indique des informations sur la dernière date d'adhésion
+	*
+	* @return	Boolean
+	**/
+	public function last_subscription()
+	{
+		//var_dump('pouet');
+		if ( ! $this->has('subscription'))
+		{
+			return FALSE;
+		}
+
+		//echo Debug::vars(strftime('%A %e %B %Y à %H:%M:%S', time()));
+		$true_seconds_in_current_year = (date('z', mktime(0, 0, 0, 12, 31, Date::YEAR)) + 1 ) * 24 * 60 * 60;
+		//echo Debug::vars(date('z', mktime(0,0,0,12,31,date("Y", time()))) +1 );
+	//	echo Debug::vars($true_seconds_in_current_year);
+//		31104000
+//		 mktime(0,0,0,12,31,2008)
+		
+		// (cal_days_in_month(CAL_GREGORIAN, 2, date("Y", time())) === 29) ? true : false; // Année bissextile (is leap year)
+		// (Date::days(2, date("Y", time()) === 29); //  Utilise Mktime
+		$last_subscription = $this->subscriptions_member->find();
+		$subscription = $this->subscription->find();
+		$expiry_time = $true_seconds_in_current_year; //$subscription->expiry_time;
+		$start_date = $last_subscription->created;
+		$start_time = strtotime($start_date);
+		$end_date = strftime('%A %e %B %Y à %Hh%M', $start_time + $expiry_time);
+		$date_infos = array(
+			'valid'					=> $start_time + $expiry_time > time() ? TRUE : FALSE,
+			'subscription'			=> $subscription,
+			'start_date'			=> $start_date,
+			'end_date'				=> $end_date,
+			'date_span'				=> Date::span($start_time),
+			'date_span_fuzzy'		=> Date::fuzzy_span($start_time),
+			'date_remaining'		=> Date::span($start_time + $expiry_time),
+			'date_remaining_fuzzy'	=> Date::fuzzy_span($start_time + $expiry_time),
+		);
+		return $date_infos;
+	}
+
+	/**
+	* Indique si la dernière inscirption est toujours valide
+	**/
+	public function valid_subscription()
+	{
+
+		$subscription_date = strtotime($this->last_subscription()->created);
+		return array(
+			//'date'	=>  strtotime('', 'subscription_date');
+			'fuzzy' => Date::fuzzy_span($subscription_date, time()),
+			);
 	}
 }
