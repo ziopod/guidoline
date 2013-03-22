@@ -1,7 +1,14 @@
-<nav>
-	<ul>
-	{{#navigation}}
-		<li><a title="{{link.title}}" href="{{base_url}}{{link.url}}" class="{{#link.current}} current {{/link.current}}">{{link.name}}</a></li>
-	{{/navigation}}
-	</ul>
-</nav>
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="/">{{title}}</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          {{#navigation}}
+						<li><a title="{{link.title}}" href="{{base_url}}{{link.url}}" class="{{#link.current}} current {{/link.current}}">{{link.name}}</a></li>
+					{{/navigation}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

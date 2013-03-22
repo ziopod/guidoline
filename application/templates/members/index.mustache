@@ -1,74 +1,93 @@
-<table>
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Prénom &amp; Nom</th>
-			<th>première date d'inscription</th>
-			<th>Statut</th>
-			<th>Email</th>
-			<th>Téléphone</th>
-			<th>Adresse</th>
-			<th>Adhésion</th>
-		</tr>
-	</thead>
-	<tbody>
-		{{#members}}
-		<tr>
-			<td>{{id}}</td>
-			<td><a href="{{base_url}}members/profil/{{id}}">{{firstname}} {{name}}</a></td>
-			<td>{{created}}</td>
-			<td>{{status.name}}</td>
-			<td>{{email}}</td>
-			<td>{{phone}}</td>
-			<td>
-				{{street}} - {{zipcode}} {{city}}
-			</td>
-			<td>
-				{{#last_subscription}}
-				<a href="{{base_url}}subscriptions/{{last_subscription.subscription.id}}">{{last_subscription.subscription.title}}</a>
-				<br />
-				{{#last_subscription.valid}}—inscription valide—{{/last_subscription.valid}}
-				{{^last_subscription.valid}}—inscription périmé—{{/last_subscription.valid}}
-				<br />
-				Le {{last_subscription.start_date}} ({{last_subscription.date_span_fuzzy}})
-				<br />
-				Inscrit il y a {{last_subscription.date_span.years}} ans, {{last_subscription.date_span.months}} mois, {{last_subscription.date_span.days}} jours, {{last_subscription.date_span.hours}} heures, {{last_subscription.date_span.minutes}} minutes, {{last_subscription.date_span.seconds}} secondes
-				<br />
-				Périmé dans/depuis {{last_subscription.date_remaining.years}} ans, {{last_subscription.date_remaining.months}} mois, {{last_subscription.date_remaining.days}} jours, {{last_subscription.date_remaining.hours}} heures, {{last_subscription.date_remaining.minutes}} minutes, {{last_subscription.date_remaining.seconds}} secondes ({{last_subscription.date_remaining_fuzzy}})
-				{{/last_subscription}}
-				{{^last_subscription}}
-					- Aucune adhésion - 
-				{{/last_subscription}}
-			</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td colspan="6">
-				<a href="{{base_url}}members/edit/{{id}}">Modifier la fiche membre</a>
-				-
-				{{#user.id}}
-					<a href="{{base_url}}users/profil/{{user.id}}">Fiche utilisateur</a>
-				{{/user.id}}
-				{{^user.id}}
-					Ce membre n'as pas de compte utilisateur
-				{{/user.id}}
-			</td>
-		</tr>
-		{{/members}}
-		{{^members}}
+
+
+<section class="content_stat">
+	<h1>Statistiques</h1>
+	<div class="row">
+	  <div class="span3"><h2>Actifs</h2><div class="block"><span class="stat number_member">560</span> membres actifs dans l'association{{#members_count}}Nombre total de membres : {{members_count}}{{/members_count}}</div></div>
+	  <div class="span3"><h2>Nouveaux/Total</h2><div class="block"><span class="stat number_member">10%</span> de nouveaux membres en 2013</div></div>
+		<div class="span3"><h2>Renouvellement</h2><div class="block"><span class="stat number_member">30%</span> de membres inscrits depuis plus de 3 ans</div></div>
+		<div class="span3"><h2>Moyenne d'âge</h2><div class="block"><span class="stat number_member">60%</span> des membres ont moins de 25 ans</div></div>
+	</div>
+</section>
+
+<nav class="nav_edit">
+	<ul>
+		<li>
+			<a class="btn btn-info" href="{{base_url}}members.json">Réponse au format JSON</a>
+		</li>
+		<li>
+			<a class="btn btn-info" href="{{base_url}}members/edit">Ajouter un nouveau membre</a>
+		</li>
+	</ul>
+</nav>
+
+<section class="content_table">
+	<h1>Tableaux des membres</h1>
+	<table class="table">
+		<thead>
 			<tr>
-				<td colspan="3">
-					— Aucun membre pour l'instant —
-					<a href="{{base_url}}members/edit/">Ajoutez votre premier membre</a>
+				<th>ID</th>
+				<th>Prénom &amp; Nom</th>
+				<th>première date d'inscription</th>
+				<th>Statut</th>
+				<th>Email</th>
+				<th>Téléphone</th>
+				<th>Adresse</th>
+				<th>Adhésion</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#members}}
+			<tr>
+				<td>{{id}}</td>
+				<td><a href="{{base_url}}members/profil/{{id}}">{{firstname}} {{name}}</a></td>
+				<td>{{created}}</td>
+				<td>{{status.name}}</td>
+				<td>{{email}}</td>
+				<td>{{phone}}</td>
+				<td>
+					{{street}} - {{zipcode}} {{city}}
+				</td>
+				<td>
+					{{#last_subscription}}
+					<a href="{{base_url}}subscriptions/{{last_subscription.subscription.id}}">{{last_subscription.subscription.title}}</a>
+					<br />
+					{{#last_subscription.valid}}—inscription valide—{{/last_subscription.valid}}
+					{{^last_subscription.valid}}—inscription périmé—{{/last_subscription.valid}}
+					<br />
+					Le {{last_subscription.start_date}} ({{last_subscription.date_span_fuzzy}})
+					<br />
+					Inscrit il y a {{last_subscription.date_span.years}} ans, {{last_subscription.date_span.months}} mois, {{last_subscription.date_span.days}} jours, {{last_subscription.date_span.hours}} heures, {{last_subscription.date_span.minutes}} minutes, {{last_subscription.date_span.seconds}} secondes
+					<br />
+					Périmé dans/depuis {{last_subscription.date_remaining.years}} ans, {{last_subscription.date_remaining.months}} mois, {{last_subscription.date_remaining.days}} jours, {{last_subscription.date_remaining.hours}} heures, {{last_subscription.date_remaining.minutes}} minutes, {{last_subscription.date_remaining.seconds}} secondes ({{last_subscription.date_remaining_fuzzy}})
+					{{/last_subscription}}
+					{{^last_subscription}}
+						- Aucune adhésion - 
+					{{/last_subscription}}
 				</td>
 			</tr>
-		{{/members}}
-	</tbody>
-</table>
-{{#members_count}}Nombre total de membres : {{members_count}}{{/members_count}}
-<p>
-	<a href="{{base_url}}members/edit">Ajouter un nouveau membre</a>
-</p>
-<p>
-	<a href="{{base_url}}members.json">Réponse au format JSON</a>
-</p>
+			<tr>
+				<td></td>
+				<td colspan="6">
+					<a href="{{base_url}}members/edit/{{id}}">Modifier la fiche membre</a>
+					-
+					{{#user.id}}
+						<a href="{{base_url}}users/profil/{{user.id}}">Fiche utilisateur</a>
+					{{/user.id}}
+					{{^user.id}}
+						Ce membre n'as pas de compte utilisateur
+					{{/user.id}}
+				</td>
+			</tr>
+			{{/members}}
+			{{^members}}
+				<tr>
+					<td colspan="3">
+						— Aucun membre pour l'instant —
+						<a href="{{base_url}}members/edit/">Ajoutez votre premier membre</a>
+					</td>
+				</tr>
+			{{/members}}
+		</tbody>
+	</table>
+</section>

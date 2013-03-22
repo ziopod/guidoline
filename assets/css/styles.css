@@ -1,0 +1,53 @@
+@import "bootstrap.css";
+@import "flat-ui.css";
+
+
+/* Typography */
+/*-----------------------*/
+
+h1 {
+	margin: 0 0 .5em;
+	border-bottom: 2px solid #999;
+}
+
+/* Content */
+/*-----------------------*/
+
+.nav_edit ul {
+	clear: both;
+	overflow: hidden;
+	float: right;
+	list-style-type: none;
+}
+.nav_edit li {
+	margin: 0 .5em;
+	float: left;
+}
+
+/* Content */
+/*-----------------------*/
+
+.content_main {
+	padding: 5em 0 1.5em;
+}
+
+.content_stat {
+	margin-bottom: 2.5em;
+}
+
+.content_stat .block {
+	min-height: 60px;
+	padding: .2em 1em;
+	font-size: 1.2em;
+	border: 2px solid #34495e;
+	background-color: #eee;
+}
+
+.content_stat h2 {
+	margin-bottom: -9px;
+}
+
+.content_stat .stat {
+	font-size: 2.5em;
+	font-weight: bold;
+}
