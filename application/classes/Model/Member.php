@@ -25,7 +25,7 @@ class Model_Member extends ORM{
 	);
 
 	protected $_has_many = array(
-		'subscription' => array(
+		'subscriptions' => array(
 			'model'		=> 'subscription',
 			'through'	=> 'subscriptions_members'
 		),
@@ -114,14 +114,25 @@ class Model_Member extends ORM{
 	}
 
 	/**
-	* Indique des informations sur la dernière date d'adhésion
+	* Retourne les dernière adhésion valides
 	*
-	* @return	Boolean
+	* @return	Mixte	False ou tableau des dernières adhésions valides
+	**/
+	public function last_valid_susbscriptions()
+	{
+		
+	}
+
+
+	/**
+	* Retourne la dernière adhésion (informations de dates formatés)
+	*
+	* @return	Mixte	False ou tableau contenant la dernière adhésion
 	**/
 	public function last_subscription()
 	{
-		//var_dump('pouet');
-		if ( ! $this->has('subscription'))
+
+		if ( ! $this->has('subscriptions'))
 		{
 			return FALSE;
 		}
@@ -135,15 +146,15 @@ class Model_Member extends ORM{
 		
 		// (cal_days_in_month(CAL_GREGORIAN, 2, date("Y", time())) === 29) ? true : false; // Année bissextile (is leap year)
 		// (Date::days(2, date("Y", time()) === 29); //  Utilise Mktime
-		$last_subscription = $this->subscriptions_member->find();
-		$subscription = $this->subscription->find();
+		$last_subscriptions_member = $this->subscriptions_member->find();
+		$last_subscription = $this->subscriptions->find();
 		$expiry_time = $true_seconds_in_current_year; //$subscription->expiry_time;
-		$start_date = $last_subscription->created;
+		$start_date = $last_subscriptions_member->created;
 		$start_time = strtotime($start_date);
 		$end_date = strftime('%A %e %B %Y à %Hh%M', $start_time + $expiry_time);
 		$date_infos = array(
 			'valid'					=> $start_time + $expiry_time > time() ? TRUE : FALSE,
-			'subscription'			=> $subscription,
+			'subscription'			=> $last_subscription,
 			'start_date'			=> $start_date,
 			'end_date'				=> $end_date,
 			'date_span'				=> Date::span($start_time),
@@ -155,15 +166,21 @@ class Model_Member extends ORM{
 	}
 
 	/**
-	* Indique si la dernière inscirption est toujours valide
+	* Retourne la première adhésion
+	*
+	* @return	Mixte	False ou tableau contenant la première adhésion
 	**/
-	public function valid_subscription()
+	public function first_subscription()
+	{
+		if ( ! $this->has('subscriptions'))
+		{
+			return FALSE;
+		}
+
+	}
+
+	private function _format_infos($subscription)
 	{
 
-		$subscription_date = strtotime($this->last_subscription()->created);
-		return array(
-			//'date'	=>  strtotime('', 'subscription_date');
-			'fuzzy' => Date::fuzzy_span($subscription_date, time()),
-			);
 	}
 }

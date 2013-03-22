@@ -26,18 +26,22 @@
 			<td>
 				{{#last_subscription}}
 				<a href="{{base_url}}subscriptions/{{last_subscription.subscription.id}}">{{last_subscription.subscription.title}}</a>
-				<br />
-				{{#last_subscription.valid}}—inscription valide—{{/last_subscription.valid}}
-				{{^last_subscription.valid}}—inscription périmé—{{/last_subscription.valid}}
-				<br />
-				Le {{last_subscription.start_date}} ({{last_subscription.date_span_fuzzy}})
-				<br />
-				Inscrit il y a {{last_subscription.date_span.years}} ans, {{last_subscription.date_span.months}} mois, {{last_subscription.date_span.days}} jours, {{last_subscription.date_span.hours}} heures, {{last_subscription.date_span.minutes}} minutes, {{last_subscription.date_span.seconds}} secondes
-				<br />
-				Périmé dans/depuis {{last_subscription.date_remaining.years}} ans, {{last_subscription.date_remaining.months}} mois, {{last_subscription.date_remaining.days}} jours, {{last_subscription.date_remaining.hours}} heures, {{last_subscription.date_remaining.minutes}} minutes, {{last_subscription.date_remaining.seconds}} secondes ({{last_subscription.date_remaining_fuzzy}})
+				<p>
+					{{#last_subscription.valid}}—inscription valide—{{/last_subscription.valid}}
+					{{^last_subscription.valid}}—inscription périmé—{{/last_subscription.valid}}
+					<br />
+					Le {{last_subscription.start_date}} ({{last_subscription.date_span_fuzzy}})
+					<br />
+					Inscrit il y a {{last_subscription.date_span.years}} ans, {{last_subscription.date_span.months}} mois, {{last_subscription.date_span.days}} jours, {{last_subscription.date_span.hours}} heures, {{last_subscription.date_span.minutes}} minutes, {{last_subscription.date_span.seconds}} secondes
+					<br />
+					Périmé dans/depuis {{last_subscription.date_remaining.years}} ans, {{last_subscription.date_remaining.months}} mois, {{last_subscription.date_remaining.days}} jours, {{last_subscription.date_remaining.hours}} heures, {{last_subscription.date_remaining.minutes}} minutes, {{last_subscription.date_remaining.seconds}} secondes ({{last_subscription.date_remaining_fuzzy}})
+				</p>
+				<a href="{{base_url}}members/subscriptions/{{id}}">Gérer les adhésions</a>
 				{{/last_subscription}}
 				{{^last_subscription}}
 					- Aucune adhésion - 
+					<br />
+					<a href="{{base_url}}members/subscriptions/{{id}}">Ajouter une adhésion</a>
 				{{/last_subscription}}
 			</td>
 		</tr>

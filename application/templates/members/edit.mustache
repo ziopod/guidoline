@@ -1,6 +1,6 @@
 <form action="{{base_url}}members/save" method="post">
 	<fieldset>
-		<legend>{{title}}</legend>
+		<legend>Informations personnelles</legend>
 		{{#errors}}
 		<strong class="msg-error">Ce formulaire n'est pas correctement rempli, pas bien!</strong>
 		{{/errors}}
@@ -26,8 +26,8 @@
 				{{/member.statuses}}
 			</select>
 		</p>
-		<p>
-			<input type="submit" value="Enregistrer" />
-		</p>
 	</fieldset>
+	<p>
+		<input type="submit" value="Enregistrer" />
+	</p>
 </form>

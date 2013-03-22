@@ -1,0 +1,33 @@
+<h1>{{title}}</h1>
+<p>
+	{{member.firstname}} {{member.name}}
+	<br />
+	Adhérent since {{member.first_subscription.created}}
+</p>
+<table>
+	<thead>
+		<tr>
+			<th>Titre</th>
+			<th>Tarif</th>
+			<th>Soucrit le</th>
+		</tr>
+	</thead>
+	<tbody>
+{{#subscriptions_member}}
+	<tr>
+		<td>{{subscription.title}}</td>
+		<td>{{subscription.cost}}€</td>
+		<td>{{created}}</td>
+	</tr>
+{{/subscriptions_member}}
+{{^subscriptions_member}}
+	<tr>
+		<td colspan="3">
+			- Aucune adhésion - 
+			<br />
+			<a href="{{base_url}}members/subscriptions/{{id}}">Ajouter une adhésion</a>
+		</td>
+	</tr>
+{{/subscriptions_member}}
+	</tbody>
+</table>
