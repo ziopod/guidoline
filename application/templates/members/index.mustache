@@ -8,6 +8,7 @@
 			<th>Email</th>
 			<th>Téléphone</th>
 			<th>Adresse</th>
+			<th>Adhésion</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -22,9 +23,27 @@
 			<td>
 				{{street}} - {{zipcode}} {{city}}
 			</td>
+			<td>
+				{{#last_subscription}}
+				<a href="{{base_url}}subscriptions/{{last_subscription.subscription.id}}">{{last_subscription.subscription.title}}</a>
+				<br />
+				{{#last_subscription.valid}}—inscription valide—{{/last_subscription.valid}}
+				{{^last_subscription.valid}}—inscription périmé—{{/last_subscription.valid}}
+				<br />
+				Le {{last_subscription.start_date}} ({{last_subscription.date_span_fuzzy}})
+				<br />
+				Inscrit il y a {{last_subscription.date_span.years}} ans, {{last_subscription.date_span.months}} mois, {{last_subscription.date_span.days}} jours, {{last_subscription.date_span.hours}} heures, {{last_subscription.date_span.minutes}} minutes, {{last_subscription.date_span.seconds}} secondes
+				<br />
+				Périmé dans/depuis {{last_subscription.date_remaining.years}} ans, {{last_subscription.date_remaining.months}} mois, {{last_subscription.date_remaining.days}} jours, {{last_subscription.date_remaining.hours}} heures, {{last_subscription.date_remaining.minutes}} minutes, {{last_subscription.date_remaining.seconds}} secondes ({{last_subscription.date_remaining_fuzzy}})
+				{{/last_subscription}}
+				{{^last_subscription}}
+					- Aucune adhésion - 
+				{{/last_subscription}}
+			</td>
 		</tr>
 		<tr>
-			<td colspan="7">
+			<td></td>
+			<td colspan="6">
 				<a href="{{base_url}}members/edit/{{id}}">Modifier la fiche membre</a>
 				-
 				{{#user.id}}
