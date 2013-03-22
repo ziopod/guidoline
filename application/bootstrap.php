@@ -111,7 +111,7 @@ else
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
 Kohana::init(array(
-  'base_url'   => Kohana::$environment === 'production' ? '/' : '/',
+  'base_url'   => Kohana::$environment === 'production' ? '/' : '/guidoline',
   'caching'    => Kohana::$environment === 'production',
   'profile'    => Kohana::$environment !== 'production',
   'index_file' => FALSE,
@@ -162,7 +162,7 @@ Route::set('api', '<controller>(/<action>)(.<format>)',
 // Sections
 Route::set('sections', '<directory>(/<controller>(/<action>(/<id>)))',
     array(
-      'directory' => '(mesmbers)',
+      'directory' => '(members)',
   ))
   ->defaults(array(
     'controller'  => 'Dashboard',
