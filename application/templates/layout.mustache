@@ -3,16 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{{title}}</title>
+	<link rel="stylesheet" href="assets/css/styles.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	{{#scripts}}
 		{{{script}}}
 	{{/scripts}}
 </head>
 <body>
 	<header>
-		<h1>{{title}}</h1>
+		{{>navigation}}
 	</header>
-	{{>navigation}}
-	{{>content}}
-	{{{profiler}}}
+	<section class="content_main container">
+		{{>content}}
+	</section>
+	<section class="content_profiler container">
+		{{{profiler}}}
+	</section>
 </body>
 </html>
