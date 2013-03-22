@@ -120,9 +120,13 @@ class Model_Member extends ORM{
 	**/
 	public function last_valid_susbscriptions()
 	{
-		
-	}
+		if ( ! $this->has('subscriptions'))
+		{
+			return FALSE;
+		}
 
+
+	}
 
 	/**
 	* Retourne la dernière adhésion (informations de dates formatés)
@@ -136,33 +140,8 @@ class Model_Member extends ORM{
 		{
 			return FALSE;
 		}
-
-		//echo Debug::vars(strftime('%A %e %B %Y à %H:%M:%S', time()));
-		$true_seconds_in_current_year = (date('z', mktime(0, 0, 0, 12, 31, Date::YEAR)) + 1 ) * 24 * 60 * 60;
-		//echo Debug::vars(date('z', mktime(0,0,0,12,31,date("Y", time()))) +1 );
-	//	echo Debug::vars($true_seconds_in_current_year);
-//		31104000
-//		 mktime(0,0,0,12,31,2008)
 		
-		// (cal_days_in_month(CAL_GREGORIAN, 2, date("Y", time())) === 29) ? true : false; // Année bissextile (is leap year)
-		// (Date::days(2, date("Y", time()) === 29); //  Utilise Mktime
-		$last_subscriptions_member = $this->subscriptions_member->find();
-		$last_subscription = $this->subscriptions->find();
-		$expiry_time = $true_seconds_in_current_year; //$subscription->expiry_time;
-		$start_date = $last_subscriptions_member->created;
-		$start_time = strtotime($start_date);
-		$end_date = strftime('%A %e %B %Y à %Hh%M', $start_time + $expiry_time);
-		$date_infos = array(
-			'valid'					=> $start_time + $expiry_time > time() ? TRUE : FALSE,
-			'subscription'			=> $last_subscription,
-			'start_date'			=> $start_date,
-			'end_date'				=> $end_date,
-			'date_span'				=> Date::span($start_time),
-			'date_span_fuzzy'		=> Date::fuzzy_span($start_time),
-			'date_remaining'		=> Date::span($start_time + $expiry_time),
-			'date_remaining_fuzzy'	=> Date::fuzzy_span($start_time + $expiry_time),
-		);
-		return $date_infos;
+		return $this->subscriptions_member->find();
 	}
 
 	/**
