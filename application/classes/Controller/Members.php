@@ -100,4 +100,13 @@ class Controller_Members extends Controller_App {
 		$uri = Route::get('default')->uri(array('controller' => 'members', 'action' => 'index'));
 		HTTP::redirect($uri);
 	}
+
+	/**
+	* Affiche la page de gestion des adhésion pour le membre
+	**/
+	public function action_subscriptions()
+	{
+		$view = new View_Members_Subscriptions_Index;
+		$this->response->body($this->layout->render($view));
+	}
 }

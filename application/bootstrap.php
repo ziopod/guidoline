@@ -156,13 +156,21 @@ Route::set('api', '<controller>(/<action>)(.<format>)',
 //    'format' => '(json|xml)',
   ))
   ->defaults(array(
-      'controller' => 'userguide',
+      'controller' => 'Userguide',
       'action' => 'index',
     ));
-
+// Sections
+Route::set('sections', '<directory>(/<controller>(/<action>(/<id>)))',
+    array(
+      'directory' => '(mesmbers)',
+  ))
+  ->defaults(array(
+    'controller'  => 'Dashboard',
+    'action'      => 'index',
+  ));
 // Defaults
 Route::set('default', '(<controller>(/<action>(/<id>)))')
   ->defaults(array(
-    'controller' => 'dashboard',
+    'controller' => 'Dashboard',
     'action'     => 'index',
   ));
