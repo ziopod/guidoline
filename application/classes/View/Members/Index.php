@@ -23,12 +23,12 @@ class View_Members_Index extends View_Layout {
 	public $members_count;
 
 	/**
-	* Retourne la liste de tous les memebres
+	* Retourne la liste de tous les membres
 	**/
 	public function members()
 	{
 		$members = ORM::factory('Member');
 		$this->members_count = $members->count_all();
-		return $members->find_all()->as_array();
+		return $members->find_all();
 	}
 }
