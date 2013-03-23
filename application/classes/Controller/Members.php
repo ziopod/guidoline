@@ -97,7 +97,7 @@ class Controller_Members extends Controller_App {
 	**/
 	private function _redirect_to_list()
 	{
-		$uri = Route::get('default')->uri(array('controller' => 'members', 'action' => 'index'));
+		$uri = Route::get('default')->uri(array('controller' => 'members', 'action' => $action));
 		HTTP::redirect($uri);
 	}
 
@@ -111,20 +111,45 @@ class Controller_Members extends Controller_App {
 	}
 
 	/**
-	* Ajouter ou modifier une adhésion
+	* Ajouter une adhésion
 	**/
-	public function action_subscriptions_edit()
+	public function action_subscriptions_add()
 	{
 		$post = $this->request->post();
-		echo Debug::vars($post);
 
 		if ( ! empty($post))
 		{
 			$member = ORM::factory('member', $this->request->param('id'));
 			$member->add('subscriptions', ORM::factory('subscription', $post['subscription_id']));
+			$this->_redirect_to('subscriptions');
 		}
 
-		$view = new View_Members_Subscriptions_Edit;
+		$view = new View_Members_Subscriptions_Add;
 		$this->response->body($this->layout->render($view));
+	}
+
+	/**
+	* Supprimer une adhésion
+	**/
+	public function action_subscription_delete()
+	{
+		$subscription = ORM::factory('subscriptions_member', $this->request->param('id'));
+
+		if ($subscription->loaded())
+		{
+			$subscription->delete();
+
+			if ($this->request->is_ajax())
+			{
+				return TRUE;
+			}
+
+			HTTP::redirect($this->request->referrer());
+
+		}
+		else
+		{
+			echo '— Aucune adhésion chargée —';
+		}
 	}
 }

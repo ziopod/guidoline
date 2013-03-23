@@ -134,6 +134,7 @@ class Model_Subscriptions_Member extends ORM{
 
 		if ($column == 'valid_subscription')
 		{
+			echo Debug::vars($this->subscription->expiry_time);
 			return strtotime($this->_object['created']) + $this->subscription->expiry_time > time() ? TRUE : FALSE;
 		}
 

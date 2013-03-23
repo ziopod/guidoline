@@ -10,7 +10,7 @@
 * @license    http://creativecommons.org/licenses/by-sa/3.0/deed.fr
 */
 
-class View_Members_Subscriptions_Edit extends View_Layout {
+class View_Members_Subscriptions_Add extends View_Layout {
 
 	public function subscriptions()
 	{
