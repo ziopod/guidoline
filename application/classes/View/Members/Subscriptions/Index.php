@@ -15,7 +15,7 @@ class View_Members_Subscriptions_Index extends View_Layout {
 	/**
 	* @vars 	Title 	Le titre de la page
 	**/
-	public $title = "Adhésions | Guidoline";
+	public $title = "Inscriptions | Guidoline";
 
 	public $member;
 

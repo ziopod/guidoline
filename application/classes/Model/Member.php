@@ -118,14 +118,27 @@ class Model_Member extends ORM{
 	*
 	* @return	Mixte	False ou tableau des dernières adhésions valides
 	**/
-	public function last_valid_susbscriptions()
+	public function last_valid_subscriptions()
 	{
 		if ( ! $this->has('subscriptions'))
 		{
 			return FALSE;
 		}
 
+		// AND DATE_ADD(`subscriptions_member`.`created`, INTERVAL `subscription`.`expiry_time` SECOND) >  CURDATE()
+		// AND TO_SECONDS(`subscriptions_member`.`created`) + `subscription`.`expiry_time` >  TO_SECONDS(NOW())
 
+		$lasts = $this->subscriptions_member
+			->with('subscription')
+			->where(DB::expr("TO_SECONDS(`subscriptions_member`.`created`) + `subscription`.`expiry_time`"), '>', DB::expr("TO_SECONDS(NOW())"))
+			->find_all();
+
+		if ( ! count($lasts))
+		{
+			return FALSE;
+		}
+		
+		return $lasts;
 	}
 
 	/**
