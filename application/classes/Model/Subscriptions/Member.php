@@ -24,7 +24,7 @@ class Model_Subscriptions_Member extends ORM{
 	**/
 	protected $_belongs_to = array(
 		'subscription' => array(
-			'model'		=> 'subscription',
+			'model'		=> 'Subscription',
 		),
 	);
 	

@@ -26,11 +26,11 @@ class Model_Member extends ORM{
 
 	protected $_has_many = array(
 		'subscriptions' => array(
-			'model'		=> 'subscription',
+			'model'		=> 'Subscription',
 			'through'	=> 'subscriptions_members'
 		),
 		'subscriptions_member' => array(
-			'model'		=> 'subscriptions_member',
+			'model'		=> 'Subscriptions_Member',
 		),
 	);
 
