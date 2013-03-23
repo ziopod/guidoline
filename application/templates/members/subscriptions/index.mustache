@@ -4,6 +4,7 @@
 	<br />
 	Adhérent since {{member.first_subscription.created}}
 </p>
+{{#subscriptions_member}}
 <table>
 	<thead>
 		<tr>
@@ -13,21 +14,16 @@
 		</tr>
 	</thead>
 	<tbody>
-{{#subscriptions_member}}
 	<tr>
 		<td>{{subscription.title}}</td>
 		<td>{{subscription.cost}}€</td>
 		<td>{{created}}</td>
 	</tr>
-{{/subscriptions_member}}
-{{^subscriptions_member}}
-	<tr>
-		<td colspan="3">
-			- Aucune adhésion - 
-			<br />
-			<a href="{{base_url}}members/subscriptions/{{id}}">Ajouter une adhésion</a>
-		</td>
-	</tr>
-{{/subscriptions_member}}
 	</tbody>
 </table>
+{{/subscriptions_member}}
+<a href="{{base_url}}members/subscriptions_edit/{{member.id}}">Ajouter une adhésion</a>
+{{^subscriptions_member}}
+- Aucune adhésion - 
+<br />
+{{/subscriptions_member}}

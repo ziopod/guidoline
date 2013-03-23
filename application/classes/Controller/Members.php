@@ -109,4 +109,22 @@ class Controller_Members extends Controller_App {
 		$view = new View_Members_Subscriptions_Index;
 		$this->response->body($this->layout->render($view));
 	}
+
+	/**
+	* Ajouter ou modifier une adhésion
+	**/
+	public function action_subscriptions_edit()
+	{
+		$post = $this->request->post();
+		echo Debug::vars($post);
+
+		if ( ! empty($post))
+		{
+			$member = ORM::factory('member', $this->request->param('id'));
+			$member->add('subscriptions', ORM::factory('subscription', $post['subscription_id']));
+		}
+
+		$view = new View_Members_Subscriptions_Edit;
+		$this->response->body($this->layout->render($view));
+	}
 }
