@@ -25,7 +25,7 @@ class Model_Subscription extends ORM{
 
 		if ($column == 'created')
 		{			
- 			return mb_strtolower(strftime('%A %e %B %Y à %Hh%M', strtotime($this->_object['created'])));
+ 			return strftime('%A %e %B %Y à %Hh%M', strtotime($this->_object['created']));
 		}
 
 		if ($column == 'expiry_time')
