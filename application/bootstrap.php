@@ -111,7 +111,7 @@ else
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
 Kohana::init(array(
-  'base_url'   => Kohana::$environment === 'production' ? '/' : '/guidoline',
+  'base_url'   => Kohana::$environment === 'production' ? '/' : '/',
   'caching'    => Kohana::$environment === 'production',
   'profile'    => Kohana::$environment !== 'production',
   'index_file' => FALSE,
