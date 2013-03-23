@@ -120,7 +120,7 @@ class Controller_Members extends Controller_App {
 		if ( ! empty($post))
 		{
 			$member = ORM::factory('Member', $this->request->param('id'));
-			$member->add('subscriptions', ORM::factory('subscription', $post['subscription_id']));
+			$member->add('subscriptions', ORM::factory('Subscription', $post['subscription_id']));
 
 			if ($this->request->is_ajax())
 			{
@@ -139,7 +139,7 @@ class Controller_Members extends Controller_App {
 	**/
 	public function action_subscription_delete()
 	{
-		$subscription = ORM::factory('subscriptions_member', $this->request->param('id'));
+		$subscription = ORM::factory('Subscriptions_Member', $this->request->param('id'));
 
 		if ($subscription->loaded())
 		{
