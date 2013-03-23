@@ -1,6 +1,6 @@
 #Specific files
-.htaccess
-/application/config/datatbase.php
+#.htaccess
+#/application/config/datatbase.php
 
 # Compiled source #
 ###################
