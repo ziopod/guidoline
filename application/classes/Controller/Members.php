@@ -119,7 +119,7 @@ class Controller_Members extends Controller_App {
 
 		if ( ! empty($post))
 		{
-			$member = ORM::factory('member', $this->request->param('id'));
+			$member = ORM::factory('Member', $this->request->param('id'));
 			$member->add('subscriptions', ORM::factory('subscription', $post['subscription_id']));
 
 			if ($this->request->is_ajax())

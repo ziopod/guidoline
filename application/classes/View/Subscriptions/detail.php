@@ -19,7 +19,7 @@ class View_Subscriptions_Detail extends View_Layout {
 
 	public function subscription()
 	{
-		$subscription =  ORM::factory('subscription', Request::initial()->param('id'));
+		$subscription =  ORM::factory('Subscription', Request::initial()->param('id'));
 		return $subscription;
 	}
 

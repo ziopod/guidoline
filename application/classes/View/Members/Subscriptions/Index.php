@@ -21,7 +21,7 @@ class View_Members_Subscriptions_Index extends View_Layout {
 
 	public function member()
 	{
-		$this->member =  ORM::factory('member', Request::initial()->param('id'));
+		$this->member =  ORM::factory('Member', Request::initial()->param('id'));
 		return $this->member;
 	}
 

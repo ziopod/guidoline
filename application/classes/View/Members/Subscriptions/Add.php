@@ -14,7 +14,7 @@ class View_Members_Subscriptions_Add extends View_Layout {
 
 	public function subscriptions()
 	{
-		return ORM::factory('subscription')->find_all();
+		return ORM::factory('Subscription')->find_all();
 	}
 
 }
