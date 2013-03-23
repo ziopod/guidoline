@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Modèle de vue pour l'affichage de l'index des adhésions du membre `templates/members/subscirptions/index.mustache`
+* Modèle de vue pour l'affichage de l'index des adhésions du membre `templates/members/subscriptions/index.mustache`
 * 
 * @package    Guidoline
 * @category   View Model

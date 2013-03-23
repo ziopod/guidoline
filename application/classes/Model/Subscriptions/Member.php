@@ -103,7 +103,7 @@ class Model_Subscriptions_Member extends ORM{
 
 		if ($column == 'start_date')
 		{			
- 			return mb_strtolower(strftime('%A %e %B %Y à %Hh%M', strtotime($this->created)));
+ 			return mb_strtolower(strftime('%A %e %B %Y à %Hh%M', strtotime($this->_object['created'])));
 		}
 
 		if ($column == 'end_date')
@@ -114,27 +114,27 @@ class Model_Subscriptions_Member extends ORM{
 
 		if ($column == 'elapsed_time')
 		{
-			return Date::span(strtotime($this->created));
+			return Date::span(strtotime($this->_object['created']));
 		}
 
 		if ($column == 'elapsed_time_fuzzy')
 		{
-			return Date::fuzzy_span(strtotime($this->created));
+			return Date::fuzzy_span(strtotime($this->_object['created']));
 		}
 
 		if ($column == 'remaining_time')
 		{
-			return Date::span(strtotime($this->created) + $this->subscription->expiry_time);
+			return Date::span(strtotime($this->_object['created']) + $this->subscription->expiry_time);
 		}
 
 		if ($column == 'remaining_time_fuzzy')
 		{
-			return Date::fuzzy_span(strtotime($this->created) + $this->subscription->expiry_time);
+			return Date::fuzzy_span(strtotime($this->_object['created']) + $this->subscription->expiry_time);
 		}
 
 		if ($column == 'valid_subscription')
 		{
-			return strtotime($this->created) + $this->subscription->expiry_time > time() ? TRUE : FALSE;
+			return strtotime($this->_object['created']) + $this->subscription->expiry_time > time() ? TRUE : FALSE;
 		}
 
 		return parent::get($column);

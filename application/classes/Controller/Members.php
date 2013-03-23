@@ -15,7 +15,7 @@ class Controller_Members extends Controller_App {
 	/**
 	* Affiche l'index des membres
 	*
-	* @return @void
+	* @return void
 	**/
 	public function action_index()
 	{

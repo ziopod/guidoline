@@ -15,7 +15,7 @@ class View_Members_Index extends View_Layout {
 	/**
 	* @vars 	Title 	Le titre de la page
 	**/
-	public $title = "Membres | Guidoline";
+	public $title = "Membres - Guidoline";
 
 	/**
 	* @vars	Members_count	Le nombre de membres total

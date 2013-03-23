@@ -160,14 +160,14 @@ Route::set('api', '<controller>(/<action>)(.<format>)',
       'action' => 'index',
     ));
 // Sections
-Route::set('sections', '<directory>(/<controller>(/<action>(/<id>)))',
-    array(
-      'directory' => '(members)',
-  ))
-  ->defaults(array(
-    'controller'  => 'Dashboard',
-    'action'      => 'index',
-  ));
+// Route::set('sections', '<directory>(/<controller>(/<action>(/<id>)))',
+//     array(
+//       'directory' => '(members)',
+//   ))
+//   ->defaults(array(
+//     'controller'  => 'Dashboard',
+//     'action'      => 'index',
+//   ));
 // Defaults
 Route::set('default', '(<controller>(/<action>(/<id>)))')
   ->defaults(array(

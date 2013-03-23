@@ -19,4 +19,15 @@ class Model_Subscription extends ORM{
 		'created'	=> 'DESC',
 	);
 
+
+	public function get($column)
+	{
+
+		if ($column == 'created')
+		{			
+ 			return mb_strtolower(strftime('%A %e %B %Y à %Hh%M', strtotime($this->_object['created'])));
+		}
+
+		return parent::get($column);
+	}
 }
