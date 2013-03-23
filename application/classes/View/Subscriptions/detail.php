@@ -1,5 +1,4 @@
 <?php
-
 /**
 * Modèle de vue pour l'affichage du détail d'une adhésion `templates/subscriptions/subscriptions/detail.mustache`
 * 
