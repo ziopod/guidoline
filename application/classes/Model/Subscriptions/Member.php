@@ -103,13 +103,13 @@ class Model_Subscriptions_Member extends ORM{
 
 		if ($column == 'start_date')
 		{			
- 			return mb_strtolower(strftime('%A %e %B %Y à %Hh%M', strtotime($this->_object['created'])));
+ 			return strftime('%A %e %B %Y à %Hh%M', strtotime($this->_object['created']));
 		}
 
 		if ($column == 'end_date')
 		{
 			// Vrai nombres de jours dans l'année (date('z', mktime(0, 0, 0, 12, 31, Date::YEAR)) + 1 ) * 24 * 60 * 60; ou Date::YEAR
-			return mb_strtolower(strftime('%A %e %B %Y à %Hh%M', (strtotime($this->created) + (int) $this->subscription->_object['expiry_time'])));
+			return strftime('%A %e %B %Y à %Hh%M', (strtotime($this->created) + (int) $this->subscription->_object['expiry_time']));
 		}
 
 		if ($column == 'elapsed_time')
