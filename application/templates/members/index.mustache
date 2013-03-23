@@ -24,36 +24,36 @@
 				{{street}} - {{zipcode}} {{city}}
 			</td>
 			<td>
-				{{#last_subscription}}
-				<a href="{{base_url}}subscriptions/detail/{{last_subscription.subscription.id}}">{{last_subscription.subscription.title}}</a>
+				{{#last_valid_subscriptions}}
+				<strong><a href="{{base_url}}subscriptions/detail/{{subscription.id}}">{{subscription.title}}</a></strong>
 				<p>
-					{{#last_subscription.valid_subscription}}
+					{{#valid_subscription}}
 						—inscription valide—
 						<br />
-						Inscrit le {{last_subscription.start_date}} ({{last_subscription.elapsed_time_fuzzy}})
+						Inscrit le {{start_date}} ({{elapsed_time_fuzzy}})
 						<br />
-						Périmé {{last_subscription.remaining_time_fuzzy}} (le {{last_subscription.end_date}})
+						Périmé {{remaining_time_fuzzy}} (le {{end_date}})
 					
-					{{/last_subscription.valid_subscription}}
+					{{/valid_subscription}}
 
-					{{^last_subscription.valid_subscription}}
+					{{^valid_subscription}}
 						—inscription périmé—
 						<br />
-						Périmé depuis le {{last_subscription.end_date}} ({{last_subscription.end_date_fuzzy}})
+						Périmé depuis le {{end_date}} ({{end_date_fuzzy}})
 
-					{{/last_subscription.valid_subscription}}
+					{{/valid_subscription}}
 	<!--				<br />
-						{{last_subscription.remaining_time.years}} ans, {{last_subscription.remaining_time.months}} mois, {{last_subscription.remaining_time.days}} jours, {{last_subscription.remaining_time.hours}} heures, {{last_subscription.remaining_time.minutes}} minutes, {{last_subscription.remaining_time.seconds}} secondes ({{last_subscription.remaining_time_fuzzy}})
+						{{remaining_time.years}} ans, {{remaining_time.months}} mois, {{remaining_time.days}} jours, {{remaining_time.hours}} heures, {{remaining_time.minutes}} minutes, {{remaining_time.seconds}} secondes ({{remaining_time_fuzzy}})
 					<br />
-					Inscrit il y a {{last_subscription.elapsed_time.years}} ans, {{last_subscription.elapsed_time.months}} mois, {{last_subscription.elapsed_time.days}} jours, {{last_subscription.elapsed_time.hours}} heures, {{last_subscription.elapsed_time.minutes}} minutes, {{last_subscription.elapsed_time.seconds}} secondes
+					Inscrit il y a {{elapsed_time.years}} ans, {{elapsed_time.months}} mois, {{elapsed_time.days}} jours, {{elapsed_time.hours}} heures, {{elapsed_time.minutes}} minutes, {{elapsed_time.seconds}} secondes
 					<br />
 		-->		</p>
-				{{/last_subscription}}
-				{{^last_subscription}}
-					- Aucune adhésion - 
+				{{/last_valid_subscriptions}}
+				{{^last_valid_subscriptions}}
+					- Aucune inscription - 
 					<br />
-				{{/last_subscription}}
-				<a href="{{base_url}}members/subscriptions/{{id}}">Gérer les adhésions</a>
+				{{/last_valid_subscriptions}}
+				<a href="{{base_url}}members/subscriptions/{{id}}">Gérer les inscriptions</a>
 			</td>
 		</tr>
 		<tr>
