@@ -28,6 +28,12 @@ class Model_Subscription extends ORM{
  			return mb_strtolower(strftime('%A %e %B %Y à %Hh%M', strtotime($this->_object['created'])));
 		}
 
+		if ($column == 'expiry_time')
+		{
+			//echo Date::YEAR;
+			return Date::span($this->_object['expiry_time'], $this->_object['expiry_time'] * 2);
+		}
+
 		return parent::get($column);
 	}
 }

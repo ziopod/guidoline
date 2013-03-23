@@ -108,8 +108,8 @@ class Model_Subscriptions_Member extends ORM{
 
 		if ($column == 'end_date')
 		{
-			// Vrai nombre s de jours dans l'année (date('z', mktime(0, 0, 0, 12, 31, Date::YEAR)) + 1 ) * 24 * 60 * 60;
-			return mb_strtolower(strftime('%A %e %B %Y à %Hh%M', strtotime($this->created) + $this->subscription->expiry_time));
+			// Vrai nombres de jours dans l'année (date('z', mktime(0, 0, 0, 12, 31, Date::YEAR)) + 1 ) * 24 * 60 * 60; ou Date::YEAR
+			return mb_strtolower(strftime('%A %e %B %Y à %Hh%M', (strtotime($this->created) + (int) $this->subscription->_object['expiry_time'])));
 		}
 
 		if ($column == 'elapsed_time')
@@ -124,18 +124,17 @@ class Model_Subscriptions_Member extends ORM{
 
 		if ($column == 'remaining_time')
 		{
-			return Date::span(strtotime($this->_object['created']) + $this->subscription->expiry_time);
+			return Date::span(strtotime($this->_object['created']) + (int) $this->subscription->_object['expiry_time']);
 		}
 
 		if ($column == 'remaining_time_fuzzy')
 		{
-			return Date::fuzzy_span(strtotime($this->_object['created']) + $this->subscription->expiry_time);
+			return Date::fuzzy_span(strtotime($this->_object['created']) + (int) $this->subscription->_object['expiry_time']);
 		}
 
 		if ($column == 'valid_subscription')
 		{
-			echo Debug::vars($this->subscription->expiry_time);
-			return strtotime($this->_object['created']) + $this->subscription->expiry_time > time() ? TRUE : FALSE;
+			return strtotime($this->_object['created']) + (int) $this->subscription->_object['expiry_time'] > time() ? TRUE : FALSE;
 		}
 
 		return parent::get($column);

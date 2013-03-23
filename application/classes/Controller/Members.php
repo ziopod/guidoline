@@ -97,7 +97,7 @@ class Controller_Members extends Controller_App {
 	**/
 	private function _redirect_to_list()
 	{
-		$uri = Route::get('default')->uri(array('controller' => 'members', 'action' => $action));
+		$uri = Route::get('default')->uri(array('controller' => 'members', 'action' => 'index'));
 		HTTP::redirect($uri);
 	}
 
@@ -121,7 +121,13 @@ class Controller_Members extends Controller_App {
 		{
 			$member = ORM::factory('member', $this->request->param('id'));
 			$member->add('subscriptions', ORM::factory('subscription', $post['subscription_id']));
-			$this->_redirect_to('subscriptions');
+
+			if ($this->request->is_ajax())
+			{
+				return TRUE;
+			}
+
+			HTTP::redirect(Route::get('default')->uri(array('controller' => 'members', 'action' => 'subscriptions')) . '/' . $this->request->param('id'));
 		}
 
 		$view = new View_Members_Subscriptions_Add;
