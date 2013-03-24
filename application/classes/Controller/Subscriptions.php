@@ -47,6 +47,45 @@ class Controller_Subscriptions extends Controller_App {
 	{
 		// Préciser ici, en variable de session ou cookie, si l'enregistrement ou l'ajout résussi doit être redirigé.
 		$view  = new View_Subscriptions_Edit;
+		$view->subscription = ORM::factory('subscription', Request::initial()->param('id'));
 		$this->response->body($this->layout->render($view));
+	}
+
+	public function action_save()
+	{
+		$subscription = ORM::factory('subscription', Request::initial()->param('id'));
+		// Context internal
+		$result = new View_Subscriptions_Edit;
+		// Context external
+		//$result = new stdClass; // Empty object
+
+		if (HTTP_Request::POST == $this->request->method())
+		{
+			$subscription->values($this->request->post());
+		
+			try
+			{
+				$result->message = $subscription->loaded() ? "Modification réussi" : "Ajout réussi";
+				$subscription->save();
+
+				if ($controller = $this->request->post('redirect'))
+				{
+					// Enregister le message en variable de session ou cookie?
+					$uri = Route::get('default')->uri(array('controller' => $controller));
+					HTTP::redirect($uri);
+				}
+			}
+			catch (ORM_Validation_Exception $e)
+			{
+				$result->message = $subscription->loaded() ? "Echec de la modification" : "Echec de l'ajout";
+				$result->errors = $e->errors('models');
+			}
+		}
+
+		$result->subscription = $subscription->as_array();
+		// Context internal
+		$this->response->body($this->layout->render($result));
+		// context external
+		//$this->response->body(json_encode($result));
 	}
 }
