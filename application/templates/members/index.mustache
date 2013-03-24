@@ -32,7 +32,7 @@
 						<br />
 						Inscrit le {{start_date}} ({{elapsed_time_fuzzy}})
 						<br />
-						Périmé {{remaining_time_fuzzy}} (le {{end_date}})
+						Périmé {{remaining_time}} (le {{end_date}})
 					
 					{{/valid_subscription}}
 
@@ -42,12 +42,7 @@
 						Périmé depuis le {{end_date}} ({{end_date_fuzzy}})
 
 					{{/valid_subscription}}
-	<!--				<br />
-						{{remaining_time.years}} ans, {{remaining_time.months}} mois, {{remaining_time.days}} jours, {{remaining_time.hours}} heures, {{remaining_time.minutes}} minutes, {{remaining_time.seconds}} secondes ({{remaining_time_fuzzy}})
-					<br />
-					Inscrit il y a {{elapsed_time.years}} ans, {{elapsed_time.months}} mois, {{elapsed_time.days}} jours, {{elapsed_time.hours}} heures, {{elapsed_time.minutes}} minutes, {{elapsed_time.seconds}} secondes
-					<br />
-		-->		</p>
+				</p>
 				{{/last_valid_subscriptions}}
 				{{^last_valid_subscriptions}}
 					- Aucune inscription - 

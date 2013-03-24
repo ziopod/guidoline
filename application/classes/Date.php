@@ -14,16 +14,22 @@ class Date extends Kohana_Date {
 	public static function formatted_span($remote, $local = NULL, $output = 'years,months,weeks,days,hours,minutes,seconds')
 	{
 		$formatted_span = Date::span($remote, $local, $output);			
-		$output = '';
+
+		if (is_int($formatted_span))
+		{
+			return $formatted_span;
+		}
+
+		$result = '';
 
 		foreach ($formatted_span as $key => $value)
 		{
 			if ($value)
 			{
-				$output .= $value . ' ' . $key .', ';
+				$result .= $value . ' ' . $key .', ';
 			}
 		}
 
-		return $output;
+		return $result;
 	}
 }
