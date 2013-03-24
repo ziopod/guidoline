@@ -38,6 +38,11 @@ class View_Layout {
 			'name'	=> "Membres",
 			'title'	=> 'Afficher les Membres de l\'association',
 			),
+		'subscriptions'	=> array(
+			'url'	=> 'subscriptions',
+			'name'	=> 'Adhésions',
+			'title'	=> 'Afficher les adhésions',
+		),
 		'userguide' => array(
 			'url'	=> 'guide-api',
 			'name'	=> "API guide",

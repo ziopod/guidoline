@@ -13,11 +13,21 @@
 class Controller_Subscriptions extends Controller_App {
 
 	/**
-	*	Affiche le détail d'une adhésion 
+	* Afficher toutes es adhésions
 	*
 	* @return @void
 	**/
+	public function action_index()
+	{
+		$view = new View_Subscriptions_Index;
+		$this->response->body($this->layout->render($view));
+	}
 
+	/**
+	* Afficher le détail d'une adhésion 
+	*
+	* @return @void
+	**/
 	public function action_detail()
 	{
 		$view = new View_Subscriptions_Detail;
