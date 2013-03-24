@@ -19,6 +19,17 @@ class Model_Subscription extends ORM{
 		'created'	=> 'DESC',
 	);
 
+	/**
+	* Règles de validation
+	**/
+	public function rules()
+	{
+		return array(
+			'title' => array(
+				array('not_empty'),
+			),
+		);
+	}
 
 	public function get($column)
 	{
@@ -30,8 +41,7 @@ class Model_Subscription extends ORM{
 
 		if ($column == 'expiry_time')
 		{
-			//echo Date::YEAR;
-			return Date::span($this->_object['expiry_time'], $this->_object['expiry_time'] * 2);
+			return Date::formatted_span($this->_object['expiry_time'], $this->_object['expiry_time'] * 2);
 		}
 
 		return parent::get($column);

@@ -114,7 +114,7 @@ class Model_Subscriptions_Member extends ORM{
 
 		if ($column == 'elapsed_time')
 		{
-			return Date::span(strtotime($this->_object['created']));
+			return Date::formatted_span(strtotime($this->_object['created']));
 		}
 
 		if ($column == 'elapsed_time_fuzzy')
@@ -124,7 +124,7 @@ class Model_Subscriptions_Member extends ORM{
 
 		if ($column == 'remaining_time')
 		{
-			return Date::span(strtotime($this->_object['created']) + (int) $this->subscription->_object['expiry_time']);
+			return Date::formatted_span(strtotime($this->_object['created']) + (int) $this->subscription->_object['expiry_time'], time(), 'years,months,weeks,days');
 		}
 
 		if ($column == 'remaining_time_fuzzy')
