@@ -47,13 +47,13 @@ class Controller_Subscriptions extends Controller_App {
 	{
 		// Préciser ici, en variable de session ou cookie, si l'enregistrement ou l'ajout résussi doit être redirigé.
 		$view  = new View_Subscriptions_Edit;
-		$view->subscription = ORM::factory('subscription', Request::initial()->param('id'));
+		$view->subscription = ORM::factory('Subscription', Request::initial()->param('id'));
 		$this->response->body($this->layout->render($view));
 	}
 
 	public function action_save()
 	{
-		$subscription = ORM::factory('subscription', Request::initial()->param('id'));
+		$subscription = ORM::factory('Subscription', Request::initial()->param('id'));
 		// Context internal
 		$result = new View_Subscriptions_Edit;
 		// Context external
