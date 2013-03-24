@@ -36,30 +36,16 @@ class Controller_Subscriptions extends Controller_App {
 
 	/**
 	* Ajouter ou modifier une adhésion
+	*
+	* Nous testerons ici de déporter les procédures vers le modèle de vue.
+	* Interface API :
+	*  - pas d'action "save"
+	*  - obligation de doubler les procédures d'ajout et d'enregistrement (non respect DRY)
+	*  - les procédures de validation et d'enregistrement des méthodes "Members::action_edit()" et "Members::action_save()" sont plus viable en interfacage API
 	**/
 	public function action_edit()
 	{
-//		$id = $this->request->param('id');
-//		$subscription = ORM::factory('subscription', $id);
-		//$this->_show_edit_form();//$subscription);
-		$view  = new View_Subscriptions_Edit;
-		$this->response->body($this->layout->render($view));
-	}
-
-	/**
-	* Sauvegarder une adhésion
-	**/
-	public function action_save()
-	{
-		$view  = new View_Subscriptions_Edit;
-		$this->response->body($this->layout->render($view));
-	}
-
-	/**
-	* Utilitaire pour afficherle formulaire d'édition
-	**/
-	private function _show_edit_form($subscription = NULL, $errors = NULL)
-	{
+		// Préciser ici, en variable de session ou cookie, si l'enregistrement ou l'ajout résussi doit être redirigé.
 		$view  = new View_Subscriptions_Edit;
 		$this->response->body($this->layout->render($view));
 	}

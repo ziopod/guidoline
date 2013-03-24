@@ -1,9 +1,14 @@
 <form action="{{base_url}}subscriptions/edit/{{subscription.id}}" method="post">
 	<fieldset>
 		<legend>Adhésion</legend>
-		{{#errors}}
-		<strong class="msg-error">Ce formulaire contient des erreurs</strong>
+		{{#message}}
+		{{^errors}}
+		<strong class="msg-success">{{message}}</strong>
 		{{/errors}}
+		{{#errors}}
+		<strong class="msg-error">{{message}}</strong>
+		{{/errors}}
+		{{/message}}
 		<p>
 			<label for="title">Titre</label>
 			<input type="text" name="title" id="title" value="{{subscription.title}}" />
