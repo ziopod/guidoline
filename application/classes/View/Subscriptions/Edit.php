@@ -28,32 +28,18 @@ class View_Subscriptions_Edit extends View_Layout {
 	public $message;
 
 	/**
-	* Affiche l'adhésion à ajouter ou à modifer, ajoute ou enregistre l'adhésion
+	* @vars		object	Adhésion courante
 	**/
+	public $subscription;
 
-	public function subscription()
+	/**
+	* L'édition d'une adhésion génère t'elle une erreur
+	*
+	* @return	boolean
+	**/
+	public function has_errors()
 	{
-		$subscription = ORM::factory('subscription', Request::initial()->param('id'));
-		$post = Request::initial()->post();
-
-		if ( ! empty($post))
-		{
-			$subscription->values($post);
-		
-			try
-			{
-				$this->message = $subscription->loaded() ? "Modification réussi" : "Ajout réussi";
-				$subscription->save();
-				// Enregister le message en variable de session ou cookie, puis redirection ?
-			}
-			catch (ORM_Validation_Exception $e)
-			{
-				$this->message = $subscription->loaded() ? "Echec de la modification" : "Echec de l'ajout";
-				$this->errors = $e->errors('models');
-			}
-		}
-
-		return $subscription;
-
+		return (bool) $this->errors();
 	}
+
 }

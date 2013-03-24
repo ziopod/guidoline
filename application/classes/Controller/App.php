@@ -11,7 +11,7 @@
 */
 
 class Controller_App extends Controller {
-	
+
 	/**
 	* @var Layout Propriété pour le layout de base de l'application `View/Layout.php`.
 	**/

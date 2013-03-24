@@ -1,4 +1,6 @@
-<form action="{{base_url}}subscriptions/edit/{{subscription.id}}" method="post">
+{{#subscription}}
+<form action="{{base_url}}subscriptions/save/{{id}}" method="post">
+	<input type="hidden" name="redirect" value="subscriptions">
 	<fieldset>
 		<legend>Adhésion</legend>
 		{{#message}}
@@ -11,12 +13,12 @@
 		{{/message}}
 		<p>
 			<label for="title">Titre</label>
-			<input type="text" name="title" id="title" value="{{subscription.title}}" />
+			<input type="text" name="title" id="title" value="{{title}}" />
 		</p>
 		{{#errors}}{{#title}}<p class="form-error">{{title}}</p>{{/title}}{{/errors}}
 		<p>
 			<label for="description">Description</label>
-			<textarea name="description" id="description" cols="30" rows="10">{{subscription.description}}</textarea>
+			<textarea name="description" id="description" cols="30" rows="10">{{description}}</textarea>
 		</p>
 
 	</fieldset>
@@ -24,3 +26,4 @@
 		<input type="submit" value="Enregistrer" />
 	</p>
 </form>
+{{/subscription}}
