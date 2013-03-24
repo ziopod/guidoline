@@ -19,6 +19,17 @@ class Model_Subscription extends ORM{
 		'created'	=> 'DESC',
 	);
 
+	/**
+	* Règles de validation
+	**/
+	public function rules()
+	{
+		return array(
+			'title' => array(
+				array('not_empty'),
+			),
+		);
+	}
 
 	public function get($column)
 	{

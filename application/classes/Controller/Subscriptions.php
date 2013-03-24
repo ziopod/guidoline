@@ -33,4 +33,34 @@ class Controller_Subscriptions extends Controller_App {
 		$view = new View_Subscriptions_Detail;
 		$this->response->body($this->layout->render($view));
 	}
+
+	/**
+	* Ajouter ou modifier une adhésion
+	**/
+	public function action_edit()
+	{
+//		$id = $this->request->param('id');
+//		$subscription = ORM::factory('subscription', $id);
+		//$this->_show_edit_form();//$subscription);
+		$view  = new View_Subscriptions_Edit;
+		$this->response->body($this->layout->render($view));
+	}
+
+	/**
+	* Sauvegarder une adhésion
+	**/
+	public function action_save()
+	{
+		$view  = new View_Subscriptions_Edit;
+		$this->response->body($this->layout->render($view));
+	}
+
+	/**
+	* Utilitaire pour afficherle formulaire d'édition
+	**/
+	private function _show_edit_form($subscription = NULL, $errors = NULL)
+	{
+		$view  = new View_Subscriptions_Edit;
+		$this->response->body($this->layout->render($view));
+	}
 }
