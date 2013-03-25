@@ -1,45 +1,4 @@
-<table>
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Prénom &amp; Nom</th>
-			<th>première date d'inscription</th>
-			<th>Statut</th>
-			<th>Email</th>
-			<th>Téléphone</th>
-			<th>Adresse</th>
-			<th>Adhésion</th>
-		</tr>
-	</thead>
-	<tbody>
-		{{#members}}
-		<tr>
-			<td>{{id}}</td>
-			<td><a href="{{base_url}}members/profil/{{id}}">{{firstname}} {{name}}</a></td>
-			<td>{{created}}</td>
-			<td>{{status.name}}</td>
-			<td>{{email}}</td>
-			<td>{{phone}}</td>
-			<td>
-				{{street}} - {{zipcode}} {{city}}
-			</td>
-			<td>
-				{{#last_valid_subscriptions}}
-				<strong><a href="{{base_url}}subscriptions/detail/{{subscription.id}}">{{subscription.title}}</a></strong>
-				<p>
-					{{#valid_subscription}}
-						—inscription valide—
-						<br />
-						Inscrit le {{start_date}} ({{elapsed_time_fuzzy}})
-						<br />
-						Périmé {{remaining_time}} (le {{end_date}})
-					
-					{{/valid_subscription}}
 
-					{{^valid_subscription}}
-						—inscription périmé—
-						<br />
-						Périmé depuis le {{end_date}} ({{end_date_fuzzy}})
 
 <section class="content_stat">
 	<h1>Statistiques</h1>
