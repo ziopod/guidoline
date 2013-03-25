@@ -16,24 +16,25 @@
 			<a class="btn btn-info" href="{{base_url}}members.json">Réponse au format JSON</a>
 		</li>
 		<li>
-			<a class="btn btn-info" href="{{base_url}}members/edit">Ajouter un nouveau membre</a>
+			<a id="btn-add-members" class="btn btn-info" href="{{base_url}}members/edit">Ajouter un nouveau membre</a>
 		</li>
 	</ul>
 </nav>
 
 <section class="content_table">
 	<h1>Tableaux des membres</h1>
-	<table class="table">
+	<table id="table_members" class="table">
 		<thead>
 			<tr>
 				<th>ID</th>
-				<th>Prénom &amp; Nom</th>
+				<th>Prénom & Nom</th>
 				<th>première date d'inscription</th>
 				<th>Statut</th>
 				<th>Email</th>
 				<th>Téléphone</th>
 				<th>Adresse</th>
 				<th>Adhésion</th>
+				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -65,14 +66,11 @@
 						- Aucune adhésion - 
 					{{/last_subscription}}
 				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td colspan="6">
-					<a href="{{base_url}}members/edit/{{id}}">Modifier la fiche membre</a>
+				<td>
+					<a class="btn" href="{{base_url}}members/edit/{{id}}">Modifier la fiche membre</a>
 					-
 					{{#user.id}}
-						<a href="{{base_url}}users/profil/{{user.id}}">Fiche utilisateur</a>
+						<a class="btn" href="{{base_url}}users/profil/{{user.id}}">Fiche utilisateur</a>
 					{{/user.id}}
 					{{^user.id}}
 						Ce membre n'as pas de compte utilisateur
@@ -80,14 +78,25 @@
 				</td>
 			</tr>
 			{{/members}}
+		</tbody>
+	</table>
+	
+	
+	<table class="table">
+		<tbody>
+			<tr>
+				<td></td>
+			</tr>
+			
 			{{^members}}
 				<tr>
 					<td colspan="3">
 						— Aucun membre pour l'instant —
-						<a href="{{base_url}}members/edit/">Ajoutez votre premier membre</a>
+						<a class="btn" href="{{base_url}}members/edit/">Ajoutez votre premier membre</a>
 					</td>
 				</tr>
 			{{/members}}
 		</tbody>
 	</table>
+	
 </section>
