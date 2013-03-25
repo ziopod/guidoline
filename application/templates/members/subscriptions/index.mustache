@@ -1,0 +1,42 @@
+<h1>{{title}}</h1>
+<p>
+	{{member.firstname}} {{member.name}}
+	<br />
+	Adhérent since {{member.first_subscription.created}}
+</p>
+{{#subscriptions_member}}
+<table>
+	<thead>
+		<tr>
+			<th>Titre</th>
+			<th>Tarif</th>
+			<th>Soucrit le</th>
+			<th>Valide</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>{{subscription.title}}</td>
+		<td>{{subscription.cost}}€</td>
+		<td>{{created}}</td>
+		<td>
+			{{#valid_subscription}}
+				Oui
+			{{/valid_subscription}}
+			{{^valid_subscription}}
+				Non
+			{{/valid_subscription}}
+		</td>
+		<td>
+			<a href="{{base_url}}members/subscription_delete/{{id}}">Supprimer</a>
+		</td>
+	</tr>
+	</tbody>
+</table>
+{{/subscriptions_member}}
+<a href="{{base_url}}members/subscriptions_add/{{member.id}}">Ajouter une inscription</a>
+{{^subscriptions_member}}
+- Aucune inscription - 
+<br />
+{{/subscriptions_member}}

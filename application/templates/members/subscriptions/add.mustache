@@ -1,0 +1,9 @@
+<form action="" method="post">
+<label for="subscritpion_id">Inscriptions</label>
+<select name="subscription_id" id="subscritpion_id">
+{{#subscriptions}}
+	<option value="{{id}}">{{title}}</option>
+{{/subscriptions}}
+</select>
+<input type="submit" />
+</form>

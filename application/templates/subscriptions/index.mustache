@@ -1,0 +1,38 @@
+{{#subscriptions.count_all}}
+	<table>
+	<thead>
+		<tr>
+			<th>Titre</th>
+			<th>Description</th>
+			<th>Coût</th>
+			<th>Crée le</th>
+			<th>Durée d'expiration</th>
+			<th>Nbre de membres</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#subscriptions.find_all}}
+		<tr>
+			<td><strong><a href="{{base_url}}subscriptions/detail/{{id}}">{{title}}</a></strong></td>
+			<td>{{description}}</td>
+			<td>{{cost}}</td>
+			<td>{{created}}</td>
+			<td>{{expiry_time}}</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="6">
+				<a href="{{base_url}}subscriptions/edit/{{id}}">Modifier</a>
+				—
+				<a href="{{base_url}}subscriptions/delete/{{id}}">Supprimer</a>
+			</td>
+		</tr>
+		{{/subscriptions.find_all}}
+	</tbody>
+</table>
+<a href="{{base_url}}subscriptions/edit">Ajouter une adhésion</a>
+{{/subscriptions.count_all}}
+{{^subscriptions.count_all}}
+— Aucune adhésions pour le moment —
+<a href="{{base_url}}subscriptions/edit">Ajouter une première adhésion</a>
+{{/subscriptions.count_all}}

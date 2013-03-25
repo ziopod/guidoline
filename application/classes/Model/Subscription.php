@@ -19,4 +19,31 @@ class Model_Subscription extends ORM{
 		'created'	=> 'DESC',
 	);
 
+	/**
+	* Règles de validation
+	**/
+	public function rules()
+	{
+		return array(
+			'title' => array(
+				array('not_empty'),
+			),
+		);
+	}
+
+	public function get($column)
+	{
+
+		if ($column == 'created')
+		{			
+ 			return strftime('%A %e %B %Y à %Hh%M', strtotime($this->_object['created']));
+		}
+
+		if ($column == 'expiry_time')
+		{
+			return Date::formatted_span($this->_object['expiry_time'], $this->_object['expiry_time'] * 2);
+		}
+
+		return parent::get($column);
+	}
 }

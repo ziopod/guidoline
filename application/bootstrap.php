@@ -151,18 +151,28 @@ Kohana::modules(array(
 // API
 Route::set('api', '<controller>(/<action>)(.<format>)',
   array(
-    'format' => '(json|html)',
+    'response_format' => '(json|html)',
     'controller' => '(users|members)',
 //    'format' => '(json|xml)',
   ))
   ->defaults(array(
-      'controller' => 'userguide',
+      'controller' => 'Userguide',
       'action' => 'index',
     ));
 
+// Sections
+// Route::set('sections', '<directory>(/<controller>(/<action>(/<id>)))',
+//     array(
+// //      'directory' => '(embers)',
+//   ))
+//   ->defaults(array(
+//     'directory'   => 'Members',
+//     'controller'  => 'Subscriptions',
+//     'action'      => 'index',
+//   ));
 // Defaults
 Route::set('default', '(<controller>(/<action>(/<id>)))')
   ->defaults(array(
-    'controller' => 'dashboard',
+    'controller' => 'Dashboard',
     'action'     => 'index',
   ));

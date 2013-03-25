@@ -25,12 +25,12 @@ class Model_Member extends ORM{
 	);
 
 	protected $_has_many = array(
-		'subscription' => array(
-			'model'		=> 'subscription',
+		'subscriptions' => array(
+			'model'		=> 'Subscription',
 			'through'	=> 'subscriptions_members'
 		),
 		'subscriptions_member' => array(
-			'model'		=> 'subscriptions_member',
+			'model'		=> 'Subscriptions_Member',
 		),
 	);
 
@@ -114,56 +114,65 @@ class Model_Member extends ORM{
 	}
 
 	/**
-	* Indique des informations sur la dernière date d'adhésion
+	* Retourne les dernière adhésion valides
 	*
-	* @return	Boolean
+	* @return	Mixte	False ou tableau des dernières adhésions valides
 	**/
-	public function last_subscription()
+	public function last_valid_subscriptions()
 	{
-		//var_dump('pouet');
-		if ( ! $this->has('subscription'))
+		if ( ! $this->has('subscriptions'))
 		{
 			return FALSE;
 		}
 
-		//echo Debug::vars(strftime('%A %e %B %Y à %H:%M:%S', time()));
-		$true_seconds_in_current_year = (date('z', mktime(0, 0, 0, 12, 31, Date::YEAR)) + 1 ) * 24 * 60 * 60;
-		//echo Debug::vars(date('z', mktime(0,0,0,12,31,date("Y", time()))) +1 );
-	//	echo Debug::vars($true_seconds_in_current_year);
-//		31104000
-//		 mktime(0,0,0,12,31,2008)
+		// AND DATE_ADD(`subscriptions_member`.`created`, INTERVAL `subscription`.`expiry_time` SECOND) >  CURDATE()
+		// AND TO_SECONDS(`subscriptions_member`.`created`) + `subscription`.`expiry_time` >  TO_SECONDS(NOW())
+
+		$lasts = $this->subscriptions_member
+			->with('subscription')
+			->where(DB::expr("TO_SECONDS(`subscriptions_member`.`created`) + `subscription`.`expiry_time`"), '>', DB::expr("TO_SECONDS(NOW())"))
+			->find_all();
+
+		if ( ! count($lasts))
+		{
+			return FALSE;
+		}
 		
-		// (cal_days_in_month(CAL_GREGORIAN, 2, date("Y", time())) === 29) ? true : false; // Année bissextile (is leap year)
-		// (Date::days(2, date("Y", time()) === 29); //  Utilise Mktime
-		$last_subscription = $this->subscriptions_member->find();
-		$subscription = $this->subscription->find();
-		$expiry_time = $true_seconds_in_current_year; //$subscription->expiry_time;
-		$start_date = $last_subscription->created;
-		$start_time = strtotime($start_date);
-		$end_date = strftime('%A %e %B %Y à %Hh%M', $start_time + $expiry_time);
-		$date_infos = array(
-			'valid'					=> $start_time + $expiry_time > time() ? TRUE : FALSE,
-			'subscription'			=> $subscription,
-			'start_date'			=> $start_date,
-			'end_date'				=> $end_date,
-			'date_span'				=> Date::span($start_time),
-			'date_span_fuzzy'		=> Date::fuzzy_span($start_time),
-			'date_remaining'		=> Date::span($start_time + $expiry_time),
-			'date_remaining_fuzzy'	=> Date::fuzzy_span($start_time + $expiry_time),
-		);
-		return $date_infos;
+		return $lasts;
 	}
 
 	/**
-	* Indique si la dernière inscirption est toujours valide
+	* Retourne la dernière adhésion (informations de dates formatés)
+	*
+	* @return	Mixte	False ou tableau contenant la dernière adhésion
 	**/
-	public function valid_subscription()
+	public function last_subscription()
 	{
 
-		$subscription_date = strtotime($this->last_subscription()->created);
-		return array(
-			//'date'	=>  strtotime('', 'subscription_date');
-			'fuzzy' => Date::fuzzy_span($subscription_date, time()),
-			);
+		if ( ! $this->has('subscriptions'))
+		{
+			return FALSE;
+		}
+		
+		return $this->subscriptions_member->find();
+	}
+
+	/**
+	* Retourne la première adhésion
+	*
+	* @return	Mixte	False ou tableau contenant la première adhésion
+	**/
+	public function first_subscription()
+	{
+		if ( ! $this->has('subscriptions'))
+		{
+			return FALSE;
+		}
+
+	}
+
+	private function _format_infos($subscription)
+	{
+
 	}
 }

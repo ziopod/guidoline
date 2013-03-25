@@ -1,3 +1,7 @@
+#Specific files
+#.htaccess
+#/application/config/datatbase.php
+
 # Compiled source #
 ###################
 *.com
