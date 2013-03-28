@@ -16,7 +16,7 @@
 			<a class="btn btn-info" href="{{base_url}}users.json">Réponse au format JSON</a>
 		</li>
 		<li>
-			<a id="btn-add-users" class="btn btn-info" href="{{base_url}}users/edit">Ajouter un nouvel utilisateur</a>
+			<a id="btn-add-users" class="btn btn-info" href="{{base_url}}users/edit#form_content">Ajouter un nouvel utilisateur</a>
 		</li>
 	</ul>
 </nav>
@@ -41,7 +41,7 @@
 				<td>{{email}}</td>
 				<td>{{role.name}} <i>{{role.description}}</td>
 				<td  colspan="4">
-					<a class="btn" href="{{base_url}}users/edit/{{id}}">Modifier</a>
+					<a class="btn" href="{{base_url}}users/edit/{{id}}#form_content">Modifier</a>
 					-
 					{{#member.id}}
 						<a href="{{base_url}}members/profil/{{member.id}}">Fiche membre</a>

@@ -15,7 +15,7 @@
 			<a class="btn btn-info" href="{{base_url}}members.json">Réponse au format JSON</a>
 		</li>
 		<li>
-			<a id="btn-add-members" class="btn btn-info" href="{{base_url}}members/edit">Ajouter un nouveau membre</a>
+			<a id="btn-add-members" class="btn btn-info" href="{{base_url}}members/edit#form_content">Ajouter un nouveau membre</a>
 		</li>
 	</ul>
 </nav>
@@ -66,7 +66,7 @@
 					{{/last_subscription}}
 				</td>
 				<td>
-					<a class="btn" href="{{base_url}}members/edit/{{id}}">Modifier la fiche membre</a>
+					<a class="btn" href="{{base_url}}members/edit/{{id}}#form_content">Modifier la fiche membre</a>
 					{{#user.id}}
 					<a class="btn" href="{{base_url}}users/profil/{{user.id}}">Fiche utilisateur</a>
 					{{/user.id}}

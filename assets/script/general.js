@@ -1,28 +1,6 @@
 $(document).ready(function() {
-
-		$('[id^=btn-add]').on('click', function(e) {
-	    var $this 						= $(this) ;
-			var pagehref					= $this.attr('href')
-			
-			$this.addClass('disabled');
-			$('<div></div>',{id:'include', style: 'position:relative;'}).insertBefore('.content_table');
-			$this.slideDown("50000", function(e) {
-			  $('#include').load(pagehref + ' .form_edit', null, function() {
-						$('<a></a>',{class: "close",href:"#",text: "x"}).prependTo($(this));
-				});
-			});
-			e.preventDefault();
-	  });
-	
-		$(document).on('click', '.close',function(e) {
-			var $this 						= $(this) ;
-			
-			$this.slideUp("500", function(e) {
-				$('#include').remove();
-			});
-			$('[id^=btn-add]').removeClass('disabled');
-			e.preventDefault();
-	  });
+		
+		$('.btn').nyroModal();
 		
 		$('.table').dataTable( {
 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",

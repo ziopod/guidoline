@@ -1,32 +1,34 @@
-<form action="{{base_url}}users/save" method="post" class="form_edit">
-	<fieldset>
-		<input type="hidden" name="id" id="id" value="{{user.id}}" />
-		<legend>{{title}}</legend>
-		<span>
-			<label for="username">Username</label>
-			<input type="text" name="username" id="username" value="{{user.username}}"/>
-		</span>
-		{{#errors}}{{#username}}<p class="error">{{username}}</p>{{/username}}{{/errors}}
-		<span>
-			<label for="email">Email</label>
-			<input type="email" name="email" id="email" value="{{user.email}}" />
-		</span>
-		{{#errors}}{{#email}}<p class="error">{{errors.email}}</p>{{/email}}{{/errors}}
-		<span>
-			Rôles actuels : 
-			{{#user.roles.find_all}}
-				{{name}},
-			{{/user.roles.find_all}}
-			<br />
-			<label for="roles">Roles</label>
-			<select name="roles" id="roles" multiple="multiple">
-				{{#roles}}
-					<option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
-				{{/roles}}
-			</select>
-		</span>
-		<span class="form_action">
-			<input class="btn" type="submit" value="Enregistrer" />
-		</span>
-	</fieldset>
-</form>
+<div id="form_content">
+	<form action="{{base_url}}users/save" method="post" class="form_edit">
+		<fieldset>
+			<input type="hidden" name="id" id="id" value="{{user.id}}" />
+			<legend>{{title}}</legend>
+			<span>
+				<label for="username">Username</label>
+				<input type="text" name="username" id="username" value="{{user.username}}"/>
+			</span>
+			{{#errors}}{{#username}}<p class="error">{{username}}</p>{{/username}}{{/errors}}
+			<span>
+				<label for="email">Email</label>
+				<input type="email" name="email" id="email" value="{{user.email}}" />
+			</span>
+			{{#errors}}{{#email}}<p class="error">{{errors.email}}</p>{{/email}}{{/errors}}
+			<span>
+				Rôles actuels : 
+				{{#user.roles.find_all}}
+					{{name}},
+				{{/user.roles.find_all}}
+				<br />
+				<label for="roles">Roles</label>
+				<select name="roles" id="roles" multiple="multiple">
+					{{#roles}}
+						<option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
+					{{/roles}}
+				</select>
+			</span>
+			<span class="form_action">
+				<input class="btn" type="submit" value="Enregistrer" />
+			</span>
+		</fieldset>
+	</form>
+</div>

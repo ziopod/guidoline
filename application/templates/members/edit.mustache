@@ -1,33 +1,35 @@
-<form action="{{base_url}}members/save" method="post" class="form_edit">
-	<fieldset>
-		<legend>Informations personnelles</legend>
-		{{#errors}}
-		<strong class="msg-error">Ce formulaire n'est pas correctement rempli, pas bien!</strong>
-		{{/errors}}
-		<input type="hidden" name="id" id="id" value="{{member.id}}" />
-		<span>
-			<label for="email">Email</label>
-			<input type="email" name="email" id="email" value="{{member.email}}" />
-		</span>
-		{{#errors}}{{#email}}<p class="form-error">{{email}}</p>{{/email}}{{/errors}}
-		<span>
-			<label for="firstname">Prénom</label>
-			<input type="text" name="firstname" id="firstname" value="{{member.firstname}}" />
-		</span>
-		<span>
-			<label for="name">Nom</label>
-			<input type="text" name="name" id="name" value="{{member.name}}" />
-		</span>
-		<span>
-			<label for="status_id">Statut</label>
-			<select name="status_id" id="status_id">
-				{{#member.statuses}}
-					<option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
-				{{/member.statuses}}
-			</select>
-		</span>
-		<span class="form_action">
-			<input class="btn" type="submit" value="Enregistrer" />
-		</span>
-	</fieldset>
-</form>
+<div id="form_content">
+	<form action="{{base_url}}members/save" method="post" class="form_edit">
+		<fieldset>
+			<legend>Informations personnelles</legend>
+			{{#errors}}
+			<strong class="msg-error">Ce formulaire n'est pas correctement rempli, pas bien!</strong>
+			{{/errors}}
+			<input type="hidden" name="id" id="id" value="{{member.id}}" />
+			<span>
+				<label for="email">Email</label>
+				<input type="email" name="email" id="email" value="{{member.email}}" />
+			</span>
+			{{#errors}}{{#email}}<p class="form-error">{{email}}</p>{{/email}}{{/errors}}
+			<span>
+				<label for="firstname">Prénom</label>
+				<input type="text" name="firstname" id="firstname" value="{{member.firstname}}" />
+			</span>
+			<span>
+				<label for="name">Nom</label>
+				<input type="text" name="name" id="name" value="{{member.name}}" />
+			</span>
+			<span>
+				<label for="status_id">Statut</label>
+				<select name="status_id" id="status_id">
+					{{#member.statuses}}
+						<option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
+					{{/member.statuses}}
+				</select>
+			</span>
+			<span class="form_action">
+				<input class="btn" type="submit" value="Enregistrer" />
+			</span>
+		</fieldset>
+	</form>
+</div>

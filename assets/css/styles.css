@@ -1,5 +1,6 @@
 @import "bootstrap.css";
 @import "flat-ui.css";
+@import "nyroModal.css";
 
 
 /* Typography */
@@ -10,14 +11,11 @@ h1 {
 	border-bottom: 2px solid #999;
 }
 
-.close {
-	position: absolute;
-	color: black !important;
-	font-size: 1.5em;
-	text-decoration: none;
-	top: 15px;
-	right: 0;
-	background: none;
+iframe {background: red;}
+
+.cboxIframe .navbar,
+.cboxIframe .content_profiler {
+	display: none;
 }
 
 /* Navigation */
@@ -29,6 +27,7 @@ h1 {
 	float: right;
 	list-style-type: none;
 }
+
 .nav_edit li {
 	margin: 0 .5em;
 	float: left;
@@ -77,11 +76,12 @@ legend {
 [class^=form_] span {
 	display: block;
 	float: left;
-	width: 20%;
+	width: 50%;
 }
 
 [class^=form_] .form_action {
 	float: right;
+	clear: both;
 	padding-top:1.5em;
 	width: auto;
 }
