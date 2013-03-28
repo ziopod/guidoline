@@ -10,6 +10,16 @@ h1 {
 	border-bottom: 2px solid #999;
 }
 
+.close {
+	position: absolute;
+	color: black !important;
+	font-size: 1.5em;
+	text-decoration: none;
+	top: 15px;
+	right: 0;
+	background: none;
+}
+
 /* Navigation */
 /*-----------------------*/
 
@@ -64,14 +74,27 @@ legend {
 	margin: 0 0 1em;
 }
 
-.form_members span {
+[class^=form_] span {
 	display: block;
 	float: left;
 	width: 20%;
 }
 
-.form_members .form_action {
+[class^=form_] .form_action {
 	float: right;
 	padding-top:1.5em;
 	width: auto;
+}
+
+/* Form grid */
+/*-----------------------*/
+
+.span8 {
+	float: left;
+	width: 40%;
+}
+
+.span8 + .span8 {
+	float: right;
+	text-align: right;
 }
