@@ -1,9 +1,8 @@
-
-
+{{#members}}{{/members}}
 <section class="content_stat">
 	<h1>Statistiques</h1>
 	<div class="row">
-	  <div class="span3"><h2>Actifs</h2><div class="block"><span class="stat number_member">560</span> membres actifs dans l'association{{#members_count}}Nombre total de membres : {{members_count}}{{/members_count}}</div></div>
+	  {{#members_count}}<div class="span3"><h2>Actifs</h2><div class="block"><span class="stat number_member">{{members_count}}</span> membres actifs dans l'association</div></div>{{/members_count}}
 	  <div class="span3"><h2>Nouveaux/Total</h2><div class="block"><span class="stat number_member">10%</span> de nouveaux membres en 2013</div></div>
 		<div class="span3"><h2>Renouvellement</h2><div class="block"><span class="stat number_member">30%</span> de membres inscrits depuis plus de 3 ans</div></div>
 		<div class="span3"><h2>Moyenne d'âge</h2><div class="block"><span class="stat number_member">60%</span> des membres ont moins de 25 ans</div></div>
@@ -26,9 +25,9 @@
 	<table id="table_members" class="table">
 		<thead>
 			<tr>
-				<th>ID</th>
-				<th>Prénom & Nom</th>
-				<th>première date d'inscription</th>
+				<th>#</th>
+				<th>Nom</th>
+				<th>Date d'inscription</th>
 				<th>Statut</th>
 				<th>Email</th>
 				<th>Téléphone</th>
@@ -68,12 +67,11 @@
 				</td>
 				<td>
 					<a class="btn" href="{{base_url}}members/edit/{{id}}">Modifier la fiche membre</a>
-					-
 					{{#user.id}}
-						<a class="btn" href="{{base_url}}users/profil/{{user.id}}">Fiche utilisateur</a>
+					<a class="btn" href="{{base_url}}users/profil/{{user.id}}">Fiche utilisateur</a>
 					{{/user.id}}
 					{{^user.id}}
-						Ce membre n'as pas de compte utilisateur
+						Ce membre n'a pas de compte utilisateur
 					{{/user.id}}
 				</td>
 			</tr>
@@ -81,22 +79,11 @@
 		</tbody>
 	</table>
 	
-	
-	<table class="table">
-		<tbody>
-			<tr>
-				<td></td>
-			</tr>
-			
-			{{^members}}
-				<tr>
-					<td colspan="3">
-						— Aucun membre pour l'instant —
-						<a class="btn" href="{{base_url}}members/edit/">Ajoutez votre premier membre</a>
-					</td>
-				</tr>
-			{{/members}}
-		</tbody>
-	</table>
+	{{^members}}
+	<p>
+		— Aucun membre pour l'instant —
+		<a class="btn" href="{{base_url}}members/edit/">Ajoutez votre premier membre</a>
+	</p>
+	{{/members}}
 	
 </section>

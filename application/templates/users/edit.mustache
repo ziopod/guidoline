@@ -1,18 +1,18 @@
-<form action="{{base_url}}users/save" method="post">
+<form action="{{base_url}}users/save" method="post" class="form_edit">
 	<fieldset>
 		<input type="hidden" name="id" id="id" value="{{user.id}}" />
 		<legend>{{title}}</legend>
-		<p>
+		<span>
 			<label for="username">Username</label>
 			<input type="text" name="username" id="username" value="{{user.username}}"/>
-		</p>
+		</span>
 		{{#errors}}{{#username}}<p class="error">{{username}}</p>{{/username}}{{/errors}}
-		<p>
+		<span>
 			<label for="email">Email</label>
 			<input type="email" name="email" id="email" value="{{user.email}}" />
-		</p>
+		</span>
 		{{#errors}}{{#email}}<p class="error">{{errors.email}}</p>{{/email}}{{/errors}}
-		<p>
+		<span>
 			Rôles actuels : 
 			{{#user.roles.find_all}}
 				{{name}},
@@ -24,9 +24,9 @@
 					<option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
 				{{/roles}}
 			</select>
-		</p>
-		<p>
-			<input type="submit" value="Enregistrer" />
-		</p>
+		</span>
+		<span class="form_action">
+			<input class="btn" type="submit" value="Enregistrer" />
+		</span>
 	</fieldset>
 </form>

@@ -1,4 +1,4 @@
-<form action="{{base_url}}members/save" method="post" class="form_members">
+<form action="{{base_url}}members/save" method="post" class="form_edit">
 	<fieldset>
 		<legend>Informations personnelles</legend>
 		{{#errors}}
@@ -7,7 +7,7 @@
 		<input type="hidden" name="id" id="id" value="{{member.id}}" />
 		<span>
 			<label for="email">Email</label>
-			<input type="text" name="email" id="email" value="{{member.email}}" />
+			<input type="email" name="email" id="email" value="{{member.email}}" />
 		</span>
 		{{#errors}}{{#email}}<p class="form-error">{{email}}</p>{{/email}}{{/errors}}
 		<span>
@@ -27,7 +27,7 @@
 			</select>
 		</span>
 		<span class="form_action">
-			<input class="btn btn-large" type="submit" value="Enregistrer" />
+			<input class="btn" type="submit" value="Enregistrer" />
 		</span>
 	</fieldset>
 </form>

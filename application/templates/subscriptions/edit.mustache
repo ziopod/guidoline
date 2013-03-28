@@ -1,5 +1,5 @@
 {{#subscription}}
-<form action="{{base_url}}subscriptions/save/{{id}}" method="post">
+<form action="{{base_url}}subscriptions/save/{{id}}" method="post" class="form_edit">
 	<input type="hidden" name="redirect" value="subscriptions">
 	<fieldset>
 		<legend>Adhésion</legend>
@@ -11,19 +11,18 @@
 		<strong class="msg-error">{{message}}</strong>
 		{{/errors}}
 		{{/message}}
-		<p>
+		<span>
 			<label for="title">Titre</label>
 			<input type="text" name="title" id="title" value="{{title}}" />
-		</p>
+		</span>
 		{{#errors}}{{#title}}<p class="form-error">{{title}}</p>{{/title}}{{/errors}}
-		<p>
+		<span>
 			<label for="description">Description</label>
 			<textarea name="description" id="description" cols="30" rows="10">{{description}}</textarea>
-		</p>
-
+		</span>
+		<span class="form_action">
+			<input class="btn" type="submit" value="Enregistrer" />
+		</span>
 	</fieldset>
-	<p>
-		<input type="submit" value="Enregistrer" />
-	</p>
 </form>
 {{/subscription}}

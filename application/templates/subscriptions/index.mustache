@@ -1,38 +1,48 @@
-{{#subscriptions.count_all}}
-	<table>
-	<thead>
-		<tr>
-			<th>Titre</th>
-			<th>Description</th>
-			<th>Coût</th>
-			<th>Crée le</th>
-			<th>Durée d'expiration</th>
-			<th>Nbre de membres</th>
-		</tr>
-	</thead>
-	<tbody>
-		{{#subscriptions.find_all}}
-		<tr>
-			<td><strong><a href="{{base_url}}subscriptions/detail/{{id}}">{{title}}</a></strong></td>
-			<td>{{description}}</td>
-			<td>{{cost}}</td>
-			<td>{{created}}</td>
-			<td>{{expiry_time}}</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td colspan="6">
-				<a href="{{base_url}}subscriptions/edit/{{id}}">Modifier</a>
-				—
-				<a href="{{base_url}}subscriptions/delete/{{id}}">Supprimer</a>
-			</td>
-		</tr>
-		{{/subscriptions.find_all}}
-	</tbody>
-</table>
-<a href="{{base_url}}subscriptions/edit">Ajouter une adhésion</a>
-{{/subscriptions.count_all}}
-{{^subscriptions.count_all}}
-— Aucune adhésions pour le moment —
-<a href="{{base_url}}subscriptions/edit">Ajouter une première adhésion</a>
-{{/subscriptions.count_all}}
+
+<nav class="nav_edit">
+	<ul>
+		<li>
+			<a class="btn btn-info" href="{{base_url}}subscriptions.json">Réponse au format JSON</a>
+		</li>
+		<li>
+			<a id="btn-add-subscriptions" class="btn btn-info" href="{{base_url}}subscriptions/edit">Ajouter une adhésion</a>
+		</li>
+	</ul>
+</nav>
+
+<section class="content_table">
+	<h1>Tableaux des membres</h1>
+	{{#subscriptions.count_all}}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Titre</th>
+				<th>Description</th>
+				<th>Coût</th>
+				<th>Crée le</th>
+				<th>Durée d'expiration</th>
+				<th>Nbre de membres</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#subscriptions.find_all}}
+			<tr>
+				<td><strong><a href="{{base_url}}subscriptions/detail/{{id}}">{{title}}</a></strong></td>
+				<td>{{description}}</td>
+				<td>{{cost}}</td>
+				<td>{{created}}</td>
+				<td>{{expiry_time}}</td>
+				<td></td>
+				<td>
+					<a class="btn" href="{{base_url}}subscriptions/edit/{{id}}">Modifier</a>
+					<a class="btn" href="{{base_url}}subscriptions/delete/{{id}}">Supprimer</a>
+				</td>
+			{{/subscriptions.find_all}}
+		</tbody>
+	</table>
+	{{/subscriptions.count_all}}
+	{{^subscriptions.count_all}}
+	— Aucune adhésions pour le moment —
+	{{/subscriptions.count_all}}
+</section>

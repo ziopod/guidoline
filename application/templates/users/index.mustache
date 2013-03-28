@@ -1,47 +1,64 @@
-<table>
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Username</th>
-			<th>Email</th>
-			<th>Rôle</th>
-		</tr>
-	</thead>
-	<tbody>
-	{{#users}}
-		<tr>
-			<td>{{id}}</th>
-			<td><a href="{{base_url}}users/profil/{{id}}">{{username}}</a></td>
-			<td>{{email}}</td>
-			<td>{{role.name}} <i>{{role.description}}</td>
-		</tr>
-		<tr>
-			<td  colspan="4">
-				<a href="{{base_url}}users/edit/{{id}}">Modifier</a>
-				-
-				{{#member.id}}
-					<a href="{{base_url}}members/profil/{{member.id}}">Fiche membre</a>
-				{{/member.id}}
-				{{^member.id}}
-					Cet utilisateur n'est pas membre de l'association
-				{{/member.id}}
-			</td>
-		</tr>
-	{{/users}}
-	{{^users}}
-		<tr>
-			<td colspan="3">
-				— Aucun utilisateur pour l'instant —
-				<a href="{{base_url}}users/edit/">Ajoutez votre premier utilisateur</a>
-			</td>
-		</tr>
-	{{/users}}
-	</tbody>
-</table>
-{{#users_count}}Nombre total d'utilisateurs : {{users_count}}{{/users_count}}
-<p>
-	<a href="{{base_url}}users/edit">Ajouter un nouvel utilisateur</a>
-</p>
-<p>
-	<a href="{{base_url}}users.json">Réponse au format JSON</a>
-</p>
+{{#users}}{{/users}}
+<section class="content_stat">
+	<h1>Statistiques</h1>
+	<div class="row">
+	  {{#users_count}}<div class="span3"><h2>Actifs</h2><div class="block"><span class="stat number_member">{{users_count}}</span> utilisateurs inscrit sur le site de l'association</div></div>{{/users_count}}
+	  <div class="span3"><h2>Nouveaux/Total</h2><div class="block"><span class="stat number_member">10%</span> de nouveaux membres en 2013</div></div>
+		<div class="span3"><h2>Renouvellement</h2><div class="block"><span class="stat number_member">30%</span> de membres inscrits depuis plus de 3 ans</div></div>
+		<div class="span3"><h2>Moyenne d'âge</h2><div class="block"><span class="stat number_member">60%</span> des membres ont moins de 25 ans</div></div>
+	</div>
+</section>
+
+
+<nav class="nav_edit">
+	<ul>
+		<li>
+			<a class="btn btn-info" href="{{base_url}}users.json">Réponse au format JSON</a>
+		</li>
+		<li>
+			<a id="btn-add-users" class="btn btn-info" href="{{base_url}}users/edit">Ajouter un nouvel utilisateur</a>
+		</li>
+	</ul>
+</nav>
+
+<section class="content_table">
+	<h1>Tableaux des membres</h1>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Nom</th>
+				<th>Email</th>
+				<th>Rôle</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+		{{#users}}
+			<tr>
+				<td>{{id}}</th>
+				<td><a href="{{base_url}}users/profil/{{id}}">{{username}}</a></td>
+				<td>{{email}}</td>
+				<td>{{role.name}} <i>{{role.description}}</td>
+				<td  colspan="4">
+					<a class="btn" href="{{base_url}}users/edit/{{id}}">Modifier</a>
+					-
+					{{#member.id}}
+						<a href="{{base_url}}members/profil/{{member.id}}">Fiche membre</a>
+					{{/member.id}}
+					{{^member.id}}
+						Cet utilisateur n'est pas membre de l'association
+					{{/member.id}}
+				</td>
+		{{/users}}
+		{{^users}}
+			<tr>
+				<td colspan="3">
+					— Aucun utilisateur pour l'instant —
+					<a class="btn" href="{{base_url}}users/edit/">Ajoutez votre premier utilisateur</a>
+				</td>
+			</tr>
+		{{/users}}
+		</tbody>
+	</table>
+</section>
