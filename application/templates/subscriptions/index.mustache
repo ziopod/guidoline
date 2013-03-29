@@ -5,7 +5,7 @@
 			<a class="btn btn-info" href="{{base_url}}subscriptions.json">Réponse au format JSON</a>
 		</li>
 		<li>
-			<a id="btn-add-subscriptions" class="btn btn-info" href="{{base_url}}subscriptions/edit#form_content">Ajouter une adhésion</a>
+			<a class="btn btn-info modale" href="{{base_url}}subscriptions/edit#form_content">Ajouter une adhésion</a>
 		</li>
 	</ul>
 </nav>
@@ -35,7 +35,7 @@
 				<td>{{expiry_time}}</td>
 				<td></td>
 				<td>
-					<a class="btn" href="{{base_url}}subscriptions/edit/{{id}}#form_content">Modifier</a>
+					<a class="btn modale" href="{{base_url}}subscriptions/edit/{{id}}#form_content">Modifier</a>
 					<a class="btn" href="{{base_url}}subscriptions/delete/{{id}}">Supprimer</a>
 				</td>
 			{{/subscriptions.find_all}}

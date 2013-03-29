@@ -18,6 +18,10 @@ iframe {background: red;}
 	display: none;
 }
 
+.content_profiler {
+	display: none;
+}
+
 /* Navigation */
 /*-----------------------*/
 

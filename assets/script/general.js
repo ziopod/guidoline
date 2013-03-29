@@ -1,6 +1,6 @@
 $(document).ready(function() {
 		
-		$('.btn').nyroModal();
+		$('.modale').nyroModal();
 		
 		$('.table').dataTable( {
 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
