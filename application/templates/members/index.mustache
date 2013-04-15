@@ -50,7 +50,7 @@
 				</td>
 				<td>
 					{{#last_subscription}}
-					<a href="{{base_url}}subscriptions/{{last_subscription.subscription.id}}">{{last_subscription.subscription.title}}</a>
+					<a href="{{base_url}}subscriptions/detail/{{last_subscription.subscription.id}}">{{last_subscription.subscription.title}}</a>
 					<br />
 					{{#last_subscription.valid}}—inscription valide—{{/last_subscription.valid}}
 					{{^last_subscription.valid}}—inscription périmé—{{/last_subscription.valid}}
