@@ -90,6 +90,13 @@ legend {
 	width: auto;
 }
 
+/* Form */
+/*-----------------------*/
+
+.table .btn {
+	white-space: nowrap;
+}
+
 /* Form grid */
 /*-----------------------*/
 

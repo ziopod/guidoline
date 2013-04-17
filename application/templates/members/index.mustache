@@ -66,12 +66,9 @@
 					{{/last_subscription}}
 				</td>
 				<td>
-					<a class="btn modale" href="{{base_url}}members/edit/{{id}}#form_content">Modifier la fiche membre</a>
+					<p><a class="btn modale" href="{{base_url}}members/edit/{{id}}#form_content">Modifier la fiche membre</a></p>
 					{{#user.id}}
-					<a class="btn" href="{{base_url}}users/profil/{{user.id}}">Fiche utilisateur</a>
-					{{/user.id}}
-					{{^user.id}}
-						Ce membre n'a pas de compte utilisateur
+					<a class="btn" href="{{base_url}}users/profil/{{user.id}}">Fiche utilisateur</a></p>
 					{{/user.id}}
 				</td>
 			</tr>
