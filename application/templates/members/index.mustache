@@ -49,21 +49,30 @@
 					{{street}} - {{zipcode}} {{city}}
 				</td>
 				<td>
-					{{#last_subscription}}
-					<a href="{{base_url}}subscriptions/detail/{{last_subscription.subscription.id}}">{{last_subscription.subscription.title}}</a>
-					<br />
-					{{#last_subscription.valid}}—inscription valide—{{/last_subscription.valid}}
-					{{^last_subscription.valid}}—inscription périmé—{{/last_subscription.valid}}
-					<br />
-					Le {{last_subscription.start_date}} ({{last_subscription.date_span_fuzzy}})
-					<br />
-					Inscrit il y a {{last_subscription.date_span.years}} ans, {{last_subscription.date_span.months}} mois, {{last_subscription.date_span.days}} jours, {{last_subscription.date_span.hours}} heures, {{last_subscription.date_span.minutes}} minutes, {{last_subscription.date_span.seconds}} secondes
-					<br />
-					Périmé dans/depuis {{last_subscription.date_remaining.years}} ans, {{last_subscription.date_remaining.months}} mois, {{last_subscription.date_remaining.days}} jours, {{last_subscription.date_remaining.hours}} heures, {{last_subscription.date_remaining.minutes}} minutes, {{last_subscription.date_remaining.seconds}} secondes ({{last_subscription.date_remaining_fuzzy}})
-					{{/last_subscription}}
-					{{^last_subscription}}
-						- Aucune adhésion - 
-					{{/last_subscription}}
+					{{#last_valid_subscriptions}}
+					<strong><a href="{{base_url}}subscriptions/detail/{{subscription.id}}">{{subscription.title}}</a></strong>
+					<p>
+						{{#valid_subscription}}
+							—inscription valide—
+							<br />
+							Inscrit le {{start_date}} ({{elapsed_time_fuzzy}})
+							<br />
+							Périmé {{remaining_time}} (le {{end_date}})
+						
+						{{/valid_subscription}}
+
+						{{^valid_subscription}}
+							—inscription périmé—
+							<br />
+							Périmé depuis le {{end_date}} ({{end_date_fuzzy}})
+
+						{{/valid_subscription}}
+					</p>
+					{{/last_valid_subscriptions}}
+					{{^last_valid_subscriptions}}
+						- Aucune inscription - 
+						<br />
+					{{/last_valid_subscriptions}}
 					<a href="{{base_url}}members/subscriptions/{{id}}">Gérer les inscriptions</a>
 				</td>
 				<td>

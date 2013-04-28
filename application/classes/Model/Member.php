@@ -33,6 +33,33 @@ class Model_Member extends ORM{
 			'model'		=> 'Subscriptions_Member',
 		),
 	);
+	
+	public $genders = array(
+		array(
+			'value'	=> 'h',
+			'label'	=> 'Homme',
+		),
+		array(
+			'value'	=> 'f',
+			'label'	=> 'Femme',
+		)
+	);
+
+	public $titles = array(
+			array(
+				'value'	=> 'm.',
+				'label'	=> 'M.',
+			),
+			array(
+				'value'	=> 'mm.',
+				'label'	=> 'Mm.',
+			),
+			array(
+				'value'	=> 'mlle',
+				'label'	=> 'Mlle',
+			),
+		);
+
 
 	/**
 	* Règles de validation
@@ -171,6 +198,25 @@ class Model_Member extends ORM{
 
 	}
 
+	/**
+	* Retourne la liste des genres et marque le genre du membre courant
+	**/
+	public function genders()
+	{
+		$genders = array();
+
+		foreach ($this->genders as $gender)
+		{
+			$genders[] = array(
+				'value' 	=> $gender['value'],
+				'label'		=> $gender['label'],
+				'current'	=> $gender['value'] == $this->gender,
+			);
+		}
+
+		return $genders;
+	}
+	
 	private function _format_infos($subscription)
 	{
 
