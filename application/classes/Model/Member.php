@@ -216,6 +216,22 @@ class Model_Member extends ORM{
 
 		return $genders;
 	}
+
+	public function fancy_gender()
+	{
+		return $this->gender === 'h' ? '&#9794' : '&#9792;';
+
+	}
+
+	public function fancy_birthdate()
+	{
+		return $this->birthdate ? strftime('%A %e %B %Y', strtotime($this->birthdate)) : FALSE;
+	}
+
+	public function fancy_created()
+	{
+		return $this->created ? strftime('%A %e %B %Y', strtotime($this->created)) : FALSE;
+	}
 	
 	private function _format_infos($subscription)
 	{
