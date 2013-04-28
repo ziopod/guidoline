@@ -128,6 +128,11 @@ Kohana::$log->attach(new Log_File(APPPATH.'logs'));
  */
 Kohana::$config->attach(new Config_File);
 
+if (Kohana::$environment === Kohana::DEVELOPMENT)
+{
+  Kohana::$config->attach(new Kohana_Config_File('config/development'), TRUE);
+}
+
 /**
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
