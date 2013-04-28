@@ -2,10 +2,31 @@
 <section class="content_stat">
 	<h1>Statistiques</h1>
 	<div class="row">
-	  {{#members_count}}<div class="span3"><h2>Actifs</h2><div class="block"><span class="stat number_member">{{members_count}}</span> membres actifs dans l'association</div></div>{{/members_count}}
-	  <div class="span3"><h2>Nouveaux/Total</h2><div class="block"><span class="stat number_member">10%</span> de nouveaux membres en 2013</div></div>
-		<div class="span3"><h2>Renouvellement</h2><div class="block"><span class="stat number_member">30%</span> de membres inscrits depuis plus de 3 ans</div></div>
-		<div class="span3"><h2>Moyenne d'âge</h2><div class="block"><span class="stat number_member">60%</span> des membres ont moins de 25 ans</div></div>
+	 <div class="span3">
+	 	<h2>Actifs</h2>
+	 	<div class="block">
+	 		<span class="stat number_member">{{count_active_members}} / {{count_members}}</span> membres actifs dans l'association.
+	 		<br /><strong>{{new_membersship_during_year}}</strong> nouvelles inscriptions cette année.
+	 	</div>
+	</div>
+	 <div class="span3">
+	 	<h2>Nouveaux/Total</h2>
+	 	<div class="block">
+	 		<span class="stat number_member">{{percentage_new_members_during_year}}%</span> de nouveaux membres en 2013
+	 	</div>
+	 </div>
+	<div class="span3">
+		<h2>Renouvellement</h2>
+		<div class="block">
+			<span class="stat number_member">-%</span> de membres inscrits depuis plus de 3 ans
+		</div>
+	</div>
+	<div class="span3">
+		<h2>Moyenne d'âge</h2>
+		<div class="block">
+			<span class="stat number_member">-%</span> des membres ont moins de 25 ans
+		</div>
+	</div>
 	</div>
 </section>
 
