@@ -16,6 +16,11 @@ class Stats
  // extends Controller_App
 {
 	/**
+	* @vars Objet ORM des membres
+	**/
+	public $members;
+
+	/**
 	* @vars Nombre d'adérents
 	**/
 	public $count_members;
@@ -23,11 +28,6 @@ class Stats
 	// {
 	// 	return new View($file, $data);
 	// }
-
-	public static function factory()
-	{
-		return new Stats();
-	}
 
 	/**
 	* @vars Nombre d'adhérents actifs
@@ -40,12 +40,20 @@ class Stats
 	public $new_membersship_during_year;
 
 
+	/**
+	* Pour appler toutes les méthode de manière statique et dynamique
+	*/
+	public static function factory()
+	{
+		return new Stats();
+	}
+
 	public function __construct()
 	{
-		$members = ORM::factory('member');
-		$this->count_members = $members->count_all();
+		$this->members = ORM::factory('member');
+		$this->count_members = $this->members->count_all();
 		
-		foreach ($members->find_all() as $member)
+		foreach ($this->members->find_all() as $member)
 		{
 			if ($member->last_valid_subscriptions())
 			{
@@ -53,7 +61,7 @@ class Stats
 			}
 		}
 
-		$this->new_membersship_during_year = $members->where(DB::expr("EXTRACT(YEAR FROM member.created)"), '=', date('Y', time()))->count_all();
+		$this->new_membersship_during_year = $this->members->where(DB::expr("EXTRACT(YEAR FROM member.created)"), '=', date('Y', time()))->count_all();
 	}
 
 	/**
@@ -61,7 +69,7 @@ class Stats
 	**/
 	public function percentage_new_members_during_year()
 	{
-		return ($this->count_active_members / $this->new_membersship_during_year ) * 100;
+		return ($this->count_members / $this->new_membersship_during_year ) * 100;
 	}
 
 	/**
@@ -85,7 +93,14 @@ class Stats
 	**/
 	public function average_age()
 	{
+		$age = 25;
 
+		// Membres ayant une date anniversaire spécifié
+		$ma = ORM::factory('member')->where('birthdate', '!=', NULL)->count_all();
+		// Membres ayant une date anniversaire et un age inférieur à une valeur
+		$c = $this->members->where(DB::expr("member.birthdate + INTERVAL {$age} YEAR"), '>', date('Y-m-d H:i:s', time()))->count_all();
+
+		return $c / $ma * 100;
 	}
 
 }

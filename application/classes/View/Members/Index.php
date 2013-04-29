@@ -68,4 +68,12 @@ class View_Members_Index extends View_Layout {
 	{
 		return $this->stats->percentage_new_members_during_year();
 	}
+
+	/**
+	* Membre de moins de 25 ans
+	**/
+	public function average_age()
+	{
+		return $this->stats->average_age();
+	}
 }
