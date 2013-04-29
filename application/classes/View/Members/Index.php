@@ -76,4 +76,12 @@ class View_Members_Index extends View_Layout {
 	{
 		return $this->stats->average_age();
 	}
+
+	/**
+	* Turnover sur les 3 dernières années
+	**/
+	public function turnover()
+	{
+		return $this->stats->turnover();
+	}
 }

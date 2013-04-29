@@ -11,7 +11,13 @@
 * @license    http://creativecommons.org/licenses/by-sa/3.0/deed.fr
 */
 
-
+/*
+* Note about stats :
+Nombre de membres sur l'année en cours
+Nombre de membres dont la première date d'adhésion est 2013 / nombre total de membre
+Nombre de membres avec une adhésion sur n,n-1,n-2 / nombre total de membre *chiant* -_-
+Nombres de membres de moins de 25 ans / nombre total de membre
+*/
 class Stats
  // extends Controller_App
 {
@@ -85,7 +91,22 @@ class Stats
 	**/ 
 	public function turnover()
 	{
-		$this->response->body(Json_encode());
+		$last_valid_members_during_year = 0;
+
+		foreach (ORM::factory('member')->find_all() as $member) {
+			if (
+				$member->subscriptions_members->where(DB::expr("EXTRACT(YEAR FROM subscriptions_member.created)"), '=', date('Y', time()))->find()->loaded()
+				AND  
+				$member->subscriptions_members->where(DB::expr("EXTRACT(YEAR FROM subscriptions_member.created)"), '=', date('Y', time()) - 1)->find()->loaded()
+				AND 
+				$member->subscriptions_members->where(DB::expr("EXTRACT(YEAR FROM subscriptions_member.created)"), '=', date('Y', time()) - 2)->find()->loaded()
+			)
+				{
+					$last_valid_members_during_year ++;
+				}
+		}
+
+		return $last_valid_members_during_year / $this->count_members * 100;
 	}
 
 	/**

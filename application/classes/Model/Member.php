@@ -29,7 +29,7 @@ class Model_Member extends ORM{
 			'model'		=> 'Subscription',
 			'through'	=> 'subscriptions_members'
 		),
-		'subscriptions_member' => array(
+		'subscriptions_members' => array(
 			'model'		=> 'Subscriptions_Member',
 		),
 	);
@@ -155,7 +155,7 @@ class Model_Member extends ORM{
 		// AND DATE_ADD(`subscriptions_member`.`created`, INTERVAL `subscription`.`expiry_time` SECOND) >  CURDATE()
 		// AND TO_SECONDS(`subscriptions_member`.`created`) + `subscription`.`expiry_time` >  TO_SECONDS(NOW())
 
-		$lasts = $this->subscriptions_member
+		$lasts = $this->subscriptions_members
 			->with('subscription')
 			->where(DB::expr("TO_SECONDS(`subscriptions_member`.`created`) + `subscription`.`expiry_time`"), '>', DB::expr("TO_SECONDS(NOW())"))
 			->find_all();
