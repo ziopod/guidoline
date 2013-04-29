@@ -50,7 +50,7 @@ class Stats
 
 	public function __construct()
 	{
-		$this->members = ORM::factory('member');
+		$this->members = ORM::factory('Member');
 		$this->count_members = $this->members->count_all();
 		
 		foreach ($this->members->find_all() as $member)
@@ -96,7 +96,7 @@ class Stats
 		$age = 25;
 
 		// Membres ayant une date anniversaire spécifié
-		$ma = ORM::factory('member')->where('birthdate', '!=', NULL)->count_all();
+		$ma = ORM::factory('Member')->where('birthdate', '!=', NULL)->count_all();
 		// Membres ayant une date anniversaire et un age inférieur à une valeur
 		$c = $this->members->where(DB::expr("member.birthdate + INTERVAL {$age} YEAR"), '>', date('Y-m-d H:i:s', time()))->count_all();
 
