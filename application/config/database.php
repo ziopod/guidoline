@@ -24,6 +24,7 @@ return array
 			'database'   => substr($database_url['path'], 1),
 			'username'   => $database_url['user'],
 			'password'   => $database_url['pass'],
+
 			'persistent' => FALSE,
 		),
 		'table_prefix' => '',
