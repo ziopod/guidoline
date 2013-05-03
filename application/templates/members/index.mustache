@@ -70,10 +70,10 @@
 				</td>
 				<td>
 					{{#last_valid_subscriptions}}
-					<strong><a href="{{base_url}}subscriptions/detail/{{subscription.id}}" class="tip" title="<p>
+					<a href="{{base_url}}subscriptions/detail/{{subscription.id}}" class="tip" title="
 						{{#valid_subscription}}
-							—inscription valide—
-							<br />
+						<h3>Inscription valide</h3>
+						<p>
 							Inscrit le {{start_date}} ({{elapsed_time_fuzzy}})
 							<br />
 							Périmé {{remaining_time}} (le {{end_date}})
@@ -82,8 +82,7 @@
 							—inscription périmé—
 							<br />
 							Périmé depuis le {{end_date}} ({{end_date_fuzzy}})
-						{{/valid_subscription}}</p>">{{subscription.title}}</a></strong>
-					
+						{{/valid_subscription}}</p>">{{subscription.title}}</a>
 					{{/last_valid_subscriptions}}
 					{{^last_valid_subscriptions}}
 						- Aucune inscription - 

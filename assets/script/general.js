@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	
-		$('.tip').tooltipster({position: 'bottom',});
-		$('.tipleft').tooltipster({position: 'left',});
+		$('.tip').tooltipster({position: 'bottom'});
+		$('.tipleft').tooltipster({position: 'left'});
 		
 		$('.modale').nyroModal();
 		

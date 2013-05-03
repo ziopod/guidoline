@@ -92,7 +92,7 @@ legend {
 	margin: 0 0 1em;
 }
 
-[class^=form_] span {
+[class^=form_] fieldset > span {
 	display: block;
 	float: left;
 	width: 50%;
