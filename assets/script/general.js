@@ -6,7 +6,8 @@ $(document).ready(function() {
 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
 			"sPaginationType": "bootstrap",
 			"oLanguage": {
-				"sLengthMenu": "_MENU_ records per page"
+				"sLengthMenu": "_MENU_ records per page",
+				"sUrl": "dataTables.french.txt"
 			}
 		});		
 });
