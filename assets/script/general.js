@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	
+		$('.tipleft').tooltipster({position: 'left',});
 		
 		$('.modale').nyroModal();
 		
@@ -7,7 +9,8 @@ $(document).ready(function() {
 			"sPaginationType": "bootstrap",
 			"oLanguage": {
 				"sLengthMenu": "_MENU_ records per page",
-				"sUrl": "dataTables.french.txt"
+				"sUrl": "../assets/language/fr_FR.txt",
+				"sUrl": "assets/language/fr_FR.txt"
 			}
 		});		
 });

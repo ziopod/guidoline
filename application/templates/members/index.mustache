@@ -31,11 +31,11 @@
 
 <nav class="nav_edit">
 	<ul>
-		<li>
+		<!-- <li>
 			<a class="btn btn-info" href="{{base_url}}members.json">Réponse au format JSON</a>
-		</li>
+		</li> -->
 		<li>
-			<a class="btn btn-info modale" href="{{base_url}}members/edit#form_content">Ajouter un nouveau membre</a>
+			<a class="btn btn-info modale tipleft" title="Ajouter un nouveau membre" href="{{base_url}}members/edit#form_content">+ Membre</a>
 		</li>
 	</ul>
 </nav>
@@ -70,24 +70,20 @@
 				</td>
 				<td>
 					{{#last_valid_subscriptions}}
-					<strong><a href="{{base_url}}subscriptions/detail/{{subscription.id}}">{{subscription.title}}</a></strong>
-					<p>
+					<strong><a href="{{base_url}}subscriptions/detail/{{subscription.id}}" title="<p>
 						{{#valid_subscription}}
 							—inscription valide—
 							<br />
 							Inscrit le {{start_date}} ({{elapsed_time_fuzzy}})
 							<br />
 							Périmé {{remaining_time}} (le {{end_date}})
-						
 						{{/valid_subscription}}
-
 						{{^valid_subscription}}
 							—inscription périmé—
 							<br />
 							Périmé depuis le {{end_date}} ({{end_date_fuzzy}})
-
-						{{/valid_subscription}}
-					</p>
+						{{/valid_subscription}}</p>">{{subscription.title}}</a></strong>
+					
 					{{/last_valid_subscriptions}}
 					{{^last_valid_subscriptions}}
 						- Aucune inscription - 

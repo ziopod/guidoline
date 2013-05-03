@@ -20,10 +20,10 @@ return array
 			 *
 			 * Ports and sockets may be appended to the hostname.
 			 */
-			'hostname'   => 'localhost',
+			'hostname'   => '127.0.0.1',
 			'database'   => 'guidoline',
 			'username'   => 'root',
-			'password'   => 'root',
+			'password'   => 'cortex',@
 			'persistent' => FALSE,
 		),
 		'table_prefix' => '',

@@ -64,6 +64,7 @@ class View_Layout {
 		array('script' => 'assets/script/jquery.jeditable.js'),
 		array('script' => 'assets/script/dataTables.bootstrap.js'),
 		array('script' => 'assets/script/jquery.nyroModal.custom.js'),
+		array('script' => 'assets/script/jquery.tooltipster.js'),
 		array('script' => 'assets/script/general.js'),
 	);
 	

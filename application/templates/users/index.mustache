@@ -11,18 +11,17 @@
 
 <nav class="nav_edit">
 	<ul>
+		<!-- <li>
+					<a class="btn btn-info" href="{{base_url}}users.json">Réponse au format JSON</a>
+				</li> -->
 		<li>
-			<a class="btn btn-info" href="{{base_url}}users.json">Réponse au format JSON</a>
-		</li>
-		<li>
-			<a class="btn btn-info modale" href="{{base_url}}users/edit#form_content">Ajouter un nouvel utilisateur</a>
+			<a class="btn btn-info modale tipleft" title="Ajouter un nouvel utilisateur" href="{{base_url}}users/edit#form_content">+ Utilisateur</a>
 		</li>
 	</ul>
 </nav>
 
 <section class="content_table">
-	<h1>Tableaux des utilisateurs
-		</h1>
+	<h1>Tableaux des utilisateurs</h1>
 	<table class="table">
 		<thead>
 			<tr>
@@ -47,7 +46,7 @@
 						<a href="{{base_url}}members/profil/{{member.id}}">Fiche membre</a>
 					{{/member.id}}
 					{{^member.id}}
-						Cet utilisateur n'est pas membre de l'association
+						Utilisateur non membre
 					{{/member.id}}
 				</td>
 		{{/users}}
