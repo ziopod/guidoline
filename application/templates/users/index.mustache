@@ -1,6 +1,5 @@
 {{#users}}{{/users}}
 <section class="content_stat">
-	<h1>Statistiques</h1>
 	<div class="row">
 	  {{#users_count}}<div class="span3"><h2>Actifs</h2><div class="block"><span class="stat number_member">{{users_count}}</span> utilisateurs inscrit sur le site de l'association</div></div>{{/users_count}}
 	  <div class="span3"><h2>Nouveaux/Total</h2><div class="block"><span class="stat number_member">10%</span> de nouveaux membres en 2013</div></div>
@@ -22,7 +21,8 @@
 </nav>
 
 <section class="content_table">
-	<h1>Tableaux des membres</h1>
+	<h1>Tableaux des utilisateurs
+		</h1>
 	<table class="table">
 		<thead>
 			<tr>
@@ -37,7 +37,7 @@
 		{{#users}}
 			<tr>
 				<td>{{id}}</th>
-				<td><a href="{{base_url}}users/profil/{{id}}">{{username}}</a></td>
+				<td><a class="modale" href="{{base_url}}users/profil/{{id}}">{{username}}</a></td>
 				<td>{{email}}</td>
 				<td>{{role.name}} <i>{{role.description}}</td>
 				<td  colspan="4">

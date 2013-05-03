@@ -1,6 +1,5 @@
 {{#members}}{{/members}}
 <section class="content_stat">
-	<h1>Statistiques</h1>
 	<div class="row">
 	  {{#members_count}}<div class="span3"><h2>Actifs</h2><div class="block"><span class="stat number_member">{{members_count}}</span> membres actifs dans l'association</div></div>{{/members_count}}
 	  <div class="span3"><h2>Nouveaux/Total</h2><div class="block"><span class="stat number_member">10%</span> de nouveaux membres en 2013</div></div>
@@ -40,7 +39,7 @@
 			{{#members}}
 			<tr>
 				<td>{{id}}</td>
-				<td><a href="{{base_url}}members/profil/{{id}}">{{firstname}} {{name}}</a></td>
+				<td><a class="modale" href="{{base_url}}members/profil/{{id}}">{{firstname}} {{name}}</a></td>
 				<td>{{created}}</td>
 				<td>{{status.name}}</td>
 				<td>{{email}}</td>
@@ -50,7 +49,7 @@
 				</td>
 				<td>
 					{{#last_subscription}}
-					<a href="{{base_url}}subscriptions/{{last_subscription.subscription.id}}">{{last_subscription.subscription.title}}</a>
+					<a href="{{base_url}}subscriptions/detail/{{last_subscription.subscription.id}}">{{last_subscription.subscription.title}}</a>
 					<br />
 					{{#last_subscription.valid}}—inscription valide—{{/last_subscription.valid}}
 					{{^last_subscription.valid}}—inscription périmé—{{/last_subscription.valid}}
@@ -64,6 +63,7 @@
 					{{^last_subscription}}
 						- Aucune adhésion - 
 					{{/last_subscription}}
+					<a href="{{base_url}}members/subscriptions/{{id}}">Gérer les inscriptions</a>
 				</td>
 				<td>
 					<p><a class="btn modale" href="{{base_url}}members/edit/{{id}}#form_content">Modifier la fiche membre</a></p>

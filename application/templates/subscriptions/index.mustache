@@ -11,7 +11,7 @@
 </nav>
 
 <section class="content_table">
-	<h1>Tableaux des membres</h1>
+	<h1>Tableaux des subscriptions</h1>
 	{{#subscriptions.count_all}}
 	<table class="table">
 		<thead>
@@ -28,7 +28,7 @@
 		<tbody>
 			{{#subscriptions.find_all}}
 			<tr>
-				<td><strong><a href="{{base_url}}subscriptions/detail/{{id}}">{{title}}</a></strong></td>
+				<td><a class="modale" href="{{base_url}}subscriptions/detail/{{id}}">{{title}}</a></td>
 				<td>{{description}}</td>
 				<td>{{cost}}</td>
 				<td>{{created}}</td>
