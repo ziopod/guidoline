@@ -27,8 +27,8 @@ class View_Members_Subscriptions_Index extends View_Layout {
 
 	public function subscriptions_member()
 	{
-		$subscriptions_member =  $this->member->subscriptions_member;
-		return ($this->member->subscriptions_member->count_all()) ? $subscriptions_member->find_all() : NULL;
+		$subscriptions_members =  $this->member->subscriptions_members;
+		return ($this->member->subscriptions_members->count_all()) ? $subscriptions_members->find_all() : NULL;
 	}
 
 }
