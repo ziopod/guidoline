@@ -18,9 +18,15 @@ class View_Members_Index extends View_Layout {
 	public $title = "Membres - Guidoline";
 
 	/**
-	* @vars	Members_count	Le nombre de membres total
+	* Instance de la classe Stats
 	**/
-	public $members_count;
+	protected $stats;
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->stats = new Stats();
+	}
 
 	/**
 	* Retourne la liste de tous les membres
@@ -28,7 +34,54 @@ class View_Members_Index extends View_Layout {
 	public function members()
 	{
 		$members = ORM::factory('Member');
-		$this->members_count = $members->count_all();
 		return $members->find_all();
+	}
+
+	/**
+	* Nombres d'adhérents total
+	**/
+	public function count_members()
+	{
+		return $this->stats->count_members;
+	}
+
+	/**
+	* Nombre d'ahérents actifs
+	**/
+	public function count_active_members()
+	{
+		return $this->stats->count_active_members;
+	}
+
+	/**
+	* Nombre de nouveau membres durant cette année
+	**/
+	public function new_membersship_during_year()
+	{
+		return $this->stats->new_membersship_during_year();
+	}
+
+	/**
+	* Pourcentage de membres actifs
+	**/
+	public function percentage_new_members_during_year()
+	{
+		return $this->stats->percentage_new_members_during_year();
+	}
+
+	/**
+	* Membre de moins de 25 ans
+	**/
+	public function average_age()
+	{
+		return $this->stats->average_age();
+	}
+
+	/**
+	* Turnover sur les 3 dernières années
+	**/
+	public function turnover()
+	{
+		return $this->stats->turnover();
 	}
 }

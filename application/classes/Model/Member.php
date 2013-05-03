@@ -29,10 +29,37 @@ class Model_Member extends ORM{
 			'model'		=> 'Subscription',
 			'through'	=> 'subscriptions_members'
 		),
-		'subscriptions_member' => array(
+		'subscriptions_members' => array(
 			'model'		=> 'Subscriptions_Member',
 		),
 	);
+	
+	public $genders = array(
+		array(
+			'value'	=> 'h',
+			'label'	=> 'Homme',
+		),
+		array(
+			'value'	=> 'f',
+			'label'	=> 'Femme',
+		)
+	);
+
+	public $titles = array(
+			array(
+				'value'	=> 'm.',
+				'label'	=> 'M.',
+			),
+			array(
+				'value'	=> 'mm.',
+				'label'	=> 'Mm.',
+			),
+			array(
+				'value'	=> 'mlle',
+				'label'	=> 'Mlle',
+			),
+		);
+
 
 	/**
 	* Règles de validation
@@ -128,7 +155,7 @@ class Model_Member extends ORM{
 		// AND DATE_ADD(`subscriptions_member`.`created`, INTERVAL `subscription`.`expiry_time` SECOND) >  CURDATE()
 		// AND TO_SECONDS(`subscriptions_member`.`created`) + `subscription`.`expiry_time` >  TO_SECONDS(NOW())
 
-		$lasts = $this->subscriptions_member
+		$lasts = $this->subscriptions_members
 			->with('subscription')
 			->where(DB::expr("TO_SECONDS(`subscriptions_member`.`created`) + `subscription`.`expiry_time`"), '>', DB::expr("TO_SECONDS(NOW())"))
 			->find_all();
@@ -171,6 +198,41 @@ class Model_Member extends ORM{
 
 	}
 
+	/**
+	* Retourne la liste des genres et marque le genre du membre courant
+	**/
+	public function genders()
+	{
+		$genders = array();
+
+		foreach ($this->genders as $gender)
+		{
+			$genders[] = array(
+				'value' 	=> $gender['value'],
+				'label'		=> $gender['label'],
+				'current'	=> $gender['value'] == $this->gender,
+			);
+		}
+
+		return $genders;
+	}
+
+	public function fancy_gender()
+	{
+		return $this->gender === 'h' ? '&#9794' : '&#9792;';
+
+	}
+
+	public function fancy_birthdate()
+	{
+		return $this->birthdate ? strftime('%A %e %B %Y', strtotime($this->birthdate)) : FALSE;
+	}
+
+	public function fancy_created()
+	{
+		return $this->created ? strftime('%A %e %B %Y', strtotime($this->created)) : FALSE;
+	}
+	
 	private function _format_infos($subscription)
 	{
 

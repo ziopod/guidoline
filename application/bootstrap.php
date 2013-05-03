@@ -111,9 +111,9 @@ else
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
 Kohana::init(array(
-  'base_url'   => Kohana::$environment === 'production' ? '/' : '/',
-  'caching'    => Kohana::$environment === 'production',
-  'profile'    => Kohana::$environment !== 'production',
+  'base_url'   => Kohana::$environment === Kohana::PRODUCTION ? '/' : '/guidoline',
+  'caching'    => Kohana::$environment === Kohana::PRODUCTION,
+  'profile'    => Kohana::$environment !== Kohana::PRODUCTION,
   'index_file' => FALSE,
   'errors'     => TRUE,
 ));
@@ -127,6 +127,11 @@ Kohana::$log->attach(new Log_File(APPPATH.'logs'));
  * Attach a file reader to config. Multiple readers are supported.
  */
 Kohana::$config->attach(new Config_File);
+
+if (Kohana::$environment === Kohana::DEVELOPMENT)
+{
+  Kohana::$config->attach(new Kohana_Config_File('config/development'), TRUE);
+}
 
 /**
  * Enable modules. Modules are referenced by a relative or absolute path.

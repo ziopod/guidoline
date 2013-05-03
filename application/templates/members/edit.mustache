@@ -1,16 +1,17 @@
 <div id="form_content">
 	<form action="{{base_url}}members/save" method="post" class="form_edit">
-		<fieldset>
-			<legend>Informations personnelles</legend>
 			{{#errors}}
 			<strong class="msg-error">Ce formulaire n'est pas correctement rempli, pas bien!</strong>
 			{{/errors}}
-			<input type="hidden" name="id" id="id" value="{{member.id}}" />
+		<fieldset>
+			<legend>Informations personnelles</legend>
 			<span>
-				<label for="email">Email</label>
-				<input type="email" name="email" id="email" value="{{member.email}}" />
-			</span>
-			{{#errors}}{{#email}}<p class="form-error">{{email}}</p>{{/email}}{{/errors}}
+				<label for="gender">Genre</label>
+				<select name="gender" id="gender">
+					{{#member.genders}}
+						<option value="{{value}}" {{#current}}selected="TRUE"{{/current}}>{{label}}</option>
+					{{/member.genders}}
+				</select>
 			<span>
 				<label for="firstname">Prénom</label>
 				<input type="text" name="firstname" id="firstname" value="{{member.firstname}}" />
@@ -20,6 +21,44 @@
 				<input type="text" name="name" id="name" value="{{member.name}}" />
 			</span>
 			<span>
+				<label for="birthdate">Date de naissance</label>
+				<input type="date" name="birthdate" id="birthdate" value="{{member.birthdate}}">
+			</span>
+		</fieldset>
+		<fieldset>
+			<legend>Contact</legend>
+			<input type="hidden" name="id" id="id" value="{{member.id}}" />
+			<span>
+				<label for="email">Email</label>
+				<input type="email" name="email" id="email" value="{{member.email}}" />
+			</span>
+			{{#errors}}{{#email}}<p class="form-error">{{email}}</p>{{/email}}{{/errors}}
+			<span>
+				<label for="phone">Téléphone</label>
+				<input type="text" name="phone" id="phone" value="{{member.phone}}">
+			</span>
+			<span>
+				<label for="cellular">Portable</label>
+				<input type="text" name="cellular" id="cellular" value="{{member.cellular}}">
+			</span>
+		</fieldset>
+		<fieldset>
+			<legend>Adresse</legend>
+			<span>
+				<label for="street">Rue</label>
+				<input type="text" name="street" id="street" value="{{member.street}}" />
+			</span>
+			<span>
+				<label for="zipcode">Code postal</label>
+				<input type="zipcode" name="zipcode" id="zipcode" value="{{member.zipcode}}" />
+			</span>
+			<span>
+				<label for="city">Ville</label>
+				<input type="text" name="city" id="city" value="{{member.city}}" />
+			</span>
+		</fieldset>
+		<fieldset>
+				<span>
 				<label for="status_id">Statut</label>
 				<select name="status_id" id="status_id">
 					{{#member.statuses}}
@@ -27,9 +66,9 @@
 					{{/member.statuses}}
 				</select>
 			</span>
+		</fieldset>
 			<span class="form_action">
 				<input class="btn" type="submit" value="Enregistrer" />
 			</span>
-		</fieldset>
 	</form>
 </div>
