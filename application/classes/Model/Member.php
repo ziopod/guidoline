@@ -176,7 +176,7 @@ class Model_Member extends ORM{
 	public function last_subscription()
 	{
 
-		if ( ! $this->has('subscriptions'))
+		if ( ! $this->has('subscriptions', ORM::factory('subscription')))
 		{
 			return FALSE;
 		}
@@ -196,6 +196,7 @@ class Model_Member extends ORM{
 			return FALSE;
 		}
 
+		return $this->subscriptions_members->order_by('created', 'ASC')->find();
 	}
 
 	/**

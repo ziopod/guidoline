@@ -61,7 +61,7 @@ class Stats
 		
 		foreach ($this->members->find_all() as $member)
 		{
-			if ($member->last_valid_subscriptions())
+			if ($member->last_valid_subscriptions()) // /!\ attention à la consommation de ressources
 			{
 				$this->count_active_members ++;
 			}
@@ -75,7 +75,7 @@ class Stats
 	**/
 	public function percentage_new_members_during_year()
 	{
-		return ($this->count_members / $this->new_membersship_during_year ) * 100;
+		return round(($this->count_members / $this->new_membersship_during_year ) * 100);
 	}
 
 	/**
@@ -83,7 +83,7 @@ class Stats
 	**/
 	public function new_membersship_during_year()
 	{
-		return $this->new_membersship_during_year;
+		return round($this->new_membersship_during_year);
 	}
 
 	/**
@@ -93,20 +93,20 @@ class Stats
 	{
 		$last_valid_members_during_year = 0;
 
-		foreach (ORM::factory('member')->find_all() as $member) {
-			if (
-				$member->subscriptions_members->where(DB::expr("EXTRACT(YEAR FROM subscriptions_member.created)"), '=', date('Y', time()))->find()->loaded()
-				AND  
-				$member->subscriptions_members->where(DB::expr("EXTRACT(YEAR FROM subscriptions_member.created)"), '=', date('Y', time()) - 1)->find()->loaded()
-				AND 
-				$member->subscriptions_members->where(DB::expr("EXTRACT(YEAR FROM subscriptions_member.created)"), '=', date('Y', time()) - 2)->find()->loaded()
-			)
-				{
-					$last_valid_members_during_year ++;
-				}
-		}
+		// foreach (ORM::factory('member')->find_all() as $member) {
+		// 	if (
+		// 		$member->subscriptions_members->where(DB::expr("EXTRACT(YEAR FROM subscriptions_member.created)"), '=', date('Y', time()))->find()->loaded()
+		// 		AND  
+		// 		$member->subscriptions_members->where(DB::expr("EXTRACT(YEAR FROM subscriptions_member.created)"), '=', date('Y', time()) - 1)->find()->loaded()
+		// 		AND 
+		// 		$member->subscriptions_members->where(DB::expr("EXTRACT(YEAR FROM subscriptions_member.created)"), '=', date('Y', time()) - 2)->find()->loaded()
+		// 	)
+		// 		{
+		// 			$last_valid_members_during_year ++;
+		// 		}
+		// }
 
-		return $last_valid_members_during_year / $this->count_members * 100;
+		return round($last_valid_members_during_year / $this->count_members * 100);
 	}
 
 	/**
@@ -121,7 +121,7 @@ class Stats
 		// Membres ayant une date anniversaire et un age inférieur à une valeur
 		$c = $this->members->where(DB::expr("member.birthdate + INTERVAL {$age} YEAR"), '>', date('Y-m-d H:i:s', time()))->count_all();
 
-		return $c / $ma * 100;
+		return round($c / $ma * 100);
 	}
 
 }

@@ -3,9 +3,9 @@ RewriteEngine On
 
 # Installation directory
 # Production
-RewriteBase /
+#RewriteBase /
 # Local
-#RewriteBase /guidoline/
+RewriteBase /guidoline/
 
 # Protect hidden files from being viewed
 <Files .*>

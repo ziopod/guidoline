@@ -134,7 +134,13 @@ class Model_Subscriptions_Member extends ORM{
 
 		if ($column == 'valid_subscription')
 		{
-			return strtotime($this->_object['created']) + (int) $this->subscription->_object['expiry_time'] > time() ? TRUE : FALSE;
+			$created = (int) strtotime($this->_object['created']);
+			$expiry_time = (int) $this->subscription->_object['expiry_time'];
+			//$expired = $created + $expiry_time  > time() ? TRUE : FALSE;
+
+			$expired = Date::span($created, strtotime(date('Y', time()) . '-01-01'), 'months') < 3;
+
+			return $expired;
 		}
 
 		return parent::get($column);

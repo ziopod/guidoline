@@ -20,11 +20,36 @@ class Controller_Members extends Controller_App {
 	public function action_index()
 	{
 		$view = new View_Members_Index;
+// http://www.datatables.net/release-datatables/examples/server_side/server_side.html
+// http://www.datatables.net/release-datatables/examples/ajax/objects.html
+// http://www.datatables.net/release-datatables/examples/ajax/objects_subarrays.html
 
+// http://datatables.net/usage/server-side
+// http://datatables.net/forums/discussion/5331/datatables-warning-...-requested-unknown-parameter/p1
+
+//		echo Debug::vars($this->request->query());
+//		echo Debug::vars($this->request->post());
 		if ($this->request->param('format') == 'json')
 		{
 			$this->request->headers('Content-Type', 'application/json; charset='.Kohana::$charset);
-			$this->response->body(Json_encode(DB::select('id', 'firstname', 'name', 'email')->from('members')->execute()->as_array()));
+			$members = ORM::factory('Member');
+			$total_count = (int) $members->count_all();
+			$members = DB::select('id', 'created', 'name', 'firstname', 'email', 'cellular', 'street', 'zipcode', 'city')
+				->from('members')
+				->limit($this->request->param('iDisplayStart'), $this->request->param('iDisplayLength'))
+//							->order_by($this->request->param())
+//							->where()
+				->execute()->as_array();
+
+			$response = Json_encode(
+				array(
+					"sEcho"	=> (int) $this->request->param('sEcho'),
+					"iTotalRecords" => $total_count,
+					"iTotalDisplayRecords"	=> $total_count,
+					"aaData"	=> $members,
+				)
+			);
+			$this->response->body($response);
 			return;
 		}
 

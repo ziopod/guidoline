@@ -12,7 +12,19 @@ $(document).ready(function() {
 				"sLengthMenu": "_MENU_ records per page",
 				"sUrl": "../assets/language/fr_FR.txt",
 				"sUrl": "assets/language/fr_FR.txt"
-			}
+			},
+//			"sAjaxSource" : "http://localhost/guidoline/members.json",
+			"aoColumns"	: [
+				{"mData" : "id"},
+				{"mData" : "created"},
+				{"mData" : "name"},
+				{"mData" : "firstname"},
+				{"mData" : "email"},
+				{"mData" : "cellular"},
+				{"mData" : "street"},
+				{"mData" : "zipcode"},
+				{"mData" : "city"},
+			]
 		});		
 });
 
