@@ -59,13 +59,13 @@ class Controller_Members extends Controller_App {
 							$subscriptions .= 'Inscrit le '.$sub->start_date.' ('.$sub->elapsed_time_fuzzy.')';
 							$subscriptions .= '<br />';
 							$subscriptions .= 'Périmé le '.$sub->remaining_time.' ('.$sub->end_date.')';
+							$subscriptions .= '</p>';
 						}
 						else
 						{
 							$subscriptions .= 'Inscription périmé depuis le '.$sub->end_date.' ('.$sub->end_date_fuzzy.')';
 						}
-
-						$subscriptions .= '</p>">';
+						$subscriptions .= '">';
 						$subscriptions .= $sub->subscription->title.'</a>, ';
 					}
 				}
