@@ -15,7 +15,7 @@ $(document).ready(function() {
 			},
 			//"bProcessing" : true,
 			//"bServerSide" : true,
-			"sAjaxSource" : "http://localhost/guidoline/members.json",
+			"sAjaxSource" : "members.json",
 			// "aoColumns"	: [
 			// 	{"mData" : "id"},
 			// 	{"mData" : "created"},
