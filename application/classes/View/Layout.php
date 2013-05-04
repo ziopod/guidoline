@@ -104,7 +104,7 @@ class View_Layout {
 		}
 
 		$this->lang = I18n::lang();
-		$this->profiler = View::factory('profiler/stats');
+		//$this->profiler = View::factory('profiler/stats');
 		// echo '<code><strong>Request::uri()</strong></code>';
 		// echo Debug::vars(Request::initial()->uri());
 		// echo '<code><strong>Request::controller()</strong></code>';

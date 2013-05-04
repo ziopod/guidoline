@@ -36,7 +36,7 @@ class View_Members_Index extends View_Layout {
 		// $members = DB::select('*')->from('members');
 		// return $members->limit(100)->execute();
 		$members = ORM::factory('Member');
-		return $members->limit(100)->find_all();
+		//return $members->limit(100)->find_all();
 	}
 
 	/**

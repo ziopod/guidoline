@@ -93,18 +93,18 @@ class Stats
 	{
 		$last_valid_members_during_year = 0;
 
-		// foreach (ORM::factory('member')->find_all() as $member) {
-		// 	if (
-		// 		$member->subscriptions_members->where(DB::expr("EXTRACT(YEAR FROM subscriptions_member.created)"), '=', date('Y', time()))->find()->loaded()
-		// 		AND  
-		// 		$member->subscriptions_members->where(DB::expr("EXTRACT(YEAR FROM subscriptions_member.created)"), '=', date('Y', time()) - 1)->find()->loaded()
-		// 		AND 
-		// 		$member->subscriptions_members->where(DB::expr("EXTRACT(YEAR FROM subscriptions_member.created)"), '=', date('Y', time()) - 2)->find()->loaded()
-		// 	)
-		// 		{
-		// 			$last_valid_members_during_year ++;
-		// 		}
-		// }
+		foreach (ORM::factory('member')->find_all() as $member) {
+			if (
+				$member->subscriptions_members->where(DB::expr("EXTRACT(YEAR FROM subscriptions_member.created)"), '=', date('Y', time()))->find()->loaded()
+				AND
+				$member->subscriptions_members->where(DB::expr("EXTRACT(YEAR FROM subscriptions_member.created)"), '=', date('Y', time()) - 1)->find()->loaded()
+				AND
+				$member->subscriptions_members->where(DB::expr("EXTRACT(YEAR FROM subscriptions_member.created)"), '=', date('Y', time()) - 2)->find()->loaded()
+			)
+				{
+					$last_valid_members_during_year ++;
+				}
+		}
 
 		return round($last_valid_members_during_year / $this->count_members * 100);
 	}

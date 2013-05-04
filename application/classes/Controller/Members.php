@@ -34,21 +34,70 @@ class Controller_Members extends Controller_App {
 			$this->request->headers('Content-Type', 'application/json; charset='.Kohana::$charset);
 			$members = ORM::factory('Member');
 			$total_count = (int) $members->count_all();
-			$members = DB::select('id', 'created', 'name', 'firstname', 'email', 'cellular', 'street', 'zipcode', 'city')
-				->from('members')
-				->limit($this->request->param('iDisplayStart'), $this->request->param('iDisplayLength'))
-//							->order_by($this->request->param())
-//							->where()
-				->execute()->as_array();
+// 			$members = DB::select('id', 'created', 'name', 'firstname', 'email', 'cellular', 'street', 'zipcode', 'city')
+// 				->from('members')
+// 				->limit($this->request->param('iDisplayStart'), $this->request->param('iDisplayLength'))
+// //							->order_by($this->request->param())
+// //							->where()
+// 				->execute()->as_array();
+			$dm = array();
+			$base_url = URL::base(FALSE, TRUE);
+			foreach ($members->find_all() as $member)
+			{
+				$subscriptions = '';
+
+				if ($last_valid_subscriptions = $member->last_valid_subscriptions())
+				{
+					foreach ($last_valid_subscriptions as $sub)
+					{
+						$subscriptions .='<a href="'.$base_url.'subscriptions/detail/'.$sub->subscription->id.'" class="tip" title="';
+					//	echo Debug::vars($sub->as_array());
+						if ($sub->valid_subscription)
+						{
+							$subscriptions .= '<strong>Inscription valide</strong>';
+							$subscriptions .= '<p>';
+							$subscriptions .= 'Inscrit le '.$sub->start_date.' ('.$sub->elapsed_time_fuzzy.')';
+							$subscriptions .= '<br />';
+							$subscriptions .= 'Périmé le '.$sub->remaining_time.' ('.$sub->end_date.')';
+						}
+						else
+						{
+							$subscriptions .= 'Inscription périmé depuis le '.$sub->end_date.' ('.$sub->end_date_fuzzy.')';
+						}
+
+						$subscriptions .= '</p>">';
+						$subscriptions .= $sub->subscription->title.'</a>, ';
+					}
+				}
+				else
+				{
+					$subscriptions = '— aucune inscription';
+				}
+
+				$subscriptions .= ' <a href="'.$base_url.'members/subscriptions/'.$member->id.'">Gérer les inscriptions</a>';
+
+				$dm[] = array(
+					$member->id,
+					$member->firstname . ' ' . $member->name,
+					$member->created,
+					$member->status->name,
+					$member->email,
+					$member->cellular,
+					$member->street . ' ' . $member->zipcode . ' ' . $member->city,
+					$subscriptions,
+					'<p><a class="btn modale" href="'.$base_url.'members/edit/'.$member->id.'#form_content">Modifier la fiche membre</a></p>'
+				);
+			}
 
 			$response = Json_encode(
 				array(
 					"sEcho"	=> (int) $this->request->param('sEcho'),
 					"iTotalRecords" => $total_count,
 					"iTotalDisplayRecords"	=> $total_count,
-					"aaData"	=> $members,
+					"aaData"	=> $dm,
 				)
 			);
+
 			$this->response->body($response);
 			return;
 		}

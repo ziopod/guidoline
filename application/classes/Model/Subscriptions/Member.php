@@ -49,6 +49,16 @@ class Model_Subscriptions_Member extends ORM{
 	}
 
 	/**
+	* Date de fin d'adhésion au format flou
+	*
+	* @return	String	Date formaté au foramt flou
+	**/
+	public function end_date_fuzzy()
+	{
+		return $this->end_date_fuzzy;
+	}
+
+	/**
 	* Temps écoulé depuis la création de l'adhésion
 	*
 	* @return	Array	Tableau dont les index sont réspectivement les années, les mois, les jours, les heures et les secondes
@@ -110,6 +120,12 @@ class Model_Subscriptions_Member extends ORM{
 		{
 			// Vrai nombres de jours dans l'année (date('z', mktime(0, 0, 0, 12, 31, Date::YEAR)) + 1 ) * 24 * 60 * 60; ou Date::YEAR
 			return strftime('%A %e %B %Y à %Hh%M', (strtotime($this->created) + (int) $this->subscription->_object['expiry_time']));
+		}
+
+		if ($column == 'end_date_fuzzy')
+		{
+			// Vrai nombres de jours dans l'année (date('z', mktime(0, 0, 0, 12, 31, Date::YEAR)) + 1 ) * 24 * 60 * 60; ou Date::YEAR
+			return Date::fuzzy_span(strtotime($this->created) + (int) $this->subscription->_object['expiry_time']);
 		}
 
 		if ($column == 'elapsed_time')

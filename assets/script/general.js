@@ -13,20 +13,35 @@ $(document).ready(function() {
 				"sUrl": "../assets/language/fr_FR.txt",
 				"sUrl": "assets/language/fr_FR.txt"
 			},
-//			"sAjaxSource" : "http://localhost/guidoline/members.json",
-			"aoColumns"	: [
-				{"mData" : "id"},
-				{"mData" : "created"},
-				{"mData" : "name"},
-				{"mData" : "firstname"},
-				{"mData" : "email"},
-				{"mData" : "cellular"},
-				{"mData" : "street"},
-				{"mData" : "zipcode"},
-				{"mData" : "city"},
-			]
+			//"bProcessing" : true,
+			//"bServerSide" : true,
+			"sAjaxSource" : "http://localhost/guidoline/members.json",
+			// "aoColumns"	: [
+			// 	{"mData" : "id"},
+			// 	{"mData" : "created"},
+			// 	{"mData" : "name"},
+			// 	{"mData" : "firstname"},
+			// 	{"mData" : "email"},
+			// 	{"mData" : "cellular"},
+			// 	{"mData" : "street"},
+			// 	{"mData" : "zipcode"},
+			// 	{"mData" : "city"}
+			// ]
 		});		
 });
+
+// $('#example').dataTable( {
+// 	"bProcessing": true,
+// 	"bServerSide": true,
+// 	"sAjaxSource": "scripts/objects.php",
+// 	"aoColumns": [
+// 		{ "mDataProp": "engine" },
+// 		{ "mDataProp": "browser" },
+// 		{ "mDataProp": "platform" },
+// 		{ "mDataProp": "version" },
+// 		{ "mDataProp": "grade" }
+// 	]
+// } );
 
 /* Default class modification */
 $.extend( $.fn.dataTableExt.oStdClasses, {
