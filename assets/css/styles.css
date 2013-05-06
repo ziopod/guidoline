@@ -1,0 +1,168 @@
+@import "bootstrap.css";
+@import "flat-ui.css";
+@import "nyroModal.css";
+@import "tooltipster.css";
+@import "font-awesome.css";
+
+
+/* Typography */
+/*-----------------------*/
+
+h1 {
+	margin: 0 0 .5em;
+	border-bottom: 2px solid #999;
+}
+
+iframe {background: red;}
+
+.cboxIframe .navbar,
+.nyroModalLink .navbar,
+.cboxIframe .content_profiler {
+	display: none !important;
+}
+
+.nyroModalLink .container {
+	width: 500px;
+}
+
+.content_profiler {
+	/*display: none;*/
+}
+
+.separator {
+	font-size: 2em;
+	font-weight: normal;
+}
+
+/* Navigation */
+/*-----------------------*/
+
+.nav_edit ul {
+	clear: both;
+	overflow: hidden;
+	float: right;
+	margin: 7px -6px 0 0;
+	list-style-type: none;
+}
+
+.nav_edit li {
+	margin: 0 .5em;
+	float: left;
+}
+
+/* Content */
+/*-----------------------*/
+
+.content_main {
+	padding: 0em 0 0.5em;
+}
+
+.content_stat {
+	margin-bottom: 2.5em;
+}
+
+.content_stat .block {
+	position: relative;
+	min-height: 60px;
+	padding: .2em 1em;
+	font-size: 1.2em;
+	border: 2px solid #34495e;
+	/*border-top-width: 10px;*/
+	background-color: #eee;
+}
+
+.content_stat h2 {
+	margin-bottom: -10px;
+}
+
+.content_stat .stat {
+	font-size: 2.5em;
+	font-weight: bold;
+}
+
+/*.content_stat .block:before {
+	content:"";
+	position: absolute;
+	top: -10px;
+	left: 0px;
+	margin: 0 0 0 -2px;
+	width: 100%;
+	height: 10px;
+	background: red;
+}*/
+
+#include {
+	clear: both;
+	width: 100%;
+}
+
+/* Form */
+/*-----------------------*/
+
+form {
+	margin: 0 0 3.5em;
+}
+
+legend {
+	margin: 0 0 1em;
+}
+
+.dataTables_wrapper input {
+	width: 192px;
+}
+
+[class^=form_] fieldset > span {
+	float: left;
+	width: 50%;
+}
+
+[class^=form_] .form_action {
+	float: right;
+	clear: both;
+	padding-top:1.5em;
+	width: auto;
+}
+
+/* Form */
+/*-----------------------*/
+
+.table .btn {
+	white-space: nowrap;
+}
+
+/* Form grid */
+/*-----------------------*/
+
+.span8 {
+	float: left;
+	width: 40%;
+}
+
+.span8 + .span8 {
+	float: right;
+	text-align: right;
+}
+
+/* Table*/
+/*-----------------------*/
+
+#table_members th:nth-child(1) {
+	width:220px;
+}
+#table_members th:nth-child(2) {
+	width:100px;
+}
+#table_members th:nth-child(3) {
+	width:280px;
+}
+#table_members th:nth-child(4) {
+	width:100px;
+}
+#table_members th:nth-child(5) {
+	width:200px;
+}
+
+.dataTables_info{
+	margin: 18px 0;
+	padding: .8em 0;
+}
