@@ -72,7 +72,7 @@ jQuery(function($, undefined) {
 			useKeyHandler: false,	// Indicates if the modal has to handle key down event
 
 			showCloseButton: true,	// Indicates if the closeButonn should be added
-			closeButton: '<a href="#" class="nyroModalClose nyroModalCloseButton nmReposition" title="close">Close</a>',	// Close button HTML
+			closeButton: '<a href="#" class="nyroModalClose icon-remove-sign icon-2x nmReposition" title="close"></a>',	// Close button HTML
 
 			stack: false,	// Indicates if links automatically binded inside the modal should stack or not
 			nonStackable: 'form',	// Filter to not stack DOM element

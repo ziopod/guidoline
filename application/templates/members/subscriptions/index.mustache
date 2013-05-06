@@ -1,11 +1,10 @@
-<h1>{{title}}</h1>
+<h1>{{member.firstname}} {{member.name}}</h1>
 <p>
-	{{member.firstname}} {{member.name}}
-	<br />
-	Adhérent since {{member.first_subscription.created}}
+	Adhérent depuis le : {{member.first_subscription.created}}
 </p>
+
 {{#subscriptions_member}}
-<table>
+<table class="table">
 	<thead>
 		<tr>
 			<th>Titre</th>
@@ -35,7 +34,7 @@
 	</tbody>
 </table>
 {{/subscriptions_member}}
-<a href="{{base_url}}members/subscriptions_add/{{member.id}}">Ajouter une inscription</a>
+<a class="btn btn-primary" href="{{base_url}}members/subscriptions_add/{{member.id}}"><i class="icon-plus"></i> Ajouter une inscription</a>
 {{^subscriptions_member}}
 - Aucune inscription - 
 <br />

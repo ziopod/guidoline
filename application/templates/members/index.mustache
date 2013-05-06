@@ -34,7 +34,7 @@
 			<a class="btn btn-info" href="{{base_url}}members.json">Réponse au format JSON</a>
 		</li> -->
 		<li>
-			<a class="btn btn-info modale tipleft" title="Ajouter un nouveau membre" href="{{base_url}}members/edit#form_content">+ Membre</a>
+			<a class="btn btn-info modale tipleft" title="Ajouter un nouveau membre" href="{{base_url}}members/edit#form_content"><i class="icon-plus"></i> Membre</a>
 		</li>
 	</ul>
 </nav>
@@ -44,13 +44,11 @@
 	<table id="table_members" class="table">
 		<thead>
 			<tr>
-				<th>#</th>
 				<th>Nom</th>
-				<th>Date d'inscription</th>
-				<th>Statut</th>
+				<th>Inscription</th>
 				<th>Email</th>
 				<th>Téléphone</th>
-				<th>Adresse</th>
+				<th>Ville</th>
 				<th>Adhésion</th>
 				<th>Action</th>
 			</tr>
@@ -58,14 +56,12 @@
 		<tbody>
 			{{#members}}
 			<tr>
-				<td>{{id}}</td>
 				<td><a class="modale" href="{{base_url}}members/profil/{{id}}">{{firstname}} {{name}}</a></td>
 				<td>{{created}}</td>
-				<td>{{status.name}}</td>
 				<td>{{email}}</td>
 				<td>{{phone}}</td>
 				<td>
-					{{street}} - {{zipcode}} {{city}}
+					{{city}}
 				</td>
 				<td>
 					{{#last_valid_subscriptions}}
@@ -90,7 +86,7 @@
 					<a href="{{base_url}}members/subscriptions/{{id}}">Gérer les inscriptions</a>
 				</td>
 				<td>
-					<p><a class="btn modale" href="{{base_url}}members/edit/{{id}}#form_content">Modifier la fiche membre</a></p>
+					<p><a class="btn modale" href="{{base_url}}members/edit/{{id}}#form_content">Modifier</a></p>
 					{{#user.id}}
 					<a class="btn" href="{{base_url}}users/profil/{{user.id}}">Fiche utilisateur</a></p>
 					{{/user.id}}

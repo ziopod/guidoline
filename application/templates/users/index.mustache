@@ -4,14 +4,14 @@
 					<a class="btn btn-info" href="{{base_url}}users.json">Réponse au format JSON</a>
 				</li> -->
 		<li>
-			<a class="btn btn-info modale tipleft" title="Ajouter un nouvel utilisateur" href="{{base_url}}users/edit#form_content">+ Utilisateur</a>
+			<a class="btn btn-info modale tipleft" title="Ajouter un nouvel utilisateur" href="{{base_url}}users/edit#form_content"><i class="icon-plus"></i> Utilisateur</a>
 		</li>
 	</ul>
 </nav>
 
 <section class="content_table">
 	<h1>Tableaux des utilisateurs</h1>
-	<table class="table">
+	<table id="table_users" class="table datatable">
 		<thead>
 			<tr>
 				<th>#</th>
@@ -29,13 +29,12 @@
 				<td>{{email}}</td>
 				<td>{{role.name}} <i>{{role.description}}</td>
 				<td  colspan="4">
-					<a class="btn modale" href="{{base_url}}users/edit/{{id}}#form_content">Modifier</a>
-					-
+					<a class="icon-pencil icon-2x modale tip" href="{{base_url}}users/edit/{{id}}#form_content"></a>
 					{{#member.id}}
 						<a href="{{base_url}}members/profil/{{member.id}}">Fiche membre</a>
 					{{/member.id}}
 					{{^member.id}}
-						Utilisateur non membre
+					<i class="icon-remove-circle icon-2x tip" title="Utilisateur non membre"></i>
 					{{/member.id}}
 				</td>
 		{{/users}}
@@ -43,7 +42,7 @@
 			<tr>
 				<td colspan="3">
 					<p>Aucun utilisateur pour l'instant</p>
-					<a class="btn modale" href="{{base_url}}users/edit/">Ajoutez votre premier utilisateur</a>
+					<a class="btn modale" href="{{base_url}}users/edit/"><i class="icon-plus"></i> Ajoutez votre premier utilisateur</a>
 				</td>
 			</tr>
 		{{/users}}

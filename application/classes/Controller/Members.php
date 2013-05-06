@@ -50,7 +50,7 @@ class Controller_Members extends Controller_App {
 				{
 					foreach ($last_valid_subscriptions as $sub)
 					{
-						$subscriptions .='<a href="'.$base_url.'subscriptions/detail/'.$sub->subscription->id.'" class="tip" title="';
+						$subscriptions .='<a href="'.$base_url.'subscriptions/detail/'.$sub->subscription->id.'" class="icon-wrench icon-2x modale tip" title="';
 					//	echo Debug::vars($sub->as_array());
 						if ($sub->valid_subscription)
 						{
@@ -63,29 +63,28 @@ class Controller_Members extends Controller_App {
 						}
 						else
 						{
-							$subscriptions .= 'Inscription périmé depuis le '.$sub->end_date.' ('.$sub->end_date_fuzzy.')';
+							$subscriptions .= 'Inscription périmée depuis le '.$sub->end_date.' ('.$sub->end_date_fuzzy.')';
 						}
-						$subscriptions .= '">';
-						$subscriptions .= $sub->subscription->title.'</a>, ';
+						$subscriptions .= '"></a>';
 					}
 				}
 				else
 				{
-					$subscriptions = '— aucune inscription';
+					$subscriptions = '<span class="icon-remove-circle icon-2x tip" title="non inscrit"></span>';
 				}
 
-				$subscriptions .= ' <a href="'.$base_url.'members/subscriptions/'.$member->id.'">Gérer les inscriptions</a>';
+				$subscriptions .= ' <a href="'.$base_url.'members/subscriptions/'.$member->id.'" class="icon-cog icon-2x tip" title="Gérer les inscriptions"></a>';
 
 				$dm[] = array(
-					$member->id,
+					// $member->id,
 					$member->firstname . ' ' . $member->name,
 					$member->created,
-					$member->status->name,
+					// $member->status->name,
 					$member->email,
 					$member->cellular,
-					$member->street . ' ' . $member->zipcode . ' ' . $member->city,
+					$member->city,
 					$subscriptions,
-					'<p><a class="btn modale" href="'.$base_url.'members/edit/'.$member->id.'#form_content">Modifier la fiche membre</a></p>'
+					'<a class="icon-pencil icon-2x modale tip" href="'.$base_url.'members/edit/'.$member->id.'#form_content" title="Modifier"></a>'
 				);
 			}
 
