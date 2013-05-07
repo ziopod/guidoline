@@ -78,6 +78,7 @@ class Controller_Members extends Controller_App {
 				$dm[] = array(
 					// $member->id,
 					$member->firstname . ' ' . $member->name,
+					$member->birthdate,
 					$member->created,
 					// $member->status->name,
 					$member->email,

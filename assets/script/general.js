@@ -21,6 +21,17 @@ $(function(){
 		var oTableMembers = $('#table_members').dataTable( {
 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
 			"sPaginationType": "bootstrap",
+			"bStateSave": true,
+			"aoColumns": [
+			            null,
+			            null,
+			            null,
+			            null,
+			            null,
+									null,
+									{ "bSortable": false },
+									{ "bSortable": false }
+			        ],
 			"oLanguage": {
 				"sLengthMenu": "_MENU_ records per page",
 				"sUrl": "../assets/language/fr_FR.txt",
