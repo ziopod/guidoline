@@ -1,9 +1,14 @@
+<nav class="nav_edit">
+	<ul>
+		<li>
+			<a class="btn btn-info tip" href="{{base_url}}members/subscriptions_add/{{member.id}}"><i class="icon-plus"></i> Ajouter une inscription</a>
+		</li>
+	</ul>
+</nav>
 <h1>{{member.firstname}} {{member.name}}</h1>
 <p>
 	Adhérent depuis le : {{member.first_subscription.created}}
 </p>
-
-{{#subscriptions_member}}
 <table class="table">
 	<thead>
 		<tr>
@@ -11,10 +16,12 @@
 			<th>Tarif</th>
 			<th>Soucrit le</th>
 			<th>Valide</th>
-			<th></th>
+			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
+{{#subscriptions_member}}
+
 	<tr>
 		<td>{{subscription.title}}</td>
 		<td>{{subscription.cost}}€</td>
@@ -28,14 +35,14 @@
 			{{/valid_subscription}}
 		</td>
 		<td>
-			<a href="{{base_url}}members/subscription_delete/{{id}}">Supprimer</a>
+			<a class="icon-trash tip" href="{{base_url}}members/subscription_delete/{{id}}" title="Supprimer"></a>
 		</td>
 	</tr>
+{{/subscriptions_member}}
+{{^subscriptions_member}}
+<tr>
+	<td colspan="6"><strong>Aucune inscription actuellement</strong></td>
+</tr>
+{{/subscriptions_member}}
 	</tbody>
 </table>
-{{/subscriptions_member}}
-<a class="btn btn-primary" href="{{base_url}}members/subscriptions_add/{{member.id}}"><i class="icon-plus"></i> Ajouter une inscription</a>
-{{^subscriptions_member}}
-- Aucune inscription - 
-<br />
-{{/subscriptions_member}}

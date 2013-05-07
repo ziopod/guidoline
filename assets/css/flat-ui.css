@@ -188,7 +188,7 @@ a {
   transition: 0.25s;
   -webkit-backface-visibility: hidden; }
   a:hover {
-    color: #2ecc71;
+    color: #31493B;
     text-decoration: none; }
 
 h1 {
@@ -734,6 +734,7 @@ h6 {
   .dk_container.dk_shown {
     display: inline-block;
     zoom: 1;
+		width: 220px;
     *display: inline; }
   .dk_container[class*="span"] {
     float: none;

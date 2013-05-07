@@ -4,13 +4,13 @@
 			<input type="hidden" name="id" id="id" value="{{user.id}}" />
 			<legend>{{title}}</legend>
 			<span>
-				<label for="username">Username</label>
-				<input type="text" name="username" id="username" value="{{user.username}}"/>
+				<label for="username">Nom d'utilisateur</label>
+				<input type="text" name="username" id="username" placeholder="Indiquer un nom d'utilisateur" value="{{user.username}}"/>
 			</span>
 			{{#errors}}{{#username}}<p class="error">{{username}}</p>{{/username}}{{/errors}}
 			<span>
 				<label for="email">Email</label>
-				<input type="email" name="email" id="email" value="{{user.email}}" />
+				<input type="email" name="email" id="email" placeholder="Indiquer une contact email" value="{{user.email}}" />
 			</span>
 			{{#errors}}{{#email}}<p class="error">{{errors.email}}</p>{{/email}}{{/errors}}
 			<span>

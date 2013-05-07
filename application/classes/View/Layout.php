@@ -59,7 +59,7 @@ class View_Layout {
 	* @vars Scripts	Scripts par défaut pour le header HTML
 	**/
 	public $scripts = array(
-		array('script' => 'http://code.jquery.com/jquery-1.9.1.min.js'),
+		array('script' => 'assets/script/jquery-1.8.2.min.js'),
 		array('script' => 'assets/script/jquery.dataTables.min.js'),
 		array('script' => 'assets/script/jquery.jeditable.js'),
 		array('script' => 'assets/script/dataTables.bootstrap.js'),

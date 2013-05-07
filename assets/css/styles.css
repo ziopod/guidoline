@@ -25,6 +25,10 @@ iframe {background: red;}
 	width: 500px;
 }
 
+.nyroModalTitle {
+	display: none;
+}
+
 .content_profiler {
 	/*display: none;*/
 }
@@ -147,16 +151,16 @@ legend {
 /*-----------------------*/
 
 #table_members th:nth-child(1) {
-	width:220px;
+	width:200px;
 }
 #table_members th:nth-child(3) {
-	width:100px;
+	width:80px;
 }
 #table_members th:nth-child(4) {
-	width:280px;
+	width:250px;
 }
 #table_members th:nth-child(5) {
-	width:100px;
+	width:70px;
 }
 #table_members th:nth-child(6) {
 	width:200px;
