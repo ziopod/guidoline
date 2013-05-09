@@ -19,7 +19,7 @@ class Controller_Members extends Controller_App {
 	**/
 	public function action_index()
 	{
-		$view = new View_Members_Index;
+		//
 // http://www.datatables.net/release-datatables/examples/server_side/server_side.html
 // http://www.datatables.net/release-datatables/examples/ajax/objects.html
 // http://www.datatables.net/release-datatables/examples/ajax/objects_subarrays.html
@@ -32,8 +32,9 @@ class Controller_Members extends Controller_App {
 		if ($this->request->param('format') == 'json')
 		{
 			$this->request->headers('Content-Type', 'application/json; charset='.Kohana::$charset);
-			$members = ORM::factory('Member');
-			$total_count = (int) $members->count_all();
+			$members = ORM::factory('Member')
+				->limit($this->request->param('iDisplayStart'), $this->request->param('iDisplayLength'));
+			$total_count =1;// (int) $members->count_all();
 // 			$members = DB::select('id', 'created', 'name', 'firstname', 'email', 'cellular', 'street', 'zipcode', 'city')
 // 				->from('members')
 // 				->limit($this->request->param('iDisplayStart'), $this->request->param('iDisplayLength'))
@@ -42,37 +43,12 @@ class Controller_Members extends Controller_App {
 // 				->execute()->as_array();
 			$dm = array();
 			$base_url = URL::base(FALSE, TRUE);
+			//foreach ($members->find_all() as $member)
 			foreach ($members->find_all() as $member)
 			{
 				$subscriptions = '';
 
-				if ($last_valid_subscriptions = $member->last_valid_subscriptions())
-				{
-					foreach ($last_valid_subscriptions as $sub)
-					{
-						$subscriptions .='<a href="'.$base_url.'subscriptions/detail/'.$sub->subscription->id.'" class="tip" title="';
-					//	echo Debug::vars($sub->as_array());
-						if ($sub->valid_subscription)
-						{
-							$subscriptions .= '<strong>Inscription valide</strong>';
-							$subscriptions .= '<p>';
-							$subscriptions .= 'Inscrit le '.$sub->start_date.' ('.$sub->elapsed_time_fuzzy.')';
-							$subscriptions .= '<br />';
-							$subscriptions .= 'Périmé le '.$sub->remaining_time.' ('.$sub->end_date.')';
-							$subscriptions .= '</p>';
-						}
-						else
-						{
-							$subscriptions .= 'Inscription périmé depuis le '.$sub->end_date.' ('.$sub->end_date_fuzzy.')';
-						}
-						$subscriptions .= '">';
-						$subscriptions .= $sub->subscription->title.'</a>, ';
-					}
-				}
-				else
-				{
-					$subscriptions = '— aucune inscription';
-				}
+		
 
 				$subscriptions .= ' <a href="'.$base_url.'members/subscriptions/'.$member->id.'">Gérer les inscriptions</a>';
 
@@ -101,8 +77,12 @@ class Controller_Members extends Controller_App {
 			$this->response->body($response);
 			return;
 		}
+		else
+		{
 
-		$this->response->body($this->layout->render($view));
+			$view = new View_Members_Index;
+			$this->response->body($this->layout->render($view));
+		}
 
 	}
 

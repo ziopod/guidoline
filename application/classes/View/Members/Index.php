@@ -25,7 +25,7 @@ class View_Members_Index extends View_Layout {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->stats = new Stats();
+	//	$this->stats = new Stats(); // TODO : Move to => View_Stats_Index
 	}
 
 	/**
@@ -35,7 +35,8 @@ class View_Members_Index extends View_Layout {
 	{
 		// $members = DB::select('*')->from('members');
 		// return $members->limit(100)->execute();
-		$members = ORM::factory('Member');
+		//$members = ORM::factory('Member');
+		//return $members;
 		//return $members->limit(100)->find_all();
 	}
 
