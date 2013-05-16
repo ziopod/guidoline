@@ -60,12 +60,6 @@ class View_Layout {
 	**/
 	public $scripts = array(
 		array('script' => 'http://code.jquery.com/jquery-1.9.1.min.js'),
-		array('script' => 'assets/script/jquery.dataTables.min.js'),
-		array('script' => 'assets/script/jquery.jeditable.js'),
-		array('script' => 'assets/script/dataTables.bootstrap.js'),
-		array('script' => 'assets/script/jquery.nyroModal.custom.js'),
-		array('script' => 'assets/script/jquery.tooltipster.js'),
-		array('script' => 'assets/script/general.js'),
 	);
 	
 	/**
