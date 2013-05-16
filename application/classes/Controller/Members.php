@@ -48,20 +48,19 @@ class Controller_Members extends Controller_App {
 			{
 				$subscriptions = '';
 
-		
-
-				$subscriptions .= ' <a href="'.$base_url.'members/subscriptions/'.$member->id.'">Gérer les inscriptions</a>';
+				$subscriptions .= ' <a href="'.$base_url.'members/subscriptions/'.$member->id.'" class="icon-cog icon-2x tip" title="Gérer les inscriptions"></a>';
 
 				$dm[] = array(
-					$member->id,
+					// $member->id,
 					$member->firstname . ' ' . $member->name,
+					$member->birthdate,
 					$member->created,
-					$member->status->name,
+					// $member->status->name,
 					$member->email,
 					$member->cellular,
-					$member->street . ' ' . $member->zipcode . ' ' . $member->city,
+					$member->city,
 					$subscriptions,
-					'<p><a class="btn modale" href="'.$base_url.'members/edit/'.$member->id.'#form_content">Modifier la fiche membre</a></p>'
+					'<a class="icon-pencil icon-2x modale tip" href="'.$base_url.'members/edit/'.$member->id.'#form_content" title="Modifier"></a>'
 				);
 			}
 

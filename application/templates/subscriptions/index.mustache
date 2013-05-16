@@ -5,7 +5,7 @@
 					<a class="btn btn-info" href="{{base_url}}subscriptions.json">Réponse au format JSON</a>
 				</li> -->
 		<li>
-			<a class="btn btn-info modale tipleft" title="Ajouter une nouvelle adhésion" href="{{base_url}}subscriptions/edit#form_content">+ Adhésion</a>
+			<a class="btn btn-info modale tipleft" title="Ajouter une nouvelle adhésion" href="{{base_url}}subscriptions/edit#form_content"><i class="icon-plus"></i> Adhésion</a>
 		</li>
 	</ul>
 </nav>
@@ -13,7 +13,7 @@
 <section class="content_table">
 	<h1>Tableaux des subscriptions</h1>
 	{{#subscriptions.count_all}}
-	<table class="table">
+	<table id="table_subscriptions" class="table datatable">
 		<thead>
 			<tr>
 				<th>Titre</th>
@@ -35,8 +35,9 @@
 				<td>{{expiry_time}}</td>
 				<td></td>
 				<td>
-					<a class="btn modale" href="{{base_url}}subscriptions/edit/{{id}}#form_content">Modifier</a>
-					<a class="btn" href="{{base_url}}subscriptions/delete/{{id}}">Supprimer</a>
+					<a class="icon-pencil icon-2x modale tip" href="{{base_url}}subscriptions/edit/{{id}}#form_content" title="Modifier"></a>
+					<span class="separator">|</span>
+					<a class="icon-trash icon-2x tip" href="{{base_url}}subscriptions/delete/{{id}}" title="Supprimer"></a>
 				</td>
 			{{/subscriptions.find_all}}
 		</tbody>

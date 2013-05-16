@@ -188,7 +188,7 @@ a {
   transition: 0.25s;
   -webkit-backface-visibility: hidden; }
   a:hover {
-    color: #2ecc71;
+    color: #31493B;
     text-decoration: none; }
 
 h1 {
@@ -734,6 +734,7 @@ h6 {
   .dk_container.dk_shown {
     display: inline-block;
     zoom: 1;
+		width: 220px;
     *display: inline; }
   .dk_container[class*="span"] {
     float: none;
@@ -830,6 +831,7 @@ input[type="color"],
   input[type="email"]:-moz-placeholder,
   input[type="url"]:-moz-placeholder,
   input[type="search"]:-moz-placeholder,
+	input[type="zipcode"]:-moz-placeholder,
   input[type="tel"]:-moz-placeholder,
   input[type="color"]:-moz-placeholder,
   .uneditable-input:-moz-placeholder {
@@ -847,6 +849,7 @@ input[type="color"],
   input[type="email"]::-webkit-input-placeholder,
   input[type="url"]::-webkit-input-placeholder,
   input[type="search"]::-webkit-input-placeholder,
+	input[type="zipcode"]::webkit-input-placeholder,
   input[type="tel"]::-webkit-input-placeholder,
   input[type="color"]::-webkit-input-placeholder,
   .uneditable-input::-webkit-input-placeholder {
@@ -864,6 +867,7 @@ input[type="color"],
   input[type="email"].placeholder,
   input[type="url"].placeholder,
   input[type="search"].placeholder,
+	input[type="zipcode"].placholder,
   input[type="tel"].placeholder,
   input[type="color"].placeholder,
   .uneditable-input.placeholder {
@@ -881,6 +885,7 @@ input[type="color"],
   input[type="email"]:focus,
   input[type="url"]:focus,
   input[type="search"]:focus,
+	input[type="zipcode"]:focus,
   input[type="tel"]:focus,
   input[type="color"]:focus,
   .uneditable-input:focus {
@@ -901,6 +906,7 @@ input[type="color"],
   input[type="email"], .control-group.error
   input[type="url"], .control-group.error
   input[type="search"], .control-group.error
+	input[type="zipcode"], .control-groupe.error
   input[type="tel"], .control-group.error
   input[type="color"], .control-group.error
   .uneditable-input {
@@ -1061,7 +1067,7 @@ textarea[readonly] {
 input,
 textarea,
 .uneditable-input {
-  width: 192px; }
+  width: 90%; }
 
 .checkbox,
 .radio {
@@ -1467,7 +1473,7 @@ textarea,
     -webkit-border-radius: 0 6px 6px 0;
     -moz-border-radius: 0 6px 6px 0;
     border-radius: 0 6px 6px 0; }
-  .pagination ul > li.previous > a, .pagination ul > li.previous > span, .pagination ul > li.next > a, .pagination ul > li.next > span {
+  .pagination ul > li.prev > a, .pagination ul > li.prev > span, .pagination ul > li.next > a, .pagination ul > li.next > span {
     background: transparent;
     border: none;
     border-right: 2px solid white !important;
@@ -1500,7 +1506,6 @@ textarea,
       -moz-box-shadow: none;
       box-shadow: none; }
   .pagination ul > li > a, .pagination ul > li > span {
-    background: white;
     border: 5px solid #d7dce0;
     border-radius: 50px;
     color: white;

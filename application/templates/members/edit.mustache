@@ -14,16 +14,16 @@
 				</select>
 			</span>
 			<span>
+				<label for="birthdate">Date de naissance</label>
+				<input type="date" name="birthdate" id="birthdate" placeholder="Indiquer une date de naissance" value="{{member.birthdate}}">
+			</span>
+			<span>
 				<label for="firstname">Prénom</label>
-				<input type="text" name="firstname" id="firstname" value="{{member.firstname}}" />
+				<input type="text" name="firstname" id="firstname" placeholder="Indiquer un prénom" value="{{member.firstname}}" />
 			</span>
 			<span>
 				<label for="name">Nom</label>
-				<input type="text" name="name" id="name" value="{{member.name}}" />
-			</span>
-			<span>
-				<label for="birthdate">Date de naissance</label>
-				<input type="date" name="birthdate" id="birthdate" value="{{member.birthdate}}">
+				<input type="text" name="name" id="name" placeholder="Indiquer une nom" value="{{member.name}}" />
 			</span>
 		</fieldset>
 		<fieldset>
@@ -31,34 +31,35 @@
 			<input type="hidden" name="id" id="id" value="{{member.id}}" />
 			<span>
 				<label for="email">Email</label>
-				<input type="email" name="email" id="email" value="{{member.email}}" />
+				<input type="email" name="email" id="email" placeholder="Indiquer une contact email" value="{{member.email}}" />
 			</span>
 			{{#errors}}{{#email}}<p class="form-error">{{email}}</p>{{/email}}{{/errors}}
-			<span>
+			<span class="hidden">
 				<label for="phone">Téléphone</label>
-				<input type="text" name="phone" id="phone" value="{{member.phone}}">
+				<input type="text" name="phone" id="phone" placeholder="Indiquer une numéro de téléphone" value="{{member.phone}}">
 			</span>
 			<span>
 				<label for="cellular">Portable</label>
-				<input type="text" name="cellular" id="cellular" value="{{member.cellular}}">
+				<input type="text" name="cellular" id="cellular" placeholder="Indiquer un numéro de portable" value="{{member.cellular}}">
 			</span>
 		</fieldset>
 		<fieldset>
 			<legend>Adresse</legend>
 			<span>
 				<label for="street">Rue</label>
-				<input type="text" name="street" id="street" value="{{member.street}}" />
+				<input type="text" name="street" id="street" placeholder="Indiquer une rue" value="{{member.street}}" />
 			</span>
 			<span>
 				<label for="zipcode">Code postal</label>
-				<input type="zipcode" name="zipcode" id="zipcode" value="{{member.zipcode}}" />
+				<input type="zipcode" name="zipcode" id="zipcode" placeholder="Indiquer une code postal" value="{{member.zipcode}}" />
 			</span>
 			<span>
 				<label for="city">Ville</label>
-				<input type="text" name="city" id="city" value="{{member.city}}" />
+				<input type="text" name="city" id="city" placeholder="Indiquer une ville" value="{{member.city}}" />
 			</span>
 		</fieldset>
-		<fieldset>
+		<fieldset class="hidden">
+			<legend>Statut</legend>
 				<span>
 				<label for="status_id">Statut</label>
 				<select name="status_id" id="status_id">

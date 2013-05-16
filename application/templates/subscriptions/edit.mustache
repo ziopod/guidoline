@@ -14,12 +14,16 @@
 			{{/message}}
 			<span>
 				<label for="title">Titre</label>
-				<input type="text" name="title" id="title" value="{{title}}" />
+				<input type="text" name="title" id="title" placeholder="Indiquer un titre" value="{{title}}" />
 			</span>
 			{{#errors}}{{#title}}<p class="form-error">{{title}}</p>{{/title}}{{/errors}}
 			<span>
+				<label for="cost">Coût</label>
+				<input type="text" name="cost" id="cost" placeholder="Indiquer un prix" value="{{cost}}" />
+			</span>
+			<span>
 				<label for="description">Description</label>
-				<textarea name="description" id="description" cols="30" rows="10">{{description}}</textarea>
+				<textarea name="description" id="description" cols="30" rows="2" placeholder="Indiquer une description">{{description}}</textarea>
 			</span>
 			<span class="form_action">
 				<input class="btn" type="submit" value="Enregistrer" />

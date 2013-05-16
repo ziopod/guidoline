@@ -2,6 +2,7 @@
 @import "flat-ui.css";
 @import "nyroModal.css";
 @import "tooltipster.css";
+@import "font-awesome.css";
 
 
 /* Typography */
@@ -15,12 +16,26 @@ h1 {
 iframe {background: red;}
 
 .cboxIframe .navbar,
+.nyroModalLink .navbar,
 .cboxIframe .content_profiler {
+	display: none !important;
+}
+
+.nyroModalLink .container {
+	width: 500px;
+}
+
+.nyroModalTitle {
 	display: none;
 }
 
 .content_profiler {
-//	display: none;
+	/*display: none;*/
+}
+
+.separator {
+	font-size: 2em;
+	font-weight: normal;
 }
 
 /* Navigation */
@@ -43,7 +58,7 @@ iframe {background: red;}
 /*-----------------------*/
 
 .content_main {
-	padding: 5em 0 1.5em;
+	padding: 0em 0 0.5em;
 }
 
 .content_stat {
@@ -88,12 +103,19 @@ iframe {background: red;}
 /* Form */
 /*-----------------------*/
 
+form {
+	margin: 0 0 3.5em;
+}
+
 legend {
 	margin: 0 0 1em;
 }
 
+.dataTables_wrapper input {
+	width: 192px;
+}
+
 [class^=form_] fieldset > span {
-	display: block;
 	float: left;
 	width: 50%;
 }
@@ -128,7 +150,44 @@ legend {
 /* Table*/
 /*-----------------------*/
 
+#table_members th:nth-child(1) {
+	width:200px;
+}
+#table_members th:nth-child(3) {
+	width:80px;
+}
+#table_members th:nth-child(4) {
+	width:250px;
+}
+#table_members th:nth-child(5) {
+	width:70px;
+}
+#table_members th:nth-child(6) {
+	width:200px;
+}
+
 .dataTables_info{
 	margin: 18px 0;
 	padding: .8em 0;
+}
+
+.table th.headerSortUp,
+.table th.headerSortDown {
+	position: relative;
+}
+.table th.headerSortUp:after,
+.table th.headerSortDown:after {
+	font-family: 'FontAwesome';
+	font-size: 1.3em;
+	position: absolute;
+	right: 5px;
+	width: 10px;
+	height: 10px;
+}
+.table th.headerSortUp:after {
+		content:"\f0d8";
+}
+
+.table th.headerSortDown:after {
+		content:"\f0d7";
 }

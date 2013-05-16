@@ -1,11 +1,10 @@
-$(document).ready(function() {
-	
+$(function(){
+
+		$('.modale').nyroModal();
 		$('.tip').tooltipster({position: 'bottom'});
 		$('.tipleft').tooltipster({position: 'left'});
 		
-		$('.modale').nyroModal();
-		
-		$('.table').dataTable( {
+		var oTable = $('.datatable').dataTable( {
 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
 			"sPaginationType": "bootstrap",
 			"oLanguage": {
@@ -13,21 +12,39 @@ $(document).ready(function() {
 				"sUrl": "../assets/language/fr_FR.txt",
 				"sUrl": "assets/language/fr_FR.txt"
 			},
-			//"bProcessing" : true,
-			//"bServerSide" : true,
+			"fnDrawCallback": function () {
+			  $('.modale').nyroModal();
+				$('.tip').tooltipster({position: 'bottom'});
+       }
+		});
+		
+		var oTableMembers = $('#table_members').dataTable( {
+			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
+			"sPaginationType": "bootstrap",
+			"bStateSave": true,
+			"aaSorting": [[ 2, "desc" ]], 
+			"aoColumns": [
+			            null,
+			            null,
+			            null,
+			            null,
+			            null,
+									null,
+									{ "bSortable": false },
+									{ "bSortable": false }
+			        ],
+			"oLanguage": {
+				"sLengthMenu": "_MENU_ records per page",
+				"sUrl": "../assets/language/fr_FR.txt",
+				"sUrl": "assets/language/fr_FR.txt"
+			},
 			"sAjaxSource" : "members.json",
-			// "aoColumns"	: [
-			// 	{"mData" : "id"},
-			// 	{"mData" : "created"},
-			// 	{"mData" : "name"},
-			// 	{"mData" : "firstname"},
-			// 	{"mData" : "email"},
-			// 	{"mData" : "cellular"},
-			// 	{"mData" : "street"},
-			// 	{"mData" : "zipcode"},
-			// 	{"mData" : "city"}
-			// ]
-		});		
+			"fnDrawCallback": function () {
+			  $('.modale').nyroModal();
+				$('.tip').tooltipster({position: 'bottom'});
+       }
+		});
+	
 });
 
 // $('#example').dataTable( {
