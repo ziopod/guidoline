@@ -23,16 +23,16 @@ class View_Layout {
 	* __À noter__ : Le système de navigation ne gère pas les "sous menu" pour le moment.
 	**/
 	public $navigation_links = array(
-		'home'	=> array(
-			'url' => '',
-			'name'	=> "Home",
-			'title'	=> "Go to home",
-			),
-		'users'	=> array(
-			'url'	=> 'users',
-			'name'	=> "Users",
-			'title'	=> "Go to users list",
-			),
+		// 'home'	=> array(
+		// 	'url' => '',
+		// 	'name'	=> "Home",
+		// 	'title'	=> "Go to home",
+		// 	),
+		// 'users'	=> array(
+		// 	'url'	=> 'users',
+		// 	'name'	=> "Users",
+		// 	'title'	=> "Go to users list",
+		// 	),
 		'members'	=> array(
 			'url'	=> 'members',
 			'name'	=> "Membres",
@@ -43,16 +43,16 @@ class View_Layout {
 			'name'	=> 'Adhésions',
 			'title'	=> 'Afficher les adhésions',
 		),
-		'userguide' => array(
-			'url'	=> 'guide-api',
-			'name'	=> "API guide",
-			'title'	=> "Need help?",
-			),
-		'sandbox'	=> array(
-			'url'	=> 'sandbox',
-			'name'	=> "Sandbox",
-			'title'	=> "let's plays",
-			)
+		// 'userguide' => array(
+		// 	'url'	=> 'guide-api',
+		// 	'name'	=> "API guide",
+		// 	'title'	=> "Need help?",
+		// 	),
+		// 'sandbox'	=> array(
+		// 	'url'	=> 'sandbox',
+		// 	'name'	=> "Sandbox",
+		// 	'title'	=> "let's plays",
+		// 	)
 		);
 
 	/**
