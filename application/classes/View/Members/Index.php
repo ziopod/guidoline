@@ -70,7 +70,7 @@ class View_Members_Index extends View_Layout {
 	**/
 	public function new_membersship_during_year()
 	{
-		return $this->stats->new_membersship_during_year();
+		//return $this->stats->new_membersship_during_year();
 	}
 
 	/**
@@ -86,7 +86,7 @@ class View_Members_Index extends View_Layout {
 	**/
 	public function average_age()
 	{
-		return $this->stats->average_age();
+		//return $this->stats->average_age();
 	}
 
 	/**
@@ -94,6 +94,6 @@ class View_Members_Index extends View_Layout {
 	**/
 	public function turnover()
 	{
-		return $this->stats->turnover();
+		//return $this->stats->turnover();
 	}
 }
