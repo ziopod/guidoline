@@ -178,6 +178,6 @@ Route::set('api', '<controller>(/<action>)(.<format>)',
 // Defaults
 Route::set('default', '(<controller>(/<action>(/<id>)))')
   ->defaults(array(
-    'controller' => 'Dashboard',
+    'controller' => 'Members',
     'action'     => 'index',
   ));

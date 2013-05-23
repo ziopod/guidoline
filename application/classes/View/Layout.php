@@ -23,16 +23,16 @@ class View_Layout {
 	* __À noter__ : Le système de navigation ne gère pas les "sous menu" pour le moment.
 	**/
 	public $navigation_links = array(
-		'home'	=> array(
-			'url' => '',
-			'name'	=> "Home",
-			'title'	=> "Go to home",
-			),
-		'users'	=> array(
-			'url'	=> 'users',
-			'name'	=> "Users",
-			'title'	=> "Go to users list",
-			),
+		// 'home'	=> array(
+		// 	'url' => '',
+		// 	'name'	=> "Home",
+		// 	'title'	=> "Go to home",
+		// 	),
+		// 'users'	=> array(
+		// 	'url'	=> 'users',
+		// 	'name'	=> "Users",
+		// 	'title'	=> "Go to users list",
+		// 	),
 		'members'	=> array(
 			'url'	=> 'members',
 			'name'	=> "Membres",
@@ -43,29 +43,23 @@ class View_Layout {
 			'name'	=> 'Adhésions',
 			'title'	=> 'Afficher les adhésions',
 		),
-		'userguide' => array(
-			'url'	=> 'guide-api',
-			'name'	=> "API guide",
-			'title'	=> "Need help?",
-			),
-		'sandbox'	=> array(
-			'url'	=> 'sandbox',
-			'name'	=> "Sandbox",
-			'title'	=> "let's plays",
-			)
+		// 'userguide' => array(
+		// 	'url'	=> 'guide-api',
+		// 	'name'	=> "API guide",
+		// 	'title'	=> "Need help?",
+		// 	),
+		// 'sandbox'	=> array(
+		// 	'url'	=> 'sandbox',
+		// 	'name'	=> "Sandbox",
+		// 	'title'	=> "let's plays",
+		// 	)
 		);
 
 	/**
 	* @vars Scripts	Scripts par défaut pour le header HTML
 	**/
 	public $scripts = array(
-		array('script' => 'assets/script/jquery-1.8.2.min.js'),
-		array('script' => 'assets/script/jquery.dataTables.min.js'),
-		array('script' => 'assets/script/jquery.jeditable.js'),
-		array('script' => 'assets/script/dataTables.bootstrap.js'),
-		array('script' => 'assets/script/jquery.nyroModal.custom.js'),
-		array('script' => 'assets/script/jquery.tooltipster.js'),
-		array('script' => 'assets/script/general.js'),
+		array('script' => 'http://code.jquery.com/jquery-1.9.1.min.js'),
 	);
 	
 	/**
