@@ -23,7 +23,7 @@ return array
 			'hostname'   => 'localhost',
 			'database'   => 'guidoline',
 			'username'   => 'root',
-			'password'   => 'root',
+			'password'   => 'cortex',
 			'persistent' => FALSE,
 		),
 		'table_prefix' => '',
