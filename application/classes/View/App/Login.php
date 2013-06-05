@@ -25,6 +25,7 @@ class View_App_Login extends View_Layouts_Simple{
 			echo Debug::vars($this->post);
 			echo Debug::vars(Kohana::$config->load('auth.users'));
 			echo Debug::vars(Auth::instance()->hash_password($this->post['password']));
+			echo Debug::vars($login);
 			echo  View::factory('profiler/stats');
 			if ($login)
 			{
@@ -36,7 +37,7 @@ class View_App_Login extends View_Layouts_Simple{
 					$requested_uri = Route::get('default')->uri();
 				}
 
-//				HTTP::redirect($requested_uri);
+				HTTP::redirect($requested_uri);
 			}
 			else
 			{
