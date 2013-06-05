@@ -88,4 +88,10 @@ class Controller_Subscriptions extends Controller_App {
 		// context external
 		//$this->response->body(json_encode($result));
 	}
+
+	public function action_delete()
+	{
+		ORM::factory('subscription', $this->request->param('id'))->delete();
+		HTTP::redirect($this->request->referrer());
+	}
 }
