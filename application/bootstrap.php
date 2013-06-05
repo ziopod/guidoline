@@ -152,6 +152,9 @@ Kohana::modules(array(
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
+
+
+
 // API
 Route::set('api', '<controller>(/<action>)(.<format>)',
   array(
@@ -164,6 +167,15 @@ Route::set('api', '<controller>(/<action>)(.<format>)',
       'action' => 'index',
     ));
 
+// Shortcut URL for signin action
+Route::set('shortcut-signin', '<action>(/<id>)',
+  array(
+    'action'  => '(login|logout)',
+  ))
+  ->defaults(array(
+    'controller'  => 'App',
+    'action'    => 'login',
+  ));
 // Sections
 // Route::set('sections', '<directory>(/<controller>(/<action>(/<id>)))',
 //     array(

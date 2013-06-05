@@ -1,0 +1,21 @@
+<h1>{{title}}</h1>
+<form action="" method="post">
+	<fieldset>
+		<legend>Connexion</legend>
+		Nom d'utilisateur : demo
+		<br />
+		Mot de passe : demo
+		<span>
+			<label for="username">Nom d'utilisateur</label>
+			<input type="text" name="username" id="username" value="{{post.username}}" />
+		</span>
+		{{#errors}}{{#username}}<p class="form-error">{{username}}</p>{{/username}}{{/errors}}
+		<span>
+			<label for="password">Mot de passe</label>
+			<input type="password" name="password" id="password" />
+		</span>
+		<span class="form-action">
+			<input class="btn" type="submit" value="S'authentifier" />
+		</span> 
+	</fieldset>	
+</form>
