@@ -37,7 +37,7 @@ class Controller_App extends Controller {
 
 	public function before()
 	{
-		if ( ! AUth::instance()->logged_in() AND $this->request->action() !== 'login')
+		if ( ! Auth::instance()->logged_in() AND $this->request->action() !== 'login')
 		{
 			$uri = route::get('shortcut-signin')->uri();
 			Session::instance()->set('requested_uri', $this->request->uri());
