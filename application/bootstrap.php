@@ -86,9 +86,8 @@ if (isset($_SERVER['KOHANA_ENV']))
 if ($_SERVER['SERVER_ADDR'] == '127.0.0.1')
 {
   Kohana::$environment = Kohana::DEVELOPMENT;
-
-  // Turn off notices and strict errors
   error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+  // Turn off notices and strict errors
 }
 else
 {
@@ -111,7 +110,7 @@ else
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
 Kohana::init(array(
-  'base_url'   => Kohana::$environment === Kohana::PRODUCTION ? '/' : '/guidoline',
+  'base_url'   => Kohana::$environment === Kohana::PRODUCTION ? '/' : '/guidoline/',
   'caching'    => Kohana::$environment === Kohana::PRODUCTION,
   'profile'    => Kohana::$environment !== Kohana::PRODUCTION,
   'index_file' => FALSE,
