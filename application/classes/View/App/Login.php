@@ -22,7 +22,8 @@ class View_App_Login extends View_Layouts_Simple{
 		{
 			$this->post = Request::initial()->post();
 			$login = Auth::instance()->login($this->post['username'], $this->post['password'], @$this->post['remember']);
-
+			echo Debug::vars($this->post);
+			echo  View::factory('profiler/stats');
 			if ($login)
 			{
 				$requested_uri = Session::instance()->get('requested_uri');
@@ -33,7 +34,7 @@ class View_App_Login extends View_Layouts_Simple{
 					$requested_uri = Route::get('default')->uri();
 				}
 
-				HTTP::redirect($requested_uri);
+//				HTTP::redirect($requested_uri);
 			}
 			else
 			{
