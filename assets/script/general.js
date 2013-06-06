@@ -24,14 +24,15 @@ $(function(){
 			"bStateSave": true,
 			"aaSorting": [[ 2, "desc" ]], 
 			"aoColumns": [
+						null,
 			            null,
 			            null,
 			            null,
 			            null,
 			            null,
-									null,
-									{ "bSortable": false },
-									{ "bSortable": false }
+						null,
+						{ "bSortable": false },
+						{ "bSortable": false }
 			        ],
 			"oLanguage": {
 				"sLengthMenu": "_MENU_ records per page",

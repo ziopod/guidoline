@@ -149,7 +149,7 @@ class Model_Member extends ORM{
 	{
 		if ( ! $this->has('subscriptions'))
 		{
-			return FALSE;
+			return array();
 		}
 
 		// AND DATE_ADD(`subscriptions_member`.`created`, INTERVAL `subscription`.`expiry_time` SECOND) >  CURDATE()
@@ -157,12 +157,15 @@ class Model_Member extends ORM{
 
 		$lasts = $this->subscriptions_members
 			->with('subscription')
+//			->where(DB::expr("TO_SECONDS(`subscriptions_member`.`created`) + `subscription`.`expiry_time`"), '>', DB::expr("TO_SECONDS(NOW())"))
+	//					$expired = Date::span($created, strtotime((date('Y', time()) + 1) . '-01-01'), 'months') > 2;
+
 			->where(DB::expr("TO_SECONDS(`subscriptions_member`.`created`) + `subscription`.`expiry_time`"), '>', DB::expr("TO_SECONDS(NOW())"))
 			->find_all();
 
 		if ( ! count($lasts))
 		{
-			return FALSE;
+			return array();
 		}
 		
 		return $lasts;

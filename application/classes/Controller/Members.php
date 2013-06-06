@@ -48,10 +48,25 @@ class Controller_Members extends Controller_App {
 			{
 				$subscriptions = '';
 
-				$subscriptions .= ' <a href="'.$base_url.'members/subscriptions/'.$member->id.'" class="icon-cog icon-2x tip" title="Gérer les inscriptions"></a>';
+				foreach ($member->last_valid_subscriptions() as $subscription_member)
+				{
+					$subscription_members .= $subscription_member->subscription->title . 'Inscrit le ' . $subscription_member->start_date . ' (' . $subscription_member->elapsed_time_fuzzy . ')'.
+						'périmé le '. $subscription_member->remaining_time . ' (le ' . $subscription_member->end_date .')';
+					// if ($subscription_member->valid_subscription())
+					// {
+					// 	$subscription_members .= $subscription_member->subscription->title . 'Inscrit le ' . $subscription_member->start_date . ' (' . $subscription_member->elapsed_time_fuzzy . ')'.
+					// 		'périmé le '. $subscription_member->remaining_time . ' (le ' . $subscription_member->end_date .')';
+					// }
+					// else
+					// {
+					// 	$subscription_members .= $subscription_member->subscription->title . 'Périmé depuis le ' . $subscription_member->end_date . ' (' . $subscription_member->end_date_fuzzy . ')';
+					// }
+				}
+
+				$subscriptions .= '<a href="'.$base_url.'members/subscriptions/'.$member->id.'" class="icon-cog icon-2x tip" title="Gérer les inscriptions"></a>';
 
 				$dm[] = array(
-					// $member->id,
+					'#' . $member->id,
 					$member->firstname . ' ' . $member->name,
 					$member->birthdate,
 					$member->created,
@@ -63,6 +78,8 @@ class Controller_Members extends Controller_App {
 					'<a class="icon-pencil icon-2x modale tip" href="'.$base_url.'members/edit/'.$member->id.'#form_content" title="Modifier"></a>'
 				);
 			}
+
+
 
 			$response = Json_encode(
 				array(
