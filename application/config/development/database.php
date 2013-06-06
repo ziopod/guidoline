@@ -20,10 +20,11 @@ return array
 			 *
 			 * Ports and sockets may be appended to the hostname.
 			 */
-			'hostname'   => 'localhost',
-			'database'   => 'guidoline',
-			'username'   => 'root',
-			'password'   => 'cortex',
+			'hostname'   => $database_url['host'],
+			'database'   => substr($database_url['path'], 1),
+			'username'   => $database_url['user'],
+			'password'   => $database_url['pass'],
+
 			'persistent' => FALSE,
 		),
 		'table_prefix' => '',

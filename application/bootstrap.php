@@ -86,9 +86,8 @@ if (isset($_SERVER['KOHANA_ENV']))
 if ($_SERVER['SERVER_ADDR'] == '127.0.0.1')
 {
   Kohana::$environment = Kohana::DEVELOPMENT;
-
-  // Turn off notices and strict errors
   error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+  // Turn off notices and strict errors
 }
 else
 {
@@ -111,6 +110,7 @@ else
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
 Kohana::init(array(
+
   'base_url'   => Kohana::$environment === Kohana::PRODUCTION ? '/' : '/',
   'caching'    => Kohana::$environment === Kohana::PRODUCTION,
   'profile'    => Kohana::$environment !== Kohana::PRODUCTION,
@@ -153,6 +153,9 @@ Kohana::modules(array(
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
+
+
+
 // API
 Route::set('api', '<controller>(/<action>)(.<format>)',
   array(
@@ -165,6 +168,15 @@ Route::set('api', '<controller>(/<action>)(.<format>)',
       'action' => 'index',
     ));
 
+// Shortcut URL for signin action
+Route::set('shortcut-signin', '<action>(/<id>)',
+  array(
+    'action'  => '(login|logout)',
+  ))
+  ->defaults(array(
+    'controller'  => 'App',
+    'action'    => 'login',
+  ));
 // Sections
 // Route::set('sections', '<directory>(/<controller>(/<action>(/<id>)))',
 //     array(

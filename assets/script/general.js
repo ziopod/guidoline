@@ -3,6 +3,11 @@ $(function(){
 		$('.modale').nyroModal();
 		$('.tip').tooltipster({position: 'bottom'});
 		$('.tipleft').tooltipster({position: 'left'});
+		$("#js-main-menu").mmenu({
+		   configuration     : {
+		      slideDuration        : 20000
+		   }
+		});
 		
 		var oTable = $('.datatable').dataTable( {
 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",

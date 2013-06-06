@@ -18,6 +18,11 @@ class Controller_App extends Controller {
 	protected $layout;
 
 	/**
+	* @vars L'utilisateur actuellement authentifié
+	**/
+	protected $current_user;
+
+	/**
 	* Créer une instance de Kostache pour le layout de base de l'application.
 	*
 	* @param   Request   $request  Request that created the controller
@@ -28,6 +33,39 @@ class Controller_App extends Controller {
 	{
 		parent::__construct($request, $response);
 		$this->layout = Kostache_Layout::factory();
+	}
+
+	public function before()
+	{
+		if ( ! Auth::instance()->logged_in() AND $this->request->action() !== 'login')
+		{
+			$uri = route::get('shortcut-signin')->uri();
+			Session::instance()->set('requested_uri', $this->request->uri());
+			HTTP::redirect($uri);
+		}
+
+		$this->current_user = Auth::instance()->get_user();
+	}
+
+	/**
+	* Page de connxion
+	**/
+	public function action_login()
+	{
+		// TODO renommer la classe "View_Layout" en "View_App"
+		// TODO remommer le template "layout.mustache" en "layouts/app.mustache"
+		$this->layout = Kostache_Layout::factory('layouts/simple');
+		$view = new View_App_Login;
+		$this->response->body($this->layout->render($view));
+	}
+
+	/**
+	* Déconnexion
+	**/
+	public function action_logout()
+	{
+		Auth::instance()->logout();
+		HTTP::redirect();
 	}
 
 	/**
