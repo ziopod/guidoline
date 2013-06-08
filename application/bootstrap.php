@@ -111,7 +111,7 @@ else
  */
 Kohana::init(array(
 
-  'base_url'   => Kohana::$environment === Kohana::PRODUCTION ? '/' : '/',
+  'base_url'   => Kohana::$environment === Kohana::PRODUCTION ? '/' : '/guidoline/',
   'caching'    => Kohana::$environment === Kohana::PRODUCTION,
   'profile'    => Kohana::$environment !== Kohana::PRODUCTION,
   'index_file' => FALSE,

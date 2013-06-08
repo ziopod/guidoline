@@ -8,12 +8,12 @@
 			Mot de passe : demo
 			<span>
 				<label for="username">Nom d'utilisateur</label>
-				<input type="text" name="username" id="username" value="{{post.username}}" />
+				<input type="text" name="username" id="username" placeholder="veuillez indiquez votre nom utilisateur" value="{{post.username}}" />
 			</span>
 			{{#errors}}{{#username}}<p class="form-error">{{username}}</p>{{/username}}{{/errors}}
 			<span>
 				<label for="password">Mot de passe</label>
-				<input type="password" name="password" id="password" />
+				<input type="password" name="password" id="password" placeholder="veuillez indiquez votre mot de passe" />
 			</span>
 			<span class="form-action">
 				<input class="btn" type="submit" value="S'authentifier" />
