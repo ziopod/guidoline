@@ -46,4 +46,5 @@ class Model_Subscription extends ORM{
 
 		return parent::get($column);
 	}
+
 }

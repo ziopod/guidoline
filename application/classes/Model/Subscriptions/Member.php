@@ -152,8 +152,9 @@ class Model_Subscriptions_Member extends ORM{
 		{
 			$created = (int) strtotime($this->_object['created']);
 			$expiry_time = (int) $this->subscription->_object['expiry_time'];
+			//return Date::span($created, strtotime((date('Y', time()) +1 ) . '-01-01'), 'months');
 			//$expired = $created + $expiry_time  > time() ? TRUE : FALSE;
-			$expired = Date::span($created, strtotime((date('Y', time()) + 1) . '-01-01'), 'months') > 2;
+			$expired = Date::span($created, strtotime((date('Y', time()) + 1) . '-01-01'), 'months') < 2;
 
 			return $expired;
 		}

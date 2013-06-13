@@ -43,25 +43,44 @@ class Controller_Members extends Controller_App {
 // 				->execute()->as_array();
 			$dm = array();
 			$base_url = URL::base(FALSE, TRUE);
-			//foreach ($members->find_all() as $member)
+
+			// Get all 
 			foreach ($members->find_all() as $member)
 			{
+				// Récupérons les adhésion
 				$subscriptions = '';
 
-				foreach ($member->last_valid_subscriptions() as $subscription_member)
+				foreach (ORM::factory('Subscription')->find_all() as $subscription)
 				{
-					$subscription_members .= $subscription_member->subscription->title . 'Inscrit le ' . $subscription_member->start_date . ' (' . $subscription_member->elapsed_time_fuzzy . ')'.
-						'périmé le '. $subscription_member->remaining_time . ' (le ' . $subscription_member->end_date .')';
-					// if ($subscription_member->valid_subscription())
-					// {
-					// 	$subscription_members .= $subscription_member->subscription->title . 'Inscrit le ' . $subscription_member->start_date . ' (' . $subscription_member->elapsed_time_fuzzy . ')'.
-					// 		'périmé le '. $subscription_member->remaining_time . ' (le ' . $subscription_member->end_date .')';
-					// }
-					// else
-					// {
-					// 	$subscription_members .= $subscription_member->subscription->title . 'Périmé depuis le ' . $subscription_member->end_date . ' (' . $subscription_member->end_date_fuzzy . ')';
-					// }
+					if ($member->has('subscriptions', $subscription))
+					{
+						$subscriptions .= ($member->subscriptions_members->where('subscription_id', '=', $subscription->id)->find()->valid_subscription) ? 'ok' : 'nope';
+						$member->check_subscription_validity($subscription);
+						$subscriptions .= '<a href="">'.$subscription->title.'</a> ';
+					}
+					else // Add ne one
+					{
+						$subscriptions .= 'Ajouter <a href="">'.$subscription->title.'</a> ';
+					}
+
+					$subscriptions .= '<br />';
+
 				}
+
+				// foreach ($member->last_valid_subscriptions() as $subscription_member)
+				// {
+				// 	$subscriptions .= $subscription_member->subscription->title . 'Inscrit le ' . $subscription_member->start_date . ' (' . $subscription_member->elapsed_time_fuzzy . ')'.
+				// 		'périmé le '. $subscription_member->remaining_time . ' (le ' . $subscription_member->end_date .')';
+				// 	// if ($subscription_member->valid_subscription())
+				// 	// {
+				// 	// 	$subscription_members .= $subscription_member->subscription->title . 'Inscrit le ' . $subscription_member->start_date . ' (' . $subscription_member->elapsed_time_fuzzy . ')'.
+				// 	// 		'périmé le '. $subscription_member->remaining_time . ' (le ' . $subscription_member->end_date .')';
+				// 	// }
+				// 	// else
+				// 	// {
+				// 	// 	$subscription_members .= $subscription_member->subscription->title . 'Périmé depuis le ' . $subscription_member->end_date . ' (' . $subscription_member->end_date_fuzzy . ')';
+				// 	// }
+				// }
 
 				$subscriptions .= '<a href="'.$base_url.'members/subscriptions/'.$member->id.'" class="icon-cog icon-2x tip" title="Gérer les inscriptions"></a>';
 

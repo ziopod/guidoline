@@ -188,6 +188,16 @@ class Model_Member extends ORM{
 	}
 
 	/**
+	* Contrôle la validité d'une adhésion
+	*
+	* @return	bool	
+	*/
+	public function check_subscription_validity( $subscription)
+	{
+
+	}
+
+	/**
 	* Retourne la première adhésion
 	*
 	* @return	Mixte	False ou tableau contenant la première adhésion
