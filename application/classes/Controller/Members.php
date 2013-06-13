@@ -95,7 +95,6 @@ class Controller_Members extends Controller_App {
 		}
 		else
 		{
-
 			$view = new View_Members_Index;
 			$this->response->body($this->layout->render($view));
 		}

@@ -42,11 +42,11 @@ class View_Members_Index extends View_Layout {
 	**/
 	public function members()
 	{
-		// $members = DB::select('*')->from('members');
-		// return $members->limit(100)->execute();
-		//$members = ORM::factory('Member');
-		//return $members;
-		//return $members->limit(100)->find_all();
+		$members = DB::select('*')->from('members');
+		return $members->limit(200)->execute();
+		$members = ORM::factory('Member');
+		return $members;
+		return $members->limit(100)->find_all();
 	}
 
 	/**
