@@ -82,8 +82,7 @@ if (isset($_SERVER['KOHANA_ENV']))
 /**
  * Set the environment status by the domain.
  */
-
-if ($_SERVER['SERVER_ADDR'] == '127.0.0.1')
+if ($_SERVER['SERVER_ADDR'] === '127.0.0.1' OR $_SERVER['HTTP_HOST'] == 'localhost')
 {
   Kohana::$environment = Kohana::DEVELOPMENT;
   error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
@@ -110,7 +109,6 @@ else
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
 Kohana::init(array(
-
   'base_url'   => Kohana::$environment === Kohana::PRODUCTION ? '/' : '/guidoline/',
   'caching'    => Kohana::$environment === Kohana::PRODUCTION,
   'profile'    => Kohana::$environment !== Kohana::PRODUCTION,
