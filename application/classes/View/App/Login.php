@@ -22,7 +22,11 @@ class View_App_Login extends View_Layouts_Simple{
 		{
 			$this->post = Request::initial()->post();
 			$login = Auth::instance()->login($this->post['username'], $this->post['password'], @$this->post['remember']);
-
+			echo Debug::vars($this->post);
+			echo Debug::vars(Kohana::$config->load('auth.users'));
+			echo Debug::vars(Auth::instance()->hash_password($this->post['password']));
+			echo Debug::vars($login);
+			echo  View::factory('profiler/stats');
 			if ($login)
 			{
 				$requested_uri = Session::instance()->get('requested_uri');

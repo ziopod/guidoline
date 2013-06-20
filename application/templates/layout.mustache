@@ -4,20 +4,22 @@
 	<meta charset="UTF-8">
 	<title>{{title}}</title>
 	<link rel="stylesheet" href="{{base_url}}assets/css/styles.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="icon" href="assets/img/favicon.ico" type="image/x-icon" />
 	{{#scripts}}
 		{{{script}}}
 	{{/scripts}}
 </head>
-<body>
-	<header>
-		{{>navigation}}
-		<a href="{{base_url}}logout">logout</a>
-	</header>
-	<section class="content_main container">
-		{{>content}}
-	</section>
-	<section class="content_profiler container">
-		{{{profiler}}}
-	</section>
+<body class="no-js">
+	<div class="page">
+		<header class="header_main">
+			{{>navigation}}
+		</header>
+		<section class="content_main container">
+			{{>content}}
+		</section>
+		<section class="content_profiler container">
+			{{{profiler}}}
+		</section>
+	</div>
 </body>
 </html>

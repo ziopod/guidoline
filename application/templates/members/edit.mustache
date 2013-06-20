@@ -1,7 +1,7 @@
 <div id="form_content">
 	<form action="{{base_url}}members/save" method="post" class="form_edit">
 			{{#errors}}
-			<strong class="msg-error">Ce formulaire n'est pas correctement rempli!</strong>
+			<strong class="msg-error">Ce formulaire n'est pas correctement rempli !</strong>
 			{{/errors}}
 		<fieldset>
 			<legend>Informations personnelles</legend>
@@ -23,7 +23,7 @@
 			</span>
 			<span>
 				<label for="name">Nom</label>
-				<input type="text" name="name" id="name" placeholder="Indiquer une nom" value="{{member.name}}" />
+				<input type="text" name="name" id="name" placeholder="Indiquer un nom" value="{{member.name}}" />
 			</span>
 		</fieldset>
 		<fieldset>
@@ -31,12 +31,12 @@
 			<input type="hidden" name="id" id="id" value="{{member.id}}" />
 			<span>
 				<label for="email">Email</label>
-				<input type="email" name="email" id="email" placeholder="Indiquer une contact email" value="{{member.email}}" />
+				<input type="email" name="email" id="email" placeholder="Indiquer un contact email" value="{{member.email}}" />
 			</span>
 			{{#errors}}{{#email}}<p class="form-error">{{email}}</p>{{/email}}{{/errors}}
 			<span class="hidden">
 				<label for="phone">Téléphone</label>
-				<input type="text" name="phone" id="phone" placeholder="Indiquer une numéro de téléphone" value="{{member.phone}}">
+				<input type="text" name="phone" id="phone" placeholder="Indiquer un numéro de téléphone" value="{{member.phone}}">
 			</span>
 			<span>
 				<label for="cellular">Portable</label>
@@ -47,7 +47,7 @@
 			<legend>Adresse</legend>
 			<span>
 				<label for="street">Rue</label>
-				<input type="text" name="street" id="street" placeholder="Indiquer une rue" value="{{member.street}}" />
+				<input type="text" name="street" id="street" placeholder="Indiquer un nom de rue" value="{{member.street}}" />
 			</span>
 			<span>
 				<label for="zipcode">Code postal</label>

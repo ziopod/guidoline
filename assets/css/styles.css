@@ -3,6 +3,7 @@
 @import "nyroModal.css";
 @import "tooltipster.css";
 @import "font-awesome.css";
+@import "mmenu.css";
 
 
 /* Typography */
@@ -37,6 +38,74 @@ iframe {background: red;}
 	font-size: 2em;
 	font-weight: normal;
 }
+
+/* header */
+/*-----------------------*/
+
+.header_main {
+	background: #34495E;
+	font-size: 16px;
+	font-weight: bold;
+	color: #fff;
+	height: 40px;
+	padding: 0 50px;
+	margin: 0 0 1em 0;
+}
+
+.header_main p {
+	padding-left: .5em;
+	font-size: 2em;
+	letter-spacing: 10px;
+	font-weight: 900;
+}
+
+.no-js .header_main p {
+	display: block;
+	float: right;
+}
+
+.header_main p a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.header_main .main-menu-link {
+	background: center center no-repeat transparent;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAE1JREFUeNpi/P//PwOtARMDHQBdLGFBYt+nkR2KjEhxQqvIYaR7cD2glSWMo0mY3DiJo5Edi4ZPEqZ7nMSP5pPRon60qB9NwpQDgAADAMIxHUJvWs/TAAAAAElFTkSuQmCC);
+	display: block;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 0;
+	left: 10px;
+}
+
+.no-js .main-menu-link {
+	display: block;
+}
+
+.header_main a.main-menu-link.friends {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAVNJREFUeNq01jFLAzEYxvH2UBCxiIiDUhzcdXCyIk5ufgUXLR37JdxcXBxcuwmOOtml0EKpo04iWIpIQREVEVFLjf9AhoC9e3O5uxd+lMLdPU1yedO8UiqXdQWO122ghi4+8IwGqiiId+uRCHbxqsLrFHNRz5ACSnhTch1EPScQpnIH0w7TWcGiz5rouS45rtkMVnxCJrAQ4yUq+oT8YhAjZOAT8oWHGCE9nxC9H64cA15w4xOiW0HbfErVNhvUa8c3cecQcoZv3xA9z+fCNbe4SNq7jvEUMaUnuE/au7SjkHbSR1G637ULh73Kn+gn7cIBttELGckQh9Jo8iMOrSksYx2b2MKk8FuvUUcHl/9GbiWuooYu3pVf/eARLZQxbp8na2YR0659e+HLmM/geN+z98lSRv8hZu2QQkYh+kzKjZkvHdPahymH6DNp5Cucev0JMAAkKj0NEoYBJwAAAABJRU5ErkJggg==);}
+
+.no-js .header_main nav ul {
+	list-style-type: none;
+	margin: 0;
+}
+
+.no-js .header_main nav li {
+	float: left;
+}
+
+.no-js .header_main nav a {
+	display: block;
+	padding:.5em 1em;
+	text-decoration: none;
+}
+
+.no-js .header_main nav a:hover {
+	color: #fff;
+}
+
 
 /* Navigation */
 /*-----------------------*/
@@ -147,6 +216,39 @@ legend {
 	text-align: right;
 }
 
+/* Box login */
+/*-----------------------*/
+
+.box_login {
+	margin: 3em auto;
+	width: 500px;
+	border: 2px solid #34495E;
+	border-radius: 15px;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+	background: #f9ffff;
+}
+
+.box_login h1 {
+	padding: .5em;
+	color: #fff;
+	background: #34495E;
+	border: none;
+	border-radius: 13px 13px 0 0;
+}
+
+.box_login form {
+	margin:.5em 1em 1em;
+}
+
+.box_login input[type="text"],.box_login input[type="password"] {
+	width: 98%;
+}
+
+.box_login .btn {
+	float: right;
+	margin:.5em .5em 1em;
+}
+
 /* Table*/
 /*-----------------------*/
 
@@ -174,6 +276,7 @@ legend {
 .table th.headerSortUp,
 .table th.headerSortDown {
 	position: relative;
+	display: block;
 }
 .table th.headerSortUp:after,
 .table th.headerSortDown:after {
