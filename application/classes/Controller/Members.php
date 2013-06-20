@@ -32,10 +32,12 @@ class Controller_Members extends Controller_App {
 		if ($this->request->param('format') == 'json')
 		{
 			$this->request->headers('Content-Type', 'application/json; charset='.Kohana::$charset);
+			//echo Debug::vars($this->request->param('iDisplayStart'));
+			//echo Debug::vars($this->request->param('iDisplayLength'));
 			$members = ORM::factory('Member')
-				->offset($this->request->param('iDisplayStart'))
-				->limit($this->request->param('iDisplayLength'));
-			$total_count =1;// (int) $members->count_all();
+				->offset($this->request->query('iDisplayStart'))
+				->limit($this->request->query('iDisplayLength'));
+			$total_count = ORM::factory('Member')->count_all();
 // 			$members = DB::select('id', 'created', 'name', 'firstname', 'email', 'cellular', 'street', 'zipcode', 'city')
 // 				->from('members')
 // 				->limit($this->request->param('iDisplayStart'), $this->request->param('iDisplayLength'))
@@ -94,6 +96,7 @@ class Controller_Members extends Controller_App {
 				$subscriptions .= '<a href="'.$base_url.'members/subscriptions/'.$member->id.'" class="icon-cog icon-2x tip" title="Historique des inscriptions"></a>';
 
 				$dm[] = array(
+				//	'#' . $member->id . '.' . $this->request->query('iDisplayStart') .', '.$this->request->query('iDisplayLength'),
 					'#' . $member->id,
 					$member->firstname . ' ' . $member->name,
 					$member->birthdate,
