@@ -91,7 +91,7 @@ class Controller_Subscriptions extends Controller_App {
 
 	public function action_delete()
 	{
-		ORM::factory('subscription', $this->request->param('id'))->delete();
+		ORM::factory('Subscription', $this->request->param('id'))->delete();
 		HTTP::redirect($this->request->referrer());
 	}
 }
