@@ -1,6 +1,4 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
-// Production Heroku
-$database_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
 return array
 (
@@ -20,10 +18,10 @@ return array
 			 *
 			 * Ports and sockets may be appended to the hostname.
 			 */
-			'hostname'   => $database_url['host'],
-			'database'   => substr($database_url['path'], 1),
-			'username'   => $database_url['user'],
-			'password'   => $database_url['pass'],
+			'hostname'   => 'localhost',
+			'database'   => 'guidoline',
+			'username'   => 'root',
+			'password'   => 'root',
 
 			'persistent' => FALSE,
 		),
