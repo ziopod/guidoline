@@ -157,7 +157,7 @@ html.mmenu-right.mmenu-opening #mmenu-blocker
 */
 .mmenu
 {
-	background: #333;
+	background: #34495E;
 }
 .mmenu *
 {
@@ -187,8 +187,12 @@ html.mmenu-right.mmenu-opening #mmenu-blocker
 .mmenu li > span,
 .mmenu li > a:hover
 {
-	color: #999;
+	color: #fff;
 	text-decoration: none;
+}
+.mmenu li > a:hover
+{
+	color: #1abc9c;
 }
 .mmenu li.mmenu-selected > a,
 .mmenu li.mmenu-selected > span
