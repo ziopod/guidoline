@@ -33,7 +33,8 @@ class Controller_Members extends Controller_App {
 		{
 			$this->request->headers('Content-Type', 'application/json; charset='.Kohana::$charset);
 			$members = ORM::factory('Member')
-				->limit($this->request->param('iDisplayStart'), $this->request->param('iDisplayLength'));
+				->offset($this->request->param('iDisplayStart'))
+				->limit($this->request->param('iDisplayLength'));
 			$total_count =1;// (int) $members->count_all();
 // 			$members = DB::select('id', 'created', 'name', 'firstname', 'email', 'cellular', 'street', 'zipcode', 'city')
 // 				->from('members')
