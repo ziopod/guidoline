@@ -175,6 +175,12 @@ Route::set('shortcut-signin', '<action>(/<id>)',
     'controller'  => 'App',
     'action'    => 'login',
   ));
+// Subscription quick add
+Route::set('subscriptions_quickadd', 'members/subscriptions_quickadd/<member_id>/<subscription_id>')
+  ->defaults(array(
+    'controller'  => 'Members',
+    'action'      => 'subscriptions_quickadd',
+  ));
 // Sections
 // Route::set('sections', '<directory>(/<controller>(/<action>(/<id>)))',
 //     array(

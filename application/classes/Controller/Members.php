@@ -54,13 +54,21 @@ class Controller_Members extends Controller_App {
 				{
 					if ($member->has('subscriptions', $subscription))
 					{
-						$subscriptions .= ($member->subscriptions_members->where('subscription_id', '=', $subscription->id)->find()->valid_subscription) ? 'ok' : 'nope';
-						$member->check_subscription_validity($subscription);
-						$subscriptions .= '<a href="">'.$subscription->title.'</a> ';
+						$valid = ($member->subscriptions_members->where('subscription_id', '=', $subscription->id)->find()->valid_subscription) ? TRUE : FALSE;
+						//$member->check_subscription_validity($subscription);
+
+						if ($valid)
+						{
+							$subscriptions .= '<span class="valid">' . $subscription->title . '</span>';
+						}
+						else
+						{
+							$subscriptions .= '<a href="'.$base_url.'members/subscriptions_quickadd/'.$member->id.'/'.$subscription->id.'" class="invalid">re ' . $subscription->title . '</a> ';	
+						}
 					}
-					else // Add ne one
+					else // Add one
 					{
-						$subscriptions .= 'Ajouter <a href="">'.$subscription->title.'</a> ';
+						$subscriptions .= '<a href="'.$base_url.'members/subscriptions_quickadd/'.$member->id.'/'.$subscription->id.'" class="never"> '.$subscription->title.'</a> ';
 					}
 
 					$subscriptions .= '<br />';
@@ -82,7 +90,7 @@ class Controller_Members extends Controller_App {
 				// 	// }
 				// }
 
-				$subscriptions .= '<a href="'.$base_url.'members/subscriptions/'.$member->id.'" class="icon-cog icon-2x tip" title="Gérer les inscriptions"></a>';
+				$subscriptions .= '<a href="'.$base_url.'members/subscriptions/'.$member->id.'" class="icon-cog icon-2x tip" title="Historique des inscriptions"></a>';
 
 				$dm[] = array(
 					'#' . $member->id,
@@ -198,8 +206,21 @@ class Controller_Members extends Controller_App {
 		$this->response->body($this->layout->render($view));
 	}
 
+
 	/**
-	* Ajouter une adhésion
+	* Ajout rapide d'une inscritpion
+	**/
+	public function action_subscriptions_quickadd()
+	{
+		$member = ORM::factory('Member', $this->request->param('member_id'));
+		echo Debug::vars($member->loaded());
+		$member->add('subscriptions', ORM::factory('Subscription', $this->request->param('subscription_id')));
+		HTTP::redirect($this->request->referrer());
+
+	}
+
+	/**
+	* Ajouter une inscription
 	**/
 	public function action_subscriptions_add()
 	{
