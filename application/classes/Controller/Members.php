@@ -63,17 +63,17 @@ class Controller_Members extends Controller_App {
 
 						if ($valid)
 						{
-							$subscriptions .= '<span class="icon-'.$subscription->slug.' icon-2x tip valid" title="l\'adhésion &laquo;'.$subscription->title.'&raquo; est valide">' . $subscription->title . '</span>';
+							$subscriptions .= '<span class="icon-'.$subscription->slug.' icon-2x tip valid" title="l\'adhésion &laquo;'.$subscription->title.'&raquo; est valide"></span>';
 						}
 						else
 						{
-							$subscriptions .= '<a class="icon-'.$subscription->slug.' icon-2x tip invalid" title="l\'adhésion &laquo;'.$subscription->title.'&raquo; n\'est plus valide" href="'.$base_url.'members/subscriptions_quickadd/'.$member->id.'/'.$subscription->id.'" >' . $subscription->title . '</a> ';	
+							$subscriptions .= '<a class="icon-'.$subscription->slug.' icon-2x tip invalid" title="l\'adhésion &laquo;'.$subscription->title.'&raquo; n\'est plus valide" href="'.$base_url.'members/subscriptions_quickadd/'.$member->id.'/'.$subscription->id.'" ></a> ';	
 						}
 
 					}
 					else // Add one
 					{
-						$subscriptions .= '<a class="icon-'.$subscription->slug.' icon-2x tip never" title="Ajouter une adhésion &laquo;'.$subscription->title.'&raquo;" href="'.$base_url.'members/subscriptions_quickadd/'.$member->id.'/'.$subscription->id.'" > '.$subscription->title.'</a> ';
+						$subscriptions .= '<a class="icon-'.$subscription->slug.' icon-2x tip never" title="Ajouter une adhésion &laquo;'.$subscription->title.'&raquo;" href="'.$base_url.'members/subscriptions_quickadd/'.$member->id.'/'.$subscription->id.'" ></a> ';
 					}
 
 					$subscriptions .= '<br />';
