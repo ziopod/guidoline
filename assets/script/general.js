@@ -42,7 +42,7 @@ $(function(){
 				"sUrl": "assets/language/fr_FR.txt"
 			},
 			"bProcessing": true,
-//			"bServerSide": true, // Renvoie le json correctement, chercher ailleur…
+			// "bServerSide": true, // Renvoie le json correctement, chercher ailleur…
 			"sAjaxSource" : "members.json",
 			"fnDrawCallback": function () {
 			  $('.modale').nyroModal();

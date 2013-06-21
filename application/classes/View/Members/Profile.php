@@ -10,7 +10,7 @@
 * @license    http://creativecommons.org/licenses/by-sa/3.0/deed.fr
 */
 
-class View_Members_Profil extends View_Layout {
+class View_Members_Profile extends View_Layout {
 
 	/**
 	* Retourne la fiche membre

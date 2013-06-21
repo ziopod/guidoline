@@ -55,27 +55,29 @@ class Controller_Members extends Controller_App {
 
 				foreach (ORM::factory('Subscription')->find_all() as $subscription)
 				{
-					if ($member->has('subscriptions', $subscription))
+//					$subscriptions .= $member->has('subscriptions');
+					// if ($member->has('subscriptions', $subscription))
+					if ($member->has_any('subscriptions', $subscription))
 					{
 						$valid = ($member->subscriptions_members->where('subscription_id', '=', $subscription->id)->find()->valid_subscription) ? TRUE : FALSE;
-						//$member->check_subscription_validity($subscription);
 
 						if ($valid)
 						{
-							$subscriptions .= '<span class="valid">' . $subscription->title . '</span>';
+							$subscriptions .= '<span class="icon-'.$subscription->slug.' icon-2x tip valid" title="l\'adhésion &laquo;'.$subscription->title.'&raquo; est valide">' . $subscription->title . '</span>';
 						}
 						else
 						{
-							$subscriptions .= '<a href="'.$base_url.'members/subscriptions_quickadd/'.$member->id.'/'.$subscription->id.'" class="invalid">re ' . $subscription->title . '</a> ';	
+							$subscriptions .= '<a class="icon-'.$subscription->slug.' icon-2x tip invalid" title="l\'adhésion &laquo;'.$subscription->title.'&raquo; n\'est plus valide" href="'.$base_url.'members/subscriptions_quickadd/'.$member->id.'/'.$subscription->id.'" >' . $subscription->title . '</a> ';	
 						}
+
 					}
 					else // Add one
 					{
-						$subscriptions .= '<a href="'.$base_url.'members/subscriptions_quickadd/'.$member->id.'/'.$subscription->id.'" class="never"> '.$subscription->title.'</a> ';
+						$subscriptions .= '<a class="icon-'.$subscription->slug.' icon-2x tip never" title="Ajouter une adhésion &laquo;'.$subscription->title.'&raquo;" href="'.$base_url.'members/subscriptions_quickadd/'.$member->id.'/'.$subscription->id.'" > '.$subscription->title.'</a> ';
 					}
 
 					$subscriptions .= '<br />';
-
+					$member->reload();
 				}
 
 				// foreach ($member->last_valid_subscriptions() as $subscription_member)
@@ -97,10 +99,10 @@ class Controller_Members extends Controller_App {
 
 				$dm[] = array(
 				//	'#' . $member->id . '.' . $this->request->query('iDisplayStart') .', '.$this->request->query('iDisplayLength'),
-					'#' . $member->id,
+					$member->id,
 					$member->firstname . ' ' . $member->name,
-					$member->birthdate,
-					$member->created,
+					$member->fancy_birthdate,
+					$member->fancy_created,
 					// $member->status->name,
 					$member->email,
 					$member->cellular,
@@ -135,9 +137,9 @@ class Controller_Members extends Controller_App {
 	/**
 	* Afficher le profil utilisateur
 	**/
-	public function action_profil()
+	public function action_profile()
 	{
-		$view = new View_Members_Profil;
+		$view = new View_Members_Profile;
 		$this->response->body($this->layout->render($view));
 	}
 

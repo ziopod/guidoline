@@ -123,6 +123,26 @@ class Model_Member extends ORM{
 	}
 
 	/**
+	* Extension de la méthode get
+	**/
+	public function get($column)
+	{
+		switch ($column) {
+			case 'fancy_birthdate':
+				return $this->birthdate ? date('Y', time()) - date('Y', strtotime($this->birthdate)) : FALSE;
+				break;
+			case 'fancy_created':
+				return $this->created ? strftime('%A %e %B %Y', strtotime($this->created)) : FALSE;
+				break;
+			case 'fancy_gender':
+				return $this->gender === 'h' ? '&#9794' : '&#9792;';
+			default:
+				return parent::get($column);
+				break;
+		}
+
+	}
+	/**
 	* Retourne la liste des statut disponibles et "marque" le status courant
 	*
 	* @return Object
@@ -221,20 +241,21 @@ class Model_Member extends ORM{
 		return $genders;
 	}
 
+	//pubic function
 	public function fancy_gender()
 	{
-		return $this->gender === 'h' ? '&#9794' : '&#9792;';
+		return $this->fancy_gender;
 
 	}
 
 	public function fancy_birthdate()
 	{
-		return $this->birthdate ? strftime('%A %e %B %Y', strtotime($this->birthdate)) : FALSE;
+		return $this->fancy_birthdate;
 	}
 
 	public function fancy_created()
 	{
-		return $this->created ? strftime('%A %e %B %Y', strtotime($this->created)) : FALSE;
+		return $this->fancy_created;
 	}
 	
 	private function _format_infos($subscription)
