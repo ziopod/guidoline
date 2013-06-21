@@ -14,6 +14,27 @@ h1 {
 	border-bottom: 2px solid #999;
 }
 
+.invalid {
+	color: #B15C3A;
+}
+
+.nerver {
+	color: #777;
+}
+
+/* icons */
+/*-----------------------*/
+
+.icon-cafe:before { 
+	content: "\f0f4"; 
+}
+.icon-atelier:before {
+	content: "\f0ad";
+}
+
+/* iFrame */
+/*-----------------------*/
+
 iframe {background: red;}
 
 .cboxIframe .navbar,
@@ -248,13 +269,16 @@ legend {
 /*-----------------------*/
 
 #table_members th:nth-child(1) {
-	width:45px;
+	width:35px;
 }
 #table_members th:nth-child(2) {
-	width:200px;
+	width:180px;
 }
 #table_members th:nth-child(4) {
-	width:80px;
+	width:70px;
+}
+#table_members th:nth-child(4) {
+	width:70px;
 }
 #table_members th:nth-child(5) {
 	width:250px;
@@ -263,10 +287,14 @@ legend {
 	width:70px;
 }
 #table_members th:nth-child(7) {
-	width:200px;
+	width:150px;
 }
 
-.dataTables_info{
+.table th, .table td {
+	padding:4px;
+}
+
+.dataTables_info {
 	margin: 18px 0;
 	padding: .8em 0;
 }
