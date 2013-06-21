@@ -20,6 +20,16 @@ class Model_Subscription extends ORM{
 	);
 
 	/**
+	* Relationship
+	**/
+	protected $_has_many = array(
+		'members' => array(
+			'model'		=> 'Member',
+			'through'	=> 'subscriptions_members'
+		),
+	);
+
+	/**
 	* Règles de validation
 	**/
 	public function rules()
