@@ -76,7 +76,7 @@ class Controller_Members extends Controller_App {
 						$subscriptions .= '<a class="icon-'.$subscription->slug.' icon-2x tip never" title="Ajouter une adhésion &laquo;'.$subscription->title.'&raquo;" href="'.$base_url.'members/subscriptions_quickadd/'.$member->id.'/'.$subscription->id.'" ></a> ';
 					}
 
-					$subscriptions .= '<span class="separator">|</span>';
+					// $subscriptions .= '<br />';
 					$member->reload();
 				}
 
