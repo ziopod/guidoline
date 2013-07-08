@@ -44,15 +44,7 @@ $(function(){
 			"bProcessing": true,
 			"bServerSide": true, // Renvoie le json correctement, chercher ailleur…
 			"sAjaxSource" : "members.json",
-			"fnServerData": function ( sSource, aoData, fnCallback ) {
-         jQuery.ajax( {
-             "dataType": 'json',
-             "type": "POST",
-             "url": sSource,
-             "data": aoData,
-             "success": fnCallback
-         } );
-			}
+			"fnServerData": fnDataTablesPipeline,
 			"fnDrawCallback": function () {
 			  $('.modale').nyroModal();
 				$('.tip').tooltipster({position: 'bottom'});
