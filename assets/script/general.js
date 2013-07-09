@@ -51,7 +51,7 @@ $(function(){
 			  $('.modale').nyroModal();
 				$('.tip').tooltipster({position: 'bottom'});
        }
-		}).fnSetFilteringDelay().fnStandingRedraw();
+		}).fnStandingRedraw();
 	
 });
 
