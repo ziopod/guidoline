@@ -51,7 +51,7 @@ $(function(){
 			  $('.modale').nyroModal();
 				$('.tip').tooltipster({position: 'bottom'});
        }
-		}).fnSetFilteringDelay();
+		}).fnSetFilteringDelay().fnStandingRedraw();
 	
 });
 
@@ -89,8 +89,23 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function ( oSettings )
 	};
 }
 
+$.fn.dataTableExt.oApi.fnStandingRedraw = function(oSettings) {
+    if(oSettings.oFeatures.bServerSide === false){
+        var before = oSettings._iDisplayStart;
+ 
+        oSettings.oApi._fnReDraw(oSettings);
+ 
+        // iDisplayStart has been reset to zero - so lets change it back
+        oSettings._iDisplayStart = before;
+        oSettings.oApi._fnCalculateEnd(oSettings);
+    }
+      
+    // draw the 'current' page
+    oSettings.oApi._fnDraw(oSettings);
+};
+
 /* Enables filtration delay for keeping the browser more responsive while searching for a longer keyword */
-jQuery.fn.dataTableExt.oApi.fnSetFilteringDelay = function ( oSettings, iDelay ) {
+$.fn.dataTableExt.oApi.fnSetFilteringDelay = function ( oSettings, iDelay ) {
     var _that = this;
  
     if ( iDelay === undefined ) {
