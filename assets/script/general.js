@@ -44,7 +44,7 @@ $(function(){
 				"sUrl": "../assets/language/fr_FR.txt",
 				"sUrl": "assets/language/fr_FR.txt"
 			},
-			"bProcessing": true,
+			// "bProcessing": true,
 			"bServerSide": true, // Renvoie le json correctement, chercher ailleur…
 			"sAjaxSource" : "members.json",
 			"fnServerData": fnDataTablesPipeline,
