@@ -50,7 +50,7 @@ $(function(){
 			"fnDrawCallback": function () {
 			  $('.modale').nyroModal();
 				$('.tip').tooltipster({position: 'bottom'});
-       }.fnSetFilteringDelay(1000);
+       }.fnSetFilteringDelay();
 		});
 	
 });
@@ -90,7 +90,7 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function ( oSettings )
 }
 
 /* Enables filtration delay for keeping the browser more responsive while searching for a longer keyword */
-$.fn.dataTableExt.oApi.fnSetFilteringDelay = function ( oSettings, iDelay ) {
+jQuery.fn.dataTableExt.oApi.fnSetFilteringDelay = function ( oSettings, iDelay ) {
     var _that = this;
  
     if ( iDelay === undefined ) {
