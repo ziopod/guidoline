@@ -50,8 +50,8 @@ $(function(){
 			"fnDrawCallback": function () {
 			  $('.modale').nyroModal();
 				$('.tip').tooltipster({position: 'bottom'});
-       }.fnSetFilteringDelay();
-		});
+       }
+		}).fnSetFilteringDelay();
 	
 });
 
