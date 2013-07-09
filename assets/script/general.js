@@ -49,10 +49,11 @@ $(function(){
 			"sAjaxSource" : "members.json",
 			"fnServerData": fnDataTablesPipeline,
 			"fnDrawCallback": function () {
+				$('#table_members').dataTable().fnStandingRedraw();
 			  $('.modale').nyroModal();
 				$('.tip').tooltipster({position: 'bottom'});
        }
-		}).fnReloadAjax().fnStandingRedraw();
+		});
 	
 });
 
