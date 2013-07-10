@@ -59,7 +59,7 @@ $(function(){
 });
 
 function test() {
-    oTableMembers.fnReloadAjax();
+    oTableMembers.fnDraw();
 }
 
 // $('#example').dataTable( {
