@@ -25,18 +25,17 @@ $(function(){
 		var oTableMembers = $('#table_members').dataTable( {
 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
 			"sPaginationType": "bootstrap",
-			//"iDisplayLength": 10,
-			//"bStateSave": true,
-			"bPaginate": false,
+			"iDisplayLength": 10,
+			"bStateSave": true,
 			"aaSorting": [[ 2, "desc" ]], 
 			"aoColumns": [
-						null,
-			            null,
-			            null,
-			            null,
-			            null,
-			            null,
-						null,
+							null,
+	            null,
+	            null,
+	            null,
+	            null,
+	            null,
+							null,
 						{ "bSortable": false },
 						{ "bSortable": false }
 			        ],
@@ -48,6 +47,7 @@ $(function(){
 			// "bProcessing": true,
 			"bServerSide": true, // Renvoie le json correctement, chercher ailleur…
 			"sAjaxSource" : "members.json",
+			"sServerMethod": "POST",
 			"fnServerData": fnDataTablesPipeline,
 			"fnDrawCallback": function () {
 			  $('.modale').nyroModal();
