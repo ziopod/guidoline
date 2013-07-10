@@ -6,7 +6,7 @@ $(function(){
 		$('.tipleft').tooltipster({position: 'left'});
 		$("#js-main-menu").mmenu();
 		
-		var oTable = $('.datatable').dataTable( {
+		var oTable = $('.datatabl').dataTable( {
 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
 			"sPaginationType": "bootstrap",
 			"oLanguage": {
@@ -22,12 +22,12 @@ $(function(){
 		
 		// var oTableMembers = $.extend({}, options, oTableMembers);
 		
-		var oTableMembers = $('#table_member').dataTable( {
+		var oTableMembers = $('#table_members').dataTable( {
 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
 			"sPaginationType": "bootstrap",
 			"iDisplayLength": 10,
 			//"bLengthChange": false,
-			// "bStateSave": true,
+			"bStateSave": true,
 			"aaSorting": [[ 2, "desc" ]], 
 			"aoColumns": [
 							null,
@@ -46,14 +46,11 @@ $(function(){
 							"sUrl": "assets/language/fr_FR.txt"
 						},
 			"bProcessing": true,
-			"bServerSide": true, // Renvoie le json correctement, chercher ailleurs…
+			// "bServerSide": true, // Renvoie le json correctement, chercher ailleurs…
 			"sAjaxSource" : "members.json",
 			"bDeferRender": true,
 			"fnServerData": fnDataTablesPipeline,
 			"fnDrawCallback": function () {
-				setTimeout( function () {
-				                oTableMembers.fnGetColumnData();
-				            }, 0 ); 
 			  $('.modale').nyroModal();
 				$('.tip').tooltipster({position: 'bottom'});
        }
