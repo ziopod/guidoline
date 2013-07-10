@@ -52,8 +52,8 @@ $(function(){
 			"fnServerData": fnDataTablesPipeline,
 			"fnDrawCallback": function () {
 				setTimeout( function () {
-				                oTable.fnGetColumnData();
-				            }, 0 );
+				                oTableMembers.fnGetColumnData();
+				            }, 0 ); 
 			  $('.modale').nyroModal();
 				$('.tip').tooltipster({position: 'bottom'});
        }
