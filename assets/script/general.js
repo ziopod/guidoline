@@ -58,10 +58,6 @@ $(function(){
 	
 });
 
-function test() {
-    oTableMembers.fnDraw();
-}
-
 // $('#example').dataTable( {
 // 	"bProcessing": true,
 // 	"bServerSide": true,
