@@ -25,7 +25,7 @@ $(function(){
 		var oTableMembers = $('#table_members').dataTable( {
 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
 			"sPaginationType": "bootstrap",
-			"iDisplayLength": 10,
+			"iDisplayLength": 50,
 			//"bLengthChange": false,
 			//"bStateSave": true,
 			"aaSorting": [[ 2, "desc" ]], 
