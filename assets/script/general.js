@@ -49,7 +49,7 @@ $(function(){
 			"bServerSide": true, // Renvoie le json correctement, chercher ailleurs…
 			"sAjaxSource" : "members.json",
 			"bDeferRender": true,
-			"fnServerData": fnDataTablesPipeline,
+			//"fnServerData": fnDataTablesPipeline,
 			"fnDrawCallback": function () {
 			  $('.modale').nyroModal();
 				$('.tip').tooltipster({position: 'bottom'});
