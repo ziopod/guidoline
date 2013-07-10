@@ -8,7 +8,6 @@ $(function(){
 		
 		var oTable = $('.datatable').dataTable( {
 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
-			"iDisplayLength": 10,
 			"sPaginationType": "bootstrap",
 			"oLanguage": {
 				"sLengthMenu": "_MENU_ records per page",
@@ -21,7 +20,12 @@ $(function(){
        }
 		});
 		
+		// var oTableMembers = $.extend({}, options, oTableMembers);
+		
 		var oTableMembers = $('#table_members').dataTable( {
+			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
+			"sPaginationType": "bootstrap",
+			"iDisplayLength": 10,
 			//"bLengthChange": false,
 			//"bStateSave": true,
 			"aaSorting": [[ 2, "desc" ]], 
@@ -36,14 +40,33 @@ $(function(){
 						{ "bSortable": false },
 						{ "bSortable": false }
 			        ],
+			"oLanguage": {
+							"sLengthMenu": "_MENU_ records per page",
+							"sUrl": "../assets/language/fr_FR.txt",
+							"sUrl": "assets/language/fr_FR.txt"
+						},
 			"bProcessing": true,
-			// "bServerSide": true, // Renvoie le json correctement, chercher ailleurs…
+			"bServerSide": true, // Renvoie le json correctement, chercher ailleurs…
 			"sAjaxSource" : "members.json",
 			"bDeferRender": true,
 			// "fnServerData": fnDataTablesPipeline,
+			"fnServerData": function(sSource, aoData, fnCallback) {
+			                $.ajax({
+			                  "datatType" : 'json',
+			                  "contentType" : 'application/json',
+			                  "url" : sSource,
+			                  "data" : aoData,
+			                  "success" : function(msg) {
+			                    var json = $.parseJSON(msg);
+			                    fnCallback(json);
+			                  }
+			                })
+			            },
+			"fnDrawCallback": function () {
+			  $('.modale').nyroModal();
+				$('.tip').tooltipster({position: 'bottom'});
+       }
 		});
-		
-		var oTableMembersRender = $.extend({}, oTable, oTableMembers);
 	
 });
 
