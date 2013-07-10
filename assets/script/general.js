@@ -27,7 +27,7 @@ $(function(){
 			"sPaginationType": "bootstrap",
 			"iDisplayLength": 10,
 			//"bLengthChange": false,
-			"bStateSave": true,
+			// "bStateSave": true,
 			"aaSorting": [[ 2, "desc" ]], 
 			"aoColumns": [
 							null,
@@ -51,6 +51,9 @@ $(function(){
 			"bDeferRender": true,
 			"fnServerData": fnDataTablesPipeline,
 			"fnDrawCallback": function () {
+				setTimeout( function () {
+				                oTable.fnGetColumnData();
+				            }, 0 );
 			  $('.modale').nyroModal();
 				$('.tip').tooltipster({position: 'bottom'});
        }
