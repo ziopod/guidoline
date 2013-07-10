@@ -26,7 +26,7 @@ $(function(){
 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
 			"sPaginationType": "bootstrap",
 			"iDisplayLength": 10,
-			"bLengthChange": false,
+			//"bLengthChange": false,
 			"bStateSave": true,
 			"aaSorting": [[ 2, "desc" ]], 
 			"aoColumns": [
@@ -45,7 +45,7 @@ $(function(){
 				"sUrl": "../assets/language/fr_FR.txt",
 				"sUrl": "assets/language/fr_FR.txt"
 			},
-			// "bProcessing": true,
+			"bProcessing": true,
 			"bServerSide": true, // Renvoie le json correctement, chercher ailleur…
 			"sAjaxSource" : "members.json",
 			"bDeferRender": true,
