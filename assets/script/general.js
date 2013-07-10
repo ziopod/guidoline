@@ -53,11 +53,20 @@ $(function(){
 			"fnDrawCallback": function () {
 			  $('.modale').nyroModal();
 				$('.tip').tooltipster({position: 'bottom'});
-				oTableMembers.fnDraw();
        }
 		});
 	
 });
+
+
+var oSettings = oTableMembers.fnSettings();
+		oTableMembers.fnClearTable(this);
+		for (var i=0; i<json.aaData.length; i++)
+		{
+   		oTableMembers.oApi._fnAddData(oSettings, json.aaData[i]);
+		}
+		oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+oTableMembers.fnDraw();
 
 // $('#example').dataTable( {
 // 	"bProcessing": true,
