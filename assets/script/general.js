@@ -48,6 +48,7 @@ $(function(){
 			"bServerSide": true, // Renvoie le json correctement, chercher ailleur…
 			"sAjaxSource" : "members.json",
 			"sServerMethod": "POST",
+			"bDeferRender": true,
 			"fnServerData": fnDataTablesPipeline,
 			"fnDrawCallback": function () {
 			  $('.modale').nyroModal();
