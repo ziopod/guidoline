@@ -46,7 +46,7 @@ $(function(){
 				"sUrl": "assets/language/fr_FR.txt"
 			},
 			"bProcessing": true,
-			"bServerSide": true, // Renvoie le json correctement, chercher ailleur…
+			"bServerSide": true, // Renvoie le json correctement, chercher ailleurs…
 			"sAjaxSource" : "members.json",
 			"bDeferRender": true,
 			"fnServerData": fnDataTablesPipeline,
@@ -54,7 +54,7 @@ $(function(){
 			  $('.modale').nyroModal();
 				$('.tip').tooltipster({position: 'bottom'});
        }
-		});
+		}).fnReloadAjax();
 	
 });
 
