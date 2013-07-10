@@ -27,7 +27,7 @@ $(function(){
 			"sPaginationType": "bootstrap",
 			"iDisplayLength": 10,
 			//"bLengthChange": false,
-			//"bStateSave": true,
+			"bStateSave": true,
 			"aaSorting": [[ 2, "desc" ]], 
 			"aoColumns": [
 							null,
