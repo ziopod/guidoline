@@ -26,6 +26,7 @@ $(function(){
 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
 			"sPaginationType": "bootstrap",
 			"iDisplayLength": 10,
+			"bLengthChange": false
 			"bStateSave": true,
 			"aaSorting": [[ 2, "desc" ]], 
 			"aoColumns": [
@@ -47,7 +48,6 @@ $(function(){
 			// "bProcessing": true,
 			"bServerSide": true, // Renvoie le json correctement, chercher ailleur…
 			"sAjaxSource" : "members.json",
-			"sServerMethod": "POST",
 			"bDeferRender": true,
 			"fnServerData": fnDataTablesPipeline,
 			"fnDrawCallback": function () {
