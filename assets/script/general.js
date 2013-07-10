@@ -6,19 +6,19 @@ $(function(){
 		$('.tipleft').tooltipster({position: 'left'});
 		$("#js-main-menu").mmenu();
 		
-		var oTable = $('.datatabl').dataTable( {
-			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
-			"sPaginationType": "bootstrap",
-			"oLanguage": {
-				"sLengthMenu": "_MENU_ records per page",
-				"sUrl": "../assets/language/fr_FR.txt",
-				"sUrl": "assets/language/fr_FR.txt"
-			},
-			"fnDrawCallback": function () {
-			  $('.modale').nyroModal();
-				$('.tip').tooltipster({position: 'bottom'});
-       }
-		});
+		// var oTable = $('.datatabl').dataTable( {
+		// 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
+		// 			"sPaginationType": "bootstrap",
+		// 			"oLanguage": {
+		// 				"sLengthMenu": "_MENU_ records per page",
+		// 				"sUrl": "../assets/language/fr_FR.txt",
+		// 				"sUrl": "assets/language/fr_FR.txt"
+		// 			},
+		// 			"fnDrawCallback": function () {
+		// 			  $('.modale').nyroModal();
+		// 				$('.tip').tooltipster({position: 'bottom'});
+		//        }
+		// 		});
 		
 		// var oTableMembers = $.extend({}, options, oTableMembers);
 		
@@ -45,7 +45,7 @@ $(function(){
 							"sUrl": "../assets/language/fr_FR.txt",
 							"sUrl": "assets/language/fr_FR.txt"
 						},
-			"bProcessing": true,
+			// "bProcessing": true,
 			"bServerSide": true, // Renvoie le json correctement, chercher ailleurs…
 			"sAjaxSource" : "members.json",
 			"bDeferRender": true,
