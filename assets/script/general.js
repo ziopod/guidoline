@@ -50,18 +50,6 @@ $(function(){
 			"sAjaxSource" : "members.json",
 			"bDeferRender": true,
 			// "fnServerData": fnDataTablesPipeline,
-			"fnServerData": function(sSource, aoData, fnCallback) {
-			                $.ajax({
-			                  "datatType" : 'json',
-			                  "contentType" : 'application/json',
-			                  "url" : sSource,
-			                  "data" : aoData,
-			                  "success" : function(msg) {
-			                    var json = $.parseJSON(msg);
-			                    fnCallback(json);
-			                  }
-			                })
-			            },
 			"fnDrawCallback": function () {
 			  $('.modale').nyroModal();
 				$('.tip').tooltipster({position: 'bottom'});
