@@ -54,9 +54,13 @@ $(function(){
 			  $('.modale').nyroModal();
 				$('.tip').tooltipster({position: 'bottom'});
        }
-		}).fnReloadAjax();
+		});
 	
 });
+
+function test() {
+    oTableMembers.fnReloadAjax();
+}
 
 // $('#example').dataTable( {
 // 	"bProcessing": true,
