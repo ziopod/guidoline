@@ -22,45 +22,39 @@ $(function(){
 		
 		// var oTableMembers = $.extend({}, options, oTableMembers);
 		
-		$.getJSON('members.json', function() {
-			
-			var oTableMembers = $('#table_members').dataTable( {
-				"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
-				"sPaginationType": "bootstrap",
-				"iDisplayLength": 10,
-				//"bLengthChange": false,
-				"bStateSave": true,
-				"aaSorting": [[ 2, "desc" ]], 
-				"aoColumns": [
-								null,
-		            null,
-		            null,
-		            null,
-		            null,
-		            null,
-								null,
-							{ "bSortable": false },
-							{ "bSortable": false }
-				        ],
-				"oLanguage": {
-								"sLengthMenu": "_MENU_ records per page",
-								"sUrl": "../assets/language/fr_FR.txt",
-								"sUrl": "assets/language/fr_FR.txt"
-							},
-				"bProcessing": true,
-				"bServerSide": true, // Renvoie le json correctement, chercher ailleurs…
-				"sAjaxSource" : "members.json",
-				// "bDeferRender": true,
-				"fnServerData": fnDataTablesPipeline,
-				"fnDrawCallback": function () {
-				  $('.modale').nyroModal();
-					$('.tip').tooltipster({position: 'bottom'});
-	       }
-			});
-		   
+		var oTableMembers = $('#table_members').dataTable( {
+			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
+			"sPaginationType": "bootstrap",
+			"iDisplayLength": 10,
+			//"bLengthChange": false,
+			"bStateSave": true,
+			"aaSorting": [[ 2, "desc" ]], 
+			"aoColumns": [
+							null,
+	            null,
+	            null,
+	            null,
+	            null,
+	            null,
+							null,
+						{ "bSortable": false },
+						{ "bSortable": false }
+			        ],
+			"oLanguage": {
+							"sLengthMenu": "_MENU_ records per page",
+							"sUrl": "../assets/language/fr_FR.txt",
+							"sUrl": "assets/language/fr_FR.txt"
+						},
+			"bProcessing": true,
+			"bServerSide": true, // Renvoie le json correctement, chercher ailleurs…
+			"sAjaxSource" : "members.json",
+			"bDeferRender": true,
+			"fnServerData": fnDataTablesPipeline,
+			"fnDrawCallback": function () {
+			  $('.modale').nyroModal();
+				$('.tip').tooltipster({position: 'bottom'});
+       }
 		});
-		
-		
 	
 });
 
