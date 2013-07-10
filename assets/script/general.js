@@ -22,7 +22,7 @@ $(function(){
 		
 		// var oTableMembers = $.extend({}, options, oTableMembers);
 		
-		var oTableMembers = $('#table_members').dataTable( {
+		var oTableMembers = $('#table_member').dataTable( {
 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
 			"sPaginationType": "bootstrap",
 			"iDisplayLength": 10,
