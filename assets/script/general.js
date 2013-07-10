@@ -22,6 +22,20 @@ $(function(){
 		
 		// var oTableMembers = $.extend({}, options, oTableMembers);
 		
+		var json = (function () {
+		    var json = null;
+		    $.ajax({
+		        'async': false,
+		        'global': false,
+		        'url': 'members.json',
+		        'dataType': "json",
+		        'success': function (data) {
+		            json = data;
+		        }
+		    });
+		    return json;
+		})();
+		
 		var oTableMembers = $('#table_members').dataTable( {
 			"sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
 			"sPaginationType": "bootstrap",
@@ -46,8 +60,8 @@ $(function(){
 							"sUrl": "assets/language/fr_FR.txt"
 						},
 			"bProcessing": true,
-			// "bServerSide": true, // Renvoie le json correctement, chercher ailleurs…
-			"sAjaxSource" : "members.json",
+			"bServerSide": true, // Renvoie le json correctement, chercher ailleurs…
+			"sAjaxSource" : json,
 			"bDeferRender": true,
 			"fnServerData": fnDataTablesPipeline,
 			"fnDrawCallback": function () {
