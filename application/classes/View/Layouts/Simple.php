@@ -21,7 +21,7 @@ class View_Layouts_Simple {
 	* @vars Scripts	Scripts par défaut pour le header HTML
 	**/
 	public $scripts = array(
-//		array('script' => 'http://code.jquery.com/jquery-1.9.1.min.js'),
+		array('script' => 'http://code.jquery.com/jquery-1.9.1.min.js'),
 	);
 	
 	/**

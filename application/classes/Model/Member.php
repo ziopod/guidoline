@@ -129,7 +129,7 @@ class Model_Member extends ORM{
 	{
 		switch ($column) {
 			case 'fancy_birthdate':
-				return $this->birthdate ? date('Y', time()) - date('Y', strtotime($this->birthdate)) : FALSE;
+				return $this->birthdate ? date('Y', time()) - date('Y', strtotime($this->birthdate)) : NULL;
 				break;
 			case 'fancy_created':
 				return $this->created ? strftime('%e %b %Y', strtotime($this->created)) : FALSE;

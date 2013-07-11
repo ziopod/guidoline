@@ -1,4 +1,3 @@
-<link rel="prefetch" href="{{base_url}}members/edit#form_content" />
 <nav class="nav_edit">
 	<ul>
 		<li>
@@ -11,6 +10,11 @@
 </nav>
 <section class="content_table">
 	<h1>Tableaux des membres</h1>
+
+	<div id="progress_bar" class="progress progress-striped active">
+		<div id="record_count" class="progress-bar progress-bar-success" style="width: 0%">0</div>
+	</div>
+	<span id="found" class="label label-info"></span>
 	<table id="table_members" class="table">
 		<thead>
 			<tr>
@@ -26,48 +30,9 @@
 			</tr>
 		</thead>
 		<tbody>
-			{{#members}}
-			<tr>
-				<td>#{{id}}</td>
-				<td><a class="modale" href="{{base_url}}members/profil/{{id}}">{{firstname}} {{name}}</a></td>
-				<td>{{birthdate}}</td>
-				<td>{{created}}</td>
-				<td>{{email}}</td>
-				<td>{{phone}}</td>
-				<td>
-					{{city}}
-				</td>
-				<td>
-					{{#last_valid_subscriptions}}
-					<a href="{{base_url}}subscriptions/detail/{{subscription.id}}" class="tip" title="
-						{{#valid_subscription}}
-						<strong>Inscription valide</strong>
-						<p>
-							Inscrit le {{start_date}} ({{elapsed_time_fuzzy}})
-							<br />
-							Périmé {{remaining_time}} (le {{end_date}})
-						{{/valid_subscription}}
-						{{^valid_subscription}}
-							—inscription périmé—
-							<br />
-							Périmé depuis le {{end_date}} ({{end_date_fuzzy}})
-						{{/valid_subscription}}</p>">{{subscription.title}}</a>
-					{{/last_valid_subscriptions}}
-					{{^last_valid_subscriptions}}
-						- Aucune inscription - 
-						<br />
-					{{/last_valid_subscriptions}}
-					<a href="{{base_url}}members/subscriptions/{{id}}" class="icon-cog icon-2x tip" title="Gérer les inscriptions"></a>
-				</td>
-				<td>
-					<p><a class="icon-pencil icon-2x modale tip" href="{{base_url}}members/edit/{{id}}#form_content" title="Modifier"></a></p>
-					{{#user.id}}
-					<a class="btn" href="{{base_url}}users/profil/{{user.id}}">Fiche utilisateur</a></p>
-					{{/user.id}}
-				</td>
-			</tr>
-			{{/members}}
+		{{#members}}
+			{{>members/table_entry}}
+		{{/members}}
 		</tbody>
 	</table>
-	
 </section>

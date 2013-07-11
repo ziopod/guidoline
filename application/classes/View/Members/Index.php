@@ -26,14 +26,21 @@ class View_Members_Index extends View_Layout {
 	{
 		$this->scripts = array_merge($this->scripts,
 			array(
-			array('script' => 'assets/script/jquery.dataTables.min.js'),
+			// array('script' => 'assets/script/jquery.dataTables.min.js'),
 			// array('script' => 'assets/script/jquery.jeditable.js'),
-			array('script' => 'assets/script/dataTables.bootstrap.js'),
-			array('script' => 'assets/script/jquery.nyroModal.custom.js'),
-			array('script' => 'assets/script/jquery.tooltipster.js'),
-			array('script' => 'assets/script/jquery.mmenu.js'),
-			array('script' => 'assets/script/general.js'))
-			);
+			// array('script' => 'assets/script/dataTables.bootstrap.js'),
+
+			// array('script' => 'assets/script/jquery.nyroModal.custom.js'),
+			// array('script' => 'assets/script/jquery.tooltipster.js'),
+			// array('script' => 'assets/script/jquery.mmenu.js'),
+			// array('script' => 'assets/script/general.js'),
+
+			array('script'	=> 'assets/script/mustache.js'),
+			array('script'	=> 'assets/script/stream_table.js'),
+			array('script'	=> 'assets/script/stream.js'),
+
+			)
+		);
 		parent::__construct();
 	//	$this->stats = new Stats(); // TODO : Move to => View_Stats_Index
 	}
@@ -45,9 +52,9 @@ class View_Members_Index extends View_Layout {
 	{
 		// $members = DB::select('*')->from('members');
 		// return $members->limit(200)->execute();
-		// $members = ORM::factory('Member');
+		//$members = ORM::factory('Member');
 		// return $members;
-		// return $members->limit(100)->find_all();
+		//return $members->limit(100)->find_all();
 	}
 
 	/**
