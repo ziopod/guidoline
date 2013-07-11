@@ -19,112 +19,38 @@ class Controller_Members extends Controller_App {
 	**/
 	public function action_index()
 	{
-		//
-// http://www.datatables.net/release-datatables/examples/server_side/server_side.html
-// http://www.datatables.net/release-datatables/examples/ajax/objects.html
-// http://www.datatables.net/release-datatables/examples/ajax/objects_subarrays.html
-
-// http://datatables.net/usage/server-side
-// http://datatables.net/forums/discussion/5331/datatables-warning-...-requested-unknown-parameter/p1
-
-//		echo Debug::vars($this->request->query());
-//		echo Debug::vars($this->request->post());
-		if ($this->request->param('format') == 'json')
+	
+		if ($this->request->is_ajax() OR $this->request->param('format') === 'json')
 		{
+			//echo Debug::vars($_GET);
+			$data = array(
+				'total_count' 	=> NULL,
+				'members'		=> array(),
+			);
+
 			$this->request->headers('Content-Type', 'application/json; charset='.Kohana::$charset);
-			//echo Debug::vars($this->request->param('iDisplayStart'));
-			//echo Debug::vars($this->request->param('iDisplayLength'));
 			$members = ORM::factory('Member')
-				->offset($this->request->query('iDisplayStart'))
-				->limit($this->request->query('iDisplayLength'));
-			$total_count = ORM::factory('Member')->count_all();
-// 			$members = DB::select('id', 'created', 'name', 'firstname', 'email', 'cellular', 'street', 'zipcode', 'city')
-// 				->from('members')
-// 				->limit($this->request->param('iDisplayStart'), $this->request->param('iDisplayLength'))
-// //							->order_by($this->request->param())
-// //							->where()
-// 				->execute()->as_array();
-			$dm = array();
-			$base_url = URL::base(FALSE, TRUE);
+				->offset($this->request->query('offset'))
+				->limit($this->request->query('limit'));
 
-			// Get all 
-			foreach ($members->find_all() as $member)
-			{
-				// Récupérons les adhésion
-				$subscriptions = '';
+			$data['total_count'] = $members->reset(FALSE)->count_all();
 
-				foreach (ORM::factory('Subscription')->find_all() as $subscription)
-				{
-//					$subscriptions .= $member->has('subscriptions');
-					// if ($member->has('subscriptions', $subscription))
-					if ($member->has_any('subscriptions', $subscription))
-					{
-						$valid = ($member->subscriptions_members->where('subscription_id', '=', $subscription->id)->find()->valid_subscription) ? TRUE : FALSE;
-
-						if ($valid)
-						{
-							$subscriptions .= '<span class="icon-'.$subscription->slug.' icon-2x tip valid" title="l\'adhésion &laquo;'.$subscription->title.'&raquo; est valide"></span>';
-						}
-						else
-						{
-							$subscriptions .= '<a class="icon-'.$subscription->slug.' icon-2x tip invalid" title="l\'adhésion &laquo;'.$subscription->title.'&raquo; n\'est plus valide" href="'.$base_url.'members/subscriptions_quickadd/'.$member->id.'/'.$subscription->id.'" ></a> ';	
-						}
-
-					}
-					else // Add one
-					{
-						$subscriptions .= '<a class="icon-'.$subscription->slug.' icon-2x tip never" title="Ajouter une adhésion &laquo;'.$subscription->title.'&raquo;" href="'.$base_url.'members/subscriptions_quickadd/'.$member->id.'/'.$subscription->id.'" ></a> ';
-					}
-
-					$subscriptions .= '<br />';
-					$member->reload();
-				}
-
-				// foreach ($member->last_valid_subscriptions() as $subscription_member)
-				// {
-				// 	$subscriptions .= $subscription_member->subscription->title . 'Inscrit le ' . $subscription_member->start_date . ' (' . $subscription_member->elapsed_time_fuzzy . ')'.
-				// 		'périmé le '. $subscription_member->remaining_time . ' (le ' . $subscription_member->end_date .')';
-				// 	// if ($subscription_member->valid_subscription())
-				// 	// {
-				// 	// 	$subscription_members .= $subscription_member->subscription->title . 'Inscrit le ' . $subscription_member->start_date . ' (' . $subscription_member->elapsed_time_fuzzy . ')'.
-				// 	// 		'périmé le '. $subscription_member->remaining_time . ' (le ' . $subscription_member->end_date .')';
-				// 	// }
-				// 	// else
-				// 	// {
-				// 	// 	$subscription_members .= $subscription_member->subscription->title . 'Périmé depuis le ' . $subscription_member->end_date . ' (' . $subscription_member->end_date_fuzzy . ')';
-				// 	// }
-				// }
-
-				$subscriptions .= '<a href="'.$base_url.'members/subscriptions/'.$member->id.'" class="icon-cog icon-2x tip" title="Historique des inscriptions"></a>';
-
-				$dm[] = array(
-				//	'#' . $member->id . '.' . $this->request->query('iDisplayStart') .', '.$this->request->query('iDisplayLength'),
-					$member->id,
-					$member->firstname . ' ' . $member->name,
-					$member->fancy_birthdate,
-					$member->fancy_created,
-					// $member->status->name,
-					$member->email,
-					$member->cellular,
-					$member->city,
-					$subscriptions,
-					'<a class="icon-pencil icon-2x modale tip" href="'.$base_url.'members/edit/'.$member->id.'#form_content" title="Modifier"></a>'
+			foreach ($members->find_all() as $member) {
+				$data['members'][] = array(
+					'id'				=> $member->id,
+					'firstname' 		=> $member->firstname,
+					'name'				=> $member->name,
+					'fancy_birthdate'	=> $member->fancy_birthdate,
+					'fancy_created'		=> $member->fancy_created,
+					'email'				=> $member->email,
+					'cellular'			=> $member->cellular,
+					'city'				=> $member->city,
 				);
 			}
 
-
-
-			$response = Json_encode(
-				array(
-					"sEcho"	=> (int) $this->request->param('sEcho'),
-					"iTotalRecords" => $total_count,
-					"iTotalDisplayRecords"	=> $total_count,
-					"aaData"	=> $dm,
-				)
-			);
+			$response = Json_encode($data);
 
 			$this->response->body($response);
-			return;
 		}
 		else
 		{

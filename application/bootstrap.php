@@ -191,6 +191,15 @@ Route::set('subscriptions_quickadd', 'members/subscriptions_quickadd/<member_id>
 //     'controller'  => 'Subscriptions',
 //     'action'      => 'index',
 //   ));
+// Mustache js templates
+// Route::set('templates', function($uri)
+// {
+//   if ($uri == 'templates/<uri>')
+//   {
+//     return array(); //'ppopopop';
+//   }
+// });
+
 // Defaults
 Route::set('default', '(<controller>(/<action>(/<id>)))')
   ->defaults(array(

@@ -294,3 +294,7 @@ legend {
 .table th.headerSortDown:after {
 		content:"\f0d7";
 }
+
+.progress{
+	height: auto;
+}
