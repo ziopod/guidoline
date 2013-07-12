@@ -26,14 +26,6 @@ class View_Members_Index extends View_Layout {
 	{
 		$this->scripts = array_merge($this->scripts,
 			array(
-			// array('script' => 'assets/script/jquery.dataTables.min.js'),
-			// array('script' => 'assets/script/jquery.jeditable.js'),
-			// array('script' => 'assets/script/dataTables.bootstrap.js'),
-
-			// array('script' => 'assets/script/jquery.nyroModal.custom.js'),
-			// array('script' => 'assets/script/jquery.tooltipster.js'),
-			// array('script' => 'assets/script/jquery.mmenu.js'),
-			// array('script' => 'assets/script/general.js'),
 
 			array('script'	=> 'assets/script/mustache.js'),
 			array('script'	=> 'assets/script/stream_table.js'),

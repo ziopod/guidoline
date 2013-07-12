@@ -60,6 +60,10 @@ class View_Layout {
 	**/
 	public $scripts = array(
 		array('script' => 'http://code.jquery.com/jquery-1.9.1.min.js'),
+		array('script' => 'assets/script/jquery.nyroModal.custom.js'),
+		array('script' => 'assets/script/jquery.tooltipster.js'),
+		array('script' => 'assets/script/jquery.mmenu.js'),
+		array('script' => 'assets/script/general.js')
 	);
 	
 	/**

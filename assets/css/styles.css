@@ -6,6 +6,10 @@
 @import "mmenu.css";
 
 
+body {
+	background: #eee;
+}
+
 /* Typography */
 /*-----------------------*/
 
@@ -321,6 +325,62 @@ legend {
 		content:"\f0d7";
 }
 
-.progress{
-	height: auto;
+.st_search{
+  max-width: 200px;
+  float: right;
+  margin-bottom: 10px;
 }
+
+.pagination{
+  float: right;
+  margin-top: 0px;
+}
+
+.pagination li.active a{
+  background-color: #DCDCDC;
+}
+
+.st_per_page{
+  width: 50px;
+  height: 34px !important;
+  float: right;
+  margin-right: 20px;
+}
+
+.record_count {
+  margin-left: 20px;
+}
+
+#spinner {
+  font-size: 18px;
+  margin-left: 10px;
+  display: none;
+}
+
+#found{
+  margin-left: 10px;
+  font-size: 16px;
+  line-height: 33px;
+}
+
+.content_table .progress {
+  width: 400px;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  float: left;
+	background: #888;
+}
+
+.content_table .progress-bar {
+	padding: 0 0 .1em 5%;
+	font-size: 1.3em;
+	color: #fff;
+	background: #1ABC9C;
+}
+
+.pagination {
+	background: white;
+}
+
+
