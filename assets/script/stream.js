@@ -80,6 +80,7 @@ var st = StreamTable('#table_members', {
 	stream_after: 0.1,
 	fetch_data_limit: 100,
 	per_page: 10,
+	fields: ['id','name','firstname','email','city'],
 	callbacks: callbacks,
 	pagination: {span: 5, next_text: 'Next &rarr;', prev_text: '&larr; Previous'}
 	}
