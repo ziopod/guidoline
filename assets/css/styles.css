@@ -342,9 +342,10 @@ legend {
 
 .st_per_page{
   width: 50px;
-  height: 34px !important;
+  height: 41px !important;
   float: right;
   margin-right: 20px;
+	padding: 10px 4px;
 }
 
 .record_count {
