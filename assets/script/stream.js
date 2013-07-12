@@ -61,6 +61,8 @@ var callbacks = {
 			this.stopStreaming();
 			$('#progress_bar').removeClass('active').hide();
 		}
+		$('.modale').nyroModal();
+		$('.tip').tooltipster({position: 'bottom'});
 	},
 	before_add: function(data)
 	{
