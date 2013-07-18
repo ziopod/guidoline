@@ -323,10 +323,10 @@ legend {
 	width:150px;
 }
 #table_members th:nth-last-child(2) {
-	width:65px;
+	width:50px;
 }
 #table_members th:nth-last-child(1) {
-	width:30px;
+	width:50px;
 }
 
 .table th {
