@@ -39,7 +39,7 @@ class Controller_Members extends Controller_App {
 
 				$subscriptions = array();
 
-				foreach (ORM::factory('subscription')->find_all() as $subscription)
+				foreach (ORM::factory('Subscription')->find_all() as $subscription)
 				{
 					$formatted_subscription = array(
 						'slug'					=> $subscription->slug,
