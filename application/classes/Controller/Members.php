@@ -36,6 +36,37 @@ class Controller_Members extends Controller_App {
 			$data['total_count'] = $members->reset(FALSE)->count_all();
 
 			foreach ($members->find_all() as $member) {
+
+				$subscriptions = array();
+
+				foreach (ORM::factory('subscription')->find_all() as $subscription)
+				{
+					$formatted_subscription = array(
+						'slug'					=> $subscription->slug,
+						'title'					=> $subscription->title,
+						'id'					=> $subscription->id,
+						'membership'			=> FALSE, // TRUE / FALSE
+						'valid_subscription'	=> FALSE, // TRUE / FALSE
+
+					);
+
+					if ($member->has_any('subscriptions', $subscription))
+					{
+						$formatted_subscription['membership'] = TRUE;
+						$valid =  ($member->subscriptions_members->where('subscription_id', '=', $subscription->id)->find()->valid_subscription) ? TRUE : FALSE;
+						$valid =  $member->subscriptions_members->where('subscription_id', '=', $subscription->id)->find()->valid_subscription; //) ? TRUE : FALSE;
+
+						if ( $valid)
+						{
+							$formatted_subscription['valid_subscription'] = TRUE; 
+						}
+
+					}
+
+					$subscriptions[]['subscription'] = $formatted_subscription;
+					//$subscriptions[] = $formatted_subscription;
+				}
+
 				$data['members'][] = array(
 					'id'				=> $member->id,
 					'firstname' 		=> $member->firstname,
@@ -45,7 +76,9 @@ class Controller_Members extends Controller_App {
 					'email'				=> $member->email,
 					'cellular'			=> $member->cellular,
 					'city'				=> $member->city,
+					'subscriptions'		=> $subscriptions
 				);
+
 			}
 
 			$response = Json_encode($data);

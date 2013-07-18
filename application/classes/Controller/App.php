@@ -78,4 +78,9 @@ class Controller_App extends Controller {
 	// 	$this->response->body($this->layout->render($view));
 	// }
 
+	public function action_mustache_template()
+	{
+		echo file_get_contents(Kohana::find_file('templates', $this->request->param('path'), 'mustache'));
+	}
+
 }
