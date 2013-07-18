@@ -50,7 +50,7 @@ class Controller_Members extends Controller_App {
 
 					);
 
-					if ($member->has_any('Subscriptions', $subscription))
+					if ($member->has_any('subscriptions', $subscription))
 					{
 						$formatted_subscription['membership'] = TRUE;
 						$valid =  ($member->subscriptions_members->where('subscription_id', '=', $subscription->id)->find()->valid_subscription) ? TRUE : FALSE;
