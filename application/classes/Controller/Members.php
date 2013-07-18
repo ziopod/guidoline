@@ -39,7 +39,7 @@ class Controller_Members extends Controller_App {
 
 				$subscriptions = array();
 
-				foreach (ORM::factory('subscription')->find_all() as $subscription)
+				foreach (ORM::factory('Subscription')->find_all() as $subscription)
 				{
 					$formatted_subscription = array(
 						'slug'					=> $subscription->slug,
@@ -50,7 +50,7 @@ class Controller_Members extends Controller_App {
 
 					);
 
-					if ($member->has_any('subscriptions', $subscription))
+					if ($member->has_any('Subscriptions', $subscription))
 					{
 						$formatted_subscription['membership'] = TRUE;
 						$valid =  ($member->subscriptions_members->where('subscription_id', '=', $subscription->id)->find()->valid_subscription) ? TRUE : FALSE;
