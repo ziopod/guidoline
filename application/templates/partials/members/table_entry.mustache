@@ -10,17 +10,17 @@
 	</td>
 	<td>
 	{{#member.subscriptions}}
-		{{#membership}}
-			{{#valid_subscription}}
+		{{#subscription.membership}}
+			{{#subscription.valid_subscription}}
 				<span class="icon-{{subscription.slug}} icon-2x tip valid" title="l\'adhésion &laquo;{{subscription.title}}&raquo; est valide"></span>
-			{{/valid_subscription}}
-			{{^valid_subscription}}
+			{{/subscription.valid_subscription}}
+			{{^subscription.valid_subscription}}
 				<a class="icon-{{subscription.slug}} icon-2x tip invalid" title="l\'adhésion &laquo;{{subscription.title}}&raquo; n\'est plus valide" href="members/subscriptions_quickadd/{{member.id}}/{{subscription.id}}" ></a>
-			{{/valid_subscription}}
-		{{/membership}}
-		{{^membership}}
+			{{/subscription.valid_subscription}}
+		{{/subscription.membership}}
+		{{^subscription.membership}}
 			<a class="icon-{{subscription.slug}} icon-2x tip never" title="Ajouter une adhésion &laquo;{{subscription.title}}&raquo;" href="members/subscriptions_quickadd/{{member.id}}/{{subscription.id}}" ></a>
-		{{/membership}}
+		{{/subscription.membership}}
 	{{/member.subscriptions}}
 	</td>
 	<td>
