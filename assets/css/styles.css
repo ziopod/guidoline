@@ -322,6 +322,12 @@ legend {
 #table_members th:nth-child(7) {
 	width:150px;
 }
+#table_members th:nth-last-child(1) {
+	width:50px;
+}
+#table_members th:nth-last-child(1) {
+	width:50px;
+}
 
 .table th {
 	padding: 4px 4px 6px;
