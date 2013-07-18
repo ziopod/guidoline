@@ -62,7 +62,7 @@ $.get('templates/partials/members/table_entry.mustache', function(html)
 	var st = StreamTable('#table_members', {
 		view: view,
 		data_url: 'members.json',
-		stream_after: 0.1,
+		stream_after: 0.0001,
 		fetch_data_limit: 100,
 		fields: ['id','name','firstname','email','city'],
 		callbacks: callbacks,
