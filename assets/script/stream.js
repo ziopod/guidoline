@@ -62,8 +62,8 @@ $.get('templates/partials/members/table_entry.mustache', function(html)
 	var st = StreamTable('#table_members', {
 		view: view,
 		data_url: 'members.json',
-		stream_after: 0.0001,
-		fetch_data_limit: 100,
+		stream_after: 0.1,
+		fetch_data_limit: 20,
 		fields: ['id','name','firstname','email','city'],
 		callbacks: callbacks,
 		pagination: {span: 5, next_text: 'Suivant &rarr;', prev_text: '&larr; Précédent',per_page_opts: [10,25,50,100,500],per_page: 10}
