@@ -83,13 +83,13 @@ $.get('templates/partials/members/table_entry.mustache', function(html)
 		data_url: 'members.json',
 		stream_after: 0.1,
 		fetch_data_limit: 100,
-		per_page: 10,
+		fields: ['id','name','firstname','email','city'],
 		callbacks: callbacks,
-		pagination: {span: 5, next_text: 'Next &rarr;', prev_text: '&larr; Previous'}
+		pagination: {span: 5, next_text: 'Suivant &rarr;', prev_text: '&larr; Précédent',per_page_opts: [10,25,50,100,500],per_page: 10}
 		}
 		, data
 	);
-		});
+});
 
 
 // $.get('views/person.mustache', function(template){
