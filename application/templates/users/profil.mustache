@@ -1,11 +1,31 @@
 {{#user}}
 <h1>{{username}}</h1>
+
+<div class="content_stat row-fluid">
+	<div class="span3 block">
+		<h2># de connexions :</h2>
+		<span class="stat">{{logins}}</span> connexions
+	</div>
+
+	<div class="span3 block">
+		<h2>Dernière connexion :</h2>
+		Vu le <span class="stat">{{last_logins}}</span>
+	</div>
+
+	<div class="span3 block">
+		<h2>Enregistrement :</h2>
+		Inscrit depuis <span class="stat">{{created}}</span>
+	</div>
+	
+	<div class="span3 block">
+		<h2>Update :</h2>
+		MAJ le <span class="stat">{{updated}}</span>
+	</div>
+</div>
+
 <ul>
 	<li>Email : {{email}}</li>
-	<li>Nombre de connexion : {{logins}}</li>
-	<li>Dernière connexion le : {{last_logins}}</li>
-	<li>Enregistré le : {{created}}</li>
-	<li>Dernière mise à jour le : {{updated}}</li>
 </ul>
+
 {{/user}}
 <a href="{{base_url}}members/profil/{{user.member.id}}">Afficher la fiche membre</a>

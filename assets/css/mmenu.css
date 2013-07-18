@@ -123,6 +123,7 @@ html.mmenu-accelerated #mmenu-blocker
 	-webkit-transform: translate3d(0,0,0);
 	-moz-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
+	height: 100%;
 }	
 html.mmenu-left.mmenu-opened .mmenu-page,
 html.mmenu-left.mmenu-opened #mmenu-blocker

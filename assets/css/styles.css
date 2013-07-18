@@ -6,8 +6,9 @@
 @import "mmenu.css";
 
 
-body {
-	background: #eee;
+html, body {
+    height: 100%;
+		background: #eee;
 }
 
 /* Typography */
@@ -151,21 +152,26 @@ iframe {background: red;}
 }
 
 .content_stat {
-	margin-bottom: 2.5em;
+	margin-bottom: .5em;
 }
 
 .content_stat .block {
 	position: relative;
 	min-height: 60px;
-	padding: .2em 1em;
+	margin-bottom: 1em;
+	padding: 1em 1em;
 	font-size: 1.2em;
 	border: 2px solid #34495e;
-	/*border-top-width: 10px;*/
-	background-color: #eee;
+	background-color: #fff;
+	text-align: center;
 }
 
 .content_stat h2 {
-	margin-bottom: -10px;
+	margin:-.7em -.7em .5em;
+	padding: 0 .5em;
+	text-align: left;
+	color: #fff;
+	background: #34495e;
 }
 
 .content_stat .stat {
@@ -196,8 +202,12 @@ form {
 	margin: 0 0 3.5em;
 }
 
+label {
+	margin-bottom: .1em;
+}
+
 legend {
-	margin: 0 0 1em;
+	margin: 0 0 .5em;
 }
 
 .dataTables_wrapper input {
@@ -212,7 +222,7 @@ legend {
 [class^=form_] .form_action {
 	float: right;
 	clear: both;
-	padding-top:1.5em;
+	padding-top:.8em;
 	width: auto;
 }
 
@@ -258,6 +268,10 @@ legend {
 
 .box_login form {
 	margin:.5em 1em 1em;
+}
+
+.box_login input {
+	height: 30px;
 }
 
 .box_login input[type="text"],.box_login input[type="password"] {

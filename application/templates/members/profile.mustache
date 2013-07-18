@@ -1,14 +1,30 @@
 {{#member}}
-<strong>{{firstname}} {{name}}</strong>
+<h1>{{firstname}} {{name}}
 {{{fancy_gender}}}
-<br />
-{{#fancy_birthdate}}Née le : {{fancy_birthdate}}{{/fancy_birthdate}}
-<p>
-	C'est inscrit la première fois le {{fancy_created}}.
-	<br />
-	Il est actuellement {{status.name}} de l'association.
-</p>
-<strong>Coordonnées</strong>
+</h1>
+<div class="content_stat row-fluid">
+	
+	<div class="span4 block">
+		<h2>Statut :</h2>
+		<span class="stat">{{status.name}}</span> de l'association
+	</div>
+	
+	<div class="span4 block">
+		<h2>Inscription :</h2>
+		1<sup>ère</sup> inscription <span class="stat">{{fancy_created}}</span>
+	</div>
+	
+	{{#fancy_birthdate}}
+	<div class="span4 block">
+		<h2>Âge :</h2>
+		<span class="stat">{{fancy_birthdate}}</span> années
+	</div>
+	{{/fancy_birthdate}}
+	
+	
+</div>
+
+<h2>Coordonnées</h2>
 <ul>
 	<li>Email : {{member.email}}</li>
 	<li>Portable : {{member.cellular}}</li>
