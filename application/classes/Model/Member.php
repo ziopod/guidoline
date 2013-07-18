@@ -68,7 +68,7 @@ class Model_Member extends ORM{
 	{
 		return array(
 			'email' => array(
-				array('not_empty'),
+//				array('not_empty'),
 				array('min_length', array(':value', 4)),
 				array('max_length', array(':value', 128)),
 				array('email'),
