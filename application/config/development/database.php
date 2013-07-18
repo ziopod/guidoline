@@ -21,7 +21,7 @@ return array
 			'hostname'   => 'localhost',
 			'database'   => 'guidoline',
 			'username'   => 'root',
-			'password'   => 'cortex',
+			'password'   => 'root',
 
 			'persistent' => FALSE,
 		),
