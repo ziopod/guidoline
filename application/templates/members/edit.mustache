@@ -32,8 +32,8 @@
 			<span>
 				<label for="email">Email</label>
 				<input type="email" name="email" id="email" placeholder="Indiquer un contact email" value="{{member.email}}" />
+				{{#errors}}{{#email}}<p class="form-error">{{email}}</p>{{/email}}{{/errors}}
 			</span>
-			{{#errors}}{{#email}}<p class="form-error">{{email}}</p>{{/email}}{{/errors}}
 			<span class="hidden">
 				<label for="phone">Téléphone</label>
 				<input type="text" name="phone" id="phone" placeholder="Indiquer un numéro de téléphone" value="{{member.phone}}">

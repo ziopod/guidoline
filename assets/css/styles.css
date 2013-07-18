@@ -28,7 +28,12 @@ h1 {
 }
 
 /* icons */
-/*-----------------------*/
+/* This terms are add in php code for subscription link generation :: it depends on term present in the database
+/*-----------------------*/ 
+
+table .icon-2x {
+	font-size: 1.5em;
+}
 
 .icon-cafe:before { 
 	content: "\f0f4"; 
@@ -39,8 +44,6 @@ h1 {
 
 /* iFrame */
 /*-----------------------*/
-
-iframe {background: red;}
 
 .cboxIframe .navbar,
 .nyroModalLink .navbar,
@@ -152,15 +155,18 @@ iframe {background: red;}
 }
 
 .content_stat {
+	display: table;
 	margin-bottom: .5em;
 }
 
 .content_stat .block {
 	position: relative;
-	min-height: 60px;
+	display: table-cell;
+	min-height: 8em;
 	margin-bottom: 1em;
 	padding: 1em 1em;
 	font-size: 1.2em;
+	vertical-align: middle;
 	border: 2px solid #34495e;
 	background-color: #fff;
 	text-align: center;
@@ -177,6 +183,15 @@ iframe {background: red;}
 .content_stat .stat {
 	font-size: 2.5em;
 	font-weight: bold;
+}
+
+.nyroModalCont .block {
+	min-height: 12em;
+	font-size: .7em;
+}
+
+.nyroModalCont .block h2 {
+	font-size: 1.4em;
 }
 
 /*.content_stat .block:before {
@@ -308,8 +323,12 @@ legend {
 	width:150px;
 }
 
-.table th, .table td {
-	padding:4px;
+.table th {
+	padding: 4px 4px 6px;
+}
+
+.table td {
+	padding: 4px 4px 0;
 }
 
 .dataTables_info {
@@ -355,11 +374,11 @@ legend {
 }
 
 .st_per_page{
-  width: 50px;
-  height: 41px !important;
+  width: 65px;
+  height: 29px !important;
   float: right;
   margin-right: 20px;
-	padding: 10px 4px;
+	padding: 5px 4px;
 }
 
 .record_count {
@@ -381,15 +400,15 @@ legend {
 .content_table .progress {
   width: 400px;
   display: inline-block;
-  height: 30px;
-  line-height: 30px;
+  height: 20px;
+  line-height: 20px;
   float: left;
 	background: #888;
 }
 
 .content_table .progress-bar {
 	padding: 0 0 .1em 5%;
-	font-size: 1.3em;
+	font-size: 1.1em;
 	color: #fff;
 	background: #1ABC9C;
 }
