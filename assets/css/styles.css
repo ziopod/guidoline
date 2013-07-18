@@ -194,6 +194,10 @@ table .icon-2x {
 	font-size: 1.4em;
 }
 
+.nyroModalCont .nav_edit {
+	display: none;
+}
+
 /*.content_stat .block:before {
 	content:"";
 	position: absolute;
