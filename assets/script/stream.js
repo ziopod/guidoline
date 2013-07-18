@@ -3,25 +3,6 @@
 **/
 $(document).ready(function(){
 
-//var html = $.trim($("#template").html());
-// var html =
-// '<tr>'+
-// '	<td>#{{member.id}}</td>'+
-// '	<td><a class="modale" href="members/profile/{{member.id}}">{{member.firstname}} {{member.name}}</a></td>'+
-// '	<td>{{member.fancy_birthdate}}</td>'+
-// '	<td>{{member.fancy_created}}</td>'+
-// '	<td>{{member.email}}</td>'+
-// '	<td>{{member.cellular}}</td>'+
-// '	<td>'+
-// '		{{member.city}}'+
-// '	</td>'+
-// '	<td>'+
-// '		— subscription here bro —'+
-// '	</td>'+
-// '	<td>'+
-// '		<p><a class="icon-pencil icon-2x modale tip" href="{{base_url}}members/edit/{{member.id}}#form_content" title="Modifier"></a></p>'+
-// '	</td>'+
-// '</tr>';
 $.get('templates/partials/members/table_entry.mustache', function(html)
 {
 	var data = null;
