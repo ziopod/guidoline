@@ -63,6 +63,9 @@ $.get('templates/partials/members/table_entry.mustache', function(html)
 				this.stopStreaming();
 				$('#progress_bar').removeClass('active').hide();
 			}
+			
+			$('.modale').myroModal();
+			$('.tip').tooltipster({position: 'bottom'});
 		},
 		before_add: function(data)
 		{
