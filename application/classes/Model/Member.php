@@ -13,6 +13,13 @@
 class Model_Member extends ORM{
 
 	/**
+	* Ordre de trie par défaut
+	**/
+	protected $_sorting = array(
+		'id'	=> 'DESC',
+	);
+
+	/**
 	* Relationship
 	**/
 	protected $_belongs_to = array(
