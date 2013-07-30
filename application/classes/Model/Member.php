@@ -43,11 +43,11 @@ class Model_Member extends ORM{
 	
 	public $genders = array(
 		array(
-			'value'	=> 'h',
+			'value'	=> 'M',
 			'label'	=> 'Homme',
 		),
 		array(
-			'value'	=> 'f',
+			'value'	=> 'F',
 			'label'	=> 'Femme',
 		)
 	);
@@ -142,7 +142,7 @@ class Model_Member extends ORM{
 				return $this->created ? strftime('%e %b %Y', strtotime($this->created)) : FALSE;
 				break;
 			case 'fancy_gender':
-				return $this->gender === 'h' ? '&#9794' : '&#9792;';
+				return $this->gender === 'M' ? '&#9794' : '&#9792;';
 			default:
 				return parent::get($column);
 				break;
