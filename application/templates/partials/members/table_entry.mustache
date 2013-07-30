@@ -1,6 +1,6 @@
 <tr>
 	<td>#{{member.id}}</td>
-	<td><a class="modale" href="{{base_url}}members/profile/{{member.id}}">{{member.firstname}} {{member.name}}</a></td>
+	<td><a class="modale" href="{{base_url}}members/profile/{{member.id}}#content_main">{{member.firstname}} {{member.name}}</a></td>
 	<td>{{member.fancy_birthdate}}</td>
 	<td>{{member.fancy_created}}</td>
 	<td>{{member.email}}</td>
@@ -12,19 +12,20 @@
 	{{#member.subscriptions}}
 		{{#subscription.membership}}
 			{{#subscription.valid_subscription}}
-				<span class="icon-{{subscription.slug}} icon-2x tip valid" title="l\'adhésion &laquo;{{subscription.title}}&raquo; est valide"></span>
+				<span class="icon-{{subscription.slug}} icon-2x tip valid" title="L'adhésion &laquo;{{subscription.title}}&raquo; de {{member.firstname}} est valide"></span>
 			{{/subscription.valid_subscription}}
 			{{^subscription.valid_subscription}}
-				<a class="icon-{{subscription.slug}} icon-2x tip invalid" title="l\'adhésion &laquo;{{subscription.title}}&raquo; n\'est plus valide" href="members/subscriptions_quickadd/{{member.id}}/{{subscription.id}}" ></a>
+				<a class="icon-{{subscription.slug}} icon-2x tip invalid" title="L'adhésion &laquo;{{subscription.title}}&raquo; de {{member.firstname}} n'est plus valide" href="members/subscriptions_quickadd/{{member.id}}/{{subscription.id}}" ></a>
 			{{/subscription.valid_subscription}}
 		{{/subscription.membership}}
 		{{^subscription.membership}}
-			<a class="icon-{{subscription.slug}} icon-2x tip never" title="Ajouter une adhésion &laquo;{{subscription.title}}&raquo;" href="members/subscriptions_quickadd/{{member.id}}/{{subscription.id}}" ></a>
+			<a class="icon-{{subscription.slug}} icon-2x tip never" title="Ajouter une adhésion &laquo;{{subscription.title}}&raquo; à {{member.firstname}}"  href="members/subscriptions_quickadd/{{member.id}}/{{subscription.id}}" ></a>
 		{{/subscription.membership}}
 	{{/member.subscriptions}}
 	</td>
 	<td>
-		<p><a class="icon-pencil icon-2x modale tip" href="{{base_url}}members/edit/{{member.id}}#form_content" title="Modifier"></a></p>
+		<a class="icon-pencil icon-2x modale tip" href="{{base_url}}members/edit/{{member.id}}#form_content" title="Modifier le profil {{member.firstname}}"></a>
+		<a class="icon-certificate icon-2x tip" href="{{base_url}}members/subscriptions/{{member.id}}#content_main" title="Gérer les adhésions de {{member.firstname}}"></a>
 	</td>
 </tr>
 

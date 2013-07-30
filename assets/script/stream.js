@@ -3,25 +3,6 @@
 **/
 $(document).ready(function(){
 
-//var html = $.trim($("#template").html());
-// var html =
-// '<tr>'+
-// '	<td>#{{member.id}}</td>'+
-// '	<td><a class="modale" href="members/profile/{{member.id}}">{{member.firstname}} {{member.name}}</a></td>'+
-// '	<td>{{member.fancy_birthdate}}</td>'+
-// '	<td>{{member.fancy_created}}</td>'+
-// '	<td>{{member.email}}</td>'+
-// '	<td>{{member.cellular}}</td>'+
-// '	<td>'+
-// '		{{member.city}}'+
-// '	</td>'+
-// '	<td>'+
-// '		— subscription here bro —'+
-// '	</td>'+
-// '	<td>'+
-// '		<p><a class="icon-pencil icon-2x modale tip" href="{{base_url}}members/edit/{{member.id}}#form_content" title="Modifier"></a></p>'+
-// '	</td>'+
-// '</tr>';
 $.get('templates/partials/members/table_entry.mustache', function(html)
 {
 	var data = null;
@@ -81,8 +62,8 @@ $.get('templates/partials/members/table_entry.mustache', function(html)
 	var st = StreamTable('#table_members', {
 		view: view,
 		data_url: 'members.json',
-		stream_after: 0.1,
-		fetch_data_limit: 100,
+		stream_after: 0.000001,
+		fetch_data_limit: 30,
 		fields: ['id','name','firstname','email','city'],
 		callbacks: callbacks,
 		pagination: {span: 5, next_text: 'Suivant &rarr;', prev_text: '&larr; Précédent',per_page_opts: [10,25,50,100,500],per_page: 10}
