@@ -135,8 +135,14 @@ class Model_Member extends ORM{
 	public function get($column)
 	{
 		switch ($column) {
+			case 'cellular' :
+				return preg_replace('/(\w{2})(\w{2})(\w{2})(\w{2})(\w{2})$/i', '$1 $2 $3 $4 $5',  $this->_object['cellular']);
+				break;
+			case 'phone' :	
+				return preg_replace('/(\w{2})(\w{2})(\w{2})(\w{2})(\w{2})$/i', '$1 $2 $3 $4 $5',  $this->_object['phone']);
+				break;
 			case 'fancy_birthdate':
-				return $this->birthdate ? date('Y', time()) - date('Y', strtotime($this->birthdate)) : NULL;
+				return ($this->birthdate !== NULL AND $this->birthdate !== '0000-00-00') ? date('Y', time()) - date('Y', strtotime($this->birthdate)) : NULL;
 				break;
 			case 'fancy_created':
 				return $this->created ? strftime('%e %b %Y', strtotime($this->created)) : FALSE;
