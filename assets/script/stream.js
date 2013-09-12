@@ -66,7 +66,7 @@ $.get('templates/partials/members/table_entry.mustache', function(html)
 		fetch_data_limit: 30,
 		fields: ['id','name','firstname','email','city'],
 		callbacks: callbacks,
-		pagination: {span: 5, next_text: 'Suivant &rarr;', prev_text: '&larr; Précédent',per_page_opts: [10,25,50,100,500],per_page: 10}
+		pagination: {span: 5, next_text: 'Suivant &rarr;', prev_text: '&larr; Précédent',per_page_opts: [10,25,50,100,500],per_page: 25}
 		}
 		, data
 	);
