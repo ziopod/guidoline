@@ -76,6 +76,8 @@ class Controller_Members extends Controller_App {
 					'email'				=> $member->email,
 					'cellular'			=> $member->cellular,
 					'city'				=> $member->city,
+					'country'				=> $member->country,
+					'job'				=> $member->job,
 					'subscriptions'		=> $subscriptions
 				);
 
