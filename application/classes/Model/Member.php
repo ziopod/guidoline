@@ -16,7 +16,7 @@ class Model_Member extends ORM{
 	* Ordre de trie par défaut
 	**/
 	protected $_sorting = array(
-		'id'	=> 'DESC',
+		'idm'	=> 'DESC',
 	);
 
 	/**
@@ -171,6 +171,23 @@ class Model_Member extends ORM{
 			), $statuses);
 		$statuses[$current_status_key]['selected'] = TRUE;
 		return $statuses;
+	}
+
+	/**
+	* Extension de la méthode native create
+	**/
+	public function create(Validation $validation = NULL)
+	{
+		// Création du idm
+		$idm = (int) ORM::factory('Member')
+			->select('idm')
+			->order_by('idm', 'DESC')
+			->limit(1)
+			->find()
+			->idm;
+		$this->idm = $idm + 1;
+
+		return parent::create($validation);
 	}
 
 	/**

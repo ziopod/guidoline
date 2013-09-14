@@ -18,11 +18,12 @@ class Controller_Members extends Controller_App {
 	* @return void
 	**/
 	public function action_index()
-	{
-	
+	{	
+
 		if ($this->request->is_ajax() OR $this->request->param('format') === 'json')
 		{
 			//echo Debug::vars($_GET);
+
 			$data = array(
 				'total_count' 	=> NULL,
 				'members'		=> array(),
@@ -53,8 +54,7 @@ class Controller_Members extends Controller_App {
 					if ($member->has_any('subscriptions', $subscription))
 					{
 						$formatted_subscription['membership'] = TRUE;
-						$valid =  ($member->subscriptions_members->where('subscription_id', '=', $subscription->id)->find()->valid_subscription) ? TRUE : FALSE;
-						$valid =  $member->subscriptions_members->where('subscription_id', '=', $subscription->id)->find()->valid_subscription; //) ? TRUE : FALSE;
+						$valid =  $member->subscriptions_members->where('subscription_id', '=', $subscription->id)->find()->valid_subscription;
 
 						if ( $valid)
 						{
@@ -69,6 +69,7 @@ class Controller_Members extends Controller_App {
 
 				$data['members'][] = array(
 					'id'				=> $member->id,
+					'idm'				=> $member->idm,
 					'firstname' 		=> $member->firstname,
 					'name'				=> $member->name,
 					'fancy_birthdate'	=> $member->fancy_birthdate,
@@ -82,7 +83,6 @@ class Controller_Members extends Controller_App {
 			}
 
 			$response = Json_encode($data);
-
 			$this->response->body($response);
 		}
 		else
