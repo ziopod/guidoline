@@ -23,6 +23,10 @@ h1 {
 	color: #B15C3A;
 }
 
+.valid {
+	color: #9ABFB7;
+}
+
 .nerver {
 	color: #777;
 }
@@ -309,19 +313,16 @@ legend {
 	width:35px;
 }
 #table_members th:nth-child(2) {
-	width:180px;
+	width:130px;
 }
 #table_members th:nth-child(3) {
-	width:25px;
+	width:130px;
 }
 #table_members th:nth-child(4) {
-	width:95px;
+	width:25px;
 }
-/*#table_members th:nth-child(5) {
-	width:250px;
-}*/
 #table_members th:nth-child(6) {
-	width:100px;
+	width:110px;
 }
 /*#table_members th:nth-child(7) {
 	width:170px;
