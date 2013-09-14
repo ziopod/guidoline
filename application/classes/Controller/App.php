@@ -83,29 +83,4 @@ class Controller_App extends Controller {
 		echo file_get_contents(Kohana::find_file('templates', $this->request->param('path'), 'mustache'));
 	}
 
-	public function action_patch_data()
-	{
-		// A usage local par sécurité
-		if ($_SERVER['SERVER_ADDR'] === '127.0.0.1' OR $_SERVER['HTTP_HOST'] == 'localhost')
-		{
-			$members = ORM::factory('Member');
-
-			foreach ($members->find_all() as $member)
-			{
-				$created_year = (int) date('Y', strtotime($member->created));
-
-				while ($created_year <= 2013)
-				{
-					// Ajout d'une jointure membre/adhésion
-					ORM::factory('Subscriptions_Member')
-						->set('subscription_id', 1)
-						->set('member_id', $member->id)
-						->set('created', $created_year . '-01-01 00:00:00')
-						->save();
-					$created_year += 1;
-				}
-			}
-		}
-	}
-
 }
