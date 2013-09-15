@@ -11,7 +11,7 @@ return array(
 
 	// Username/password combinations for the Auth File driver
 	'users' => array(
-		'Guidoline' => '231934c19c11680bac20c9346092c0a4278093cf1f3bebf09ff5ea233fef2027',
+		'Guidoline' => 'fea0bfb2b0414c22853894d5f6c879f63757e0953a446a61e8eaa6e456780f8a',
 	),
 
 );
