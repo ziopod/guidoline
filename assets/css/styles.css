@@ -24,11 +24,12 @@ h1 {
 }
 
 .valid {
-	color: #9ABFB7;
+	color: #30483B;
+	cursor: not-allowed;
 }
 
-.nerver {
-	color: #777;
+.never {
+	color: #9ABFB7;
 }
 
 /* icons */
@@ -402,7 +403,7 @@ legend {
   display: none;
 }
 
-#found{
+#found {
   margin-left: 10px;
   font-size: 16px;
   line-height: 33px;
@@ -427,5 +428,3 @@ legend {
 .pagination {
 	background: white;
 }
-
-
