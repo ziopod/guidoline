@@ -128,11 +128,7 @@ class Controller_Members extends Controller_App {
 			try
 			{
 				$member->save();
-				
-				if (Arr::get($post, 'redirect'))
-					HTTP::redirect(Route::get('default')->uri());
-
-				$this->_redirect_to_list();
+				HTTP::redirect(Route::get('default')->uri());
 			}
 			catch (ORM_Validation_Exception $e)
 			{

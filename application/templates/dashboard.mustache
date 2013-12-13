@@ -6,7 +6,6 @@
 			{{/errors}}
 		<fieldset>
 			<legend>Ajouter un membre</legend>
-			<input type="hidden" name="redirect" value="{{base_url}}" />
 			<span>
 				<label for="gender">Genre</label>
 				<select name="gender" id="gender">
@@ -79,12 +78,12 @@
 <h2>Derniers membres</h2>
 <table>
 	{{#last_members_create}}
-	{{>members/table_entry}}
+	{{>members/table_entry_light}}
 	{{/last_members_create}}
 </table>
-<h2>Derniers modificiations</h2>
+<h2>Dernieres modifications</h2>
 <table>
 	{{#last_members_update}}
-	{{>members/table_entry}}
+	{{>members/table_entry_light}}
 	{{/last_members_update}}
 </table>
