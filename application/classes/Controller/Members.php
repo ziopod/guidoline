@@ -128,6 +128,10 @@ class Controller_Members extends Controller_App {
 			try
 			{
 				$member->save();
+				
+				if (Arr::get($post, 'redirect'))
+					HTTP::redirect(Route::get('default')->uri());
+
 				$this->_redirect_to_list();
 			}
 			catch (ORM_Validation_Exception $e)
@@ -150,7 +154,6 @@ class Controller_Members extends Controller_App {
 		$view->errors = $errors;
 		$view->title = $member->loaded() ? "Modifier la fiche membre de {$view->original_values['firstname']} {$view->original_values['name']}" : "Ajouter un membre";
 		$this->response->body($this->layout->render($view));
-
 	}
 
 	/**
@@ -178,7 +181,7 @@ class Controller_Members extends Controller_App {
 	public function action_subscriptions_quickadd()
 	{
 		$member = ORM::factory('Member', $this->request->param('member_id'));
-		echo Debug::vars($member->loaded());
+		// echo Debug::vars($member->loaded());
 		$member->add('subscriptions', ORM::factory('Subscription', $this->request->param('subscription_id')));
 		HTTP::redirect($this->request->referrer());
 

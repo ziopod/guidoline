@@ -1,6 +1,90 @@
-<p>
-	~(^O^)~
-</p>
-
-Test de connexion à la base de données :
-<pre>{{db_connection_test}}</pre>
+<h1>Dashboard</h1>
+<div id="form_content">
+	<form action="{{base_url}}members/save" method="post" class="form_edit">
+			{{#errors}}
+			<strong class="msg-error">Ce formulaire n'est pas correctement rempli !</strong>
+			{{/errors}}
+		<fieldset>
+			<legend>Ajouter un membre</legend>
+			<input type="hidden" name="redirect" value="{{base_url}}" />
+			<span>
+				<label for="gender">Genre</label>
+				<select name="gender" id="gender">
+					{{#member.genders}}
+						<option value="{{value}}" {{#current}}selected="TRUE"{{/current}}>{{label}}</option>
+					{{/member.genders}}
+				</select>
+			</span>
+			<span>
+				<label for="birthdate">Date de naissance</label>
+				<input type="date" name="birthdate" id="birthdate" placeholder="Indiquer une date de naissance" value="{{member.birthdate}}">
+			</span>
+			<span>
+				<label for="firstname">Prénom</label>
+				<input type="text" name="firstname" id="firstname" placeholder="Indiquer un prénom" value="{{member.firstname}}" />
+			</span>
+			<span>
+				<label for="name">Nom</label>
+				<input type="text" name="name" id="name" placeholder="Indiquer un nom" value="{{member.name}}" />
+			</span>
+		</fieldset>
+		<fieldset>
+			<legend>Contact</legend>
+			<input type="hidden" name="id" id="id" value="{{member.id}}" />
+			<span>
+				<label for="email">Email</label>
+				<input type="email" name="email" id="email" placeholder="Indiquer un contact email" value="{{member.email}}" />
+				{{#errors}}{{#email}}<p class="form-error">{{email}}</p>{{/email}}{{/errors}}
+			</span>
+			<span class="hidden">
+				<label for="phone">Téléphone</label>
+				<input type="text" name="phone" id="phone" placeholder="Indiquer un numéro de téléphone" value="{{member.phone}}">
+			</span>
+			<span>
+				<label for="cellular">Portable</label>
+				<input type="text" name="cellular" id="cellular" placeholder="Indiquer un numéro de portable" value="{{member.cellular}}">
+			</span>
+		</fieldset>
+		<fieldset>
+			<legend>Adresse</legend>
+			<span>
+				<label for="street">Rue</label>
+				<input type="text" name="street" id="street" placeholder="Indiquer un nom de rue" value="{{member.street}}" />
+			</span>
+			<span>
+				<label for="zipcode">Code postal</label>
+				<input type="zipcode" name="zipcode" id="zipcode" placeholder="Indiquer une code postal" value="{{member.zipcode}}" />
+			</span>
+			<span>
+				<label for="city">Ville</label>
+				<input type="text" name="city" id="city" placeholder="Indiquer une ville" value="{{member.city}}" />
+			</span>
+		</fieldset>
+		<fieldset class="hidden">
+			<legend>Statut</legend>
+				<span>
+				<label for="status_id">Statut</label>
+				<select name="status_id" id="status_id">
+					{{#member.statuses}}
+						<option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
+					{{/member.statuses}}
+				</select>
+			</span>
+		</fieldset>
+			<span class="form_action">
+				<input class="btn" type="submit" value="Enregistrer" />
+			</span>
+	</form>
+</div>
+<h2>Derniers membres</h2>
+<table>
+	{{#last_members_create}}
+	{{>members/table_entry}}
+	{{/last_members_create}}
+</table>
+<h2>Derniers modificiations</h2>
+<table>
+	{{#last_members_update}}
+	{{>members/table_entry}}
+	{{/last_members_update}}
+</table>
