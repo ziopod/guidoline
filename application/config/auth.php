@@ -12,6 +12,7 @@ return array(
 	// Username/password combinations for the Auth File driver
 	'users' => array(
 		'Guidoline' => 'fea0bfb2b0414c22853894d5f6c879f63757e0953a446a61e8eaa6e456780f8a',
+		'Bertrand Keller'	=> '0f6a9d5ffa46bd6c99fd1dc3addc44cf2943d5afc6db7dfb0db465ae8b5df3b4',
 	),
 
 );

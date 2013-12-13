@@ -20,6 +20,16 @@ class Model_Member extends ORM{
 	);
 
 	/**
+	* Colonne de date de creation
+	**/
+	protected $_created_column = 'created';
+	
+	/**
+	* Colone de date de mise à jour
+	**/
+	protected $_updated_column = 'updated';
+
+	/**
 	* Relationship
 	**/
 	protected $_belongs_to = array(

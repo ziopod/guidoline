@@ -14,23 +14,65 @@
 class View_Dashboard extends View_Layout {
 	
 	/**
-	* @vars Title Titre pour le dashboard
+	* @var Title Titre pour le dashboard
 	*/
 	public $title = "Guidoline — Dashboard";
 
 	/**
-	* Test de connexion à la base de données
+	* @var Instance de membre
 	**/
-	public function db_connection_test()
+	public $member;
+
+	public function __construct()
 	{
-		 try
-		 {
-		 	Database::instance()->connect();
-		 	return "— Connexion ok —";
-		 }
-		 catch(Exception $e)
-		 {
-		 	return $e;
-		 }
+		parent::__construct();
+		// Instance de membre pour le formulaire
+		$this->member = ORM::factory('member');
+
+		// if 
+	}
+
+	/**
+	* Retourne les derniers membres ajoutés
+	*
+	* @return 	array
+	**/
+	public function last_members_create()
+	{
+		$members = array();
+
+		foreach( ORM::factory('Member')
+			->order_by('created', 'desc')
+			->limit(10)
+			->find_all() as $member)
+		{
+			$members[] = array(
+				'member' => $member,
+			);
+		}
+
+		return $members;
+	}
+
+	/**
+	* Retourne les derniers membres modifiés
+	*
+	* @return	array
+	**/
+	public function last_members_update()
+	{
+		$members = array();
+
+		foreach( ORM::factory('Member')
+			->order_by('updated', 'desc')
+			->limit(10)
+			->find_all() as $member)
+		{
+			$members[] = array(
+				'member'	=> $member,
+			);
+		}
+
+		return $members;
 	}
 }

@@ -206,6 +206,6 @@ Route::set('templates', 'templates/<path>.mustache',
 // Defaults
 Route::set('default', '(<controller>(/<action>(/<id>)))')
   ->defaults(array(
-    'controller' => 'Members',
+    'controller' => 'Dashboard',
     'action'     => 'index',
   ));
