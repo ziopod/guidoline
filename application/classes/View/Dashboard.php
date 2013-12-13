@@ -27,7 +27,7 @@ class View_Dashboard extends View_Layout {
 	{
 		parent::__construct();
 		// Instance de membre pour le formulaire
-		$this->member = ORM::factory('member');
+		$this->member = ORM::factory('Member');
 
 		// if 
 	}
