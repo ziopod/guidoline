@@ -78,7 +78,7 @@ class Controller_Members extends Controller_App {
 					'cellular'			=> $member->cellular,
 					'city'				=> $member->city,
 					'country'				=> $member->country,
-					'job'				=> $member->job,
+					// 'job'				=> $member->job,
 					'subscriptions'		=> $subscriptions
 				);
 

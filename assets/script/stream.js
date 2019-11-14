@@ -22,7 +22,6 @@ $.get('templates/partials/members/table_entry.mustache', function(html)
 	var callbacks = {
 		pagination: function(summary)
 		{
-
 			if ($.trim($('#st_search').val()).length > 0)
 			{
 				$found.text('Found : '+summary.total).show();
@@ -64,7 +63,7 @@ $.get('templates/partials/members/table_entry.mustache', function(html)
 		data_url: 'members.json',
 		stream_after: 0.000001,
 		fetch_data_limit: 300,
-		fields: ['idm','name','firstname','email','city','job'],
+		fields: ['idm','name','firstname','email','city'],
 		callbacks: callbacks,
 		pagination: {span: 5, next_text: 'Suivant &rarr;', prev_text: '&larr; Précédent',per_page_opts: [10,25,50,100,500],per_page: 25}
 		}
