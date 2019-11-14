@@ -1,6 +1,6 @@
 {
-	"name": "Guidoline",
-	"type": "Application",
+	"name": "ziopod/guidoline",
+	"type": "application",
 	"description": "A simple software for managing members of a non-profit association",
 	"keywords": ["kohana", "Memberships", "Webapp"],
 	"homepage": "http://github.com/ziopod/guidoline",
@@ -13,12 +13,13 @@
 		}
 	],
 	"require": {
+		"php": ">=7.0",
 		"koseven/koseven": "3.3.*",
-		"Kohana/database": "3.3.*",
-		"Kohana/ORM": "3.3.*",
-		"Kohana/auth": "3.3.*",
+		"kohana/database": "3.3.*",
+		"kohana/orm": "3.3.*",
+		"kohana/auth": "3.3.*",
 		"kohana/userguide": "3.3.*",
-		"Zombor/Kostache": "4.0.3",
+		"zombor/kostache": "4.0.3",
 		"twbs/bootstrap": "3.3.7"
 	}
 
