@@ -53,6 +53,10 @@ class Model_Member extends ORM{
 	
 	public $genders = array(
 		array(
+			'value' => null,
+			'label' => 'n/a'
+		),
+		array(
 			'value'	=> 'm',
 			'label'	=> 'Homme',
 		),
