@@ -109,6 +109,12 @@ I18n::lang('fr-fr');
 * Set cookie salt
 **/
 Cookie::$salt = getEnv('COOKIE_SALT');
+Cookie::$secure = getEnv('COOKIE_SECURE');
+Cookie::$domain = getEnv('COOKIE_DOMAIN');
+/**
+ * @todo améliorer la sécurité
+ * https://koseven.ga/documentation/kohana/security/encryption
+ */
 
 /**
  * Set Kohana::$environment if a 'KOHANA_ENV' environment variable has been supplied.
@@ -144,17 +150,6 @@ switch(Kohana::$environment)
     // All errors
     error_reporting(E_ALL | E_STRICT);
 }
-
-// if ($_SERVER['SERVER_ADDR'] === '127.0.0.1' OR $_SERVER['HTTP_HOST'] == 'localhost')
-// {
-//   Kohana::$environment = Kohana::DEVELOPMENT;
-//   error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
-//   // Turn off notices and strict errors
-// }
-// else
-// {
-//   Kohana::$environment = Kohana::PRODUCTION;
-// }
 
 /**
  * Initialize Kohana, setting the default options.
@@ -208,6 +203,10 @@ Kohana::modules(array(
 /**
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
+ */
+
+/**
+ * @todo  Placer les routes dans un fichier séparé por aciliter la maintenance
  */
 
 // API
