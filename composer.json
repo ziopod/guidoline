@@ -1,0 +1,25 @@
+{
+	"name": "Guidoline",
+	"type": "Application",
+	"description": "A simple software for managing members of a non-profit association",
+	"keywords": ["kohana", "Memberships", "Webapp"],
+	"homepage": "http://github.com/ziopod/guidoline",
+	"licence": "MIT",
+	"authors": [
+		{
+			"name": "Steve Beau",
+			"email": "ziopod@gmail.com",
+			"role": "developer"
+		}
+	],
+	"require": {
+		"koseven/koseven": "3.3.*",
+		"Kohana/database": "3.3.*",
+		"Kohana/ORM": "3.3.*",
+		"Kohana/auth": "3.3.*",
+		"kohana/userguide": "3.3.*",
+		"Zombor/Kostache": "4.0.3",
+		"twbs/bootstrap": "3.3.7"
+	}
+
+}
