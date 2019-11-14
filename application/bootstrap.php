@@ -2,6 +2,9 @@
 
 // -- Environment setup --------------------------------------------------------
 
+// Composer autoloader
+require 'vendor/autoload.php';
+
 // Load the core Kohana class
 require SYSPATH.'classes/Kohana/Core'.EXT;
 
@@ -49,6 +52,45 @@ spl_autoload_register(array('Kohana', 'auto_load'));
 //spl_autoload_register(array('Kohana', 'auto_load_lowercase'));
 
 /**
+ * Load Dotenv
+ * 
+ * - File `.env` to rootproject are required
+ * - `ENVIRONMENT` dotenv variable are required with one of
+ *   theses values : 'production', 'staging', 'testing', 'development'
+ */
+
+try
+{
+  $dotenv = Dotenv\Dotenv::create(DOCROOT);
+  $dotenv->load();
+}
+catch (Exception $e)
+{
+  throw new Exception($e->getMessage());
+}
+
+try
+{
+  $dotenv->required('COOKIE_SALT');
+  $dotenv->required('ENVIRONMENT')->allowedValues(['production', 'staging', 'testing', 'development']);
+}
+catch(Exception $e)
+{
+  throw new Exception($e->getMessage());
+}
+
+// Set environment value
+$_SERVER['KOHANA_ENV'] = getEnv('ENVIRONMENT');
+
+// $dotenv->required(['VAR']);
+// $dotenv->required('VAR')->notEmpty();
+// $dotenv->required('VAR')->isInteger();
+// $dotenv->required('VAR')->isBoolean();
+// $dotenv->required('VAR')->allowedValues(['VALUE1', 'VALUE2']);
+// $dotenv->required('VAR')->allowedRegexValues('<regex rule>');
+// echo Debug::vars($_ENV);
+
+/**
  * Enable the Kohana auto-loader for unserialization.
  *
  * @link http://www.php.net/manual/function.spl-autoload-call
@@ -66,7 +108,7 @@ I18n::lang('fr-fr');
 /**
 * Set cookie salt
 **/
-Cookie::$salt = '4b6yl0pQc3r1';
+Cookie::$salt = getEnv('COOKIE_SALT');
 
 /**
  * Set Kohana::$environment if a 'KOHANA_ENV' environment variable has been supplied.
@@ -80,18 +122,39 @@ if (isset($_SERVER['KOHANA_ENV']))
 }
 
 /**
- * Set the environment status by the domain.
+ * Set errors reporting
  */
-if ($_SERVER['SERVER_ADDR'] === '127.0.0.1' OR $_SERVER['HTTP_HOST'] == 'localhost')
+switch(Kohana::$environment)
 {
-  Kohana::$environment = Kohana::DEVELOPMENT;
-  error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
-  // Turn off notices and strict errors
+  case Kohana::PRODUCTION :
+    // All minus notice
+    errot_reporting(E_ALL & ~E_NOTICE);
+    ;
+  break;
+  case Kohana::STAGING :
+    // Only strict
+    errot_reporting(E_ALL & ~E_NOTICE);
+    break;
+  case Kohana::TESTING : 
+    // All minus deprecated and notice
+    error_reporting(E_ALL | E_STRICT);
+    break;
+  // development by default
+  default:
+    // All errors
+    error_reporting(E_ALL | E_STRICT);
 }
-else
-{
-  Kohana::$environment = Kohana::PRODUCTION;
-}
+
+// if ($_SERVER['SERVER_ADDR'] === '127.0.0.1' OR $_SERVER['HTTP_HOST'] == 'localhost')
+// {
+//   Kohana::$environment = Kohana::DEVELOPMENT;
+//   error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+//   // Turn off notices and strict errors
+// }
+// else
+// {
+//   Kohana::$environment = Kohana::PRODUCTION;
+// }
 
 /**
  * Initialize Kohana, setting the default options.
@@ -109,11 +172,11 @@ else
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
 Kohana::init(array(
-  'base_url'   => Kohana::$environment === Kohana::PRODUCTION ? '/' : '/',
+  'base_url'   => getEnv('BASE_URL'),
+  'index_file' => FALSE,
   'caching'    => Kohana::$environment === Kohana::PRODUCTION,
   'profile'    => Kohana::$environment !== Kohana::PRODUCTION,
-  'index_file' => FALSE,
-  'errors'     => TRUE,
+  'errors'     => Kohana::$environment !== Kohana::PRODUCTION,
 ));
 
 /**
@@ -125,11 +188,6 @@ Kohana::$log->attach(new Log_File(APPPATH.'logs'));
  * Attach a file reader to config. Multiple readers are supported.
  */
 Kohana::$config->attach(new Config_File);
-
-if (Kohana::$environment === Kohana::DEVELOPMENT)
-{
-  Kohana::$config->attach(new Kohana_Config_File('config/development'), TRUE);
-}
 
 /**
  * Enable modules. Modules are referenced by a relative or absolute path.
@@ -151,8 +209,6 @@ Kohana::modules(array(
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
-
-
 
 // API
 Route::set('api', '<controller>(/<action>)(.<format>)',
