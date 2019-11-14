@@ -1,6 +1,8 @@
 #Specific files
-#.htaccess
-#/application/config/datatbase.php
+.htaccess
+application/config/
+composer.lock
+vendor/
 
 # Compiled source #
 ###################
