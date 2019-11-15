@@ -2,6 +2,10 @@
 
 // -- Environment setup --------------------------------------------------------
 
+/**
+ * @todo Lecture https://12factor.net/fr/
+ */
+
 // Composer autoloader
 require 'vendor/autoload.php';
 
