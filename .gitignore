@@ -7,6 +7,7 @@ package-lock.json
 vendor/
 node_modules
 assets/css
+**/*.back
 
 # Compiled source #
 ###################
