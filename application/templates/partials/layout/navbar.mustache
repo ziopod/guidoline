@@ -1,0 +1,39 @@
+<nav class="navbar" style="padding: 0 1.5rem;">
+  <div class="navbar-brand">
+    <div class="navbar-item has-dropdown is-hoverable">
+      <div class="navbar-item is-arrowless" href="/">
+        Guidoline
+      </div>
+      <div class="navbar-dropdown">
+        <a class="navbar-item">À propos de Guidoline</a>
+        <hr class="navbar-divider">
+        <div class="navbar-item">
+          Version 0.7.56
+        </div>
+      </div>
+    </div>
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu" id="navbar-menu">
+    {{#menu.start}}
+    <div class="navbar-start">
+      {{#menu.start.items}}
+      <a class="navbar-item is-tab {{#item.is_active}}is-active{{/item.is_active}}" href="{{item.href}}">
+        {{item.label}}
+      </a>
+      {{/menu.start.items}}
+    </div>
+    {{/menu.start}}
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <p class="control">
+          <a class="button is-success" href="">Déconnexion</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</nav>

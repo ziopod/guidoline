@@ -1,0 +1,119 @@
+<form class="is-marginless" id="form_member" action="{{form.action}}" method="post">
+
+  <input type="hidden" name="id" value="{{form.member_id}}">
+  {{#form.notifications}}
+    <div class="notification is-{{notification.kind}}">
+      {{#notification.deletable}}
+      <button class="delete"></button>
+      {{/notification.deletable}}
+      {{{notification.content}}}
+    </div>
+  {{/form.notifications}}
+
+  <fieldset>
+    <legend>Identité</legend>
+    <div class="field columns">
+      <div class="column">
+        {{#form.data.firstname}}
+        {{>form/fields/text}}
+        {{/form.data.firstname}}
+      </div>
+      <div class="column">
+        {{#form.data.name}}
+        {{>form/fields/text}}
+        {{/form.data.name}}
+      </div>
+    </div>
+    <div class="field columns">
+      <div class="column">
+        {{#form.data.birthdate}}
+        {{>form/fields/date}}
+        {{/form.data.birthdate}}
+      </div>
+      <div class="column">
+        {{#form.data.select_genders}}
+        {{>form/fields/select}}
+        {{/form.data.select_genders}}
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Contact</legend>
+    <div class="field columns">
+      <div class="column">
+        {{#form.data.email}}
+        {{>form/fields/email}}
+        {{/form.data.email}}
+      </div>
+      <div class="column">
+        {{#form.data.phone}}
+        {{>form/fields/tel}}
+        {{/form.data.phone}}
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Addresse</legend>
+    <div class="field columns is-multiline">
+      <div class="column is-full">
+        {{#form.data.address.street}}
+        {{>form/fields/text}}
+        {{/form.data.address.street}}
+      </div>
+      <div class="column">
+        {{#form.data.address.zipcode}}
+        {{>form/fields/text}}
+        {{/form.data.address.zipcode}}
+      </div>
+      <div class="column">
+        {{#form.data.address.city}}
+        {{>form/fields/text}}
+        {{/form.data.address.city}}
+      </div>
+      <div class="column">
+        {{#form.data.address.country}}
+        {{>form/fields/text}}
+        {{/form.data.address.country}}
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Adhésions</legend>
+    <p class="help">
+      <b>Note</b> : Une fois l'adhésion ajoutée, la fiche ne pourras plus être suprimée.
+    </p>
+    <ul class="is-unstyled">
+    {{#member.subscriptions.records}}
+      <li class="field">
+        <!-- @todo À transformer en checkbox -->
+        <button class="button is-primary is-outlined is-large">
+            <span class="icon is-large">
+              <img class="icon-injector icon-aspect-hover" src="/assets/svg/checkmark-circle.svg" alt="icon name">
+              <img class="icon-injector icon-aspect-link" src="/assets/svg/circle.svg" alt="icon name">
+            </span>
+            <span class="is-size-5">{{subscription.title}}<span>
+            <span class="has-text-weight-bold">{{subscription.cost}}€</span>
+        </button>
+      </li>
+    {{/member.subscriptions.records}}
+    </ul>
+  </fieldset>
+
+  <div class="field is-grouped is-grouped-right">
+    {{#member.is_loaded}}
+    <div class="control">
+      <button class="button is-primary is-light">Annuler</button>
+    </div>
+    {{/member.is_loaded}}
+    <div class="control">
+      <button class="button is-primary">Enregistrer</button>
+    </div>
+  </div>
+</form>
+
+<script>
+  // Elements to inject
+  var mySVGsToInject = document.querySelectorAll('img.icon-injector');
+  // Do the injection
+  SVGInjector(mySVGsToInject);
+</script>

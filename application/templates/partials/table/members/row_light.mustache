@@ -1,0 +1,9 @@
+<tr {{^member.is_active}}class="faded"{{/member.is_active}}>
+  <td>#{{member.idm}}</td>
+  <td>
+    <a href="{{member.url}}" title="Afficher la fiche de {{member.fullname}}">
+      {{member.fullname}}
+    </a>
+  </td>
+  <td>{{member.address.city}}</td>
+</tr>

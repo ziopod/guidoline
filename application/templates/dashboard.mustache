@@ -1,4 +1,30 @@
-<h1>Dashboard</h1>
+<div class="content is-sr-only">
+{{! <div class="content"> }}
+  <h1>Tableau de bord</h1>
+</div>
+
+<div class="columns is-multiline">
+  <section class="column is-two-firths">
+    <div class="content box">
+      <h2 class="is-size-4">Adhérent #{{member.next_idm}}</h2>
+      {{>form/member/edit}}
+    </div>
+  </section>
+  <div class="column">
+    <section class="content box is-light">
+      <h3>Dernièrs enregistrements</h3>
+      {{#members_last_created}}
+      <table class="table is-hoverable">
+        {{#members_last_created.records}}
+        {{>table/members/row_light}}
+        {{/members_last_created.records}}
+      </table>
+      {{/members_last_created}}
+      <a href="/adherents" class="button is-light">Tous les adhérents</a>
+    </section>
+  </div>
+</div>
+<!--
 <div id="form_content">
 	<form action="{{base_url}}members/save" method="post" class="form_edit">
 			{{#errors}}
@@ -75,15 +101,4 @@
 			</span>
 	</form>
 </div>
-<h2>Derniers membres</h2>
-<table>
-	{{#last_members_create}}
-	{{>members/table_entry_light}}
-	{{/last_members_create}}
-</table>
-<h2>Dernieres modifications</h2>
-<table>
-	{{#last_members_update}}
-	{{>members/table_entry_light}}
-	{{/last_members_update}}
-</table>
+-->

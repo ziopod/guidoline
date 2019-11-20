@@ -72,14 +72,12 @@ browserSync
 
         fs.writeFileSync(destination_file, result.css, (err) => {
           if ( ! err) {
-            console.log("Compilation de " + file);
             browserSync.notify("Injection de " + file);
             throw err;
           }
           else
           {
             console.log("Erreur lors de la compilation : " + err);
-            browserSync.notify("Erreur lors de l'injection : " + err);
           }
         });
 

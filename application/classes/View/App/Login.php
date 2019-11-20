@@ -2,7 +2,7 @@
 
 /**
 * Le modèle de vue `View/App/Login.php` fournis les propriétés et méthodes pour le template `templates/app/login.mustache`.
-* 
+*
 * @package    Guidoline
 * @category   View Model
 * @author     Ziopod | ziopod@gmail.com
@@ -16,7 +16,8 @@ class View_App_Login extends View_Layouts_Simple{
 	public function __construct()
 	{
 		parent::__construct();
-		$this->title = "Bienvenue sur Guidoline, veuillez vous authentifier";
+    $this->title = "Bienvenue sur Guidoline";
+    $this->subtitle = "Logiciel de gestion d'adhérents.";
 
 		if (HTTP_REQUEST::POST === Request::initial()->method())
 		{
@@ -42,4 +43,4 @@ class View_App_Login extends View_Layouts_Simple{
 			//echo Debug::vars($this->errors);
 		}
 	}
-} 
+}

@@ -1,37 +1,70 @@
-<nav class="nav_edit">
-	<ul>
-		<!--<li>
-			<a class="btn btn-info" href="{{base_url}}members.json">Réponse au format JSON</a>
-		</li>-->
-		<li>
-			<a class="btn btn-info modale tip" title="Ajouter un nouveau membre" href="{{base_url}}members/edit#form_content"><i class="icon-plus"></i> Membre</a>
-		</li>
-	</ul>
-</nav>
-<section class="content_table">
-	<h1>Tableaux des membres</h1>
-
-	<div id="progress_bar" class="progress progress-striped active">
-		<div id="record_count" class="progress-bar progress-bar-success" style="width: 0%">0</div>
-	</div>
-	<span id="found" class="label label-info"></span>
-	<table id="table_members" class="table">
-		<thead>
-			<tr>
-				<th data-sort="#:desc">#</th>
-				<th>Prénom</th>
-				<th>Nom</th>
-				<th data-sort="fancy_birthdate:asc">Âge</th>
-				<th>Email</th>
-				<th>Téléphone</th>
-				<th>Adhésion</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			{{{#members}}}
-				{{>members/table_entry}}
-			{{{/members}}}
-		</tbody>
-	</table>
-</section>
+<div class="content is-sr-only">
+{{! <div class="content"> }}
+  <h1>Adhérents ({{current_filter}})</h1>
+</div>
+{{! <div class="level"> }}
+<div class="level" style="margin-bottom: 1.8rem; padding: 0 1.5rem;">
+  <form class="level-left is-marginless" action="/adherents/{{current_filter}}" method="get">
+    <div class="field has-addons">
+      <div class="control">
+        <label class="is-sr-only" for="rechercher">Rechercher</label>
+        <input class="input" type="rechercher" name="rechercher" id="rechercher" placeholder="Identifant, nom, etc." value="{{current_search}}">
+      </div>
+      <div class="control">
+        <button class="button is-dark">Rechercher</button>
+      </div>
+    </div>
+  </form>
+  <div class="level-right content has-text-right">
+    <p>
+      <b>{{members.total_count}}</b> adhérent(s)
+      {{^current_search}}trouvé(s){{/current_search}}
+      {{#current_search}}pour la recherche « <b>{{current_search}}</b> »{{/current_search}}
+    </p>
+  </div>
+</div>
+<div class="card">
+  <div class="card-content">
+  <div class="tabs is-boxed">
+    <ul>
+      <li class="{{#is_filter_active}}tous{{/is_filter_active}}"><a href="/adherents/tous{{current_query_search}}">Tous</a></li>
+      <li class="{{#is_filter_active}}actifs{{/is_filter_active}}"><a href="/adherents/actifs{{current_query_search}}">Actifs</a></li>
+      <li class="{{#is_filter_active}}inactifs{{/is_filter_active}}"><a href="/adherents/inactifs{{current_query_search}}">Inactifs</a></li>
+      <li class="{{#is_filter_active}}benevole{{/is_filter_active}}"><a href="/adherents/benevoles{{current_query_search}}">Bénévoles</a></li>
+    </ul>
+  </div>
+  <table class="table is-hoverable is-fullwidth">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Prénom & Nom</th>
+        <th>Email</th>
+        <th>Téléphone</th>
+        <th>Adhésion(s)</th>
+        <th>Bénevole</th>
+      </tr>
+    </thead>
+    {{^members.records_count}}
+    <tbody>
+      <tr>
+        <td colspan="7">
+          <p class="notification is-warning has-text-centered">
+            — Aucun adhérent à afficher —
+          </p>
+        </td>
+      </tr>
+    </tbody>
+    {{/members.records_count}}
+    {{#members.records_count}}
+    {{#members.records}}
+      {{>table/members/row}}
+    {{/members.records}}
+    {{/members.records_count}}
+  </table>
+  <div>
+</div>
+{{#members.paginate.show}}
+{{#members.paginate}}
+{{>layout/pagination}}
+{{/members.paginate}}
+{{/members.paginate.show}}

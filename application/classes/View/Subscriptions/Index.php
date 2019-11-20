@@ -10,7 +10,7 @@
 * @license		http://creativecommons.org/licenses/by-sa/3.0/
 */
 
-class View_Subscriptions_Index extends View_Layout {
+class View_Subscriptions_Index extends View_Master {
 
 	/**
 	* @vars		Title	Le titre de la page

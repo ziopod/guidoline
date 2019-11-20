@@ -1,20 +1,33 @@
-<div class="box_login">
-	<h1>{{title}}</h1>
+<div class="hero">
+  <div class="container box">
+	<h1 class="title">{{title}}</h1>
+  <p class="subtitle">{{subtitle}}</p>
 	<form action="" method="post">
 		<fieldset>
-			<legend>Connexion</legend>
-			<span>
-				<label for="username">Nom d'utilisateur</label>
-				<input type="text" name="username" id="username" placeholder="veuillez indiquez votre nom utilisateur" value="{{post.username}}" />
-			</span>
+			<legend>Veuillez vous authentifier</legend>
+			<div class="field">
+				<label for="username" class="label">Nom d'utilisateur</label>
+        <div class="control">
+				  <input type="text" name="username" id="username" placeholder="veuillez indiquez votre nom utilisateur" value="{{post.username}}" class="input"/>
+        </div>
+			</div>
 			{{#errors}}{{#username}}<p class="form-error">{{username}}</p>{{/username}}{{/errors}}
-			<span>
-				<label for="password">Mot de passe</label>
-				<input type="password" name="password" id="password" placeholder="veuillez indiquez votre mot de passe" />
-			</span>
-			<span class="form-action">
-				<input class="btn" type="submit" value="S'authentifier" />
-			</span> 
-		</fieldset>	
+			<div class="field">
+				<label for="password" class="label">Mot de passe</label>
+				<div class="control">
+          <input type="password" name="password" id="password" placeholder="veuillez indiquez votre mot de passe" class="input"/>
+        </div>
+			</div>
+			<div class="field is-grouped  is-right">
+        <div class="control" style="flex-grow: 1">
+  				<input class="button is-primary is-link is-fullwidth" type="submit" value="S'authentifier" />
+        </div>
+        <div class="control" style="flex-grow: 1">
+          <a class="button is-text" href="">Mot de passe oublié</a>
+        </div>
+			</div>
+		</fieldset>
 	</form>
+</div>
+
 </div>

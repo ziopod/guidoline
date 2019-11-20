@@ -1,99 +1,233 @@
 <?php
 
 /**
-* Modèle de vue pour l'affichage de l'index des membres `templates/members/index.mustache`
-* 
-* @package    Guidoline
-* @category   View Model
-* @author     Ziopod | ziopod@gmail.com
-* @copyright  BY-SA 2013 Ziopod
-* @license    http://creativecommons.org/licenses/by-sa/3.0/deed.fr
-*/
+ * Afficher la liste des adhérents
+ */
 
-class View_Members_Index extends View_Layout {
+class View_Members_Index extends View_Master {
 
-	/**
-	* @vars 	Title 	Le titre de la page
-	**/
-	public $title = "Membres - Guidoline";
+  /**
+   * @var String
+   */
+  public $title = "Adhérents — Guidoline";
 
-	/**
-	* Instance de la classe Stats
-	**/
-	protected $stats;
+  /**
+   * Liste des membres
+   *
+   * @return Array
+   */
 
-	public function __construct()
-	{
-		$this->scripts = array_merge($this->scripts,
-			array(
+  protected $_members;
 
-			array('script'	=> 'assets/script/mustache.js'),
-			array('script'	=> 'assets/script/stream_table.js'),
-			array('script'	=> 'assets/script/stream.js'),
+  protected function _members()
+  {
+    // Add query here
+    $filters = array(
+      'actifs' => 1,
+      'inactifs' => 0,
+      'tous' => NULL
+    );
 
-			)
-		);
-		parent::__construct();
-	//	$this->stats = new Stats(); // TODO : Move to => View_Stats_Index
-	}
+    $filter = $filters[$this->current_filter()];
 
-	/**
-	* Retourne la liste de tous les membres
-	**/
-	public function members()
-	{
-		// $members = DB::select('*')->from('members');
-		// return $members->limit(200)->execute();
-		//$members = ORM::factory('Member');
-		// return $members;
-		//return $members->limit(100)->find_all();
-	}
+    $members = ORM::factory('Member');
 
-	/**
-	* Nombres d'adhérents total
-	**/
-	public function count_members()
-	{
-		return $this->stats->count_members;
-	}
+    if ($filter !== NULL)
+    {
+      $members->where('is_active', '=', $filter);
+    }
 
-	/**
-	* Nombre d'ahérents actifs
-	**/
-	public function count_active_members()
-	{
-		return $this->stats->count_active_members;
-	}
+    // Requête de recherche
+    $search = $this->current_search();
+    $search_fields = array(
+      'idm',
+      'firstname',
+      'lastname',
+      'email',
+      'phone',
+      'street',
+      'zipcode',
+      'city',
+      'country',
+      'gender',
+      'birthdate',
+      'created',
+    );
 
-	/**
-	* Nombre de nouveau membres durant cette année
-	**/
-	public function new_membersship_during_year()
-	{
-		//return $this->stats->new_membersship_during_year();
-	}
 
-	/**
-	* Pourcentage de membres actifs
-	**/
-	public function percentage_new_members_during_year()
-	{
-		return $this->stats->percentage_new_members_during_year();
-	}
+    /**
+     * Search features
+     *
+     *  - non sensible à la casse ;
+     *  - recherche partie de mot ;
+     *  - recherche mot complet avec `""` (guillemets doubles) ;
+     *  - recherche combinées AND avec des espaces entre les mots ;
+     *  - recherche combinées OR avec un `|` (pipe) entre les mots.
+     */
+    /**
+     * Aurtres pistes
+     *
+     * Note à propos des rechercher :
+     * Les recherches suivante devrais possilbes :
+     *  - contenant : Jean => Jean-Claude (LIKE %Jean% | CONTAINS Jean)
+     *  - exact, mot isolé : "Jean" => Jean Robert ([[:<:]]Jean[[:>:]])
+     *  - exact, champ complet : [Jean] => Jean (=)
+     *  - inverser : !
+     *  - champ vide : phone: (IS NULL | LIKE ''
+     *  - dans un champ : idm:123; #:123 ou n°:123 => champ idm (CONTAINS(idm, "123"))
+     *  - exact dans un champ : idm:"12" => idm 12
+     *  - permettre de rechercher dans des champs non chargé à l'écran : active:true
+     *  - chercher une les liaison : has:
+     *  - opérateurs : birthdate > 01/01/1977
+     *  - Combiner : firstname:Jean + lastname:robert (`and_where` overkill)
+     *  - plus grand ou plus petit que : birthdate > 01/01/1977
+     */
 
-	/**
-	* Membre de moins de 25 ans
-	**/
-	public function average_age()
-	{
-		//return $this->stats->average_age();
-	}
+    if ($search !== NULL)
+    {
+      // preg_match_all('^\".*\"|.*^', $search, $terms);
+      // Supprimmer les espaces blancs en trop
+      $search = preg_replace('/[\s]{2,}/', ' ', $search);
+      $terms = explode(' ', trim($search));
+      $members->and_where_open();
+      $or_mode = FALSE;
 
-	/**
-	* Turnover sur les 3 dernières années
-	**/
-	public function turnover()
-	{
-		//return $this->stats->turnover();
-	}
+      foreach ($terms as $term)
+      {
+        // Detecter les doubles guillemets
+        preg_match('^\".*\"^', $term, $strict);
+        $strict = ! empty($strict);
+        // Supprimer les guillemets doubles
+        $term = preg_replace('/(^"+|"+$)/', '', $term);
+        $query = $strict ? "$term" : "%$term%";
+
+        // Recherche OR
+        if ($term === '|')
+        {
+          // Basculer sur le mode OR
+          $or_mode = TRUE;
+          continue;
+        }
+
+        if ($or_mode)
+        {
+          $members->or_where_open();
+        }
+        else
+        {
+          $members->and_where_open();
+        }
+
+        foreach ($search_fields as $field)
+        {
+          $members->or_where($field, 'LIKE', $query);
+        }
+
+        if ($or_mode)
+        {
+          $members->or_where_close();
+          $or_mode = FALSE;
+        }
+        else
+        {
+          $members->and_where_close();
+        }
+      }
+
+      $members->and_where_close();
+    }
+
+    return $members;
+  }
+
+  /**
+   * Le filtre courant
+   *
+   * @return String
+   */
+  public function current_filter()
+  {
+    return Request::current()->param('filter');
+  }
+
+  /**
+   * Le contenu de le recherche courante
+   *
+   * Pour récupérer la recherche courante sous forme de requête :
+   *
+   * ~~~
+   * URL::query(Request::current()->query())
+   * ~~~
+   *
+   * @return String
+   */
+  public function current_search()
+  {
+    return Request::current()->query('rechercher');
+  }
+
+  public function current_query_search()
+  {
+    return URL::query(Request::current()->query());
+  }
+  /**
+   * Lambdas pour les filtres
+   *
+   * https://github.com/bobthecow/mustache.php/wiki/Mustache-Tags#lambdas
+   *
+   * @return string
+   */
+  public function is_filter_active()
+  {
+    return function($filter, $helper)
+    {
+      if ($filter === Request::current()->param('filter'))
+      {
+        return "is-active";
+      }
+
+      return FALSE;
+      echo Debug::vars(Request::current()->param('filter'));
+      echo Debug::vars($filter);
+    };
+  }
+
+  public function members()
+  {
+    if ( ! $this->_members)
+    {
+      $this->_members = array(
+        'records_count' => 0,
+        'total_count' => 0,
+        'records' => array(),
+        'paginate' => array(),
+      );
+
+      $this->_members['total_count'] = $this->_members()->count_all();
+      $limit = 50 ;
+
+      $this->_members['paginate'] = (new Paginate(array(
+        'url_prefix' => '/adherents/' . Request::current()->param('filter') . '/',
+      )))->create(
+        Request::current()->param('folio'),
+        $limit,
+        $this->_members['total_count']
+      );
+
+      $members = $this->_members()
+        ->offset($this->_members['paginate']['offset'])
+        ->limit($this->_members['paginate']['limit'])
+        ->find_all();
+
+      foreach ($members as $member)
+      {
+        $this->_members['records'][] = array('member' => $member->as_array());
+      }
+
+      $this->_members['records_count'] = count($this->_members['records']);
+    }
+
+    return $this->_members;
+
+  }
 }

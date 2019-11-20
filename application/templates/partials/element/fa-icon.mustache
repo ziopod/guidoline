@@ -1,0 +1,12 @@
+<span class="icon {{icon.modifier}}">
+  {{#icon.name}}
+  <i class="fas {{icon.name}}"></i>
+  {{/icon.name}}
+  {{^icon.name}}
+  <span class="fa-stack">
+    {{#icon.stack}}
+    <i class="fas {{.}}"></i>
+    {{/icon.stack}}
+  </span>
+  {{/icon.name}}
+</span>

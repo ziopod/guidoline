@@ -9,7 +9,7 @@
 * @copyright  BY-SA 2013 Ziopod
 * @license    http://creativecommons.org/licenses/by-sa/3.0/deed.fr
  */
- 
+
 class Model_Subscriptions_Member extends ORM{
 
 	/**
@@ -26,8 +26,11 @@ class Model_Subscriptions_Member extends ORM{
 		'subscription' => array(
 			'model'		=> 'Subscription',
 		),
+		'member' => array(
+			'model'		=> 'Member',
+		),
 	);
-	
+
 	/**
 	* Date de création de l'adhésion
 	*
@@ -108,11 +111,19 @@ class Model_Subscriptions_Member extends ORM{
 		return $this->valid_subscription;
 	}
 
+  /**
+   * Alias avant néttoyage
+   */
+  public function is_valid()
+  {
+    return $this->valid_subscription();
+  }
+
 	public function get($column)
 	{
 
 		if ($column == 'start_date')
-		{			
+		{
  			return strftime('%A %e %B %Y à %Hh%M', strtotime($this->_object['created']));
 		}
 

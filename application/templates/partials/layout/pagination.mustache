@@ -1,0 +1,59 @@
+<nav class="pagination is-right">
+
+	{{#pagination.previous}}
+  {{#link.disabled}}
+  {{>layout/navigation/pagination/link}}
+  {{/link.disabled}}
+  {{^link.disabled}}
+  {{>layout/navigation/pagination/link_is-disabled}}
+  {{/link.disabled}}
+	{{/pagination.previous}}
+
+  {{#pagination.next}}
+  {{#link.disabled}}
+  {{>layout/navigation/pagination/link}}
+  {{/link.disabled}}
+  {{^link.disabled}}
+  {{>layout/navigation/pagination/link_is-disabled}}
+  {{/link.disabled}}
+  {{/pagination.next}}
+
+
+  <ul class="pagination-list">
+    <li>
+      {{#pagination.first}}
+      {{#link.current}}{{>layout/navigation/pagination/link_is-current}}{{/link.current}}
+      {{^link.current}}{{>layout/navigation/pagination/link}}{{/link.current}}
+      {{/pagination.first}}
+    </li>
+
+    {{#pagination.links.backward}}
+    <li><span class="pagination-ellipsis has-text-grey">&hellip;</span></li>
+    <li>{{>layout/navigation/pagination/link}}</li>
+    {{/pagination.links.backward}}
+
+    {{#pagination.links.before}}
+    <li>{{>layout/navigation/pagination/link}}</li>
+    {{/pagination.links.before}}
+
+    {{#pagination.links.current}}
+    <li>{{>layout/navigation/pagination/link_is-current}}</li>
+    {{/pagination.links.current}}
+
+    {{#pagination.links.after}}
+    <li>{{>layout/navigation/pagination/link}}</li>
+    {{/pagination.links.after}}
+
+    {{#pagination.links.forward}}
+    <li>{{>layout/navigation/pagination/link}}</li>
+    <li><span class="pagination-ellipsis has-text-grey">&hellip;</span></li>
+    {{/pagination.links.forward}}
+
+    <li>
+      {{#pagination.last}}
+      {{#link.current}}{{>layout/navigation/pagination/link_is-current}}{{/link.current}}
+      {{^link.current}}{{>layout/navigation/pagination/link}}{{/link.current}}
+      {{/pagination.last}}
+    </li>
+  </ul>
+</nav>

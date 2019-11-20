@@ -1,3 +1,66 @@
 /* Sass here */
 @charset "utf-8";
 @import "../../node_modules/bulma/bulma.sass";
+@import "../../node_modules/bulma-checkradio/dist/css/bulma-checkradio.sass";
+
+// $color-primary: #58b792; // cf. https://duckduckgo.com/
+// Fail to add custom scss
+// .fieldset
+//   @extend .box
+//   border: 0 none
+//   > legend
+//     @extend .label
+//     background-color: $white
+//     padding: 0 5px
+fieldset {
+  @extend .content;
+}
+
+ul.is-unstyled {
+  list-style: none;
+  margin-left: 0;
+}
+
+.button.is-primary .icon{
+  fill: $primary;
+}
+
+.button.is-primary.is-hovered .icon,
+.button.is-primary:hover .icon {
+  fill: $primary-invert;
+}
+
+.icon-aspect-link { display: inline;}
+.icon-aspect-hover { display: none; }
+.button:hover .icon-aspect-link { display: none;}
+.button:hover .icon-aspect-hover { display: inline;}
+
+.box.is-light {
+  box-shadow: none;
+  background-color: $primary;
+  // background-color: transparentize($white, 0.7);
+  & table.table {
+    background: none;
+
+    tr {
+      // background: $primary;
+      & td {
+        border-color: desaturate($primary, 20%);
+      }
+    }
+  }
+  & table.table.is-hoverable tbody tr:hover {
+    background-color: desaturate($primary, 15%);
+    color: $black;
+  }
+}
+
+table.table tr.faded {
+  opacity: .5;
+}
+
+// table.table tbody{
+//   border-width: 2px 0;
+//   border-style: solid;
+//   border-color: $grey;
+// }

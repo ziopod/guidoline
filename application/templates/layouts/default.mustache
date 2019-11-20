@@ -1,0 +1,24 @@
+<!DOCTYPE>
+<html lang="{{ lang }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    {{#styles}}
+    <link rel="stylesheet" href="{{ style.href }}">
+    {{/styles}}
+    {{#scripts}}
+    <script {{ script.defer }} src="{{ script.src }}"></script>
+    {{/scripts}}
+  </head>
+  <body class="has-background-primary">
+    <header>
+      {{>layout/navbar}}
+    </header>
+    <main class="section" style="padding-top: 1.8rem;">
+      {{>content}}
+    </main>
+    {{>layout/footer}}
+    {{{profiler}}}
+  </body>
+<html>

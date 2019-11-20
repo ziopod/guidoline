@@ -1,0 +1,90 @@
+<article class="card">
+  <div class="card-content">
+    <div class="media">
+      <!-- Ajouter `figure` ici -->
+      <header class="media-content">
+        <h1 class="title"><a href="{{member.url.card}}">{{member.fullname}} #{{member.idm}}</a></h1>
+        <h2 class="subtitle"><a href="mailto:{{member.email}}">{{member.email}}</a></h2>
+      </header>
+    </div>
+    <div class="content">
+      <P>
+        Rôle dans l'association : {{member.status.name}}
+      </p>
+      <p>
+        Bénevole : {{#member.is_volunteer}}oui{{/member.is_volunteer}}{{^member.is_volunteer}}non{{/member.is_volunteer}}
+      </p>
+      <P>
+        Compte utilisateur : {{#member.user}}{{member.user.role.name}}{{/member.user}}{{^member.user}}aucun{{/member.user}}
+      </p>
+      <h3>Identité</h3>
+      <ul>
+        <li>Nom : {{member.lastname}}</li>
+        <li>Prénom : {{member.firstname}}</li>
+        <li>Genre: {{member.fancy_gender}}</li>
+        <li>Date de naissance: {{member.fancy_birthdate}} ({{member.age}} ans)</li>
+        <li>Addresse : {{member.pretty_address}}</li>
+      </ul>
+      <h3>Contact</h3>
+      <ul>
+        <li>Téléphone : {{member.fancy_phone}}</li>
+        <li>Email : <a href="mailto:{{member.email}}">{{member.email}}</a></li>
+        <!-- Ajouter les liens vers les reéseaux sociaux ici -->
+      </ul>
+      <button class="button is-primary" href="{{meber.url.add_subscription}}">Ajouter une adhésion</button>
+      <button class="button is-link is-inverted" href="{{member.url.edit}}">Éditer</button>
+      <button class="button is-danger is-inverted" href="{{member.url.delete}}">Supprimer</button>
+      <h3>Adhésion(s) actives</h3>
+      <h3>Historique</h3>
+      <p>
+    		1<sup>ère</sup> inscription le {{member.fancy_created}}
+      </p>
+      <p>
+        1<sup>ère</sup> adhésion {{member.first_subscription.created}}
+      </p>
+
+    </div>
+  </div>
+</article>
+{{#member}}
+#{{idm}}<h1>{{firstname}} {{name}}
+{{{fancy_gender}}}
+</h1>
+<div class="content_stat row-fluid">
+
+	<div class="span4 block">
+		<h2>Statut :</h2>
+		<span class="stat">{{status.name}}</span> de l'association
+	</div>
+
+	<div class="span4 block">
+		<h2>Inscription :</h2>
+		1<sup>ère</sup> inscription <span class="stat">{{fancy_created}}</span>
+	</div>
+
+	{{#fancy_birthdate}}
+	<div class="span4 block">
+		<h2>Âge :</h2>
+		<span class="stat">{{fancy_birthdate}}</span> années
+	</div>
+	{{/fancy_birthdate}}
+
+</div>
+
+<h2>Coordonnées</h2>
+<ul>
+	<li>Email : {{member.email}}</li>
+	<li>Portable : {{member.cellular}}</li>
+	<li>Téléphone : {{member.phone}}</li>
+	<li>
+		Adresse :
+		<br />
+		{{member.street}}
+		<br />
+		{{member.zipcode}}
+		<br />
+		{{member.city}}
+	</li>
+</ul>
+{{/member}}
+<a href="{{base_url}}users/profil/{{member.user.id}}">Affiche la fiche utilisateur</a>

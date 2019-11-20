@@ -9,7 +9,7 @@
 * @copyright  BY-SA 2013 Ziopod
 * @license    http://creativecommons.org/licenses/by-sa/3.0/deed.fr
  */
- 
+
 class Model_Subscription extends ORM{
 
 	/**
@@ -27,7 +27,11 @@ class Model_Subscription extends ORM{
 			'model'		=> 'Member',
 			'through'	=> 'subscriptions_members'
 		),
-	);
+  );
+
+  protected $_has_one = array(
+    'subscription' => array('model' => 'Subscriptions_Member'),
+  );
 
 	/**
 	* Règles de validation
@@ -45,7 +49,7 @@ class Model_Subscription extends ORM{
 	{
 
 		if ($column == 'created')
-		{			
+		{
  			return strftime('%A %e %B %Y à %Hh%M', strtotime($this->_object['created']));
 		}
 
