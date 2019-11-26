@@ -32,6 +32,23 @@ class View_Master {
    */
   public $auto_render = TRUE;
 
+
+  /**
+   * @var Array Notifications de formulaire
+   */
+  protected $_notifications;
+
+  /**
+   * @var Array $_html_form HTML Form Help strorage
+   */
+  protected $_html_form;
+
+  /**
+   * @var Array Erreurs de formulaire
+   */
+  protected $_html_form_errors;
+
+
 	/**
 	* Initialisation de quelques valeurs pour le layout de base.
 	*
@@ -39,22 +56,8 @@ class View_Master {
 	**/
 	public function __construct()
 	{
-		// Ajout de la balise "script" pour les liens vers les scripts
-		// foreach ($this->scripts as $key => $ob)
-		// {
-		// 	$this->scripts[$key]['script'] = HTML::script($ob['script']);
-		// }
-
 		$this->lang = I18n::lang();
 		$this->profiler = View::factory('profiler/stats');
-		// echo '<code><strong>Request::uri()</strong></code>';
-		// echo Debug::vars(Request::initial()->uri());
-		// echo '<code><strong>Request::controller()</strong></code>';
-		// echo Debug::vars(Request::initial()->controller());
-		// echo '<code><strong>Request::action()</strong></code>';
-		// echo Debug::vars(Request::initial()->action());
-		// echo '<code><strong>Request::route()</strong></code>';
-		// echo Debug::vars(Request::initial()->route());
 	}
 
   /**
@@ -128,12 +131,9 @@ class View_Master {
    *
    * [Documentation icônes](https://bulma.io/documentation/elements/icon)
 	 *
-	 * @return 	Object 	La navigation sous forme d'objet
+	 * @return 	Array
 	 */
-  public function example()
-  {
-    return array('url' => '/adherents/active');
-  }
+
 	public function menu()
 	{
     $current_route = Route::name(Request::current()->route());
@@ -151,8 +151,8 @@ class View_Master {
           'label' => 'Adhérents',
         )),
         array('item' => array(
-          'is_active' => $current_route === 'subscriptions',
-          'href' => Route::url('subscriptions'),
+          'is_active' => $current_route === 'forms',
+          'href' => Route::url('forms'),
           'label' => 'Bulletins',
         )),
         // array('item' => array(
@@ -160,7 +160,18 @@ class View_Master {
         //   'href' => Route::url('dues'),
         //   'label' => 'Adhésions',
         // )),
-      ))
+        )),
+        'footer' => array(
+          'text' => array(
+            'content' => 'Version ' . $this->guidoline('version'),
+          ),
+          'links' => array(
+            array('link' => array(
+              'href' => Route::url('page.about'),
+              'name' => "À propos de Guidoline",
+            )),
+          )
+        )
     );
 		$items = array(
       array('separator' => array(
@@ -251,178 +262,23 @@ class View_Master {
 		// 	)
 		);
 
-	/**
-	* L'URL racine.
-	*
-	* @return 	String  La portion de base de l'url
-	**/
-	public function base_url()
-	{
-		return URL::base(FALSE, TRUE);
-	}
-
   /**
-   * Formulaire d'édition d'adhérent
+   * Paramètre globaux
    *
-   * @todo    Pourrais être automatisé en utilisant `model::labels()`,
-   *          `model::names() et `model::keys()` pour peupler les clefs.
-   * @todo    Ajouter de l'automatisation et placer la partie `data`
-   *          dans le modèle `Model_Member::form()`.
-   * @param   ORM     $member   Modèle ORM Member
-   * @return  Array
+   * @param   String    $key    Identifiant de paramètre
+   * @return  Mixed
    */
-  protected $_form_member;
 
-  public function form_member(
-    $member,
-    $notifications = array(),
-    $errors = array())
+  public function guidoline($key = NULL)
   {
-    if ( ! $this->_form_member)
+    $config = Kohana::$config->load('guidoline');
+
+    if ($key)
     {
-      $this->_form_member = array(
-        'action' => '/adherents/edit/' . $member['id'] . '#form_member',
-        'member_id' => $member['id'],
-        // 'notifications' => array(
-        //     array('notification' => array(
-        //       'kind' => 'warning', // `info | sucess | warning | danger`
-        //       'content' => "Exemple de message",
-        //       'deletable' => TRUE,
-        //     )),
-        //     array('notification' => array(
-        //       'kind' => 'danger', // `info | success | warning | danger`
-        //       'content' => "Attention !",
-        //     )),
-        // ),
-        'data' => array(
-          // Identité
-          'name' => array(
-            'field' => array(
-              'label' => 'Nom',
-              'name'  => 'lastname',
-              'id'    => 'lastname',
-              'value' => $this->member()['lastname'],
-              'error' => Arr::get($errors, 'lastname'),
-              )
-            ),
-            'firstname' => array(
-              'field' => array(
-                'label' => 'Prénom',
-                'name'  => 'firstname',
-                'id'    => 'firstname',
-                'value' => $this->member()['firstname'],
-                'error' => Arr::get($errors, 'firstname'),
-            )
-          ),
-          'birthdate' => array(
-            'field' => array(
-              'label' => 'Date de naissance',
-              'name'  => 'birthdate',
-              'id'    => 'birthdate',
-              'value' => $this->member()['birthdate'],
-            )
-          ),
-          'select_genders' => array(
-            'field' => array(
-              'label'   => 'Genre',
-              'name'    => 'gender',
-              'id'      => 'gender',
-              'data' => $this->member()['select_genders'],
-            ),
-          ),
-          // Contact
-          'email' => array(
-            'field' => array(
-              'label' => 'Addresse email',
-              'name'  =>  'email',
-              'id'    => 'email',
-              'value' => $this->member()['email'],
-              'error' => Arr::get($errors, 'email'),
-            ),
-          ),
-          'phone' => array(
-            'field' => array(
-              'label' => 'Téléphone',
-              'name'  =>  'phone',
-              'id'    => 'phone',
-              'value' => $this->member()['phone'],
-            ),
-          ),
-          // Addresse
-          'address' => array(
-            'street' => array('field' => array(
-              'label' => 'Rue',
-              'name'  => 'address[street]',
-              'id'    => 'address-street',
-              'value' => $this->member()['street'], // $this->member()['address']['street']
-            )),
-            'zipcode' => array('field' => array(
-              'label' => 'Code postal',
-              'name'  => 'address[zipcode]',
-              'id'    => 'address-zipcode',
-              'value' => $this->member()['zipcode'],
-            )),
-            'city' => array('field' => array(
-              'label' => 'Ville',
-              'name'  => 'address[city]',
-              'id'    => 'address-city',
-              'value' => $this->member()['city'],
-            )),
-            'country' => array('field' => array(
-              'label' => 'Pays',
-              'name'  => 'address[country]',
-              'id'    => 'address-country',
-              'value' => $this->member()['country'],
-            ))
-          ),
-          'exemple' => array(
-            'field' => array(
-              'type' => 'text', // Juste informatif
-              'label' => 'Exemple',
-              'name' => 'exemple',
-              'id' => 'exemple-id',
-              'value' => 'Des donnnées', // À générer
-              'placeholder' => 'Write here',
-              'required' => 'required',
-              'size' => 3,
-              'error' => 'Ceci est une erreur', // À génerer
-            )
-          ),
-          'exemple_select' => array(
-            'field' => array(
-              'label' => "Exemple with select",
-              'name' => 'exemple-with-select',
-              'id' => 'exemple-with-select-id',
-              // 'multiple' => 'multiple', // Require `data.size`
-              'data' => array('options' => array(
-                'size' => 4,
-                array('option' => array(
-                  'name' => 'option-a',
-                  'value' => 'Value for option A',
-                )),
-                array('option' => array(
-                  'name' => 'option-b',
-                  'value' => 'Value for option B',
-                  'selected' => 'selected',
-                )),
-                array('option' => array(
-                  'name' => 'option-c',
-                  'value' => 'Value for option C',
-                )),
-                array('option' => array(
-                  'name' => 'option-d',
-                  'value' => 'Value for option d',
-                  'selected' => 'selected',
-                )),
-              )),
-            )
-          ),
-        ),
-      );
-      $this->_form_member['notifications'] = $notifications;
+      return Arr::get($config, $key);
     }
 
-    return $this->_form_member;
+    return $config;
   }
 	/**
 	* Méthode utilitaire pour Mustache, encapsule un tableau dans objet.

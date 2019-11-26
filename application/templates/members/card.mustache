@@ -3,7 +3,7 @@
     <div class="media">
       <!-- Ajouter `figure` ici -->
       <header class="media-content">
-        <h1 class="title"><a href="{{member.url.card}}">{{member.fullname}} #{{member.idm}}</a></h1>
+        <h1 class="title"><a href="{{member.url}}">{{member.fullname}} #{{member.idm}}</a></h1>
         <h2 class="subtitle"><a href="mailto:{{member.email}}">{{member.email}}</a></h2>
       </header>
     </div>
@@ -31,8 +31,8 @@
         <li>Email : <a href="mailto:{{member.email}}">{{member.email}}</a></li>
         <!-- Ajouter les liens vers les reéseaux sociaux ici -->
       </ul>
-      <button class="button is-primary" href="{{meber.url.add_subscription}}">Ajouter une adhésion</button>
-      <button class="button is-link is-inverted" href="{{member.url.edit}}">Éditer</button>
+      <button class="button is-primary" href="{{member.url.add_subscription}}">Ajouter une adhésion</button>
+      <a class="button is-link is-inverted" href="{{member.url_edit}}">Éditer</a>
       <button class="button is-danger is-inverted" href="{{member.url.delete}}">Supprimer</button>
       <h3>Adhésion(s) actives</h3>
       <h3>Historique</h3>

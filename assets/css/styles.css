@@ -8005,28 +8005,14 @@ label.panel-block {
   border-color: #fff !important;
   background-color: #fff !important; }
 
+legend {
+  text-transform: uppercase;
+  margin-bottom: 0.75em; }
+
 ul.is-unstyled {
   list-style: none;
-  margin-left: 0; }
-
-.button.is-primary .icon {
-  fill: #00d1b2; }
-
-.button.is-primary.is-hovered .icon,
-.button.is-primary:hover .icon {
-  fill: #fff; }
-
-.icon-aspect-link {
-  display: inline; }
-
-.icon-aspect-hover {
-  display: none; }
-
-.button:hover .icon-aspect-link {
-  display: none; }
-
-.button:hover .icon-aspect-hover {
-  display: inline; }
+  margin-left: 0;
+  margin-top: 0; }
 
 .box.is-light {
   box-shadow: none;
@@ -8041,5 +8027,36 @@ ul.is-unstyled {
 
 table.table tr.faded {
   opacity: .5; }
+
+.button.is-primary .icon {
+  fill: #00d1b2; }
+
+.button.is-primary.is-hovered .icon,
+.button.is-primary:hover .icon,
+input.checkbox-button:checked + label.checkbox.button .icon {
+  fill: #fff; }
+
+.icon-aspect-link {
+  display: inline; }
+
+.icon-aspect-hover {
+  display: none; }
+
+input.checkbox-button:checked + label.checkbox.button .icon-aspect-link {
+  display: none; }
+
+input.checkbox-button:checked + label.checkbox.button .icon-aspect-hover {
+  display: inline; }
+
+.checkbox.button {
+  display: inline-flex; }
+
+input.checkbox-button:checked + label.checkbox.button {
+  background-color: #00d1b2;
+  border-color: #00d1b2;
+  color: white; }
+
+input.checkbox-button {
+  display: none; }
 
 /*# sourceMappingURL=styles.css.map */

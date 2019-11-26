@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') or die ('No direct script access');
+<?php defined('SYSPATH') OR die('No direct script access');
 
 /**
  * Le modèle ORM pour la jointure "subscription/membre"
@@ -10,7 +10,7 @@
 * @license    http://creativecommons.org/licenses/by-sa/3.0/deed.fr
  */
 
-class Model_Subscriptions_Member extends ORM{
+class Model_Forms_Member extends ORM{
 
 	/**
 	* Ordre de trie par défaut
@@ -26,29 +26,32 @@ class Model_Subscriptions_Member extends ORM{
 		'subscription' => array(
 			'model'		=> 'Subscription',
 		),
-		'member' => array(
-			'model'		=> 'Member',
-		),
 	);
 
-	/**
-	* Date de création de l'adhésion
-	*
-	* @return	String	Date formatée
-	*/
-	public function start_date()
+	public function __construct($id = NULL)
 	{
-		return $this->start_date;
+		parent::__construct();
+
+		if ( ! $this->loaded())
+		{
+			$this->start_date = date('Y-m-d');
+		}
+	}
+
+	public function save(Validation $validation = NULL)
+	{
+		$this->end_date = Model_Subscription::estimated_end_date($this->subscription->duration, $this->start_date);
+		parent::save();
 	}
 
 	/**
-	* Date de fin d'adhésion
+	* Pretty end date
 	*
-	* @return	String	Date formaté
+	* @return string
 	**/
-	public function end_date()
+	public function pretty_end_date()
 	{
-		return $this->end_date;
+		return strftime('%B %G', strtotime($this->end_date));
 	}
 
 	/**
@@ -111,27 +114,9 @@ class Model_Subscriptions_Member extends ORM{
 		return $this->valid_subscription;
 	}
 
-  /**
-   * Alias avant néttoyage
-   */
-  public function is_valid()
-  {
-    return $this->valid_subscription();
-  }
-
 	public function get($column)
 	{
 
-		if ($column == 'start_date')
-		{
- 			return strftime('%A %e %B %Y à %Hh%M', strtotime($this->_object['created']));
-		}
-
-		if ($column == 'end_date')
-		{
-			// Vrai nombres de jours dans l'année (date('z', mktime(0, 0, 0, 12, 31, Date::YEAR)) + 1 ) * 24 * 60 * 60; ou Date::YEAR
-			return strftime('%A %e %B %Y à %Hh%M', (strtotime($this->created) + (int) $this->subscription->_object['expiry_time']));
-		}
 
 		if ($column == 'end_date_fuzzy')
 		{

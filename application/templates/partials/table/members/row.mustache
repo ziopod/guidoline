@@ -12,16 +12,18 @@
   </td>
   <td>{{member.phone}}</td>
   <td>
-  {{#member.subscriptions.records_count}}
-  {{#member.subscriptions.records}}
+  {{#member.dues.records_count}}
+  {{#member.dues.records}}
   <a href="{{subscription.url}}" class="{{subscription.icon}}" title="Afficher la facture de l'adhésion {{subscription.title}} de {{member.fullname}}">
     {{subscription.title}}
   </a>
-  {{/member.subscriptions.records}}
-  {{/member.subscriptions.records_count}}
-  {{^member.subscriptions.records_count}}
+  {{/member.dues.records}}
+  {{/member.dues.records_count}}
+  {{^member.dues.records_count}}
   Ajouter une adhésion
-  {{/member.subscriptions.records_count}}
+  {{/member.dues.records_count}}
   </td>
-  <td></td>
+  <td>
+    <a href="{{member.url_edit}}">Éditer</a>
+  </td>
 </tr>

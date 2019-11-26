@@ -19,7 +19,7 @@ class View_Members_Index extends View_Master {
 
   protected $_members;
 
-  protected function _members()
+  protected function _members_query()
   {
     // Add query here
     $filters = array(
@@ -83,11 +83,12 @@ class View_Members_Index extends View_Master {
      *  - plus grand ou plus petit que : birthdate > 01/01/1977
      */
 
-    if ($search !== NULL)
+    $search = preg_replace('/[\s]{2,}/', ' ', $search);
+
+    if ($search)
     {
       // preg_match_all('^\".*\"|.*^', $search, $terms);
       // Supprimmer les espaces blancs en trop
-      $search = preg_replace('/[\s]{2,}/', ' ', $search);
       $terms = explode(' ', trim($search));
       $members->and_where_open();
       $or_mode = FALSE;
@@ -192,6 +193,12 @@ class View_Members_Index extends View_Master {
     };
   }
 
+  /**
+   * @todo  Créer un helper pour wrapper les résultats d'ORM dans un
+   * tableau JSON friendly.
+   * Considérer : les queries, les données à embarquer et la pagination.
+   *
+   */
   public function members()
   {
     if ( ! $this->_members)
@@ -203,8 +210,8 @@ class View_Members_Index extends View_Master {
         'paginate' => array(),
       );
 
-      $this->_members['total_count'] = $this->_members()->count_all();
-      $limit = 50 ;
+      $this->_members['total_count'] = $this->_members_query()->count_all();
+      $limit = 200;
 
       $this->_members['paginate'] = (new Paginate(array(
         'url_prefix' => '/adherents/' . Request::current()->param('filter') . '/',
@@ -214,14 +221,14 @@ class View_Members_Index extends View_Master {
         $this->_members['total_count']
       );
 
-      $members = $this->_members()
+      $members = $this->_members_query()
         ->offset($this->_members['paginate']['offset'])
         ->limit($this->_members['paginate']['limit'])
         ->find_all();
 
       foreach ($members as $member)
       {
-        $this->_members['records'][] = array('member' => $member->as_array());
+        $this->_members['records'][]['member'] = $member->as_array();
       }
 
       $this->_members['records_count'] = count($this->_members['records']);

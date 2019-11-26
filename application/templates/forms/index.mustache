@@ -1,0 +1,53 @@
+
+<div class="level">
+  <div class="level-left ">
+    <h1 class="title">Bulletins d'adhésion</h1>
+  </div>
+  <div class="level-right">
+    <a href="/bulletins/edit" class="button is-dark is-outlined">Ajouter un bulletin</a>
+  </div>
+</div>
+
+<div class="card content">
+  <div class="card-content">
+    <table class="table is-fullwidth">
+      <thead>
+        <tr>
+          <th>Titre</th>
+          <th>Description</th>
+          <th>Montant</th>
+          <th>Durée</th>
+          <th>Adhérents actifs / total</th>
+        <tr>
+      </thead>
+      <tbody>
+        {{#forms.records_count}}
+        {{#forms.records}}
+        <tr {{^form.active}}class="faded"{{/form.active}}>
+          <td><a href="{{form.url}}">{{form.title}}</a></td>
+          <td>{{form.description}}</td>
+          <td>{{form.price}} {{form.currency.entity}}</td>
+          <td>
+            {{form.pretty_period_type}}<br>
+            Durée : {{form.pretty_duration}}<br>
+            {{#form.date_start}}
+            à partir du {{form.date_start}}
+            {{/form.date_start}}
+          </td>
+          <td>{{form.dues.records_count}} / {{form.dues_all.records_count}}</td>
+        </tr>
+        {{/forms.records}}
+        {{/forms.records_count}}
+        {{^forms.records_count}}
+        <tr>
+          <td colspan="6">
+            <p class="notification is-warning has-text-centered">
+              — Aucun formulaire d'adhésion à afficher —
+            </p>
+          </td>
+        </tr>
+        {{/forms.records_count}}
+      </tbody>
+    </table>
+  </div>
+</div>

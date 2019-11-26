@@ -1,12 +1,12 @@
 <div class="control">
   <label class="label" for="{{field.id}}">{{field.label}}</label>
   <p class="select {{#field.multiple}}is-multiple{{/field.multiple}}">
-    <select name="{{field.name}}" id="{{field.id}}" {{field.multiple}} {{#field.size}}size="{{field.data.size}}"{{/field.size}}>
-      {{#field.data.options}}
+    <select name="{{field.name}}" id="{{field.id}}" {{field.multiple}} {{#field.size}}size="{{field.size}}"{{/field.size}}>
+      {{#field.options}}
         <option value="{{option.value}}" {{option.selected}}>
           {{option.label}}
         </option>
-      {{/field.data.options}}
+      {{/field.options}}
     </select>
   </p>
   {{#field.error}}

@@ -18,22 +18,14 @@ class View_Members_Edit extends View_Master {
   public $title = "Guidoline — Edition d'adhérent";
 
   /**
-   * @var Array Notifications de formulaire
-   */
-  protected $_notifications;
-
-  /**
-   * @var Array Errerus de formulaire
-   */
-  protected $_errors;
-
-  /**
    * Contrôler l'édition possible de l'adhérent
    * Recevoir les données post et sauvegarder les données
    */
   public function __construct()
   {
-    $is_new = ! $this->_member()->loaded();
+    parent::__construct();
+
+    $is_new = ! $this->_orm_member()->loaded();
 
     // Adhérent éligible à l'édition
     if ($is_new && Request::current()->param('id') )
@@ -44,12 +36,20 @@ class View_Members_Edit extends View_Master {
     // Enregistrement des données
     if (Request::current()->method() === HTTP_Request::POST)
     {
-      $this->_member()
+      // Flatten address
+      $post = Request::current()->post();
+      $post = array_merge($post, $post['address']);
+      unset($post['address']);
+
+      // Save model
+      $this->_orm_member()
       ->values(
-        Request::current()->post(),
+        $post,
         array(
-          'name',
+          'idm',
+          'lastname',
           'firstname',
+          'gender',
           'email',
           'phone',
           'street',
@@ -61,25 +61,71 @@ class View_Members_Edit extends View_Master {
       );
       try
       {
-        $this->_member()
+        $this->_orm_member()
         ->save();
 
         // Enregistrement d'une adhésion
+        $member_forms = Arr::get($post, 'member_forms', array());
+        // Les adhésions à enregistrer
+        $member_forms_to_add = array();
 
+        foreach ($member_forms as $key => $member_form_id)
+        {
+          $member_form_id = (Integer) $member_form_id;
+          $member_form = ORM::factory('Form', $member_form_id);
+
+          if ( ! $this->_orm_member()->has('forms', array($member_form_id)))
+          {
+            $member_forms_to_add[] = $member_form;
+            continue;
+          }
+
+          // $form_is_active =
+          if ( ! $this->_orm_member()->forms
+            ->where(DB::expr('`form`.`id`'), '=', $member_form_id)
+            ->find()
+            ->dues
+            ->where('member_id', '=', $this->_orm_member()->pk())
+            ->and_where('is_active', '=', 1)
+            ->loaded())
+          {
+            $member_forms_to_add[] = $member_form;
+          }
+        }
+
+        foreach ($member_forms_to_add as $member_form)
+        {
+          // On ne peux pas utiliser ORM::add()
+          ORM::factory('Due')
+          ->values(array(
+            'member_id' => $this->_orm_member()->pk(),
+            'form_id' => $member_form->pk(),
+            'amount' => $member_form->price,
+            'currency_code' => $member_form->currency_code,
+            'date_start' => $member_form->date_start(),
+            'date_end' => $member_form->date_end(),
+          ))
+          ->save();
+          // $f = $this->_orm_member()->add('forms', $member_form);
+          // $member_form->due->set('amount', $member_form->price)->save();
+          // echo Debug::vars($member_form->due);
+        }
+
+        // echo Debug::vars($member_forms_to_add);
         // Enregistrement des métas
 
         $this->_notifications[] = array('notification' => array(
           'kind' => 'success',
-          'content' => ($is_new ? "Ajout" : "Modifications") . " de la fiche de <b>{$this->_member()->fullname()}</b> effectué.",
+          'content' => ($is_new ? "Ajout" : "Modifications") . " de la fiche de <b>{$this->_orm_member()->fullname()}</b> effectué.",
         ));
       }
       catch (ORM_Validation_Exception $e)
       {
-        // $this->_member = $this->_member();
-        $this->_errors = $e->errors('models');
+        // $this->_orm_member = $this->_orm_member();
+        $this->_html_form_errors = $e->errors('models');
         $labels = array_intersect_key(
-            $this->_member()->labels(),
-            array_flip(array_keys($this->_errors))
+            $this->_orm_member()->labels(),
+            array_flip(array_keys($this->_html_form_errors))
           );
         $this->_notifications[] = array('notification' => array(
           'kind' => 'danger',
@@ -96,16 +142,16 @@ class View_Members_Edit extends View_Master {
    * @return Array
    */
 
-  protected $_member;
+  protected $_orm_member;
 
-  protected function _member()
+  protected function _orm_member()
   {
-    if ( ! $this->_member)
+    if ( ! $this->_orm_member)
     {
-      $this->_member  = ORM::factory('Member', Request::current()->param('id'));
+      $this->_orm_member  = ORM::factory('Member', Request::current()->param('member_id'));
     }
 
-    return $this->_member;
+    return $this->_orm_member;
   }
 
   /**
@@ -114,9 +160,17 @@ class View_Members_Edit extends View_Master {
    * @return Array
    */
 
+  protected $_member;
+
   public function member()
   {
-    return $this->_member()->as_array();
+    if ( ! $this->_member)
+    {
+      $this->_member =  $this->_orm_member()
+      ->as_array('genders,forms_all,forms,dues');
+    }
+
+    return $this->_member;
   }
 
   /**
@@ -128,11 +182,16 @@ class View_Members_Edit extends View_Master {
 
   public function form()
   {
-    return $this->form_member(
-      $this->member(),
-      $this->_notifications,
-      $this->_errors
-    );
+    if ( ! $this->_html_form)
+    {
+      $this->_html_form = $this->_orm_member()->html_form($this->_html_form_errors);
+    }
+
+    return $this->_html_form;
   }
 
+  public function notifications()
+  {
+    return $this->_notifications;
+  }
 }

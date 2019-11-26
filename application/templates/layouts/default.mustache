@@ -20,5 +20,11 @@
     </main>
     {{>layout/footer}}
     {{{profiler}}}
+    <script>
+      // Elements to inject
+      var mySVGsToInject = document.querySelectorAll('img.icon-injector');
+      // Do the injection
+      SVGInjector(mySVGsToInject);
+    </script>
   </body>
 <html>

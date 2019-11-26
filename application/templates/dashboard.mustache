@@ -6,7 +6,7 @@
 <div class="columns is-multiline">
   <section class="column is-two-firths">
     <div class="content box">
-      <h2 class="is-size-4">Adhérent #{{member.next_idm}}</h2>
+      <h2 class="is-size-4">Adhérent #{{member.idm}}</h2>
       {{>form/member/edit}}
     </div>
   </section>
@@ -20,7 +20,7 @@
         {{/members_last_created.records}}
       </table>
       {{/members_last_created}}
-      <a href="/adherents" class="button is-light">Tous les adhérents</a>
+      <a href="/adherents" class="button is-dark is-outlined">Tous les adhérents</a>
     </section>
   </div>
 </div>

@@ -1,6 +1,5 @@
 <form class="is-marginless" id="form_member" action="{{form.action}}" method="post">
 
-  <input type="hidden" name="id" value="{{form.member_id}}">
   {{#form.notifications}}
     <div class="notification is-{{notification.kind}}">
       {{#notification.deletable}}
@@ -9,6 +8,9 @@
       {{{notification.content}}}
     </div>
   {{/form.notifications}}
+
+  <input type="hidden" name="id" value="{{form.member_id}}">
+  <input type="hidden" name="idm" value="{{form.idm}}">
 
   <fieldset>
     <legend>Identité</legend>
@@ -19,9 +21,9 @@
         {{/form.data.firstname}}
       </div>
       <div class="column">
-        {{#form.data.name}}
+        {{#form.data.lastname}}
         {{>form/fields/text}}
-        {{/form.data.name}}
+        {{/form.data.lastname}}
       </div>
     </div>
     <div class="field columns">
@@ -79,23 +81,53 @@
   </fieldset>
   <fieldset>
     <legend>Adhésions</legend>
+    {{^member.dues.records}}
+    {{#member.forms_all.records_count}}
     <p class="help">
       <b>Note</b> : Une fois l'adhésion ajoutée, la fiche ne pourras plus être suprimée.
     </p>
+    {{/member.forms_all.records_count}}
+    {{#member.forms_all.records}}
+    {{/member.forms_all.records}}
+    {{/member.dues.records}}
     <ul class="is-unstyled">
-    {{#member.subscriptions.records}}
+      {{#member.dues.records}}
+      <li>
+        {{due.form.title}} (#{{due.id}})<br>
+        {{due.amount}} {{due.currency.entity}}<br>
+        jusqu'au : {{due.pretty_date_end}}
+      </li>
+      {{/member.dues.records}}
+      {{#member.forms.records}}
+      <li>
+       <span class="button is-warning is-hovered is-large">
+            <span class="icon is-large">
+              <img class="icon-injector" src="/assets/svg/checkmark-circle.svg" alt="icon name">
+            </span>
+            <div class="is-size-5">
+            {{member_form.title}}
+            <span class="has-text-weight-bold"> {{member_form.price}} {{form.currency.label}} €</span></div>
+        </span>
+      </li>
+      {{/member.forms.records}}
+      {{#member.forms_all.records}}
       <li class="field">
-        <!-- @todo À transformer en checkbox -->
-        <button class="button is-primary is-outlined is-large">
+        <div class="control content">
+          <input class="checkbox-button" type="checkbox" id="member-form-{{member_form.id}}" name="member_forms[]" value="{{member_form.id}}">
+          <label class="checkbox button is-primary is-outlined is-large" for="member-form-{{member_form.id}}">
             <span class="icon is-large">
               <img class="icon-injector icon-aspect-hover" src="/assets/svg/checkmark-circle.svg" alt="icon name">
               <img class="icon-injector icon-aspect-link" src="/assets/svg/circle.svg" alt="icon name">
             </span>
-            <span class="is-size-5">{{subscription.title}}<span>
-            <span class="has-text-weight-bold">{{subscription.cost}}€</span>
-        </button>
+            <div class="is-size-5">{{member_form.title}}
+            <span class="has-text-weight-bold"> {{member_form.price}} {{form.currency.label}} €</span></div>
+          </label>
+        </div>
       </li>
-    {{/member.subscriptions.records}}
+      {{/member.forms_all.records}}
+      {{^member.forms_all.records_count}}
+      <li><p>Aucun bullletin d'adhésion actif<p></li>
+      {{/member.forms_all.records_count}}
     </ul>
   </fieldset>
 
@@ -110,10 +142,3 @@
     </div>
   </div>
 </form>
-
-<script>
-  // Elements to inject
-  var mySVGsToInject = document.querySelectorAll('img.icon-injector');
-  // Do the injection
-  SVGInjector(mySVGsToInject);
-</script>

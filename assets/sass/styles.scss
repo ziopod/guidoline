@@ -15,25 +15,18 @@
 fieldset {
   @extend .content;
 }
+legend {
+  text-transform: uppercase;
+  margin-bottom: 0.75em;
+  // font-size: $size-6;
+
+}
 
 ul.is-unstyled {
   list-style: none;
   margin-left: 0;
+  margin-top: 0;
 }
-
-.button.is-primary .icon{
-  fill: $primary;
-}
-
-.button.is-primary.is-hovered .icon,
-.button.is-primary:hover .icon {
-  fill: $primary-invert;
-}
-
-.icon-aspect-link { display: inline;}
-.icon-aspect-hover { display: none; }
-.button:hover .icon-aspect-link { display: none;}
-.button:hover .icon-aspect-hover { display: inline;}
 
 .box.is-light {
   box-shadow: none;
@@ -64,3 +57,36 @@ table.table tr.faded {
 //   border-style: solid;
 //   border-color: $grey;
 // }
+
+
+// Checkbox button
+
+.button.is-primary .icon{
+  fill: $primary;
+}
+
+.button.is-primary.is-hovered .icon,
+.button.is-primary:hover .icon,
+input.checkbox-button:checked + label.checkbox.button .icon {
+  fill: $primary-invert;
+}
+
+.icon-aspect-link {display: inline;}
+.icon-aspect-hover { display: none; }
+
+// .button:hover .icon-aspect-link,
+input.checkbox-button:checked + label.checkbox.button .icon-aspect-link { display: none;}
+// .button:hover .icon-aspect-hover,
+input.checkbox-button:checked + label.checkbox.button .icon-aspect-hover
+{ display: inline;}
+
+.checkbox.button {
+  display: inline-flex;
+}
+
+input.checkbox-button:checked + label.checkbox.button {
+  background-color: $primary;
+  border-color: $primary;
+  color: $white;
+}
+input.checkbox-button { display: none;}

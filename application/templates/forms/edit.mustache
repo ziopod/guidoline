@@ -1,0 +1,72 @@
+<div class="content box">
+  {{>form/title}}
+  <form class="is-marginless" action="{{form.action}}" method="post">
+
+    {{#html_form.notifications}}
+      {{element/notification}}
+    {{/html_form.notifications}}
+
+    <input type="hidden" name="form_id" value="{{form.id}}">
+
+    <div class="field">
+      {{#html_form.data.is_active}}
+      {{>form/fields/checkbox}}
+      {{/html_form.data.is_active}}
+    </div>
+    <fieldset>
+      <legend>Description</legend>
+      <div class="field">
+        {{#html_form.data.title}}
+        {{>form/fields/text}}
+        {{/html_form.data.title}}
+        {{#html_form.data.heading}}
+        {{>form/fields/text}}
+        {{/html_form.data.heading}}
+        {{#html_form.data.description}}
+        {{>form/fields/textarea}}
+        {{/html_form.data.description}}
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Montant</legend>
+      <div class="field columns">
+        <div class="column">
+          {{#html_form.data.price}}
+          {{>form/fields/text}}
+          {{/html_form.data.price}}
+        </div>
+        <div class="column">
+          {{#html_form.data.select_currencies}}
+          {{>form/fields/select}}
+          {{/html_form.data.select_currencies}}
+        </div>
+        <div class="column">
+          {{#html_form.data.free_price}}
+          {{>form/fields/checkbox}}
+          {{/html_form.data.free_price}}
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Période</legend>
+      <div class="field columns">
+        <div class="column">
+          {{#html_form.data.date_start}}
+          {{>form/fields/date}}
+          {{/html_form.data.date_start}}
+        </div>
+        <div class="column">
+          {{#html_form.data.duration}}
+          {{>form/fields/text}}
+          {{/html_form.data.duration}}
+        </div>
+        <div class="column">
+          {{#html_form.data.start_at_due}}
+          {{>form/fields/checkbox}}
+          {{/html_form.data.start_at_due}}
+        </div>
+      </div>
+    </fieldset>
+    {{>form/save_or_cancel}}
+  </form>
+</div>

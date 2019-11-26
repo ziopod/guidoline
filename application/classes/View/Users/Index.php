@@ -2,7 +2,7 @@
 
 /**
 * Le modèle de vue `View/User/Index.php` fournis les propriétés et méthodes pour le template `templates/user/index.mustache`.
-* 
+*
 * @package    Guidoline
 * @category   View Model
 * @author     Ziopod | ziopod@gmail.com
@@ -11,7 +11,7 @@
 */
 
 class View_Users_Index extends View_Layout {
-	
+
 	/**
 	* @vars 	Title 	Le titre de la page
 	**/
@@ -34,11 +34,5 @@ class View_Users_Index extends View_Layout {
 		return $users->find_all()->as_array();
 	}
 
-	/**
-	* Retourne le nombre d'utilisateur de la dernière requête
-	*/
-	public function pouet()
-	{
-	}
 
 }

@@ -18,7 +18,7 @@ class View_Dashboard extends View_Master {
 	public $title = "Guidoline — Tableau de bord";
 
   /**
-   * Tableau d'une insance de modèle `members`
+   * Tableau d'une instance de modèle `members`
    *
    * @return Array
    */
@@ -29,14 +29,16 @@ class View_Dashboard extends View_Master {
   {
     if ( ! $this->_member)
     {
-      $this->_member  = ORM::factory('Member')->as_array();
+      $this->_member  = ORM::factory('Member')
+      ->as_array('genders,forms_all');
+      $this->_member['select_genders'] = ORM::records_to_options($this->_member['genders']);
+      // echo Debug::vars($this->_member);
     }
-
     return $this->_member;
   }
 
   /**
-   * Peupler le formualire principal
+   * Peupler le formulaire principal
    *
    * @todo    Pourrais être automatisé en utilisant `model::labels()`,
    *          `model::names() et `model::keys()` pour peupler les clefs.
@@ -45,7 +47,8 @@ class View_Dashboard extends View_Master {
 
   public function form()
   {
-    return $this->form_member($this->member());
+    // echo Debug::vars()
+    return ORM::factory('Member')->html_form();
   }
 
   /**
@@ -59,7 +62,20 @@ class View_Dashboard extends View_Master {
 	{
     if ( ! $this->_members_last_created)
     {
-      $this->_members_last_created = ORM::factory('Member')->last_created();
+      $this->_members_last_created = array(
+        'records'       => array(),
+        'records_count' => 0,
+      );
+
+      foreach (ORM::factory('Member')
+        ->order_by('created', 'desc')
+        ->limit(10)
+        ->find_all() as $member)
+      {
+        $this->_members_last_created['records'][]['member'] = $member->as_array();
+      }
+
+      $this->_members_last_created['records_count'] = count($this->_members_last_created['records']);
     }
 
     return $this->_members_last_created;

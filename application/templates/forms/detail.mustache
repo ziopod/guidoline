@@ -1,0 +1,51 @@
+<article class="card">
+  <div class="card-content">
+    <div class="media">
+      <header class="media-content">
+        <h1 class="title"><a href="{{form.url}}">{{form.title}}</a> <small>{{form.price}} {{form.currency.entity}}</small></h1>
+        <h2 class="subtitle">{{form.heading}}</h2>
+      </header>
+    </div>
+    <div class="content">
+      <p>{{form.description}}</p>
+      <p>
+        Adhésion
+        {{#form.date_start}}
+        du {{form.date_start}}
+        au {{form.date_end}}
+        ({{form.pretty_duration}})
+        {{/form.date_start}}
+        {{^form.date_start}}
+        d'une durée de {{form.pretty_duration}}
+        {{/form.date_start}}
+      </p>
+      <p>
+        Est valide {{form.pretty_period_type}}
+        {{#form.date_start}}
+        ({{#form.free_period_start}}
+        de la date de signature jsuqu'à la fin dela période
+        {{/form.free_period_start}}
+        {{^form.free_period_start}}
+        la période ne commenceras pas avant
+        {{/form.free_period_start}}
+        )
+        {{/form.date_start}}
+        pour une durée de {{form.pretty_duration}}.
+      </p>
+      <p>
+        {{form.dues_all.records_count}} adhérents dont {{form.dues.records_count}} actifs.
+      </p>
+      <p>
+        <a href="{{form.url_edit}}">Éditer</a>
+        <a href="">Supprimer</a>
+      </p>
+      <ul>
+        <li>Actif : {{#form.is_active}}oui{{/form.is_active}}{{^form.is_active}}non{{/form.is_active}}</li>
+        <li>Date start : {{form.date_start}}</li>
+        <li>Duration : {{form.duration}}</li>
+        <li>Duration : {{form.pretty_duration}}</li>
+        <li>Start at due : {{#form.start_at_due}}oui{{/form.start_at_due}}{{^form.start_at_due}}non{{/form.start_at_due}}</li>
+      </ul>
+    </div>
+  </div>
+</article>

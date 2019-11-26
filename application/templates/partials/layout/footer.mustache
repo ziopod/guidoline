@@ -1,1 +1,10 @@
-<pre>partials/layout/footer.mustache<pre>
+<footer>
+<ul>
+{{#menu.footer}}
+  {{#text}}<li>{{text.content}}</li>{{/text}}
+  {{#links}}
+  <li><a href="{{href.url}}">{{link.name}}</a></li>
+  {{/links}}
+{{/menu.footer}}
+</ul>
+</footer>

@@ -1,92 +1,109 @@
-<?php defined('SYSPATH') or die ('No direct script access');
+<?php defined('SYSPATH') OR die('No direct script access');
 
 /**
- * Le modèle ORM pour la table "users"
+ * Member model
  *
- * @todo      Reworke
- * @todo      Implementer le `as_array` de Guidoline API`
- * @todo      Implementer le système de jonction `embed` de Guidoline API
- * @package   Guidoline
- * @category  Model
- * @author    Ziopod | ziopod@gmail.com
- * @copyright BY-SA 2013 Ziopod
- * @license   http://creativecommons.org/licenses/by-sa/3.0/deed.fr
+ * @package    Guidoline
+ * @category   Model
+ * @author     Ziopod | ziopod@gmail.com
+ * @copyright  BY-SA 2013 Ziopod
+ * @license    http://creativecommons.org/licenses/by-sa/3.0/deed.fr
  */
 
-class Model_Member extends ORM{
+class Model_Member extends ORM {
 
 	/**
-	* Ordre de trie par défaut
-	**/
-	protected $_sorting = array(
-		'idm'	=> 'DESC',
-	);
-
-	/**
-	* Colonne de date de creation
-	**/
-	protected $_created_column = 'created';
-
-	/**
-	* Colone de date de mise à jour
-	**/
-	protected $_updated_column = 'updated';
-
-	/**
-	* Relationship
-	**/
+	 * @var Array  Belongs to relationships
+	 */
 	protected $_belongs_to = array(
 		'user'	=> array(
 			'model'	=> 'User',
 		),
-		'status'	=> array(
-			'model'	=> 'Status',
-		),
-	);
-
-	protected $_has_many = array(
-		'subscriptions' => array(
-			'model'		=> 'Subscription',
-			'through'	=> 'subscriptions_members'
-		),
-		'subscriptions_members' => array(
-			'model'		=> 'Subscriptions_Member',
-		),
-	);
-
-	public $genders = array(
-		array(
-			'value' => null,
-			'label' => 'n/a',
-			'fancy' => 'n/a',
-		),
-		array(
-			'value'	=> 'm',
-			'label'	=> 'Homme',
-			'fancy'	=> '&#9794',
-		),
-		array(
-			'value'	=> 'f',
-			'label'	=> 'Femme',
-			'fancy'	=> '&#9792;',
-		)
 	);
 
 	/**
-	* Règles de validation
-	**/
+	 * @var Array  Has many relationships
+	 */
+	protected $_has_many = array(
+		'forms' => array(
+      'through' => 'dues',
+		),
+		'dues' => array(),
+		'skills' => array(
+			'through' => 'members_skills'
+		),
+	);
+
+	/**
+	 * @var Array  Default sorting order
+	 */
+	protected $_sorting = array(
+		'id'	=> 'desc',
+	);
+
+	/**
+	 * @var Array  Created column
+	 */
+	protected $_created_column = array(
+		'column' => 'created',
+		'format' => 'Y-m-d h:i:s',
+	);
+
+	/**
+	 * @var Array  Updated column
+	 */
+	protected $_updated_column = array(
+		'column' => 'updated',
+		'format' => 'Y-m-d h:i:s',
+	);
+
+  /**
+   * @var ORM Active dues query
+   */
+  protected $_orm_dues;
+
+  /**
+	 * @var Array  Membership dues storage
+	 */
+	protected $_dues;
+
+	/**
+	 * @var Array  Membership skills storage
+	 */
+	protected $_skills;
+
+	/**
+	 * @var Array  All skills storage
+	 */
+  protected $_skills_all;
+
+  /**
+   * @var Array   All member forms storage
+   */
+  protected $_forms_all;
+
+  /**
+   * @var Array $_forms   Active Members Forms storage
+   */
+  protected $_forms;
+
+  /**
+	 * Validation rules
+	 *
+	 * @return Array
+	 */
 	public function rules()
 	{
 		return array(
-      'lastname' => array(array('not_empty')),
-      'firstname' => array(array('not_empty')),
+			'firstname' => array(array('not_empty')),
+			'lastname' => array(array('not_empty')),
+      'birthdate' => array(array('regex', array(':value', '/[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])/'))),
 			'email' => array(
 				array('not_empty'),
 				array('min_length', array(':value', 4)),
 				array('max_length', array(':value', 128)),
 				array('email'),
 				array(array($this, 'unique'), array('email', ':value')),
-        //	array('already_exists', array(':validation', 'user', ':field'))
       ),
       'idm' => array(
         array(array($this, 'unique'), array('idm', ':value')),
@@ -95,242 +112,451 @@ class Model_Member extends ORM{
 	}
 
 	/**
-	* Labels
-	**/
+	 * Filters
+	 *
+	 * @return Array
+	 */
+	public function filters()
+	{
+		return array(
+			'birthdate' => array(
+				array(function($value)
+				{
+					// Do a true real NULL value
+					if ($value === '0000-00-00' OR $value == NULL)
+					{
+						return NULL;
+					}
+
+					return $value;
+				}),
+			)
+		);
+	}
+
+	/**
+	 * Labels map for column name
+	 *
+	 * Notably use for message errors
+	 *
+	 * @return Array
+	 */
 	public function labels()
 	{
 		return array(
 			'email'	  	=> 'Addresse email',
 			'lastname'	=> 'Nom de famille',
 			'firstname'	=> 'Prénom',
+      'idm'	      => 'Numéro d\'adhérent',
+      'birthdate' => 'Date de naissance',
 		);
 	}
 
+
 	/**
-	* Filtres pour les données de formulaires
-	**/
-	public function filters()
+	 * Additionnal related embeddable data
+	 *
+	 * ~~~
+	 * array(
+	 *	index_name => relationship_name
+	 *	index_name => array(
+	 *		'value_index_ame' => 'specific_value_name'
+	 *	)
+	 * ~~~
+	 *
+	 * @return Array
+	 */
+	public function embeddable()
 	{
 		return array(
-			'email' => array(
-				array('trim', array(':value')),
-      ),
-      'birthdate' => array(
-        array(function($value) {
-          if ( ! $value)
-          {
-            return NULL;
-          }
-        })
-      )
+			'user' => array(
+				'id',
+				'email',
+				'username',
+				'role',
+			),
+			'skills'     => 'skills',
+			'skills_all' => 'skills_all',
+			'dues' => 'dues',
+			'dues_history' => 'dues_history',
+      'genders' => 'genders',
+      'forms_all' => 'forms_all',
+      'forms' => 'forms',
 		);
-  }
-
-	/**
-	* Extension de la méthode get
-	**/
-	// public function get($column)
-	// {
-	// 	switch ($column) {
-	// 		case 'cellular' :
-	// 			return preg_replace('/(\w{2})(\w{2})(\w{2})(\w{2})(\w{2})$/i', '$1 $2 $3 $4 $5',  $this->_object['cellular']);
-	// 			break;
-	// 		case 'phone' :
-	// 			return preg_replace('/(\w{2})(\w{2})(\w{2})(\w{2})(\w{2})$/i', '$1 $2 $3 $4 $5',  $this->_object['phone']);
-	// 			break;
-	// 		case 'fancy_birthdate':
-	// 			return ($this->birthdate !== NULL AND $this->birthdate !== '0000-00-00') ? date('Y', time()) - date('Y', strtotime($this->birthdate)) : NULL;
-	// 			break;
-	// 		case 'fancy_created':
-	// 			return $this->created ? strftime('%e %b %Y', strtotime($this->created)) : FALSE;
-	// 			break;
-	// 		case 'fancy_gender':
-	// 			return $this->gender === 'm' ? '&#9794' : '&#9792;';
-	// 		default:
-	// 			return parent::get($column);
-	// 			break;
-	// 	}
-	// }
-	/**
-	* Retourne la liste des statut disponibles et "marque" le status courant
-	*
-	* @return Object
-	**/
-
-	public function statuses()
-	{
-		$statuses = DB::select('id', 'name')->from('statuses')->execute()->as_array();
-		$current_status_key = array_search(
-			array(
-				'id'=>$this->status->id,
-				'name' => $this->status->name
-			), $statuses);
-		$statuses[$current_status_key]['selected'] = TRUE;
-		return $statuses;
 	}
 
 	/**
-   * Extension de la méthode native create
-   *
-   * Exploiter un trigger SQL pour inrémenter l'IDM
-   */
-	// public function create(Validation $validation = NULL)
-	// {
-	// 	// Création du idm
-	// 	$idm = (int) ORM::factory('Member')
-	// 		->select('idm')
-	// 		->order_by('idm', 'DESC')
-	// 		->limit(1)
-	// 		->find()
-	// 		->idm;
-	// 	$this->idm = $idm + 1;
-
-	// 	return parent::create($validation);
-	// }
-
-	/**
-	* Retourne les dernière adhésion valides
-	*
-	* @return	Mixte	False ou tableau des dernières adhésions valides
-	**/
-	public function last_valid_subscriptions()
+	 * Member card URL
+ 	 *
+	 * @return String
+	 */
+	public function url()
 	{
-		if ( ! $this->has('subscriptions'))
-		{
-			return array();
-		}
+    if ( ! $this->loaded())
+    {
+      return NULL;
+    }
 
-		// AND DATE_ADD(`subscriptions_member`.`created`, INTERVAL `subscription`.`expiry_time` SECOND) >  CURDATE()
-		// AND TO_SECONDS(`subscriptions_member`.`created`) + `subscription`.`expiry_time` >  TO_SECONDS(NOW())
-
-    // @todo : ajouter une méthode `Model_Subscriptions_Members::is_valid()`
-		$lasts = $this->subscriptions_members
-			->with('subscription')
-//			->where(DB::expr("TO_SECONDS(`subscriptions_member`.`created`) + `subscription`.`expiry_time`"), '>', DB::expr("TO_SECONDS(NOW())"))
-	//					$expired = Date::span($created, strtotime((date('Y', time()) + 1) . '-01-01'), 'months') > 2;
-
-			->where(DB::expr("TO_SECONDS(`subscriptions_member`.`created`) + `subscription`.`expiry_time`"), '>', DB::expr("TO_SECONDS(NOW())"))
-			->find_all();
-
-		if ( ! count($lasts))
-		{
-			return array();
-		}
-
-		return $lasts;
+		return URL::site(Route::get('member.detail')->uri(array('member_id' => $this->pk())), TRUE);
 	}
 
 	/**
-	* Retourne la dernière adhésion (informations de dates formatés)
-	*
-	* @return	Mixte	False ou tableau contenant la dernière adhésion
-	**/
-	// public function last_subscription()
-	// {
-
-	// 	if ( ! $this->has('subscriptions', ORM::factory('subscription')))
-	// 	{
-	// 		return FALSE;
-	// 	}
-
-	// 	return $this->subscriptions_member->find();
-	// }
+	 * Member edit URL
+	 *
+	 * @return String
+	 */
+	public function url_edit()
+	{
+		return URL::site(Route::get('member.edit')->uri(array('member_id' => $this->pk())), TRUE);
+	}
 
 	/**
-	* Retourne la première adhésion
-	*
-	* @return	Mixte	False ou tableau contenant la première adhésion
-	**/
-	public function first_subscription()
+	 * Compiled firstname + lastname
+	 *
+	 * @return string|bool    Name
+	 */
+	public function fullname()
 	{
+		return ($this->firstname AND $this->lastname) ? $this->firstname . ' ' . $this->lastname : $this->pk();
+	}
 
-		if ( ! $this->has('subscriptions'))
+	/**
+	 * Phone in pretty format
+	 *
+	 * @return String
+	 */
+	public function pretty_phone()
+	{
+    if ($this->phone === NULL)
+    {
+      return NULL;
+    }
+
+		return preg_replace('/(\w{2})(\w{2})(\w{2})(\w{2})(\w{2})$/i', '$1 $2 $3 $4 $5',  $this->phone);
+	}
+
+	/**
+	 * Birthdate in pretty format
+	 *
+	 * @return String
+	 */
+	public function pretty_birthdate()
+	{
+    if ($this->birthdate === NULL)
+    {
+      return NULL;
+    }
+
+		return $this->birthdate ? strftime(__('date.long'), strtotime($this->birthdate)) : NULL;
+	}
+
+	/**
+	 * Age
+	 *
+	 * @return Integer
+	 */
+	public function age()
+	{
+    if ($this->birthdate === NULL)
+    {
+      return NULL;
+    }
+
+		return Date::span(strtotime($this->birthdate), time(), 'years');
+	}
+
+	/**
+	 * Created in pretty format
+	 *
+	 * @return String
+	 */
+	public function pretty_created()
+	{
+		return $this->created ? strftime(__('date.long'), strtotime($this->created)) : NULL;
+	}
+
+	/**
+	 * Updated in pretty format
+	 *
+	 * @return String
+	 */
+	public function pretty_updated()
+	{
+		return $this->updated ? strftime(__('date.long'), strtotime($this->updated)) : NULL;
+	}
+  /**
+   * Kind of garbage collector for `is_active`
+	 *
+	 * @param   string $column Column name
+	 * @throws Kohana_Exception
+	 * @return mixed
+   */
+  public function get($column)
+  {
+    if ($column === 'is_active')
+    {
+
+      if ($this->_object['is_active'] == 1)
+      {
+        // Count valid dues
+        $valid_dues = DB::select(DB::expr('COUNT(*) as count'))
+        ->from('dues')
+        ->where('member_id', '=', $this->pk())
+        ->and_where(DB::expr('DATE(`date_end`)'), '>', date('Y-m-d'))
+        ->execute()->get('count') > 0;
+        // Save is_active state
+        if ( ! $valid_dues)
+        {
+          DB::update($this->_table_name)
+          ->set(array('is_active' => 0))
+          ->where('id', '=', $this->pk())
+          ->execute();
+        }
+      }
+    }
+
+    return parent::get($column);
+  }
+
+	/**
+	 * Member actives dues
+	 *
+	 * @return Array
+	 */
+	public function dues()
+	{
+    // If member is unactive, no dues are possible
+    // if ( ! $this->is_active)
+    // {
+		// 	$this->_dues = array(
+		// 		'records' => array(),
+		// 		'records_count' => 0,
+    //   );
+    // }
+
+		if ( ! $this->_dues)
 		{
-			return FALSE;
+			$this->_dues = array(
+				'records' => array(),
+				'records_count' => NULL,
+			);
+
+			foreach ($this->_orm_dues()->where('date_end', '>', date('y-m-d'))->find_all() as $due)
+			{
+				$this->_dues['records'][]['due'] = $due->as_array('currency,form');
+			}
+
+      $this->_dues['records_count'] = count($this->_dues['records']);
+      // echo Debug::vars($this->_dues);
 		}
 
-		return $this->subscriptions_members->order_by('created', 'ASC')->find();
-  }
-
-
-	// /**
-	// * Retourne la liste des genres et marque le genre du membre courant
-	// **/
-	// public function _genders()
-	// {
-	// 	$genders = array(
-  //     'records_count' => 0, // field.size
-  //     'records' => array(), // field.options
-  //   );
-
-	// 	foreach ($this->genders as $gender)
-	// 	{
-	// 		$genders['records'][] = array(
-  //       'gender' => array( // option
-  //         'value' 	=> $gender['value'],
-  //         'label'		=> $gender['label'], // option.name
-  //         'current'	=> $gender['value'] == $this->gender, // option.selected
-  //       )
-	// 		);
-	// 	}
-
-  //   $genders['records_count'] = count($genders['records']);
-	// 	return $genders;
-  // }
+		return $this->_dues;
+	}
 
   /**
-   * Localisation de la ressource
+   * Active dues query
    *
-   * @return String
+   * @return ORM
    */
-  public function url()
+  protected function _orm_dues()
   {
-    return Route::url('member', array('id' => $this->pk()));
+    if ( ! $this->_orm_dues)
+    {
+      $this->_orm_dues = $this->dues;
+    }
+
+    return $this->_orm_dues;
+  }
+
+	/**
+	 * All member dues
+	 *
+	 * For history purpose
+	 *
+	 * @return Array
+	 */
+	public function dues_history()
+	{
+		if ( ! $this->_dues)
+		{
+			$this->_dues = array(
+				'records' => array(),
+				'records_count' => NULL,
+			);
+
+			foreach ($this->dues->find_all() as $due)
+			{
+				$due = $due->as_array();
+				$this->_dues['records'][]['due'] = $due;
+			}
+
+			$this->_dues['records_count'] = count($this->_dues['records']);
+		}
+
+		return $this->_dues;
+	}
+
+	/**
+	 * All related skills
+	 *
+	 * Find all related member skills and put it array
+	 *
+	 * @return Array
+	 */
+	public function skills()
+	{
+		if ( ! $this->_skills)
+		{
+			$this->_skills= array(
+				'records'       => array(),
+				'records_count' => NULL,
+			);
+
+			foreach ($this->skills->find_all() as $skill)
+			{
+				$this->_skills['records'][]['skill'] = $skill->as_array();
+			}
+
+			$this->_skills['records_count'] = count($this->_skills['records']);
+		}
+
+		return $this->_skills;
+	}
+
+	/**
+	 * Find all skills and set member skills as current
+	 *
+	 * @return array
+	 */
+	public function skills_all()
+	{
+		if ( ! $this->_skills_all)
+		{
+			$this->_skills_all = array(
+				'records'       => array(),
+				'records_count' => NULL,
+			);
+
+			$current_skills = $this->skills->find_all()->as_array('id', 'name');
+
+			foreach (ORM::factory('Skill')->find_all() as $skill)
+			{
+				$skill = $skill->as_array();
+				$skill['current'] = isset($current_skills[$skill['id']]);
+				$this->_skills_all['records'][]['skill'] = $skill;
+			}
+
+			$this->_skills_all['records_count'] = count($this->_skills_all['records']);
+		}
+
+		return $this->_skills_all;
   }
 
   /**
-   * Nom complet
-   *
-   * @return String
-   */
-  public function fullname()
-  {
-    return $this->firstname . ' ' . $this->lastname;
-  }
-
-  /**
-   * Wrapper pour l'adresse postale
+   * Find all member forms and set current member form as current
    *
    * @return Array
    */
-  public function address()
+
+  public function forms_all()
+  {
+    if (! $this->_forms_all)
+    {
+      $this->_forms_all = array(
+        'records'       => array(),
+        'records_count' => NULL,
+      );
+
+      // $this->date_end >= date('Y-m-d');
+      // $current_forms = $this->dues->where(DB::expr('DATE(`date_end`)'), '<', date('Y-m-d'))->as_array('form_id');
+      $current_forms = DB::select('form_id')
+      ->distinct(TRUE)
+      ->from('dues')
+      ->where('member_id', '=', $this->pk())
+      ->execute();
+
+      $current_forms = Arr::pluck($current_forms->as_array(), 'form_id');
+
+      foreach (ORM::factory('Form')
+        ->where('is_active', '=', 1)
+        ->find_all() as $member_form)
+      {
+        $member_form = $member_form->as_array();
+        $member_form['current'] = in_array($member_form['id'], $current_forms);
+        $this->_forms_all['records'][]['member_form'] = $member_form;
+      };
+
+      $this->_forms_all['records_count'] = count($this->_forms_all['records']);
+
+      // echo Debug::vars($this->_forms_all);
+
+    }
+
+    return $this->_forms_all;
+  }
+
+  /**
+   * Members actives Forms
+   *
+   * @return Array
+   */
+  public function forms()
+  {
+    if ( ! $this->_forms)
+    {
+      $this->_forms = array(
+        'records' => array(),
+        'records_count' => 0
+      );
+
+      foreach ($this->forms_all()['records'] as $form)
+      {
+
+        if ($form['member_form']['current'] === TRUE)
+        {
+          $this->_forms['records'][] = $form;
+        }
+      }
+
+      $this->_forms['records_count'] = count($this->_forms['records']);
+    }
+
+    // echo Debug::vars($this->_forms);
+    return $this->_forms;
+  }
+
+
+
+  /**
+   * Data mapping for genders
+   *
+   * Trick to avoid using relationnal table data for simple set of data.
+   *
+   * @return Array
+   */
+  protected function _mappings_genders()
   {
     return array(
-      'street' => $this->street,
-      'zipcode' => $this->zipcode,
-      'city' => $this->city,
-      'country' => $this->country,
+      array(
+        'value' => null,
+        'label' => 'n/a',
+        'fancy' => 'n/a',
+      ),
+      array(
+        'value'	=> 'm',
+        'label'	=> 'Homme',
+        'fancy'	=> '&#9794',
+      ),
+      array(
+        'value'	=> 'f',
+        'label'	=> 'Femme',
+        'fancy'	=> '&#9792;',
+      )
     );
   }
 
   /**
-   * Adresse en jolie format
-   *
-   * @return String
-   */
-  public function pretty_address()
-  {
-    $address = $this->street ? $this->street . ",\n" : '';
-    $address .= $this->zipcode ? $this->zipcode .' ': '';
-    $address .= $this->city ? $this->city . ",\n" : '';
-    $address .= $this->country ? $this->country : '';
-    return $address;
-  }
-
-  /**
-   * Les genres du membre
-   *
-   * Données associées
+   * Find all genders and set membership gender as current
    *
    * @return Array
    */
@@ -340,227 +566,232 @@ class Model_Member extends ORM{
   {
     if ( ! $this->_genders)
     {
-      $this->_genders = $this->genders;
+      $this->_genders = array(
+        'records'       => array(),
+        'records_count' => NULL,
+      );
+
+      foreach ($this->_mappings_genders() as $gender)
+      {
+        $gender['current'] = $this->gender === $gender['value'];
+        $this->_genders['records'][]['gender'] = $gender;
+      }
+
+      $this->_genders['records_count'] = count($this->_genders['records']);
     }
 
     return $this->_genders;
   }
 
   /**
-   * Liste des genre au format `select.options`
-   *
-   * Helper HTML Form
-   *
-   * @return Array
+   * Active Member
    */
-  protected $_select_genders;
-
-  public function select_genders()
+  protected function _is_active()
   {
-    if ( ! $this->_select_genders)
-    {
-      $this->_select_genders = array(
-        'size' => 0,
-        'options' => array(),
-      );
+    $active = $this->is_active;
 
-      foreach ($this->genders() as $gender)
-      {
-        $this->_select_genders['options'][] = array(
-          'option' => array(
-            'value'     => $gender['value'],
-            'label'     => $gender['label'],
-            'selected'  => $gender['value'] === $this->gender,
-          ),
-        );
-      }
+    if ($active == 0)
+    {
+      return FALSE;
+    }
+    // Test eligibility
+    if ($this->_orm_dues()->count_all() < 1)
+    {
+      $this->is_active = 0;
+      $this->save();
     }
 
-    $this->_select_genders['size'] = count($this->_select_genders['options']);
-    return $this->_select_genders;
+    return $this->is_active;
   }
 
   /**
-   * Genre au format d'affichage
-   *
-   * @return String
-   */
-	public function fancy_gender()
-	{
-    foreach ($this->genders as $gender)
-    {
-      if ($gender['value'] === $this->gender)
-      {
-        return $gender['fancy'];
-      }
-    }
-
-		return NULL;
-
-	}
-
-	public function fancy_birthdate()
-	{
-    if ($this->birthdate !== NULL AND $this->birthdate !== '0000-00-00')
-    {
-      return strftime('%e %B %Y', strtotime($this->birthdate));
-    }
-
-    return NULL;
-  }
-
-  public function age()
-  {
-    return date('Y', time()) - date('Y', strtotime($this->birthdate));
-  }
-
-	public function fancy_created()
-	{
-    return strftime('%e %B %Y', strtotime($this->created));
-  }
-
-  public function fancy_phone()
-  {
-    return preg_replace('/(\w{2})(\w{2})(\w{2})(\w{2})(\w{2})$/i', '$1 $2 $3 $4 $5',  $this->phone);
-
-  }
-
-	private function _format_infos($subscription)
-	{
-
-  }
-
-  /**
-   * Toutes les adhésions
-   *
-   * Celles d l'utilisateur actuel sont marquées comme courante.
-   *
-   * @return Array
-   */
-  protected $_subscriptions;
-
-  public function subscriptions()
-  {
-    if ( ! $this->_subscriptions)
-    {
-      $this->_subscriptions = array(
-        'records_count' => 0,
-        'records' => array(),
-      );
-
-      // @todo : récupérer les clef id des adhésions valides
-
-      // echo Debug::vars($this->last_valid_subscriptions()->as_array('id'));
-      foreach (ORM::factory('Subscription')->order_by('created')->find_all() as $subscription)
-      {
-        $subscription_as_array = $subscription->as_array();
-        // $subscription_as_array['current'] = $this->has('subscriptions', [$subscription->pk()]);
-        $this->_subscriptions['records'][] = array(
-          'subscription' => $subscription_as_array
-        );
-      }
-
-      $this->_subscriptions['records_count'] = count($this->_subscriptions['records']);
-      // echo Debug::vars($this->_subscriptions);
-    }
-
-    return $this->_subscriptions;
-  }
-
-  /**
-   * Le prochain numéro d'adhérent
+   * Next ID Member
    *
    * @return Integer
    */
   public function next_idm()
   {
-
     return DB::query(Database::SELECT, 'SELECT max(`idm`) AS idm FROM members')
       ->execute()
       ->get('idm') + 1;
   }
 
   /**
-	 * Les derniers membres crées
-	 *
-   * @param   Integer   Nombre d'entrées à retourner
-	 * @return  Array
-	 */
-
-	public function last_created($limit = 10)
-	{
-    $last_created = array(
-      'records_count' => 0,
-      'records' => array(),
-    );
-
-    foreach (ORM::factory('Member')
-      ->order_by('created', 'desc')
-      ->limit($limit)
-      ->find_All() as $member)
-    {
-      $last_created['records'][] = array(
-        'member' => $member->as_array()
-      );
-    }
-
-    $last_created['records_count'] = count($last_created['records']);
-    return $last_created;
-
-	}
-
-  /**
-   * Données safe
+   * Populate HTML form
    *
-   * Le template ne doit jamais recevoir l'objet de modèle complet.
-   *
-   * L'extension de cette méhode permet de retourner des
-   * données sélectionnées en lecture seule.
-   *
-   * Ces données peuvent être personnalisées, ajoutées ou supprimées.
-   *
+   * @param   Array   $errors   ORM Validation exception errors
+   * @return  Array
    */
-  public function as_array()
+  public function html_form($errors = array())
   {
-    $data = parent::as_array();
-    $data['fullname'] = $this->fullname();
-    $data['address'] = $this->address();
-    $data['url'] = $this->url();
-    $data['pretty_address'] = $this->pretty_address();
-    $data['fancy_gender'] = $this->fancy_gender();
-    $data['fancy_phone'] = $this->fancy_phone();
-    $data['fancy_birthdate'] = $this->fancy_birthdate();
-    $data['first_subscription'] = $this->first_subscription();
-    $data['age'] = $this->age();
-    $data['fancy_created'] = $this->fancy_created();
-    $data['select_genders'] = $this->select_genders();
-    $data['next_idm'] = $this->pk() ? $this->idm : $this->next_idm();
-    $data['is_loaded'] = $this->loaded();
-    $data['subscriptions'] = $this->subscriptions();
-    return $data;
+    return  array(
+      'action' => $this->url_edit() . '#form_member',
+      'member_id' => $this->pk(),
+      'idm' => $this->idm,
+      // 'notifications' => array(
+      //     array('notification' => array(
+      //       'kind' => 'warning', // `info | sucess | warning | danger`
+      //       'content' => "Exemple de message",
+      //       'deletable' => TRUE,
+      //     )),
+      //     array('notification' => array(
+      //       'kind' => 'danger', // `info | success | warning | danger`
+      //       'content' => "Attention !",
+      //     )),
+      // ),
+      'data' => array(
+        // Identité
+        'lastname' => array(
+          'field' => array(
+            'label' => 'Nom',
+            'name'  => 'lastname',
+            'id'    => 'lastname',
+            'value' => $this->lastname,
+            'error' => Arr::get($errors, 'lastname'),
+            )
+          ),
+          'firstname' => array(
+            'field' => array(
+              'label' => 'Prénom',
+              'name'  => 'firstname',
+              'id'    => 'firstname',
+              'value' => $this->firstname,
+              'error' => Arr::get($errors, 'firstname'),
+          )
+        ),
+        'birthdate' => array(
+          'field' => array(
+            'label' => 'Date de naissance',
+            'name'  => 'birthdate',
+            'id'    => 'birthdate',
+            'value' => $this->birthdate,
+          )
+        ),
+        'select_genders' => array(
+          'field' => array(
+            'label'   => 'Genre',
+            'name'    => 'gender',
+            'id'      => 'gender',
+            'options' => $this->records_to_options($this->genders()),
+          ),
+        ),
+        // Contact
+        'email' => array(
+          'field' => array(
+            'label' => 'Addresse email',
+            'name'  =>  'email',
+            'id'    => 'email',
+            'value' => $this->email,
+            'error' => Arr::get($errors, 'email'),
+          ),
+        ),
+        'phone' => array(
+          'field' => array(
+            'label' => 'Téléphone',
+            'name'  =>  'phone',
+            'id'    => 'phone',
+            'value' => $this->phone,
+          ),
+        ),
+        // Addresse
+        'address' => array(
+          'street' => array('field' => array(
+            'label' => 'Rue',
+            'name'  => 'address[street]',
+            'id'    => 'address-street',
+            'value' => $this->street, // $this->member()['address']['street']
+          )),
+          'zipcode' => array('field' => array(
+            'label' => 'Code postal',
+            'name'  => 'address[zipcode]',
+            'id'    => 'address-zipcode',
+            'value' => $this->zipcode,
+          )),
+          'city' => array('field' => array(
+            'label' => 'Ville',
+            'name'  => 'address[city]',
+            'id'    => 'address-city',
+            'value' => $this->city,
+          )),
+          'country' => array('field' => array(
+            'label' => 'Pays',
+            'name'  => 'address[country]',
+            'id'    => 'address-country',
+            'value' => $this->country,
+          ))
+        ),
+      ),
+    );
   }
 
-  /**
-	 * Test si une valeur de clef est unique dans la base de données
+	/**
+	 * Extend ORM as_array for include processing on data
 	 *
-   * @todo  À déplacer dans une classe parente (ORM)
-	 * @param	mixte	valeur à tester
-	 * @param	string	field name
- 	 * @return	boolean
+	 * @param  String  $embed_paths   Related data to embed
+	 * @return Array
 	 */
-	public function unique_key_exists($value, $field = NULL)
+	public function as_array($embed_paths = NULL)
 	{
-		if ($field === NULL)
-		{
-			$field = $this->unique_key($value);
-		}
-
-		return (bool) DB::select(array(DB::expr('COUNT(*)'), 'total_count'))
-			->from($this->_table_name)
-			->where($field, '=', $value)
-			->where($this->_primary_key, '!=', $this->pk())
-			->execute($this->_db)
-			->get_('total_count');
+		// Raw from database
+		$data = parent::as_array();
+		// Load state
+    $data['loaded'] = $this->loaded();
+    // IDM
+    $data['idm'] = $this->pk() ? $this->idm : $this->next_idm();
+		// Identity
+		$data['fullname'] = $this->fullname();
+		$data['pretty_birthdate'] = $this->pretty_birthdate();
+		$data['age'] = $this->age();
+		// Contact
+		$data['pretty_phone'] = $this->pretty_phone();
+		// URL
+		$data['url'] = $this->url();
+		$data['url_edit'] = $this->url_edit();
+		// Dates
+		$data['pretty_created'] = $this->pretty_created();
+    $data['pretty_updated'] = $this->pretty_updated();
+		// Embeded values
+    $embed = $this->_embed($embed_paths);
+		return array_merge($data, $embed);
 	}
 
+	/**
+	 * Extend parent::create() method for adding a next missing primary key
+	 *
+   * @todo Ne pas intervenir sur la clef primaire! exploiter le champ `idm`
+	 * @param  validation  $validation  Validation object
+	 * @throws kohana_exception
+	 * @return ORM
+	 */
+	// public function create(Validation $validation = NULL)
+	// {
+	// 	if ( ! $this->_loaded)
+	// 	{
+	// 		$this->_primary_key = $this->_generate_default_pk();
+	// 	}
+
+	// 	return parent::create($validation);
+	// }
+
+	/**
+	 * Generate default id
+	 *
+	 * Get the next missing id
+   *
+   * @todo cf Membership::create()
+	 * @return int
+	 */
+	private function _generate_default_pk()
+	{
+		// Get first missing id
+		$missing_pk = DB::select(array(DB::expr('`id` + 1'), 'missing_pk'))
+			->from($this->_table_name)
+			->where(NULL, 'NOT EXISTS',
+				DB::select($this->_primary_key)
+				->from(array($this->_table_name, 'm2'))
+				->where('m2.' . $this->_primary_key, '=', DB::expr("`{$this->_table_name}`.`{$this->_primary_key}` + 1")))
+			->limit(1); // Remove limit for getting all "first" missing pks
+
+		return (int) $missing_pk->execute()->get('missing_pk');
+	}
 }

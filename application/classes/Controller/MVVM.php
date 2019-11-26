@@ -36,7 +36,7 @@ class Controller_MVVM extends Controller {
     {
 
       $view = $this->request->param('view');
-      $view = str_replace(' ', '_', ucwords(str_replace('/', ' ', $view)));
+      $view = str_replace(' ', '_', ucwords(str_replace(DIRECTORY_SEPARATOR, ' ', $view)));
       $view = 'View_' . $view;
 
       if (class_exists($view))

@@ -213,6 +213,8 @@ Kohana::modules(array(
  * @todo  Placer les routes dans un fichier séparé por aciliter la maintenance
  */
 
+require_once 'routes.php';
+
 // API
 // Route::set('api', '<controller>(/<action>)(.<format>)',
 //   array(
@@ -268,216 +270,216 @@ Kohana::modules(array(
   // ->defaults(array());
 
 // Exemple de capture de vue
-Route::set('MVVM_with_pretty_url_param', 'test/truc(/<param1>(/<param2>))')
-  ->defaults(array(
-    'controller' => 'MVVM',
-    'action'     => 'instanciate',
-    'view'        => 'test/truc',
-  ));
+// Route::set('MVVM_with_pretty_url_param', 'test/truc(/<param1>(/<param2>))')
+//   ->defaults(array(
+//     'controller' => 'MVVM',
+//     'action'     => 'instanciate',
+//     'view'        => 'test/truc',
+//   ));
 
 
-/**
- * Formulaire d'édition adhérent
- */
-Route::set('member_edit', 'adherent/edit(/<id>)', array(
-    'id' => '\d+',
-  ))
-  ->defaults(array(
-    'controller'  => 'MVVM',
-    'action'      => 'instanciate',
-    'view'        => 'Members/Edit',
-  ));
+// /**
+//  * Formulaire d'édition adhérent
+//  */
+// Route::set('member_edit', 'adherent/edit(/<id>)', array(
+//     'id' => '\d+',
+//   ))
+//   ->defaults(array(
+//     'controller'  => 'MVVM',
+//     'action'      => 'instanciate',
+//     'view'        => 'Members/Edit',
+//   ));
 
-/**|
- * Affichage d'un adhérent
- */
-Route::set('member', 'adherent/<id>', array(
-    'id' => '\d+',
-  ))
-  ->defaults(array(
-    'controller'  => 'MVVM',
-    'action'      => 'instanciate',
-    'view'        => 'Members/Show',
-  ));
+// /**|
+//  * Affichage d'un adhérent
+//  */
+// Route::set('member', 'adherent/<id>', array(
+//     'id' => '\d+',
+//   ))
+//   ->defaults(array(
+//     'controller'  => 'MVVM',
+//     'action'      => 'instanciate',
+//     'view'        => 'Members/Show',
+//   ));
 
-/**
- * Affichage des adhérents
- *
- * GET  /             : affiche tous les adhérents
- * GET  /<id>         : affiche un adhérent
- */
-Route::set('members', 'adherents(/<filter>)(/<folio>)', array(
-  'filter' => '(actifs|inactifs|tous)',
-  'folio' => '\d+',
-  ))
-  ->filter(function($route, $params, $request) {
-  })
-  ->defaults(array(
-    'controller'  => 'MVVM',
-    'action'      => 'instanciate',
-    'view'        => 'Members/Index',
-    'folio'       => 1,
-    'filter'      => 'tous'
-  ));
+// /**
+//  * Affichage des adhérents
+//  *
+//  * GET  /             : affiche tous les adhérents
+//  * GET  /<id>         : affiche un adhérent
+//  */
+// Route::set('members', 'adherents(/<filter>)(/<folio>)', array(
+//   'filter' => '(actifs|inactifs|tous)',
+//   'folio' => '\d+',
+//   ))
+//   ->filter(function($route, $params, $request) {
+//   })
+//   ->defaults(array(
+//     'controller'  => 'MVVM',
+//     'action'      => 'instanciate',
+//     'view'        => 'Members/Index',
+//     'folio'       => 1,
+//     'filter'      => 'tous'
+//   ));
 
-/**
- * Edition d'un bulletin
- */
-Route::set('subscription_edit', 'bulletin/edit(/<id>)', array(
-  'id' => '\d+',
-))
-->defaults(array(
-  'controller' => 'MVVM',
-  'action' => 'instanciate',
-  'view' => 'Subscriptions/Edit',
-));
+// /**
+//  * Edition d'un bulletin
+//  */
+// Route::set('subscription_edit', 'bulletin/edit(/<id>)', array(
+//   'id' => '\d+',
+// ))
+// ->defaults(array(
+//   'controller' => 'MVVM',
+//   'action' => 'instanciate',
+//   'view' => 'Subscriptions/Edit',
+// ));
 
-/**
- * Affichage d'un bulletin
- */
-Route::set('subscription', 'buttletin/<id>', array(
-  'id' => '\d+',
-))
-->defaults(array(
-  'controller' => 'MVVM',
-  'action' => 'instaniate',
-  'view' => 'Subscription/Show',
-));
+// /**
+//  * Affichage d'un bulletin
+//  */
+// Route::set('subscription', 'buttletin/<id>', array(
+//   'id' => '\d+',
+// ))
+// ->defaults(array(
+//   'controller' => 'MVVM',
+//   'action' => 'instaniate',
+//   'view' => 'Subscription/Show',
+// ));
 
-/**
- * Affichage des bulletins
- */
-Route::set('subscriptions', 'bulletins(/<folio>)', array(
-  'folio' => '\d+',
-))
-->defaults(array(
-  'controller' => 'MVVM',
-  'action' => 'instanciate',
-  'view' => 'Subscriptions/Index',
-));;
-
-
-/**
- * Afichage d'un bulletin
- */
-
-/**
- * Affichage d'une adhésions
- */
-Route::set('due', 'adhesion/<id>', array(
-  'id' => '\d+',
-))
-->defaults(array(
-  'controller' => 'MVVM',
-  'action' => 'instanciate',
-  'view'  => 'Dues/Show',
-));
-
-/**
- * Affiche des adhésions
- */
-Route::set('dues', 'adhésions(/<folio>)', array(
-  'folio' =>'\d+',
-))
-->defaults(array(
-  'controller' => 'MVVM',
-  'action' => 'instanciate',
-  'view' => 'Dues/Index'
-));
+// /**
+//  * Affichage des bulletins
+//  */
+// Route::set('subscriptions', 'bulletins(/<folio>)', array(
+//   'folio' => '\d+',
+// ))
+// ->defaults(array(
+//   'controller' => 'MVVM',
+//   'action' => 'instanciate',
+//   'view' => 'Subscriptions/Index',
+// ));;
 
 
-/*
-Route::set('members_manage', 'adherents(/<id>)(/<action>)', array(
-    'id' => '\d+',
-    'action' => '(delete|autre)',
-  ))
-  ->filter(function($route, $params, $request) {
+// /**
+//  * Afichage d'un bulletin
+//  */
 
-    // Throw 404 si ce n'est pas le verbe HTTP POST
-    if ($request->method() !== HTTP_Request::POST)
-    {
-      return FALSE;
-    }
+// /**
+//  * Affichage d'une adhésions
+//  */
+// Route::set('due', 'adhesion/<id>', array(
+//   'id' => '\d+',
+// ))
+// ->defaults(array(
+//   'controller' => 'MVVM',
+//   'action' => 'instanciate',
+//   'view'  => 'Dues/Show',
+// ));
 
-    $id = Arr::get($params, 'id', NULL);
-    $member = ORM::factory('Member', $id)->values($request->post());
-
-    try
-    {
-      $member->save();
-    }
-    catch (ORM_Validation_Exception $e)
-    {
-      $errors = $e->errors();
-    }
-
-    // Construire la réponse (entête, status, body)
-    // retour
-    echo Debug::vars($params);
-    // Modifier une entrée
-    if ($is_post && isset($params['id']))
-    {
-      echo "Modifier {$param['id']}";
-      return;
-    }
-
-    // Ajouter une entrée
-    if ($is_post) {
-      echo "Ajouter une entrée";
-      return;
-    }
-
-    // Accomplir une action sur une entrée
-    if ($is_get && isset($params['id']) && isset($params['action']))
-    {
-      echo "Action {$params['action']} sur l'entrée {$params['id']}";
-      return;
-    }
-
-    // Afficher une entrée
-    if ($is_get && isset($params['id']))
-    {
-      echo "Afficher {$params['id']}";
-      return;
-    }
-
-    // Afficher toutes les entrée (default)
-    return false; // 404
+// /**
+//  * Affiche des adhésions
+//  */
+// Route::set('dues', 'adhésions(/<folio>)', array(
+//   'folio' =>'\d+',
+// ))
+// ->defaults(array(
+//   'controller' => 'MVVM',
+//   'action' => 'instanciate',
+//   'view' => 'Dues/Index'
+// ));
 
 
-  })
-  ->defaults(array(
-    'controller'  => 'MVVM',
-    // 'action'      => 'instanciate',
-    'view'        => 'members' // Route::filter() pur changer la vue  (detected le verbe http?
-  ));
-*/
-// Tente de capturer une vue par défaut
-// Un format de rendu peut être choisi
-// Une vue non trouvée, généreras une erreur HTTP 404
-Route::set('default', '(<view>)(.<format>)',
-  array(
-    // 'view' => '.*',
-    'view' => '^[^\.^?]*',
-    'format' => '(json|html)',
-  ))
-  ->filter(function($route, $params, $request) {
-    if ($params['format'] === 'json')
-    {
-      // /!\ Attention, il faut que le contrôleur MVVM (ou le modèle de vue?)
-      // modifie le `content-type` de la réponse HTTP.
-      $params['layout'] = 'layouts/json';
-    }
+// /*
+// Route::set('members_manage', 'adherents(/<id>)(/<action>)', array(
+//     'id' => '\d+',
+//     'action' => '(delete|autre)',
+//   ))
+//   ->filter(function($route, $params, $request) {
 
-    return $params;
-  })
-  ->defaults(array(
-    'controller' => 'MVVM',
-    'action'     => 'instanciate',
-    'view'       => 'Dashboard',
-    'layout'     => 'layouts/default',
-    'format'     => 'html',
-  ));
+//     // Throw 404 si ce n'est pas le verbe HTTP POST
+//     if ($request->method() !== HTTP_Request::POST)
+//     {
+//       return FALSE;
+//     }
+
+//     $id = Arr::get($params, 'id', NULL);
+//     $member = ORM::factory('Member', $id)->values($request->post());
+
+//     try
+//     {
+//       $member->save();
+//     }
+//     catch (ORM_Validation_Exception $e)
+//     {
+//       $errors = $e->errors();
+//     }
+
+//     // Construire la réponse (entête, status, body)
+//     // retour
+//     echo Debug::vars($params);
+//     // Modifier une entrée
+//     if ($is_post && isset($params['id']))
+//     {
+//       echo "Modifier {$param['id']}";
+//       return;
+//     }
+
+//     // Ajouter une entrée
+//     if ($is_post) {
+//       echo "Ajouter une entrée";
+//       return;
+//     }
+
+//     // Accomplir une action sur une entrée
+//     if ($is_get && isset($params['id']) && isset($params['action']))
+//     {
+//       echo "Action {$params['action']} sur l'entrée {$params['id']}";
+//       return;
+//     }
+
+//     // Afficher une entrée
+//     if ($is_get && isset($params['id']))
+//     {
+//       echo "Afficher {$params['id']}";
+//       return;
+//     }
+
+//     // Afficher toutes les entrée (default)
+//     return false; // 404
+
+
+//   })
+//   ->defaults(array(
+//     'controller'  => 'MVVM',
+//     // 'action'      => 'instanciate',
+//     'view'        => 'members' // Route::filter() pur changer la vue  (detected le verbe http?
+//   ));
+// */
+// // Tente de capturer une vue par défaut
+// // Un format de rendu peut être choisi
+// // Une vue non trouvée, généreras une erreur HTTP 404
+// Route::set('default', '(<view>)(.<format>)',
+//   array(
+//     // 'view' => '.*',
+//     'view' => '^[^\.^?]*',
+//     'format' => '(json|html)',
+//   ))
+//   ->filter(function($route, $params, $request) {
+//     if ($params['format'] === 'json')
+//     {
+//       // /!\ Attention, il faut que le contrôleur MVVM (ou le modèle de vue?)
+//       // modifie le `content-type` de la réponse HTTP.
+//       $params['layout'] = 'layouts/json';
+//     }
+
+//     return $params;
+//   })
+//   ->defaults(array(
+//     'controller' => 'MVVM',
+//     'action'     => 'instanciate',
+//     'view'       => 'Dashboard',
+//     'layout'     => 'layouts/default',
+//     'format'     => 'html',
+//   ));
 
 // Defaults
 // Route::set('default', '(<controller>(/<action>(/<id>)))')
