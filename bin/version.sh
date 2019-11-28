@@ -9,7 +9,7 @@ last_version=$(git describe --abbrev=0 --tags)
 # Ajouter le nouveau tag si celui ci est différent (supérieur) au précedent
 if [ "$version" != "" ] && [ "$version" != "$last_version" ]; then
   # Ajout du dernier message de commit en commentaire de tag
-  # git tag -a "$version" -m "git log -1 --format=%s"
+  git tag -a "$version" -m "git log -1 --format=%s"
   echo "Ajout du tag $version"
 fi
 
