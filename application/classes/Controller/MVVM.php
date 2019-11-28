@@ -29,10 +29,7 @@ class Controller_MVVM extends Controller {
   {
     parent::before();
 
-    $layout = Arr::get($this->request->param(), 'layout', 'layouts/default');
-    $this->layout = Kostache_Layout::factory($layout);
-
-    if (! $this->view)
+    if ( ! $this->view)
     {
 
       $view = $this->request->param('view');
@@ -48,6 +45,9 @@ class Controller_MVVM extends Controller {
         throw new HTTP_Exception_404("View :view not found", array(':view' => $view));
       }
     }
+
+    $layout = isset($this->view->layout) ? $this->view->layout : 'layouts/default';
+    $this->layout = Kostache_Layout::factory($layout);
   }
 
   /**

@@ -55,6 +55,24 @@ spl_autoload_register(array('Kohana', 'auto_load'));
  */
 //spl_autoload_register(array('Kohana', 'auto_load_lowercase'));
 
+
+/**
+ * Define VERSION constante from  `.version` file
+ */
+
+$version_file = new SplFileObject(DOCROOT . '.version');
+
+if ($version_file->isFile())
+{
+  $version = $version_file->fgets();
+}
+else
+{
+  $version = 'undefined';
+}
+
+define('VERSION', $version);
+
 /**
  * Load Dotenv
  *
@@ -213,7 +231,8 @@ Kohana::modules(array(
  * @todo  Placer les routes dans un fichier séparé por aciliter la maintenance
  */
 
-require_once 'routes.php';
+require_once APPPATH . 'routes' . EXT;
+
 
 // API
 // Route::set('api', '<controller>(/<action>)(.<format>)',
