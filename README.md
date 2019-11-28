@@ -2,18 +2,18 @@
 
 Guidoline
 
-## Vocabulaire
+## Bulletin d'ahdésions
 
- - entry form : Formulaire d'inscription ;
- - form : Formulaire d'inscription ;
- - registration form : Formulaire d'inscription ;
- - **member** : Adhérent ;
- - membership : appartenir (appartenance) à un club, pluriel (membres, adhérents).
+Forms
 
-Synonymes form
+## Adhésions
 
-Pour désigner le formulaire HTML : **html_form**
+Dues
 
-Pour désignér le bulletin d'adhésion : **form**, entry_form, membership_form
+## Adhérents
 
-Pour désigner un contrat d'adhésion : dues, **subscription**, agreement
+Member
+
+## Utilisateurs
+
+Users
