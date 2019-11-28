@@ -16,7 +16,7 @@ Route::set('members', 'adherents(/<filter>)(/<folio>)', array(
   ->filter(function($route, $params, $request) {
   })
   ->defaults(array(
-    'controller'  => 'MVVM',
+    'controller'  => 'MVVM_Private',
     'action'      => 'instanciate',
     'view'        => 'Members/Index',
     'folio'       => 1,
@@ -30,7 +30,7 @@ Route::set('member.edit', 'adherents/edit(/<member_id>)', array(
   'member_id' => '\d+',
 ))
 ->defaults(array(
-  'controller'  => 'MVVM',
+  'controller'  => 'MVVM_Private',
   'action'      => 'instanciate',
   'view'        => 'Members/Edit',
 ));
@@ -42,7 +42,7 @@ Route::set('member.detail', 'adherents/detail/<member_id>', array(
   'member_id' => '\d+',
 ))
 ->defaults(array(
-  'controller'  => 'MVVM',
+  'controller'  => 'MVVM_Private',
   'action'      => 'instanciate',
   'view'        => 'Members/Card',
 ));
@@ -52,7 +52,7 @@ Route::set('member.detail', 'adherents/detail/<member_id>', array(
  */
 Route::set('forms', 'bulletins')
   ->defaults(array(
-    'controller'  => 'MVVM',
+    'controller'  => 'MVVM_Private',
     'action'      => 'instanciate',
     'view'        => 'Forms/Index'
   ));
@@ -64,7 +64,7 @@ Route::set('form.edit', 'bulletins/edit(/<form_id>)', array(
   'form_id' => '\d+',
 ))
 ->defaults(array(
-  'controller'  => 'MVVM',
+  'controller'  => 'MVVM_Private',
   'action'      => 'instanciate',
   'view'        => 'Forms/edit'
 ));
@@ -76,7 +76,7 @@ Route::set('form.detail', 'bulletins/detail/<form_id>', array(
   'form_id' => '\d+',
 ))
 ->defaults(array(
-  'controller'  => 'MVVM',
+  'controller'  => 'MVVM_Private',
   'action'      => 'instanciate',
   'view'        => 'Forms/Detail',
 ));
@@ -86,9 +86,24 @@ Route::set('form.detail', 'bulletins/detail/<form_id>', array(
  */
 Route::set('page.about', 'a-propos')
 ->defaults(array(
-  'controller' => 'MVVM',
+  'controller' => 'MVVM_Private',
   'action'     => 'instanciate',
   'view'       => 'Page/Default',
+));
+
+/**
+ * Logout page
+ */
+Route::set('auth.logout', 'deconnexion')
+->filter(function($route, $params, $request) {
+  Auth::instance()->logout();
+  Session::instance()->destroy();
+  // /!\ redirect sur 301 not auth
+})
+->defaults(array(
+  'controller' => 'MVVM_Private',
+  'action'     => 'instanciate',
+  'view'       => 'Dashboard',
 ));
 
 // Tente de capturer une vue par défaut
@@ -103,7 +118,7 @@ array(
 ->filter(function($route, $params, $request) {
   if ($params['format'] === 'json')
   {
-    // /!\ Attention, il faut que le contrôleur MVVM (ou le modèle de vue?)
+    // /!\ Attention, il faut que le contrôleur MVVM_Private (ou le modèle de vue?)
     // modifie le `content-type` de la réponse HTTP.
     $params['layout'] = 'layouts/json';
   }
@@ -111,7 +126,8 @@ array(
   return $params;
 })
 ->defaults(array(
-  'controller' => 'MVVM',
+  'scope'      => 'login',
+  'controller' => 'MVVM_Private',
   'action'     => 'instanciate',
   'view'       => 'Dashboard',
   'layout'     => 'layouts/default',

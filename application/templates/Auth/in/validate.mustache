@@ -1,0 +1,13 @@
+<form class="is-marginless" action="{{html_form.action}}" method="post">
+  <legend>{{html_form.title}}</legend>
+  <div class="field">
+    <div class="control">
+      {{#html_form.data.secret}}
+      {{>form/fields/text}}
+      {{/html_form.data.secret}}
+    </div>
+  </div>
+  <div class="control">
+    <button class="button is-primary is-fullwidth is-large">Valider le code</button>
+  </div>
+</form>

@@ -1,0 +1,34 @@
+<!DOCTYPE>
+<html lang="{{ lang }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    {{#styles}}
+    <link rel="stylesheet" href="{{ style.href }}">
+    {{/styles}}
+    {{#scripts}}
+    <script {{ script.defer }} src="{{ script.src }}"></script>
+    {{/scripts}}
+  </head>
+  <body class="has-background-primary">
+    <header>
+      {{>layout/banner}}
+    </header>
+    <main class="section columns">
+      <div class="column is-one-third is-offset-one-third">
+        <div class="content box">
+          {{>content}}
+        </div>
+      </div>
+    </main>
+    {{>layout/footer}}
+    {{{profiler}}}
+    <script>
+      // Elements to inject
+      var mySVGsToInject = document.querySelectorAll('img.icon-injector');
+      // Do the injection
+      SVGInjector(mySVGsToInject);
+    </script>
+  </body>
+<html>
