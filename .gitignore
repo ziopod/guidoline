@@ -4,6 +4,7 @@
 composer.lock
 package-lock.json
 vendor/
+modules/
 node_modules
 assets/css
 **/*.back

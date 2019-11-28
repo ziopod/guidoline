@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * Koseven Systeme files and Modules has dependencies
+ */
+define('KOSEVEN_PATH', 'vendor' . DIRECTORY_SEPARATOR . 'koseven' . DIRECTORY_SEPARATOR . 'koseven' . DIRECTORY_SEPARATOR);
+define('KOSEVEN_MODULE_PATH', KOSEVEN_PATH . 'modules' . DIRECTORY_SEPARATOR);
+
+/**
  * The directory in which your application specific resources are located.
  * The application directory must contain the bootstrap.php file.
  *
@@ -21,7 +27,7 @@ $modules = 'modules';
  *
  * @link http://kohanaframework.org/guide/about.install#system
  */
-$system = 'vendor/koseven/koseven/system';
+$system = KOSEVEN_PATH . 'system';
 
 /**
  * The default extension of resource files. If you change this, all resources
