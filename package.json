@@ -1,15 +1,15 @@
 {
   "name": "guidoline",
-  "version": "1.0.0",
   "description": "Guidoline",
   "main": "index.js",
-  "dependencies": {},
-  "devDependencies": {
-    "browser-sync": "^2.26.7",
+  "dependencies": {
     "bulma": "^0.8.0",
     "bulma-checkradio": "^1.1.1",
     "bulma-divider": "^0.2.0",
-    "bulma-switch": "^2.0.0",
+    "bulma-switch": "^2.0.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
     "node-sass": "^4.13.0",
     "nodemon": "^1.19.4"
   },
