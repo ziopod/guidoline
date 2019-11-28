@@ -239,11 +239,9 @@ class Model_User extends Model_Auth_User {
     ))->send(
       (new Swift_Message($view->subject))
       ->setContentType('text/html')
-      ->setFrom(Arr::path($smtp_config, 'robot.email'), Arr::path($smtp_config, 'robot.name'))
+      ->setFrom(array(Arr::path($smtp_config, 'robot.email') => Arr::path($smtp_config, 'robot.name')))
       ->setTo($this->email)
       ->setBody($message)
     );
-
-    // echo debug::vars($mailer);
   }
 }
