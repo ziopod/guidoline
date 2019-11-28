@@ -20,7 +20,6 @@
 		"kohana/auth": "3.3.*",
 		"kohana/userguide": "3.3.*",
 		"zombor/kostache": "4.0.3",
-		"twbs/bootstrap": "3.3.7",
 		"vlucas/phpdotenv": "^3.6",
 		"swiftmailer/swiftmailer": "^6.2"
 	}
