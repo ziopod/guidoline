@@ -1,7 +1,6 @@
 #Specific files
 .htaccess
 .env
-application/config/
 composer.lock
 package-lock.json
 vendor/
