@@ -111,6 +111,10 @@ class View_Master {
     );
   }
 
+  public function version()
+  {
+    return VERSION;
+  }
   /**
 	 * Navigation.
    *
@@ -163,7 +167,7 @@ class View_Master {
         )),
         'footer' => array(
           'text' => array(
-            'content' => 'Version ' . $this->guidoline('version'),
+            'content' => 'Version ' . $this->version(),
           ),
           'links' => array(
             array('link' => array(
