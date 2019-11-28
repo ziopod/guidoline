@@ -193,5 +193,57 @@ class Model_User extends Model_Auth_User {
 		}
 
 		return $this->_all_roles;
-	}
+  }
+
+    /**
+  * Envoie d'email
+  *
+  * @param $subject string Sujet de l'email
+  * @param $params array Paramètres à envoyer à la vue
+  * @param $template string Nom du template (situé dans `templates/email`)
+  * @return bool  Echec ou réussite de l'envoie
+  **/
+  public function send_email($params = array(), $template = 'default')
+  {
+    // $headers =
+    //   "From: " . Kohana::$config->load('smtp.robot.email') . "\r\n" .
+    //   "x-Mailer: PHP/" . phpversion() . "\r\n" .
+    //   "MIME-Version: 1.0 \r\n" .
+    //   "Content-type: text/html; charset=utf-8";
+    // $message = new Mustache_Engine();
+
+    // Setup email view
+    $view = 'View_Emails_' . ucfirst($template);
+    $view = new $view;
+
+    foreach ($params as $key => $value)
+    {
+      $view->$key = $value;
+    }
+
+    $message = Kostache_Layout::factory('layouts/email')->render($view);
+
+    /** Fonction PHP basique **/
+    // $m = mail($this->email, 'Sender name', $message, $headers);
+    /** Swiftmailer **/
+    $smtp_config = Kohana::$config->load('smtp');
+
+    $mailer = (new Swift_Mailer(
+      (new Swift_SmtpTransport(
+        Arr::get($smtp_config, 'server'),
+        Arr::get($smtp_config, 'port'),
+        Arr::get($smtp_config, 'ssl', FALSE) ? 'ssl' : NULL
+      ))
+      ->setUsername(Arr::get($smtp_config, 'username'))
+      ->setPassword(Arr::get($smtp_config, 'password'))
+    ))->send(
+      (new Swift_Message($view->subject))
+      ->setContentType('text/html')
+      ->setFrom(Arr::path($smtp_config, 'robot.email'), Arr::path($smtp_config, 'robot.name'))
+      ->setTo($this->email)
+      ->setBody($message)
+    );
+
+    // echo debug::vars($mailer);
+  }
 }
