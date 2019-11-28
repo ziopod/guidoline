@@ -451,7 +451,7 @@ class Model_Form extends ORM{
       'title' => 'Ajouter un bulletin',
       'title_loaded' => 'Modififier le bulletin "' . $this->title .'"',
       'action' => $this->url_edit() . '#form_form',
-      'form_id' => $this->pk(),
+      'form_id' => 'edit_member_' . $this->pk(),
       'loaded' => $this->loaded(),
       'data' => array(
         'title' => array(
