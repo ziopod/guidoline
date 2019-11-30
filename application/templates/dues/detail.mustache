@@ -1,0 +1,26 @@
+<article class="content">
+  <header>
+    <h1 class="title">Cotisation n° {{due.id}}</h1>
+    <h2 class="subtitle">Le {{due.pretty_created}}</h2>
+  </header>
+
+  <h4>{{due.to_name}}</h4>
+  <p>
+  {{due.to_contact}}<br>
+  {{due.to_address}}
+  </p>
+
+  <h3>{{due.heading}}</h3>
+  <p>
+    Adhésion pour la période du {{due.pretty_date_start}} au {{due.pretty_date_start}}
+  </p>
+  <ul>
+    <li>Montant {{due.amount}} {{due.currency}}</li>
+  </ul>
+
+  <footer>
+    <p>
+      Bulletin d'adhésion de référence : <a href="{{due.form.url}}">{{due.form.title}}</a>, adhérent de référence <a href="{{due.member.url}}">{{due.member.fullname}}</a>
+    </p>
+  </footer>
+</article>

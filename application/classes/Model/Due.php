@@ -65,6 +65,7 @@ class Model_Due extends ORM {
 			// 	'entity',
 			// ),
 			'currencies' => 'currencies',
+			'pretty_created' => 'pretty_created',
 			'member' => 'member',
 			'form' => 'form',
 			'all_forms' => 'all_forms',
@@ -134,6 +135,14 @@ class Model_Due extends ORM {
 		return strftime(__('date.medium'), strtotime($this->date_start));
 	}
 
+  /**
+   * Pretty created date
+   */
+  public function pretty_created()
+  {
+    return strftime(__('date.medium'), strtotime($this->created));
+  }
+
 	/**
 	 * Pretty period end
 	 *
@@ -143,6 +152,16 @@ class Model_Due extends ORM {
 	{
 		return strftime(__('date.medium'), strtotime($this->date_end));
 	}
+
+  /**
+   * Due URL
+   *
+   * @return String
+   */
+  public function url()
+  {
+    return URL::site(Route::get('due.detail')->uri(array('due_id' => $this->pk())), TRUE);
+  }
 
 	/**
 	 * Active or not
@@ -165,6 +184,7 @@ class Model_Due extends ORM {
 		$object = parent::as_array($embed_paths);
 		// Periods stuffs
 		$object['is_active'] = $this->is_active();
+		$object['url'] = $this->url();
 		$object['pretty_date_start'] = $this->pretty_date_start();
 		$object['pretty_date_end'] = $this->pretty_date_end();
     $embed = $this->_embed($embed_paths);
