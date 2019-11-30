@@ -23,7 +23,7 @@
       <tbody>
         {{#forms.records_count}}
         {{#forms.records}}
-        <tr {{^form.active}}class="faded"{{/form.active}}>
+        <tr {{^form.is_active}}class="faded"{{/form.is_active}}>
           <td><a href="{{form.url}}">{{form.title}}</a></td>
           <td>{{form.description}}</td>
           <td>{{form.price}} {{form.currency.entity}}</td>
@@ -34,7 +34,9 @@
             à partir du {{form.date_start}}
             {{/form.date_start}}
           </td>
-          <td>{{form.dues.records_count}} / {{form.dues_all.records_count}}</td>
+          <td>
+            {{form.dues_all.records_active_count}} / {{form.dues_all.records_count}}
+          </td>
         </tr>
         {{/forms.records}}
         {{/forms.records_count}}

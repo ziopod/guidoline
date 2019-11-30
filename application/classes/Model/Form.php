@@ -381,11 +381,13 @@ class Model_Form extends ORM{
 		{
 			$this->_dues_all = array(
 				'records' => array(),
-				'records_count' => NULL,
+        'records_count' => 0,
+        'records_active_count' => 0,
 			);
 
 			foreach ($this->dues->find_all() as $due)
 			{
+        $this->_dues_all['records_active_count'] += $due->is_active() ? 1 : 0;
 				$this->_dues_all['records'][]['due'] = $due->as_array();
 			}
 
