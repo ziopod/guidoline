@@ -1,6 +1,6 @@
 <?php
 /**
-* Modèle de vue pour l'affichage du détail d'une adhésion `templates/subscriptions/detail.mustache`
+* Affichage d'un bulletin d'adhésion
 *
 * @package    Guidoline
 * @category   View Model
