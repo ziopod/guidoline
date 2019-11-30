@@ -21,6 +21,24 @@ class ORM extends Kohana_ORM {
 
 		return $value;
   }
+
+  /**
+   * Filter convert to case title
+   */
+  static public function case_title($value)
+  {
+    $value = trim($value);
+    $words = explode("-", $value);
+    $result = array();
+
+    foreach ($words as $word)
+    {
+      $result[] = mb_convert_case($word, MB_CASE_TITLE, "UTF-8");
+    }
+
+    $result = implode('-', $result);
+    return $result;
+  }
    /**
 	* Additionnal related embeddable data
 	*
