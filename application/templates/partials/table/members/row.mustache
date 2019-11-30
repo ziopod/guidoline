@@ -14,8 +14,8 @@
   <td>
   {{#member.dues.records_count}}
   {{#member.dues.records}}
-  <a href="{{subscription.url}}" class="{{subscription.icon}}" title="Afficher la facture de l'adhésion {{subscription.title}} de {{member.fullname}}">
-    {{subscription.title}}
+  <a href="{{due.url}}" title="Afficher la cotisation n° {{due.id}} de {{member.fullname}}">
+    {{due.title}}
   </a>
   {{/member.dues.records}}
   {{/member.dues.records_count}}
