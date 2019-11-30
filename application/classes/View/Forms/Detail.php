@@ -14,7 +14,7 @@ class View_Forms_Detail extends View_Master {
 	/**
 	* @vars 	Title 	Le titre de la page
 	**/
-	public $title = "Adhésion - Guidoline";
+	public $title = "Bulletin d'adhésion - Guidoline";
 
 	public function Form()
 	{
