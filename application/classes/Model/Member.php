@@ -254,16 +254,16 @@ class Model_Member extends ORM {
     return $fullname ? $fullname : $this->pk();
 	}
 
-  public function raw_contact()
+  public function address()
   {
-    return
-      $this->street
-      . "\n{$this->zipcode} {$this->city}"
-      . "\n{$this->country}"
-      . "\r"
-      . "\n{$this->phone}"
-      . "\n{$this->email}"
-      ;
+    $address = array(
+      'street' => $this->street,
+      'zipcode' => $this->zipcode,
+      'city'  => $this->city,
+      'country' => $this->country,
+    );
+
+    return array_filter($address, function($value) {return ! is_null($value) && $value !== ''; });
   }
 
 	/**
@@ -271,15 +271,15 @@ class Model_Member extends ORM {
 	 *
 	 * @return String
 	 */
-	public function pretty_phone()
-	{
-    if ($this->phone === NULL)
-    {
-      return NULL;
-    }
+	// public function pretty_phone()
+	// {
+  //   if ($this->phone === NULL)
+  //   {
+  //     return NULL;
+  //   }
 
-		return preg_replace('/(\w{2})(\w{2})(\w{2})(\w{2})(\w{2})$/i', '$1 $2 $3 $4 $5',  $this->phone);
-	}
+	// 	return preg_replace('/(\w{2})(\w{2})(\w{2})(\w{2})(\w{2})$/i', '$1 $2 $3 $4 $5',  $this->phone);
+	// }
 
 	/**
 	 * Birthdate in pretty format
@@ -348,7 +348,7 @@ class Model_Member extends ORM {
         $valid_dues = DB::select(DB::expr('COUNT(*) as count'))
         ->from('dues')
         ->where('member_id', '=', $this->pk())
-        ->and_where(DB::expr('DATE(`date_end`)'), '>', date('Y-m-d'))
+        ->and_where(DB::expr('DATE(`date_end`)'), '>=', date('Y-m-d'))
         ->execute()->get('count') > 0;
         // Save is_active state
         if ( ! $valid_dues)
@@ -357,6 +357,7 @@ class Model_Member extends ORM {
           ->set(array('is_active' => 0))
           ->where('id', '=', $this->pk())
           ->execute();
+          return 0;
         }
       }
     }
@@ -389,7 +390,7 @@ class Model_Member extends ORM {
 
 			foreach ($this->_orm_dues()->where('date_end', '>', date('y-m-d'))->find_all() as $due)
 			{
-				$this->_dues['records'][]['due'] = $due->as_array('currency,form');
+				$this->_dues['records'][]['due'] = $due->as_array('currency');
 			}
 
       $this->_dues['records_count'] = count($this->_dues['records']);
@@ -788,8 +789,6 @@ class Model_Member extends ORM {
 		$data['fullname'] = $this->fullname();
 		$data['pretty_birthdate'] = $this->pretty_birthdate();
 		$data['age'] = $this->age();
-		// Contact
-		$data['pretty_phone'] = $this->pretty_phone();
 		// URL
 		$data['url'] = $this->url();
 		$data['url_edit'] = $this->url_edit();
