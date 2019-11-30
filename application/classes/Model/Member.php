@@ -99,7 +99,6 @@ class Model_Member extends ORM {
 			'lastname' => array(array('not_empty')),
       'birthdate' => array(array('regex', array(':value', '/[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])/'))),
 			'email' => array(
-				array('not_empty'),
 				array('min_length', array(':value', 4)),
 				array('max_length', array(':value', 128)),
 				array('email'),
@@ -130,7 +129,41 @@ class Model_Member extends ORM {
 
 					return $value;
 				}),
-			)
+      ),
+      'firstname' => array(
+        array('ORM::case_title'),
+      ),
+      'lastname' => array(
+        array('ORM::case_title'),
+      ),
+      'email' => array(
+        array('trim'),
+        array('strtolower'),
+        array('ORM::nullish'),
+      ),
+      'gender' => array(array('ORM::nullish')),
+      'street' => array(
+        array('trim'),
+        array('ORM::nullish'),
+      ),
+      'zipcode' => array(
+        array('trim'),
+        array('ORM::nullish'),
+      ),
+      'city' => array(
+        array('trim'),
+        array('mb_strtoupper'),
+        array(function($value) {
+          return str_replace(' ', '-', $value);
+        }),
+        array('ORM::nullish'),
+      ),
+      'phone' => array(
+        array(function($value) {
+          return preg_replace('/(\w{2})(\w{2})(\w{2})(\w{2})(\w{2})$/i', '$1 $2 $3 $4 $5', $value);
+        }),
+        array('ORM::nullish'),
+      ),
 		);
 	}
 
@@ -217,8 +250,21 @@ class Model_Member extends ORM {
 	 */
 	public function fullname()
 	{
-		return ($this->firstname AND $this->lastname) ? $this->firstname . ' ' . $this->lastname : $this->pk();
+    $fullname = trim($this->firstname . ' ' . $this->lastname);
+    return $fullname ? $fullname : $this->pk();
 	}
+
+  public function raw_contact()
+  {
+    return
+      $this->street
+      . "\n{$this->zipcode} {$this->city}"
+      . "\n{$this->country}"
+      . "\r"
+      . "\n{$this->phone}"
+      . "\n{$this->email}"
+      ;
+  }
 
 	/**
 	 * Phone in pretty format
@@ -763,35 +809,37 @@ class Model_Member extends ORM {
 	 * @throws kohana_exception
 	 * @return ORM
 	 */
-	// public function create(Validation $validation = NULL)
-	// {
-	// 	if ( ! $this->_loaded)
-	// 	{
-	// 		$this->_primary_key = $this->_generate_default_pk();
-	// 	}
 
-	// 	return parent::create($validation);
-	// }
+   public function create(Validation $validation = NULL)
+	{
+		if ( ! $this->_loaded)
+		{
+			// $this->idm = $this->_generate_default_idm();
+		}
+
+		return parent::create($validation);
+	}
 
 	/**
-	 * Generate default id
+	 * Generate default IDM
 	 *
-	 * Get the next missing id
+	 * Get the next missing IDM
    *
    * @todo cf Membership::create()
 	 * @return int
 	 */
-	private function _generate_default_pk()
+	private function _generate_default_idm()
 	{
 		// Get first missing id
-		$missing_pk = DB::select(array(DB::expr('`id` + 1'), 'missing_pk'))
+		$missing_idm = DB::select(array(DB::expr('`idm` + 1'), 'missing_idm'))
 			->from($this->_table_name)
 			->where(NULL, 'NOT EXISTS',
-				DB::select($this->_primary_key)
+				DB::select('idm')
 				->from(array($this->_table_name, 'm2'))
-				->where('m2.' . $this->_primary_key, '=', DB::expr("`{$this->_table_name}`.`{$this->_primary_key}` + 1")))
+				->where('m2.idm', '=', DB::expr("`{$this->_table_name}`.`idm` + 1")))
 			->limit(1); // Remove limit for getting all "first" missing pks
+    $missing_idm = $missing_idm->execute()->get('missing_pk');
 
-		return (int) $missing_pk->execute()->get('missing_pk');
+		return $missing_idm === NULL ? 1 : (int) $missing_idm;
 	}
 }
