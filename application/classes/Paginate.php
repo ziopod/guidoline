@@ -170,7 +170,7 @@ class Paginate {
       ));
 		}
 
-		$paginate['show'] = count($paginate['pagination']['links']) > 1 ? TRUE : FALSE;
+		$paginate['show'] = $paginate['total_page'] > 1;
 
 		return $paginate;
 
