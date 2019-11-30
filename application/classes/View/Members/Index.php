@@ -211,7 +211,7 @@ class View_Members_Index extends View_Master {
       );
 
       $this->_members['total_count'] = $this->_members_query()->count_all();
-      $limit = 200;
+      $limit = 100;
 
       $this->_members['paginate'] = (new Paginate(array(
         'url_prefix' => '/adherents/' . Request::current()->param('filter') . '/',
@@ -228,7 +228,7 @@ class View_Members_Index extends View_Master {
 
       foreach ($members as $member)
       {
-        $this->_members['records'][]['member'] = $member->as_array();
+        $this->_members['records'][]['member'] = $member->as_array('dues');
       }
 
       $this->_members['records_count'] = count($this->_members['records']);
