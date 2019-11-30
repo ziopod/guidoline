@@ -90,3 +90,7 @@ input.checkbox-button:checked + label.checkbox.button {
   color: $white;
 }
 input.checkbox-button { display: none;}
+
+
+/** Helper **/
+.nowrap { white-space: nowrap;}

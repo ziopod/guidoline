@@ -8059,4 +8059,8 @@ input.checkbox-button:checked + label.checkbox.button {
 input.checkbox-button {
   display: none; }
 
+/** Helper **/
+.nowrap {
+  white-space: nowrap; }
+
 /*# sourceMappingURL=styles.css.map */
