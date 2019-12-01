@@ -12,7 +12,7 @@ Dues
 
 ## Adhérents
 
-Member
+Members
 
 ## Utilisateurs
 
