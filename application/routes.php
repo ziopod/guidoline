@@ -10,7 +10,7 @@
 * GET  /<folio>         : Pagination
 */
 Route::set('members', 'adherents(/<filter>)(/<folio>)', array(
-  'filter' => '(actifs|inactifs|tous)',
+  'filter' => '(actifs|inactifs)',
   'folio' => '\d+',
   ))
   ->filter(function($route, $params, $request) {
@@ -20,7 +20,7 @@ Route::set('members', 'adherents(/<filter>)(/<folio>)', array(
     'action'      => 'instanciate',
     'view'        => 'Members/Index',
     'folio'       => 1,
-    'filter'      => 'tous'
+    'filter'      => '',
   ));
 
  /**
@@ -50,11 +50,16 @@ Route::set('member.detail', 'adherents/detail/<member_id>', array(
 /**
  * Affichage des bulletins d'adhésions
  */
-Route::set('forms', 'bulletins')
+Route::set('forms', 'bulletins(/<filter>)(/<folio>)', array(
+  'filter' => '(actifs|inactifs)',
+  'folio'  => '\d+',
+  ))
   ->defaults(array(
     'controller'  => 'MVVM_Private',
     'action'      => 'instanciate',
-    'view'        => 'Forms/Index'
+    'view'        => 'Forms/Index',
+    'folio'       => 1,
+    'filter'      => 'actifs',
   ));
 
 /**
@@ -82,6 +87,18 @@ Route::set('form.detail', 'bulletins/detail/<form_id>', array(
 ));
 
 /**
+ * Détail d'une adhésion
+ */
+Route::set('due.detail', 'dues/detail/<due_id>', array(
+  'due_id'  => '\d+',
+))
+->defaults(array(
+  'controller'  => 'MVVM_Private',
+  'action'      => 'instanciate',
+  'view'        => 'Dues/Detail',
+));
+
+/**
  * About page
  */
 Route::set('page.about', 'a-propos')
@@ -105,6 +122,13 @@ Route::set('auth.logout', 'deconnexion')
   'action'     => 'instanciate',
   'view'       => 'Dashboard',
 ));
+
+// Defaults
+// Route::set('default_controller', '(<controller>(/<action>(/<id>)))')
+//   ->defaults(array(
+//     'controller' => 'Dashboard',
+//     'action'     => 'index',
+//   ));
 
 // Tente de capturer une vue par défaut
 // Un format de rendu peut être choisi
