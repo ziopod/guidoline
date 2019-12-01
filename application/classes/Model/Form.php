@@ -318,6 +318,16 @@ class Model_Form extends ORM{
     return strtotime($this->duration) - time();
   }
 
+  /**
+   * Determine si le bulletin est renouvelable
+   *
+   * @return Boolean
+   */
+  public function is_renewable()
+  {
+    return $this->date_start === NULL;
+  }
+
 	/**
 	 * Form actives dues
 	 *
@@ -538,7 +548,7 @@ class Model_Form extends ORM{
 		// Periods stuffs
 		$object['pretty_period_type'] = $this->pretty_period_type();
 		$object['free_period_start'] = $this->free_period_start();
-		// $object['date_start'] = $this->date_start();
+		$object['is_renewable'] = $this->is_renewable();
 		$object['date_end'] = $this->date_end();
 		$object['pretty_date_start'] = $this->pretty_date_start();
 		$object['pretty_date_end'] = $this->pretty_date_end();
