@@ -315,29 +315,20 @@ class Model_Form extends ORM{
    - https://www.php.net/manual/fr/class.datetime.php
 */
   /**
-   * Date de début pour les factures
+   * Date de fin de validité du bulletin
    *
    * @return String
    */
-  // public function date_start()
-  // {
-  //   if ($this->date_start === 'form')
-  //   {
-  //     return $this->date_start;
-  //   }
-
-  //   // Due type
-  //   return Date('Y-m-d');
-
-  // }
-
   public function date_end()
   {
-
-    // Due type
     return Date('Y-m-d', strtotime($this->date_start) + $this->duration());
   }
 
+  /**
+   * Durée du bulletin
+   *
+   * @return String
+   */
   public function duration($output = "years,months,weeks,days,hours,minutes,seconds")
   {
     return strtotime($this->duration) - time();
