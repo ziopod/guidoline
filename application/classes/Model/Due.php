@@ -18,21 +18,7 @@ class Model_Due extends ORM {
 	protected $_belongs_to = array(
 		'member' => array(),
 		'form' => array(),
-		'currency' => array(
-			'foreign_key' => 'currency_code'
-		),
 	);
-
-  /**
-   * @todo: Clean that
-   */
-	protected $_has_many = array(
-		'currencies' => array(),
-	);
-
-	// protected $has_one = array(
-	// 	'currency' => array(),
-	// );
 
 	/**
 	 * @var Array All actives dues
@@ -60,42 +46,11 @@ class Model_Due extends ORM {
 	public function embeddable()
 	{
 		return array(
-			'currency' => 'currency',
-			// 'currency' => array(
-			// 	'entity',
-			// ),
-			'currencies' => 'currencies',
 			'pretty_created' => 'pretty_created',
 			'member' => 'member',
 			'form' => 'form',
 			'all_forms' => 'all_forms',
 		);
-	}
-
-	/**
-	 * Related currency
-   *
-   * @todo Clean that
-   * @return Array
-	 */
-	// public function currency()
-	// {
-	// 	return $this->currency->as_array();
-	// }
-
-	/**
-	 * Find all currencies and mark related as current
-	 *
-	 * @return Array
-	 */
-	public function currencies()
-	{
-		if ( ! $this->_currencies)
-		{
-			$this->_currencies = $this->currencies->find_all_as_array($this->currency_code);
-		}
-
-		return $this->_currencies;
 	}
 
 	/**
