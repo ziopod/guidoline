@@ -18,7 +18,7 @@ class View_Forms_Detail extends View_Master {
 
 	public function Form()
 	{
-    $form =  ORM::factory('Form', Request::initial()->param('form_id'))->as_array('dues,dues_all');
+    $form =  ORM::factory('Form', Request::initial()->param('form_id'))->as_array('dues_all');
 		return $form;
 	}
 
