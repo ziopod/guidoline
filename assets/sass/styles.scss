@@ -65,8 +65,8 @@ table.table tr.faded {
   fill: $primary;
 }
 
-.button.is-primary.is-hovered .icon,
-.button.is-primary:hover .icon,
+.button.is-primary.is-hovered:not([disabled]) .icon,
+.button.is-primary:hover:not([disabled]) .icon,
 input.checkbox-button:checked + label.checkbox.button .icon {
   fill: $primary-invert;
 }

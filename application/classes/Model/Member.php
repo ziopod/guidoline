@@ -514,8 +514,6 @@ class Model_Member extends ORM {
         'records_count' => NULL,
       );
 
-      // $this->date_end >= date('Y-m-d');
-      // $current_forms = $this->dues->where(DB::expr('DATE(`date_end`)'), '<', date('Y-m-d'))->as_array('form_id');
       $current_forms = DB::select('form_id')
       ->distinct(TRUE)
       ->from('dues')
@@ -530,13 +528,11 @@ class Model_Member extends ORM {
       {
         $member_form = $member_form->as_array();
         $member_form['current'] = in_array($member_form['id'], $current_forms);
+        $member_form['disabled'] = $member_form['current'] && ! $member_form['is_renewable'] ? 'disabled' : '';
         $this->_forms_all['records'][]['member_form'] = $member_form;
       };
 
       $this->_forms_all['records_count'] = count($this->_forms_all['records']);
-
-      // echo Debug::vars($this->_forms_all);
-
     }
 
     return $this->_forms_all;
@@ -568,7 +564,6 @@ class Model_Member extends ORM {
       $this->_forms['records_count'] = count($this->_forms['records']);
     }
 
-    // echo Debug::vars($this->_forms);
     return $this->_forms;
   }
 

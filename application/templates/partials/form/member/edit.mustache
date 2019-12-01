@@ -87,13 +87,11 @@
       <b>Note</b> : Une fois une cotisation ajoutée, la fiche ne pourras plus être suprimée.
     </p>
     {{/member.forms_all.records_count}}
-    {{#member.forms_all.records}}
-    {{/member.forms_all.records}}
     {{/member.dues.records}}
     <ul class="is-unstyled">
       {{#member.dues.records}}
       <li>
-        {{due.form.title}} (#{{due.id}})<br>
+        {{due.title}} (#{{due.id}})<br>
         {{due.amount}} {{due.currency.entity}}<br>
         jusqu'au : {{due.pretty_date_end}}
       </li>
@@ -113,14 +111,15 @@
       {{#member.forms_all.records}}
       <li class="field">
         <div class="control content">
-          <input class="checkbox-button" type="checkbox" id="member-form-{{member_form.id}}" name="member_forms[]" value="{{member_form.id}}">
-          <label class="checkbox button is-primary is-outlined is-large" for="member-form-{{member_form.id}}">
+          <input class="checkbox-button" type="checkbox" id="member-form-{{member_form.id}}" name="member_forms[]" value="{{member_form.id}}" {{member_form.disabled}} >
+          <label class="checkbox button is-primary is-outlined is-large" for="member-form-{{member_form.id}}" {{member_form.disabled}}>
             <span class="icon is-large">
               <img class="icon-injector icon-aspect-hover" src="/assets/svg/checkmark-circle.svg" alt="icon name">
               <img class="icon-injector icon-aspect-link" src="/assets/svg/circle.svg" alt="icon name">
             </span>
             <div class="is-size-5">{{member_form.title}}
-            <span class="has-text-weight-bold"> {{member_form.price}} {{form.currency.label}} €</span></div>
+              <span class="has-text-weight-bold"> {{member_form.price}} {{form.currency.label}} €</span>
+            </div>
           </label>
         </div>
       </li>
