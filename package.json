@@ -2,16 +2,14 @@
   "name": "guidoline",
   "description": "Guidoline",
   "main": "index.js",
-  "dependencies": {
-    "bulma": "^0.8.0",
-    "bulma-checkradio": "^1.1.1",
-    "bulma-divider": "^0.2.0",
-    "bulma-switch": "^2.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "browser-sync": "^2.26.7",
     "node-sass": "^4.13.0",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "bulma": "^0.8.0",
+    "bulma-divider": "^0.2.0",
+    "bulma-switch": "^2.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
