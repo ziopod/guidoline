@@ -21,7 +21,6 @@ class View_Members_Index extends View_Master {
    */
   protected $_limit = 100;
 
-
   /**
    * Le filtre courant
    *
@@ -31,6 +30,21 @@ class View_Members_Index extends View_Master {
   public function current_filter()
   {
     return Request::current()->param('filter');
+  }
+
+  /**
+   * Affihchage du filtre courant
+   *
+   * @return String
+   */
+  public function current_filter_label()
+  {
+    return Arr::get(array(
+      '' => 'tous',
+      'actifs' => 'actifs',
+      'inactifs' => 'inactifs',
+      'benevoles' => 'bénévoles',
+    ), $this->current_filter());
   }
 
   /**
