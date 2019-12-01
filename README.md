@@ -2,7 +2,7 @@
 
 Gestion d'adhérents Guidoline.
 
-## Bulletin d'adhésions
+## Bulletins d'adhésions
 
 Forms
 
