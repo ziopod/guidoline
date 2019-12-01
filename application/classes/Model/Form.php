@@ -226,7 +226,6 @@ class Model_Form extends ORM{
 	public function pretty_duration()
 	{
     $date_span = Date::span($this->duration(), $this->duration() + $this->duration());
-    // $date_span = $this->duration();
 		$years = $date_span['years'];
 		$months = $date_span['months'];
 		$days = $date_span['days'];
@@ -263,7 +262,6 @@ class Model_Form extends ORM{
 			$formatted_days = $days . ' ' . __('day');
 		}
 
-
 		// 1, 1, 1
 		if ($years > 0 AND $months > 0 AND $days > 0)
 		{
@@ -299,21 +297,7 @@ class Model_Form extends ORM{
 	{
 		return strftime(__('datetime.long'), strtotime($this->created));
   }
-  /*
-  `period_start` et `period_end` sont des dates de références servant à définir un espace de temps.
 
-  Lorsque `period_type` vaut `form`, `period_start` détermine le début de validité et `period_end` la fin de validité de la cotisation.
-  Quand `period_type` vaut `due`, c'est `date_start`et `date_end` de la date de cotisation (`due`) qui determine la période de validité.
-
-  Si `renewable` vaut FALSE, alors le bulletin d'adhésion deviendra inactif à la date d'échéance `period_dend`;
-
-
-  Les rappel de cotisation avec VTODO et VALARM
-
-  Doc sur les date :
-   - https://www.php.net/manual/fr/book.datetime.php
-   - https://www.php.net/manual/fr/class.datetime.php
-*/
   /**
    * Date de fin de validité du bulletin
    *
@@ -332,8 +316,6 @@ class Model_Form extends ORM{
   public function duration($output = "years,months,weeks,days,hours,minutes,seconds")
   {
     return strtotime($this->duration) - time();
-    return Date::span($this->duration_to_time, $this->duration_to_time + $this->duration_to_time);
-    return Date::span(strtotime($this->date_start()), strtotime($this->date_end()), $output);
   }
 
 	/**
@@ -486,12 +468,6 @@ class Model_Form extends ORM{
             'error' => Arr::get($errors, 'price'),
           )
         ),
-        // @todo : convertir:
-        // View_Master::records_to_options()
-        // ORM::records_to_options()
-        // Définir les options avec:
-        // ORM::records_to_options($this->html_select_currencies())
-        // Passer en revue Model_Member::html_select_genders()
         'select_currencies' => array(
           'field' => array(
             'label' => __('Devise'),
@@ -505,7 +481,6 @@ class Model_Form extends ORM{
             'label'   => __('Prix libre'),
             'name'    => 'free_price',
             'id'      => 'free_price',
-            // 'value'   => $this->free_price,
             'checked' => $this->free_price ? 'checked' : NULL,
           )
         ),
@@ -559,7 +534,6 @@ class Model_Form extends ORM{
 	public function as_array($embed_paths = NULL)
 	{
     $object = parent::as_array($embed_paths);
-    // $object['edit_url'] = $this->edit_url();
     $object['currency'] = $this->currency();
 		// Periods stuffs
 		$object['pretty_period_type'] = $this->pretty_period_type();
@@ -576,53 +550,4 @@ class Model_Form extends ORM{
     $embed = $this->_embed($embed_paths);
 		return array_merge($object, $embed);
 	}
-
-//------------- CLEAN THIS AREA ----------------//
-
-	/**
-	* Prefill somes defaults values
-	**/
-	public function __construct($id = NULL)
-	{
-		// /!\ ne pas utilisaer cast_data, pose des problème avec un find_all
-		// Tester $this->_table_columns.gender.column_default
-		// $this->_cast_data = array(
-		// 	'period_type' => 'form',
-		// 	'period_start' => date('Y', time()) . '-01-01',
-		// 	'period_end' => date('Y', time()) + 1 . '-01-01',
-		// 	'price' => '0.00',
-		// 	'currency' => Kohana::$config->load('guidoline.currency.default'),
-		// 	'free_price'  => TRUE,
-		// 	'renewable'   => TRUE,
-		// 	'active'      => TRUE,
-		// );
-		parent::__construct($id);
-	}
-
-	/**
-	* Defaults values
-	*
-	* @param   string  $column  Column name
-	* @throws  Kohana_Exception
-	* @return  mixed
-	**/
-	public function get($column)
-	{
-		// Cf. ORM::$_table_columns[$column]['column_default']
-		if ( ! $this->_loaded)
-		{
-			switch ($column) {
-				case 'period_type':
-					return 'form'; // Default database definition ?
-					break;
-
-				default:
-					// continue;
-					break;
-			}
-		}
-
-		return parent::get($column);
-	}
-
 }
