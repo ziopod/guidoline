@@ -284,6 +284,28 @@ class View_Master {
 
     return $config;
   }
+
+  /**
+   * Lambdas Mustache pour les filtres
+   *
+   * https://github.com/bobthecow/mustache.php/wiki/Mustache-Tags#lambdas
+   *
+   * @return string
+   */
+  public function is_filter_active()
+  {
+    return function($filter, $helper)
+    {
+      if ($filter === Request::current()->param('filter'))
+      {
+        return "is-active";
+      }
+
+      return FALSE;
+    };
+  }
+
+
 	/**
 	* Méthode utilitaire pour Mustache, encapsule un tableau dans objet.
 	*
