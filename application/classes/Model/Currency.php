@@ -54,4 +54,5 @@ class Model_Currency extends ORM {
 
 		return $this->_currencies;
 	}
+
 }
