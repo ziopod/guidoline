@@ -373,13 +373,13 @@ class Model_Member extends ORM {
 	public function dues()
 	{
     // If member is unactive, no dues are possible
-    // if ( ! $this->is_active)
-    // {
-		// 	$this->_dues = array(
-		// 		'records' => array(),
-		// 		'records_count' => 0,
-    //   );
-    // }
+    if ( ! $this->is_active)
+    {
+			$this->_dues = array(
+				'records' => array(),
+				'records_count' => 0,
+      );
+    }
 
 		if ( ! $this->_dues)
 		{
