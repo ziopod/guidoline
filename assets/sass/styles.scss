@@ -23,7 +23,7 @@ legend {
 }
 
 ul.is-unstyled {
-  list-style: none;
+  list-style: none !important;
   margin-left: 0;
   margin-top: 0;
 }
@@ -91,6 +91,6 @@ input.checkbox-button:checked + label.checkbox.button {
 }
 input.checkbox-button { display: none;}
 
-
 /** Helper **/
 .nowrap { white-space: nowrap;}
+.has-cursor-default {cursor: default;}

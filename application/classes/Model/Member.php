@@ -210,7 +210,8 @@ class Model_Member extends ORM {
 			),
 			'skills'     => 'skills',
 			'skills_all' => 'skills_all',
-			'dues' => 'dues',
+      'dues' => 'dues',
+      'dues_with_form' => 'dues_with_form',
 			'dues_history' => 'dues_history',
       'genders' => 'genders',
       'forms_all' => 'forms_all',
@@ -394,7 +395,6 @@ class Model_Member extends ORM {
 			}
 
       $this->_dues['records_count'] = count($this->_dues['records']);
-      // echo Debug::vars($this->_dues);
 		}
 
 		return $this->_dues;
@@ -557,6 +557,18 @@ class Model_Member extends ORM {
 
         if ($form['member_form']['current'] === TRUE)
         {
+
+          $form_dues = array_map(function($due) use($form)
+          {
+            // echo Debug::vars($form);
+            if ($due['due']['form_id'] == $form['member_form']['id'])
+            return $due;
+          },
+            $this->dues()['records']
+          );
+
+          $form['member_form']['dues']['records'] = $form_dues;
+          $form['member_form']['dues']['records_count'] = count($form_dues);
           $this->_forms['records'][] = $form;
         }
       }

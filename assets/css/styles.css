@@ -7579,7 +7579,7 @@ legend {
   margin-bottom: 0.75em; }
 
 ul.is-unstyled {
-  list-style: none;
+  list-style: none !important;
   margin-left: 0;
   margin-top: 0; }
 
@@ -7631,5 +7631,8 @@ input.checkbox-button {
 /** Helper **/
 .nowrap {
   white-space: nowrap; }
+
+.has-cursor-default {
+  cursor: default; }
 
 /*# sourceMappingURL=styles.css.map */
