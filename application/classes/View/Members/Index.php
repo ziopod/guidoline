@@ -7,34 +7,80 @@
 class View_Members_Index extends View_Master {
 
   /**
-   * @var String
+   * @var String $title   Titre de la page
    */
   public $title = "Adhérents — Guidoline";
 
   /**
-   * Liste des membres
-   *
-   * @return Array
+   * @var Array $_members   Liste des membres
    */
-
   protected $_members;
 
+  /**
+   * @var Integer   $_limit   Limite pour la requête
+   */
+  protected $_limit = 100;
+
+
+  /**
+   * Le filtre courant
+   *
+   * Aide également à peupler le l'URL `action` du formulaire.
+   * @return String
+   */
+  public function current_filter()
+  {
+    return Request::current()->param('filter');
+  }
+
+  /**
+   * Requête de recherche courante
+   *
+   * Aide notamment à peupler l'URL `action` du formulaire.
+   *
+   * @return String
+   */
+  public function current_search()
+  {
+    return Request::current()->query('rechercher');
+  }
+
+ /**
+   * Le contenu de le recherche courante
+   *
+   * Pour récupérer la recherche courante sous forme de requête :
+   *
+   * ~~~
+   * URL::query(Request::current()->query())
+   * ~~~
+   *
+   * @return String
+   */
+
+  public function current_query_search()
+  {
+    return URL::query(Request::current()->query());
+  }
+
+  /**
+   * Requête pour les adhérents
+   *
+   * @return ORM
+   */
   protected function _members_query()
   {
     // Add query here
     $filters = array(
       'actifs' => 1,
       'inactifs' => 0,
-      'tous' => NULL
     );
 
-    $filter = $filters[$this->current_filter()];
-
+    $is_active = Arr::get($filters, $this->current_filter());
     $members = ORM::factory('Member');
 
-    if ($filter !== NULL)
+    if ($is_active !== NULL)
     {
-      $members->where('is_active', '=', $filter);
+      $members->where('is_active', '=', $is_active);
     }
 
     // Requête de recherche
@@ -142,58 +188,6 @@ class View_Members_Index extends View_Master {
   }
 
   /**
-   * Le filtre courant
-   *
-   * @return String
-   */
-  public function current_filter()
-  {
-    return Request::current()->param('filter');
-  }
-
-  /**
-   * Le contenu de le recherche courante
-   *
-   * Pour récupérer la recherche courante sous forme de requête :
-   *
-   * ~~~
-   * URL::query(Request::current()->query())
-   * ~~~
-   *
-   * @return String
-   */
-  public function current_search()
-  {
-    return Request::current()->query('rechercher');
-  }
-
-  public function current_query_search()
-  {
-    return URL::query(Request::current()->query());
-  }
-  /**
-   * Lambdas pour les filtres
-   *
-   * https://github.com/bobthecow/mustache.php/wiki/Mustache-Tags#lambdas
-   *
-   * @return string
-   */
-  public function is_filter_active()
-  {
-    return function($filter, $helper)
-    {
-      if ($filter === Request::current()->param('filter'))
-      {
-        return "is-active";
-      }
-
-      return FALSE;
-      echo Debug::vars(Request::current()->param('filter'));
-      echo Debug::vars($filter);
-    };
-  }
-
-  /**
    * @todo  Créer un helper pour wrapper les résultats d'ORM dans un
    * tableau JSON friendly.
    * Considérer : les queries, les données à embarquer et la pagination.
@@ -205,21 +199,24 @@ class View_Members_Index extends View_Master {
     {
       $this->_members = array(
         'records_count' => 0,
-        'total_count' => 0,
+        'total_count' => $this->_members_query()->count_all(),
         'records' => array(),
         'paginate' => array(),
       );
 
-      $this->_members['total_count'] = $this->_members_query()->count_all();
-      $limit = 100;
-
+      // Pagination
       $this->_members['paginate'] = (new Paginate(array(
-        'url_prefix' => '/adherents/' . Request::current()->param('filter') . '/',
-      )))->create(
-        Request::current()->param('folio'),
-        $limit,
-        $this->_members['total_count']
-      );
+        'url_prefix' => URL::site(
+          Route::get('members')->uri(array(
+            'filter' => $this->current_filter()
+          )),
+          TRUE) . '/'
+        )))
+        ->create(
+          Request::current()->param('folio'),
+          $this->_limit,
+          $this->_members['total_count']
+        );
 
       $members = $this->_members_query()
         ->offset($this->_members['paginate']['offset'])
