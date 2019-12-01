@@ -1,12 +1,12 @@
-# guidoline
+# Guidoline
 
-Guidoline
+Gestion d'adhérents Guidoline.
 
-## Bulletin d'ahdésions
+## Bulletin d'adhésions
 
 Forms
 
-## Adhésions
+## Cotisations
 
 Dues
 
