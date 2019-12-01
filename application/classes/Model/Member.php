@@ -654,13 +654,39 @@ class Model_Member extends ORM {
   /**
    * Next ID Member
    *
+   * Find the next missing IDM
+   *
+   * Or for ignoring missing IDMs and just find the next one, use :
+   * ~~~
+   * DB::query(Database::SELECT, 'SELECT max(`idm`) AS idm FROM members')
+   *   ->execute()
+   *   ->get('idm') + 1;
+   * ~~~
+   *
    * @return Integer
    */
   public function next_idm()
   {
-    return DB::query(Database::SELECT, 'SELECT max(`idm`) AS idm FROM members')
-      ->execute()
-      ->get('idm') + 1;
+    $next_missing_idms = $this->_next_missing_idms();
+    return array_shift($next_missing_idms);
+  }
+
+  /**
+   * Next mising IDMs
+   *
+   * @return Array
+   */
+  protected function _next_missing_idms()
+  {
+		$next_missing_idms = DB::select(array(DB::expr('`idm` + 1'), 'next_missing_idm'))
+			->from($this->_table_name)
+			->where(NULL, 'NOT EXISTS',
+				DB::select('idm')
+				->from(array($this->_table_name, 'members_bis'))
+				->where('members_bis.idm', '=', DB::expr("`{$this->_table_name}`.`idm` + 1")));
+    $next_missing_idms = array_keys($next_missing_idms->execute()->as_array('next_missing_idm'));
+
+		return count($next_missing_idms) === 0 ? array(1) : $next_missing_idms;
   }
 
   /**
@@ -800,45 +826,4 @@ class Model_Member extends ORM {
 		return array_merge($data, $embed);
 	}
 
-	/**
-	 * Extend parent::create() method for adding a next missing primary key
-	 *
-   * @todo Ne pas intervenir sur la clef primaire! exploiter le champ `idm`
-	 * @param  validation  $validation  Validation object
-	 * @throws kohana_exception
-	 * @return ORM
-	 */
-
-   public function create(Validation $validation = NULL)
-	{
-		if ( ! $this->_loaded)
-		{
-			// $this->idm = $this->_generate_default_idm();
-		}
-
-		return parent::create($validation);
-	}
-
-	/**
-	 * Generate default IDM
-	 *
-	 * Get the next missing IDM
-   *
-   * @todo cf Membership::create()
-	 * @return int
-	 */
-	private function _generate_default_idm()
-	{
-		// Get first missing id
-		$missing_idm = DB::select(array(DB::expr('`idm` + 1'), 'missing_idm'))
-			->from($this->_table_name)
-			->where(NULL, 'NOT EXISTS',
-				DB::select('idm')
-				->from(array($this->_table_name, 'm2'))
-				->where('m2.idm', '=', DB::expr("`{$this->_table_name}`.`idm` + 1")))
-			->limit(1); // Remove limit for getting all "first" missing pks
-    $missing_idm = $missing_idm->execute()->get('missing_pk');
-
-		return $missing_idm === NULL ? 1 : (int) $missing_idm;
-	}
 }
