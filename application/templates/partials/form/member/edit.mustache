@@ -80,85 +80,84 @@
     </div>
   </fieldset>
   <div class="columns">
-  <fieldset class="column">
-    <legend>Cotisations</legend>
-    {{^member.dues.records}}
-    {{#member.forms_all.records_count}}
-    <p class="help">
-      <b>Note</b> : Une fois une cotisation ajoutée, la fiche ne pourras plus être suprimée.
-    </p>
-    {{/member.forms_all.records_count}}
-    {{/member.dues.records}}
-    <ul class="is-unstyled">
-      {{#member.forms_all.records}}
-      <li class="field">
-        <div class="control content">
-          <input class="checkbox-button" type="checkbox" id="member-form-{{member_form.id}}" name="member_forms[]" value="{{member_form.id}}" {{member_form.disabled}} >
-          <label class="checkbox button is-primary is-outlined is-large" for="member-form-{{member_form.id}}" {{member_form.disabled}}>
-            <span class="icon is-large">
-              <img class="icon-injector icon-aspect-hover" src="/assets/svg/checkmark-circle.svg" alt="icon name">
-              <img class="icon-injector icon-aspect-link" src="/assets/svg/circle.svg" alt="icon name">
-            </span>
-            <div class="is-size-5">
-              {{#member_form.free_price}}
-              <div class="level">
-                <div class="level-item">
-                  {{member_form.title}}
-                </div>
-                <div style="padding: 0 .5em" class="level-item">
-                  <div classs="control">
-                    <input style="width: auto" class="input" min="{{member_form.price}}" type="number" name="free_price" id="free_price" value="{{member_form.price}}">
+    <fieldset class="column">
+      <legend>Cotisations</legend>
+      {{^member.dues.records}}
+      {{#member.forms_all.records_count}}
+      <p class="help">
+        <b>Note</b> : Une fois une cotisation ajoutée, la fiche ne pourras plus être suprimée.
+      </p>
+      {{/member.forms_all.records_count}}
+      {{/member.dues.records}}
+      <ul class="is-unstyled">
+        {{#member.forms_all.records}}
+        <li class="field">
+          <div class="control content">
+            <input class="checkbox-button" type="checkbox" id="member-form-{{member_form.id}}" name="member_forms[]" value="{{member_form.id}}" {{member_form.disabled}} >
+            <label class="checkbox button is-primary is-outlined is-large" for="member-form-{{member_form.id}}" {{member_form.disabled}}>
+              <span class="icon is-large">
+                <img class="icon-injector icon-aspect-hover" src="/assets/svg/checkmark-circle.svg" alt="icon name">
+                <img class="icon-injector icon-aspect-link" src="/assets/svg/circle.svg" alt="icon name">
+              </span>
+              <div class="is-size-5">
+                {{#member_form.free_price}}
+                <div class="level">
+                  <div class="level-item">
+                    {{member_form.title}}
                   </div>
+                  <div style="padding: 0 .5em" class="level-item">
+                    <div classs="control">
+                      <input style="width: auto" class="input" min="{{member_form.price}}" type="number" name="free_price" id="free_price" value="{{member_form.price}}">
+                    </div>
+                  </div>
+                  <b class="level-item">
+                    {{member_form.currency.entity}}
+                  </b>
                 </div>
-                <b class="level-item">
+                {{/member_form.free_price}}
+                {{^member_form.free_price}}
+                {{member_form.title}}
+                <b>
+                  {{member_form.price}}
                   {{member_form.currency.entity}}
                 </b>
+                {{/member_form.free_price}}
               </div>
-              {{/member_form.free_price}}
-              {{^member_form.free_price}}
+            </label>
+          </div>
+        </li>
+        {{/member.forms_all.records}}
+        {{^member.forms_all.records_count}}
+        <li><p>Aucun bullletin d'adhésion actif<p></li>
+        {{/member.forms_all.records_count}}
+      </ul>
+    </fieldset>
+    {{#member.forms.records}}
+    <div class="column">
+      <legend>Cotisation actives</legend>
+      <ul class="is-unstyled">
+        <li class="field">
+        <span class="button is-warning is-hovered is-large has-cursor-default">
+              <span class="icon is-large">
+                <img class="icon-injector" src="/assets/svg/checkmark-circle.svg" alt="icon name">
+              </span>
+              <div class="is-size-5">
               {{member_form.title}}
-              <b>
-                {{member_form.price}}
-                {{member_form.currency.entity}}
-              </b>
-              {{/member_form.free_price}}
-            </div>
-          </label>
-        </div>
-      </li>
-      {{/member.forms_all.records}}
-      {{^member.forms_all.records_count}}
-      <li><p>Aucun bullletin d'adhésion actif<p></li>
-      {{/member.forms_all.records_count}}
-    </ul>
-  </fieldset>
-  <div class="column">
-    <legend>Cotisation actives</legend>
-    <ul class="is-unstyled">
-      {{#member.forms.records}}
-      <li class="field">
-       <span class="button is-warning is-hovered is-large has-cursor-default">
-            <span class="icon is-large">
-              <img class="icon-injector" src="/assets/svg/checkmark-circle.svg" alt="icon name">
-            </span>
-            <div class="is-size-5">
-            {{member_form.title}}
-            <span class="has-text-weight-bold"> {{member_form.price}} {{form.currency.label}} €</span></div>
-        </span>
-        {{#member_form.dues.records_count}}
-        <ul class="help is-unstyled">
-        {{#member_form.dues.records}}
-          <li>
-            Cotisation <a href="{{due.url}}" target="_blank">#{{due.id}}</a> de {{due.amount}} {{due.currency}} jusqu'au : {{due.pretty_date_end}}
-          </li>
-        {{/member_form.dues.records}}
-        </ul>
-        {{/member_form.dues.records_count}}
-      </li>
-      {{/member.forms.records}}
-
-    <ul>
-  </div>
+              <span class="has-text-weight-bold"> {{member_form.price}} {{form.currency.label}} €</span></div>
+          </span>
+          {{#member_form.dues.records_count}}
+          <ul class="help is-unstyled">
+          {{#member_form.dues.records}}
+            <li>
+              Cotisation <a href="{{due.url}}" target="_blank">#{{due.id}}</a> de {{due.amount}} {{due.currency}} jusqu'au : {{due.pretty_date_end}}
+            </li>
+          {{/member_form.dues.records}}
+          </ul>
+          {{/member_form.dues.records_count}}
+        </li>
+      <ul>
+    </div>
+    {{/member.forms.records}}
   </div>
 
   <div class="field is-grouped is-grouped-right">
