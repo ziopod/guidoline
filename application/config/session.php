@@ -2,6 +2,13 @@
 
 return array(
     'native' => array(
-		'name' => getEnv('COOKIE_NAME'),
-	),
+      'name' => getEnv('SESSION_NAME'),
+      'lifetime' => 86400,
+    ),
+    'cookie' => array(
+      'name' => getEnv('COOKIE_NAME'),
+      'encrypted' => TRUE,
+      'salt' => getEnv('COOKIE_SALT'),
+      'lifetime' => 86400,
+    )
 );
