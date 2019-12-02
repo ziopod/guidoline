@@ -736,6 +736,7 @@ class Model_Member extends ORM {
             'id'    => 'lastname',
             'value' => $this->lastname,
             'error' => Arr::get($errors, 'lastname'),
+            'required' => 'required',
             )
           ),
           'firstname' => array(
@@ -745,6 +746,7 @@ class Model_Member extends ORM {
               'id'    => 'firstname',
               'value' => $this->firstname,
               'error' => Arr::get($errors, 'firstname'),
+              'required' => 'required',
           )
         ),
         'birthdate' => array(
