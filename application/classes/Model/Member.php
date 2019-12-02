@@ -558,14 +558,21 @@ class Model_Member extends ORM {
         if ($form['member_form']['current'] === TRUE)
         {
 
-          $form_dues = array_map(function($due) use($form)
-          {
-            // echo Debug::vars($form);
-            if ($due['due']['form_id'] == $form['member_form']['id'])
-            return $due;
-          },
-            $this->dues()['records']
+          $form_dues = array_filter(
+            $this->dues()['records'],
+            function($due) use($form)
+            {
+              // echo Debug::vars($form);
+              if ($due['due']['form_id'] != $form['member_form']['id'])
+              {
+                return FALSE;
+              }
+              return $due;
+            }
           );
+          // Patch : Reset des clefs des tableau pour éviter une erreur
+          // d'interprétation de Mustache PHP
+          $form_dues = array_values($form_dues);
 
           $form['member_form']['dues']['records'] = $form_dues;
           $form['member_form']['dues']['records_count'] = count($form_dues);
@@ -574,6 +581,7 @@ class Model_Member extends ORM {
       }
 
       $this->_forms['records_count'] = count($this->_forms['records']);
+
     }
 
     return $this->_forms;
