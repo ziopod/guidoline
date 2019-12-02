@@ -131,8 +131,10 @@ I18n::lang('fr-fr');
 * Set cookie salt
 **/
 Cookie::$salt = getEnv('COOKIE_SALT');
-Cookie::$secure = getEnv('COOKIE_SECURE');
+Cookie::$httponly = TRUE;
+Cookie::$secure = filter_var(getEnv('COOKIE_SECURE'), FILTER_VALIDATE_BOOLEAN);;
 Cookie::$domain = getEnv('COOKIE_DOMAIN');
+
 /**
  * @todo améliorer la sécurité
  * https://koseven.ga/documentation/kohana/security/encryption
