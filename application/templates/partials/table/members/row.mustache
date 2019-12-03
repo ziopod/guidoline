@@ -7,10 +7,16 @@
   </td>
   <td>
     <a href="mailto:{{member.email}}" title="Écrire à {{member.fullname}}">
-      {{member.email}}
+      <span class="is-hidden-tablet">📧</span>
+      <span class="is-hidden-mobile">{{member.email}}</span>
     </a>
   </td>
-  <td><span class="nowrap">{{member.phone}}</span></td>
+  <td>
+    <a href="tel:+{{member.phone}}">
+      <span class="is-hidden-tablet">☎️</span>
+      <span class="nowrap is-hidden-mobile">{{member.phone}}</span>
+    </a>
+  </td>
   <td class="is-hidden-mobile">
   {{#member.dues.records_count}}
   {{#member.dues.records}}
