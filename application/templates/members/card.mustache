@@ -37,14 +37,17 @@
 
           <h3>Contact</h3>
           <ul>
+            <li>Email :
+              {{#member.email}}<a href="mailto:{{member.email}}?body=Bonjour {{member.firstname}},&subject=Message de Guidoline">{{member.email}}</a>{{/member.email}}
+              {{^member.email}}n/a{{/member.email}}
+            </li>
             <li>
               Téléphone :
-              {{#member.phone}}{{member.phone}}{{/member.phone}}
+              {{#member.phone}}
+                <a href="tel:+{{member.phone}}">{{member.phone}}</a>
+                <span class="is-hidden-tablet">- <a href="sms:+{{member.phone}}?body=Bonjour {{member.firstname}},%0a">SMS</a></span>
+              {{/member.phone}}
               {{^member.phone}}n/a{{/member.phone}}
-            </li>
-            <li>Email :
-              {{#member.email}}<a href="mailto:{{member.email}}">{{member.email}}</a>{{/member.email}}
-              {{^member.email}}n/a{{/member.email}}
             </li>
             <!-- Ajouter les liens vers les reéseaux sociaux ici -->
           </ul>

@@ -7,7 +7,7 @@
   </td>
   <td>
     {{#member.email}}
-    <a href="mailto:{{member.email}}" title="Écrire à {{member.fullname}}">
+    <a href="mailto:{{member.email}}?body=Bonjour {{member.firstname}},&subject=Message de Guidoline" title="Écrire à {{member.fullname}}">
       <span class="is-hidden-tablet">📧</span>
       <span class="is-hidden-mobile">{{member.email}}</span>
     </a>
