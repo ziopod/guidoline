@@ -25,9 +25,9 @@
         <thead>
           <tr>
             <th>Titre</th>
-            <th>Description</th>
+            <th class="is-hidden-mobile">Description</th>
             <th>Montant</th>
-            <th>Durée</th>
+            <th class="is-hidden-mobile">Durée</th>
             <th>Adhérents</th>
           <tr>
         </thead>
@@ -36,9 +36,9 @@
           {{#forms.records}}
           <tr {{^form.is_active}}class="faded"{{/form.is_active}}>
             <td><a href="{{form.url}}">{{form.title}}</a></td>
-            <td><div style="text-overflow: ellipsis; max-width: 30em; white-space: initial; overflow: hidden;">{{form.description}}</div></td>
+            <td class="is-hidden-mobile">{{form.description}}</td>
             <td>{{form.price}} {{form.currency.entity}}</td>
-            <td>
+            <td class="is-hidden-mobile">
               {{form.pretty_period_type}}<br>
               Durée : {{form.pretty_duration}}<br>
               {{#form.date_start}}

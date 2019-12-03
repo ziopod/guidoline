@@ -1,5 +1,5 @@
 <tr {{^member.is_active}}class="faded"{{/member.is_active}}>
-  <td>#{{member.idm}}</td>
+  <td class="is-hidden-mobile">#{{member.idm}}</td>
   <td>
     <a href="{{member.url}}" title="Afficher la fiche de {{member.fullname}}">
       {{member.fullname}}
@@ -11,7 +11,7 @@
     </a>
   </td>
   <td><span class="nowrap">{{member.phone}}</span></td>
-  <td>
+  <td class="is-hidden-mobile">
   {{#member.dues.records_count}}
   {{#member.dues.records}}
   <a href="{{due.url}}" title="Afficher la cotisation n° {{due.id}} de {{member.fullname}}">
