@@ -17,7 +17,8 @@
 		"koseven/koseven": "3.3.*",
 		"zombor/kostache": "4.0.3",
 		"vlucas/phpdotenv": "^3.6",
-		"swiftmailer/swiftmailer": "^6.2"
+		"swiftmailer/swiftmailer": "^6.2",
+		"erusev/parsedown": "^1.7"
 	}
 
 }

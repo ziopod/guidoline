@@ -290,7 +290,7 @@ class View_Master {
    *
    * https://github.com/bobthecow/mustache.php/wiki/Mustache-Tags#lambdas
    *
-   * @return string
+   * @return String
    */
   public function is_filter_active()
   {
@@ -305,6 +305,21 @@ class View_Master {
     };
   }
 
+  /**
+   * Lambdas Mustache pour Markdownifier du texte
+   *
+   * @return String
+   */
+  public function markdownify()
+  {
+    // return function($text) { return "<i>$text</i>"; };
+    return function($text, Mustache_LambdaHelper $helper)
+    {
+      $md = new Parsedown();
+      $md->setBreaksEnabled(TRUE);
+      return $md->text($helper->render($text));
+    };
+  }
 
 	/**
 	* Méthode utilitaire pour Mustache, encapsule un tableau dans objet.
