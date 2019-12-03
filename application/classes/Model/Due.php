@@ -140,6 +140,7 @@ class Model_Due extends ORM {
 		// Periods stuffs
 		$object['is_active'] = $this->is_active();
 		$object['url'] = $this->url();
+		$object['pretty_created'] = $this->pretty_created();
 		$object['pretty_date_start'] = $this->pretty_date_start();
 		$object['pretty_date_end'] = $this->pretty_date_end();
     $embed = $this->_embed($embed_paths);

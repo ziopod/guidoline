@@ -63,9 +63,14 @@ class Model_Member extends ORM {
   protected $_orm_dues;
 
   /**
-	 * @var Array  Membership dues storage
+	 * @var Array  Active dues storage
 	 */
 	protected $_dues;
+
+  /**
+	 * @var Array  All dues storage
+	 */
+	protected $_dues_all;
 
 	/**
 	 * @var Array  Membership skills storage
@@ -211,11 +216,18 @@ class Model_Member extends ORM {
 			'skills'     => 'skills',
 			'skills_all' => 'skills_all',
       'dues' => 'dues',
-      'dues_with_form' => 'dues_with_form',
-			'dues_history' => 'dues_history',
+			'dues_all' => 'dues_all',
       'genders' => 'genders',
       'forms_all' => 'forms_all',
       'forms' => 'forms',
+      'address' => 'address',
+      'raw_address' => 'raw_address',
+      'age' => 'age',
+      'pretty_birthdate' => 'pretty_birthdate',
+      'pretty_created' => 'pretty_created',
+      'pretty_updated' => 'pretty_updated',
+      'pretty_gender' => 'pretty_gender',
+      'url_picture' => 'url_picture',
 		);
 	}
 
@@ -242,19 +254,35 @@ class Model_Member extends ORM {
 	public function url_edit()
 	{
 		return URL::site(Route::get('member.edit')->uri(array('member_id' => $this->pk())), TRUE);
-	}
+  }
+
+  /**
+   * Profil pricture URL
+   *
+   * @return String
+   */
+  public function url_picture()
+  {
+    return "https://www.gravatar.com/avatar/" . md5($this->email) . "?d=identicon&s=65";
+  }
 
 	/**
 	 * Compiled firstname + lastname
 	 *
-	 * @return string|bool    Name
+	 * @return String|Boolean
 	 */
 	public function fullname()
 	{
     $fullname = trim($this->firstname . ' ' . $this->lastname);
     return $fullname ? $fullname : $this->pk();
-	}
+  }
 
+
+  /**
+   * Address or NULL
+   *
+   * @return Array|NULL
+   */
   public function address()
   {
     $address = array(
@@ -265,6 +293,31 @@ class Model_Member extends ORM {
     );
 
     return array_filter($address, function($value) {return ! is_null($value) && $value !== ''; });
+  }
+
+  /**
+   * Pretty format address
+   */
+  public function raw_address()
+  {
+    $raw_address = "";
+
+    $raw_address .= $this->fullname() ? "**{$this->fullname()}**\n" : '';
+    $raw_address .= $this->street ? "{$this->street}\n" : '';
+    $raw_address .= $this->zipcode ? "{$this->zipcode} " : '';
+    $raw_address .= $this->city ? "{$this->city}\n" : '';
+    $raw_address .= $this->country ? Arr::get($this->_country_code_map(), $this->country) . "\n" : '';
+
+    return $raw_address;
+  }
+
+  protected function _country_code_map()
+  {
+    return array(
+      'FR'  => 'France',
+      'JP'  => 'Japon',
+      'DE'  => 'Allemagne'
+    );
   }
 
 	/**
@@ -330,7 +383,15 @@ class Model_Member extends ORM {
 	public function pretty_updated()
 	{
 		return $this->updated ? strftime(__('date.long'), strtotime($this->updated)) : NULL;
-	}
+  }
+
+  /**
+   * Gender in pretty format
+   */
+  public function pretty_gender()
+  {
+    return $this->gender ? __('gender.pretty.' . $this->gender) : NULL;
+  }
   /**
    * Kind of garbage collector for `is_active`
 	 *
@@ -422,25 +483,25 @@ class Model_Member extends ORM {
 	 *
 	 * @return Array
 	 */
-	public function dues_history()
+	public function dues_all()
 	{
-		if ( ! $this->_dues)
+		if ( ! $this->_dues_all)
 		{
-			$this->_dues = array(
+			$this->_dues_all = array(
 				'records' => array(),
 				'records_count' => NULL,
 			);
 
-			foreach ($this->dues->find_all() as $due)
+			foreach ($this->dues->order_by('created', 'desc')->find_all() as $due)
 			{
 				$due = $due->as_array();
-				$this->_dues['records'][]['due'] = $due;
+				$this->_dues_all['records'][]['due'] = $due;
 			}
 
-			$this->_dues['records_count'] = count($this->_dues['records']);
+			$this->_dues_all['records_count'] = count($this->_dues_all['records']);
 		}
 
-		return $this->_dues;
+		return $this->_dues_all;
 	}
 
 	/**
@@ -830,14 +891,14 @@ class Model_Member extends ORM {
     $data['idm'] = $this->pk() ? $this->idm : $this->next_idm();
 		// Identity
 		$data['fullname'] = $this->fullname();
-		$data['pretty_birthdate'] = $this->pretty_birthdate();
-		$data['age'] = $this->age();
+		// $data['pretty_birthdate'] = $this->pretty_birthdate();
+		// $data['age'] = $this->age();
 		// URL
 		$data['url'] = $this->url();
 		$data['url_edit'] = $this->url_edit();
 		// Dates
-		$data['pretty_created'] = $this->pretty_created();
-    $data['pretty_updated'] = $this->pretty_updated();
+		// $data['pretty_created'] = $this->pretty_created();
+    // $data['pretty_updated'] = $this->pretty_updated();
 		// Embeded values
     $embed = $this->_embed($embed_paths);
 		return array_merge($data, $embed);
