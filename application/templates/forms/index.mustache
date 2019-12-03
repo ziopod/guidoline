@@ -20,46 +20,48 @@
         </li>
       </ul>
     </div>
-    <table class="table is-fullwidth">
-      <thead>
-        <tr>
-          <th>Titre</th>
-          <th>Description</th>
-          <th>Montant</th>
-          <th>Durée</th>
-          <th>Adhérents</th>
-        <tr>
-      </thead>
-      <tbody>
-        {{#forms.records_count}}
-        {{#forms.records}}
-        <tr {{^form.is_active}}class="faded"{{/form.is_active}}>
-          <td><a href="{{form.url}}">{{form.title}}</a></td>
-          <td><div style="text-overflow: ellipsis; max-width: 30em; white-space: initial; overflow: hidden;">{{form.description}}</div></td>
-          <td>{{form.price}} {{form.currency.entity}}</td>
-          <td>
-            {{form.pretty_period_type}}<br>
-            Durée : {{form.pretty_duration}}<br>
-            {{#form.date_start}}
-            à partir du {{form.date_start}}
-            {{/form.date_start}}
-          </td>
-          <td>
-            {{form.dues_all.records_active_count}} / {{form.dues_all.records_count}}
-          </td>
-        </tr>
-        {{/forms.records}}
-        {{/forms.records_count}}
-        {{^forms.records_count}}
-        <tr>
-          <td colspan="6">
-            <p class="notification is-warning has-text-centered">
-              — Aucun bulletins d'adhésion à afficher —
-            </p>
-          </td>
-        </tr>
-        {{/forms.records_count}}
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table class="table is-striped is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Montant</th>
+            <th>Durée</th>
+            <th>Adhérents</th>
+          <tr>
+        </thead>
+        <tbody>
+          {{#forms.records_count}}
+          {{#forms.records}}
+          <tr {{^form.is_active}}class="faded"{{/form.is_active}}>
+            <td><a href="{{form.url}}">{{form.title}}</a></td>
+            <td><div style="text-overflow: ellipsis; max-width: 30em; white-space: initial; overflow: hidden;">{{form.description}}</div></td>
+            <td>{{form.price}} {{form.currency.entity}}</td>
+            <td>
+              {{form.pretty_period_type}}<br>
+              Durée : {{form.pretty_duration}}<br>
+              {{#form.date_start}}
+              à partir du {{form.date_start}}
+              {{/form.date_start}}
+            </td>
+            <td>
+              {{form.dues_all.records_active_count}} / {{form.dues_all.records_count}}
+            </td>
+          </tr>
+          {{/forms.records}}
+          {{/forms.records_count}}
+          {{^forms.records_count}}
+          <tr>
+            <td colspan="6">
+              <p class="notification is-warning has-text-centered">
+                — Aucun bulletins d'adhésion à afficher —
+              </p>
+            </td>
+          </tr>
+          {{/forms.records_count}}
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

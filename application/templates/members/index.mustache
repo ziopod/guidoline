@@ -39,33 +39,35 @@
         <li class="{{#is_filter_active}}benevole{{/is_filter_active}}"><a href="/adherents/benevoles{{current_query_search}}">Bénévoles</a></li>
       </ul>
     </div>
-    <table class="table is-hoverable is-fullwidth">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Prénom & Nom</th>
-          <th>Email</th>
-          <th>Téléphone</th>
-          <th>Adhésion(s)</th>
-        </tr>
-      </thead>
-      {{^members.records_count}}
-      <tbody>
-        <tr>
-          <td colspan="5">
-            <p class="notification is-warning has-text-centered">
-              — Aucun adhérent à afficher —
-            </p>
-          </td>
-        </tr>
-      </tbody>
-      {{/members.records_count}}
-      {{#members.records_count}}
-      {{#members.records}}
-        {{>table/members/row}}
-      {{/members.records}}
-      {{/members.records_count}}
-    </table>
+    <div class="table-container">
+      <table class="table is-hoverable is-striped is-fullwidth">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Prénom & Nom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Adhésion(s)</th>
+          </tr>
+        </thead>
+        {{^members.records_count}}
+        <tbody>
+          <tr>
+            <td colspan="5">
+              <p class="notification is-warning has-text-centered">
+                — Aucun adhérent à afficher —
+              </p>
+            </td>
+          </tr>
+        </tbody>
+        {{/members.records_count}}
+        {{#members.records_count}}
+        {{#members.records}}
+          {{>table/members/row}}
+        {{/members.records}}
+        {{/members.records_count}}
+      </table>
+    </div>
   </div>
 </div>
 {{#members.paginate.show}}
