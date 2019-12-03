@@ -7574,6 +7574,20 @@ label.panel-block {
   .switch[type="checkbox"].is-unchecked-danger.is-outlined + label::after, .switch[type="checkbox"].is-unchecked-danger.is-outlined + label:after {
     background: #f14668; }
 
+@media screen and (max-width: 768px) {
+  .is-fullwidth-mobile {
+    display: flex !important;
+    justify-content: flex-start;
+    width: 100%; } }
+
+@media screen and (max-width: 768px) {
+  .is-paddingless-mobile {
+    padding: 0; } }
+
+@media screen and (max-width: 768px) {
+  .is-radiusless-mobile {
+    border-radius: 0; } }
+
 legend {
   text-transform: uppercase;
   margin-bottom: 0.75em; }
