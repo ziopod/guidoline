@@ -19,6 +19,9 @@
       <span class="is-hidden-tablet">☎️</span>
       <span class="nowrap is-hidden-mobile">{{member.phone}}</span>
     </a>
+    <a class="is-hidden-tablet" href="sms:+{{member.phone}}?body=Bonjour {{member.firstname}},%0a">
+      SMS
+    </a>
     {{/member.phone}}
   </td>
   <td class="is-hidden-mobile">
