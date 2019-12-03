@@ -6,16 +6,20 @@
     </a>
   </td>
   <td>
+    {{#member.email}}
     <a href="mailto:{{member.email}}" title="Écrire à {{member.fullname}}">
       <span class="is-hidden-tablet">📧</span>
       <span class="is-hidden-mobile">{{member.email}}</span>
     </a>
+    {{/member.email}}
   </td>
   <td>
+    {{#member.phone}}
     <a href="tel:+{{member.phone}}">
       <span class="is-hidden-tablet">☎️</span>
       <span class="nowrap is-hidden-mobile">{{member.phone}}</span>
     </a>
+    {{/member.phone}}
   </td>
   <td class="is-hidden-mobile">
   {{#member.dues.records_count}}
