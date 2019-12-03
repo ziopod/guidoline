@@ -94,3 +94,9 @@ input.checkbox-button { display: none;}
 /** Helper **/
 .nowrap { white-space: nowrap;}
 .has-cursor-default {cursor: default;}
+
+.navbar-menu {box-shadow: none;}
+.navbar-menu:target {
+  color:red;
+  display: block;
+}

@@ -7635,4 +7635,11 @@ input.checkbox-button {
 .has-cursor-default {
   cursor: default; }
 
+.navbar-menu {
+  box-shadow: none; }
+
+.navbar-menu:target {
+  color: red;
+  display: block; }
+
 /*# sourceMappingURL=styles.css.map */

@@ -12,13 +12,18 @@
         </div>
       </div>
     </div>
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu" href="#navbar-menu" id="navbar-menu-close">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
-  <div class="navbar-menu" id="navbar-menu">
+  <div class="navbar-menu is-flex-desktop" id="navbar-menu">
+    <a role="button" class="navbar-burger burger is-active is-hidden-desktop-only" aria-label="menu" aria-expanded="false" data-target="navbar-menu" href="#navbar-menu-close">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
     {{#menu.start}}
     <div class="navbar-start">
       {{#menu.start.items}}
