@@ -256,16 +256,6 @@ class Model_Member extends ORM {
 		return URL::site(Route::get('member.edit')->uri(array('member_id' => $this->pk())), TRUE);
   }
 
-  /**
-   * Profil pricture URL
-   *
-   * @return String
-   */
-  public function url_picture()
-  {
-    return "https://www.gravatar.com/avatar/" . md5($this->email) . "?d=identicon&s=65";
-  }
-
 	/**
 	 * Compiled firstname + lastname
 	 *
