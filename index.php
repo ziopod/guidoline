@@ -19,7 +19,7 @@ $application = 'application';
  *
  * @link http://kohanaframework.org/guide/about.install#modules
  */
-$modules = 'modules';
+$modules = 'vendor';
 
 /**
  * The directory in which the Kohana resources are located. The system
