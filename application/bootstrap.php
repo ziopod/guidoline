@@ -221,7 +221,7 @@ Kohana::modules(array(
   'orm'        => KOSEVEN_MODULE_PATH.'orm',        // Object Relationship Mapping
   // 'unittest'   => MODPATH.'unittest',   // Unit testing
   'userguide'  => KOSEVEN_MODULE_PATH.'userguide',  // User guide and API documentation
-  'kostache'  => MODPATH.'kostache',
+  'kostache'  => MODPATH.'zombor/kostache',
   ));
 
 /**
