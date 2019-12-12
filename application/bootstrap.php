@@ -7,7 +7,7 @@
  */
 
 // Composer autoloader
-require 'vendor/autoload.php';
+require INSTALL_PATH . 'vendor/autoload.php';
 
 // Load the core Kohana class
 require SYSPATH.'classes/Kohana/Core'.EXT;
@@ -83,7 +83,7 @@ define('VERSION', $version);
 
 try
 {
-  $dotenv = Dotenv\Dotenv::create(DOCROOT);
+  $dotenv = Dotenv\Dotenv::create(INSTALL_PATH);
   $dotenv->load();
 }
 catch (Exception $e)

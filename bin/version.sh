@@ -3,7 +3,7 @@
 # $chmod +x ./version.sh
 # echo "$(git rev-parse --show-toplevel)"/.version
 root_path=$(git rev-parse --show-toplevel)
-version=$(head -n 1 "$root_path/.version")
+version=$(head -n 1 "$root_path/public/.version")
 # Nom du dernier tag
 last_version=$(git describe --abbrev=0 --tags)
 # Ajouter le nouveau tag si celui ci est différent (supérieur) au précedent
