@@ -102,7 +102,7 @@ class View_Members_Edit extends View_Master {
             'form_id' => $member_form->pk(),
             'amount' => $member_form->price,
             'currency_code' => $member_form->currency_code,
-            'date_start' => $member_form->date_start(),
+            'date_start' => date('Y-m-d'),
             'date_end' => $member_form->date_end(),
           ))
           ->save();
