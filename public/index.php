@@ -9,7 +9,6 @@ define('INSTALL_PATH', realpath(dirname(__DIR__)).DIRECTORY_SEPARATOR);
  * Koseven Systeme files and Modules has dependencies
  */
 define('KOSEVEN_PATH', INSTALL_PATH . 'vendor' . DIRECTORY_SEPARATOR . 'koseven' . DIRECTORY_SEPARATOR . 'koseven' . DIRECTORY_SEPARATOR);
-define('KOSEVEN_MODULE_PATH', KOSEVEN_PATH . 'modules' . DIRECTORY_SEPARATOR);
 
 /**
  * The directory in which your application specific resources are located.
@@ -24,7 +23,7 @@ $application = INSTALL_PATH . 'application';
  *
  * @link http://kohanaframework.org/guide/about.install#modules
  */
-$modules = INSTALL_PATH . 'vendor';
+$modules = KOSEVEN_PATH . 'modules';
 
 /**
  * The directory in which the Kohana resources are located. The system
