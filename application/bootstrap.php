@@ -161,12 +161,12 @@ switch(Kohana::$environment)
 {
   case Kohana::PRODUCTION :
     // All minus notice
-    errot_reporting(E_ALL & ~E_NOTICE);
+    error_reporting(E_ALL & ~E_NOTICE);
     ;
   break;
   case Kohana::STAGING :
     // Only strict
-    errot_reporting(E_ALL & ~E_NOTICE);
+    error_reporting(E_ALL & ~E_NOTICE);
     break;
   case Kohana::TESTING :
     // All minus deprecated and notice
