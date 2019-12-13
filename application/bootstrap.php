@@ -229,7 +229,7 @@ Kohana::modules(array(
   // 'unittest'   => MODPATH.'unittest',   // Unit testing
   // 'userguide'  => KOSEVEN_MODULE_PATH.'userguide',  // User guide and API documentation
   'userguide'  => MODPATH.'userguide',  // User guide and API documentation
-  'kostache'  => INSTALL_PATH . 'vendor/zombor/kostache',
+  'kostache'  => DOCROOT . 'vendor/zombor/kostache',
   // 'kostache'  => MODPATH.'zombor/kostache',
   ));
 
