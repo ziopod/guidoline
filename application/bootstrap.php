@@ -7,7 +7,8 @@
  */
 
 // Composer autoloader
-require INSTALL_PATH . 'vendor/autoload.php';
+// require INSTALL_PATH . 'vendor/autoload.php';
+require APPPATH . '../vendor/autoload.php';
 
 // Load the core Kohana class
 require SYSPATH.'classes/Kohana/Core'.EXT;
@@ -60,7 +61,8 @@ spl_autoload_register(array('Kohana', 'auto_load'));
  * Define VERSION constante from  `.version` file
  */
 
-$version_file = new SplFileObject(DOCROOT . '.version');
+// $version_file = new SplFileObject(DOCROOT . '.version');
+$version_file = new SplFileObject(APPPATH . '../public/.version');
 
 if ($version_file->isFile())
 {
@@ -83,7 +85,8 @@ define('VERSION', $version);
 
 try
 {
-  $dotenv = Dotenv\Dotenv::create(INSTALL_PATH);
+  // $dotenv = Dotenv\Dotenv::create(INSTALL_PATH);
+  $dotenv = Dotenv\Dotenv::create(APPPATH . '../');
   $dotenv->load();
 }
 catch (Exception $e)
@@ -212,16 +215,22 @@ Kohana::$config->attach(new Config_File);
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
 Kohana::modules(array(
-  'auth'       => KOSEVEN_MODULE_PATH.'auth',       // Basic authentication
+  // 'auth'       => KOSEVEN_MODULE_PATH.'auth',       // Basic authentication
+  'auth'       => MODPATH.'auth',       // Basic authentication
   // 'cache'      => MODPATH.'cache',      // Caching with multiple backends
   // 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
-  'database'   => KOSEVEN_MODULE_PATH.'database',   // Database access
+  // 'database'   => KOSEVEN_MODULE_PATH.'database',   // Database access
+  'database'   => MODPATH.'database',   // Database access
   // 'image'      => MODPATH.'image',      // Image manipulation
-  // 'minion'     => MODPATH.'minion',     // CLI Tasks
-  'orm'        => KOSEVEN_MODULE_PATH.'orm',        // Object Relationship Mapping
+  // 'minion'     => KOSEVEN_MODULE_PATH.'minion',     // CLI Tasks
+  'minion'     => MODPATH.'minion',     // CLI Tasks
+  // 'orm'        => KOSEVEN_MODULE_PATH.'orm',        // Object Relationship Mapping
+  'orm'        => MODPATH.'orm',        // Object Relationship Mapping
   // 'unittest'   => MODPATH.'unittest',   // Unit testing
-  'userguide'  => KOSEVEN_MODULE_PATH.'userguide',  // User guide and API documentation
-  'kostache'  => MODPATH.'zombor/kostache',
+  // 'userguide'  => KOSEVEN_MODULE_PATH.'userguide',  // User guide and API documentation
+  'userguide'  => MODPATH.'userguide',  // User guide and API documentation
+  'kostache'  => APPPATH . '../vendor/zombor/kostache',
+  // 'kostache'  => MODPATH.'zombor/kostache',
   ));
 
 /**
