@@ -49,7 +49,6 @@
 
     if ($value !== NULL)
     {
-      Minion_CLI::write($value);
       return $value;
     }
 
