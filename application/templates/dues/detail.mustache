@@ -1,26 +1,34 @@
-<article class="content">
-  <header>
-    <h1 class="title">Cotisation n° {{due.id}}</h1>
-    <h2 class="subtitle">Le {{due.pretty_created}}</h2>
-  </header>
+<div class="columns has-items-centered">
+  <div class="column is-half">
+    <article class="card">
+      <header class="card-header">
+        <h1 class="card-header-title">Cotisation n° {{due.id}}</h1>
+      </header>
+      <div class="card-content content">
+        <p>Le {{due.pretty_created}}</p>
+        <p>
+        <strong>{{due.to_name}}</strong><br>
+          {{due.to_contact}}<br>
+          {{due.to_address}}
+        </p>
 
-  <h4>{{due.to_name}}</h4>
-  <p>
-  {{due.to_contact}}<br>
-  {{due.to_address}}
-  </p>
-
-  <h3>{{due.heading}}</h3>
-  <p>
-    Adhésion pour la période du {{due.pretty_date_start}} au {{due.pretty_date_start}}
-  </p>
-  <ul>
-    <li>Montant {{due.amount}} {{due.currency}}</li>
-  </ul>
-
-  <footer>
-    <p>
-      Bulletin d'adhésion de référence : <a href="{{due.form.url}}">{{due.form.title}}</a>, adhérent de référence <a href="{{due.member.url}}">{{due.member.fullname}}</a>
-    </p>
-  </footer>
-</article>
+        <table class="table is-bordered">
+          <tr>
+            <td><strong>{{due.heading}}</strong></td>
+            <td>
+              Du {{due.pretty_date_start}} au {{due.pretty_date_start}}
+            </td>
+            <td class="nowrap">
+              <strong>{{due.amount}} {{due.currency}}</strong>
+            </td>
+          </tr>
+        </table>
+        <ul>
+        </ul>
+      </div>
+      <footer class="card-footer">
+        <a class="card-footer-item" href="{{due.form.url}}" title="Bulletn d'adhésion de référence : {{due.form.title}}">Bulletin : {{due.form.title}}</a>
+        <a class="card-footer-item" href="{{due.member.url}}" title="Adhérent de référence : {{due.member.fullname}}">Adhérent : {{due.member.fullname}}</a>
+      </footer>
+  </article>
+</div>
