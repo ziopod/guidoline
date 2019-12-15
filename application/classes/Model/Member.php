@@ -380,7 +380,7 @@ class Model_Member extends ORM {
    */
   public function pretty_gender()
   {
-    return $this->gender ? __('gender.pretty.' . $this->gender) : NULL;
+    return $this->gender ? __('gender.symbol.' . $this->gender) : NULL;
   }
   /**
    * Kind of garbage collector for `is_active`

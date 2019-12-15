@@ -87,7 +87,7 @@ class Model_Due extends ORM {
 	 */
 	public function pretty_date_start()
 	{
-		return strftime(__('date.medium'), strtotime($this->date_start));
+		return strftime(__('date.short'), strtotime($this->date_start));
 	}
 
   /**
@@ -105,7 +105,7 @@ class Model_Due extends ORM {
 	 */
 	public function pretty_date_end()
 	{
-		return strftime(__('date.medium'), strtotime($this->date_end));
+		return strftime(__('date.short'), strtotime($this->date_end));
 	}
 
   /**
