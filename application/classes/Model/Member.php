@@ -767,6 +767,7 @@ class Model_Member extends ORM {
       'action' => $this->url_edit() . '#form_member',
       'member_id' => $this->pk(),
       'idm' => $this->idm,
+      'form_id' => 'form_member',
       // 'notifications' => array(
       //     array('notification' => array(
       //       'kind' => 'warning', // `info | sucess | warning | danger`
@@ -797,7 +798,7 @@ class Model_Member extends ORM {
               'id'    => 'firstname',
               'value' => $this->firstname,
               'error' => Arr::get($errors, 'firstname'),
-              'required' => 'required',
+              // 'required' => 'required',
           )
         ),
         'birthdate' => array(

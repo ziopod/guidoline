@@ -185,6 +185,7 @@ class View_Members_Edit extends View_Master {
     if ( ! $this->_html_form)
     {
       $this->_html_form = $this->_orm_member()->html_form($this->_html_form_errors);
+      $this->_html_form['notifications'] = $this->notifications();
     }
 
     return $this->_html_form;

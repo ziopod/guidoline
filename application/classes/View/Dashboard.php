@@ -45,7 +45,7 @@ class View_Dashboard extends View_Master {
    * @return Array
    */
 
-  public function form()
+  public function html_form()
   {
     // echo Debug::vars()
     return ORM::factory('Member')->html_form();

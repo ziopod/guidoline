@@ -1,7 +1,7 @@
-<form class="is-marginless" id="form_member" action="{{form.action}}" method="post">
+<form class="is-marginless" id="{{html_form.form_id}}" action="{{html_form.action}}" method="post">
 
   {{#html_form.notifications}}
-  {{>elements/notification}}
+  {{>element/notification}}
   {{/html_form.notifications}}
 
   <input type="hidden" name="id" value="{{html_form.member_id}}">
