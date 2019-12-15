@@ -1,0 +1,19 @@
+<div class="field">
+  <label class="label" for="{{field.id}}">{{field.label}}</label>
+  <div class="control">
+    <div class="select {{#field.multiple}}is-multiple{{/field.multiple}}">
+      <select name="{{field.name}}" id="{{field.id}}" {{field.multiple}} {{#field.size}}size="{{field.size}}"{{/field.size}}>
+        {{#field.options}}
+          <option value="{{option.value}}" {{option.selected}}>
+            {{option.label}}
+          </option>
+        {{/field.options}}
+      </select>
+    </div>
+  </div>
+  {{#field.error}}
+  <p class="help is-danger">
+    {{field.error}}
+  </p>
+  {{/field.error}}
+</div>
