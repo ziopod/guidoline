@@ -180,7 +180,7 @@ class View_Members_Edit extends View_Master {
    * @return  Array
    */
 
-  public function form()
+  public function html_form()
   {
     if ( ! $this->_html_form)
     {
@@ -190,8 +190,4 @@ class View_Members_Edit extends View_Master {
     return $this->_html_form;
   }
 
-  public function notifications()
-  {
-    return $this->_notifications;
-  }
 }

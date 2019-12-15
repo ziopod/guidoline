@@ -32,7 +32,6 @@ class View_Master {
    */
   public $auto_render = TRUE;
 
-
   /**
    * @var Array Notifications de formulaire
    */
@@ -232,6 +231,16 @@ class View_Master {
     );
 	}
 
+
+  /**
+   * Notifications courantes
+   *
+   * @return Array
+   */
+  public function notifications()
+  {
+    return $this->_notifications;
+  }
 
 	/**
 	* @vars Navigation_links Navigation par défaut pour toute l'application.
