@@ -37,8 +37,8 @@ class View_Forms_Edit extends View_Master {
     // Save post data
     if (Request::current()->method() === HTTP_Request::POST)
     {
-      $form = ORM::factory('Form', Request::current()->param('form_id'));
-      $form->values(Request::current()->post(), array(
+      // $form = ORM::factory('Form', Request::current()->param('form_id'));
+      $this->form()->values(Request::current()->post(), array(
         'title',
         'heading',
         'description',
@@ -54,39 +54,43 @@ class View_Forms_Edit extends View_Master {
 
       try
       {
-        $form->save();
+        $this->form()->save();
       }
       catch (ORM_Validation_Exception $e)
       {
-        $this->_errors = $e->errors();
+        $this->_html_form_errors = $e->errors('models');
+        $labels = array_intersect_key(
+          $this->form()->labels(),
+          array_flip(array_keys($this->_html_form_errors))
+        );
+        $this->_notifications[] = array('notification' => array(
+          'kind' => 'danger',
+          'content' => "La bulletin d'adhésion contient des erreurs, veuillez contrôler le(s) champs suivant(s) : <b>" . implode(', ', $labels) . "</b>.",
+        ));
       }
     }
   }
 
+  /**
+   * Model_Form
+   *
+   * @return ORM
+   */
   public function form()
   {
     if ( ! $this->_form)
     {
-      $this->_form = $this->_form();
+      $this->_form = ORM::factory(
+        'Form',
+        Request::current()->param('form_id')
+      );
     }
 
     return $this->_form;
   }
 
   /**
-   * Query for Model_Form
-   *
-   * @return ORM
-   */
-  protected function _form()
-  {
-    return ORM::factory(
-      'Form',
-      Request::current()->param('form_id')
-    );
-  }
-  /**
-   * HTML Helper for populating form
+   * HTML Helper for populate form
    *
    * @return Array
    */
@@ -95,7 +99,8 @@ class View_Forms_Edit extends View_Master {
   {
     if ( ! $this->_html_form)
     {
-      $this->_html_form = $this->_form()->html_form();
+      $this->_html_form = $this->form()->html_form($this->_html_form_errors);
+      $this->_html_form['notifications'] = $this->notifications();
     }
 
     return $this->_html_form;

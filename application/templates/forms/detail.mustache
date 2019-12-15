@@ -11,8 +11,8 @@
       <p>
         Adhésion
         {{#form.date_start}}
-        du {{form.date_start}}
-        au {{form.date_end}}
+        du {{form.pretty_date_start}}
+        au {{form.pretty_date_end}}
         ({{form.pretty_duration}})
         {{/form.date_start}}
         {{^form.date_start}}
@@ -20,17 +20,21 @@
         {{/form.date_start}}
       </p>
       <p>
-        Est valide {{form.pretty_period_type}}
-        {{#form.date_start}}
-        ({{#form.free_period_start}}
-        de la date de signature jsuqu'à la fin dela période
-        {{/form.free_period_start}}
-        {{^form.free_period_start}}
-        la période ne commenceras pas avant
-        {{/form.free_period_start}}
-        )
-        {{/form.date_start}}
-        pour une durée de {{form.pretty_duration}}.
+        Commence à la date
+        {{#form.is_period_start_at_due}}
+        de cotisation
+        {{/form.is_period_start_at_due}}
+        {{#form.is_period_start_at_form}}
+        du bulletin ({{form.pretty_date_start}})
+        {{/form.is_period_start_at_form}}
+
+        {{#form.is_due_end_at_form}}
+        jusqu'au {{form.pretty_date_end}}
+        {{/form.is_due_end_at_form}}
+        {{#form.is_due_end_at_period}}
+        pour une durée de {{form.pretty_duration}}
+        {{/form.is_due_end_at_period}}
+
       </p>
       <p>
         {{form.dues_all.records_count}} adhérents dont {{form.dues.records_count}} actifs.
@@ -42,9 +46,11 @@
       <ul>
         <li>Actif : {{#form.is_active}}oui{{/form.is_active}}{{^form.is_active}}non{{/form.is_active}}</li>
         <li>Date start : {{form.date_start}}</li>
-        <li>Duration : {{form.duration}}</li>
         <li>Duration : {{form.pretty_duration}}</li>
-        <li>Start at due : {{#form.start_at_due}}oui{{/form.start_at_due}}{{^form.start_at_due}}non{{/form.start_at_due}}</li>
+        <li>Period : {{form.pretty_period_type}}</li>
+        <li>Start at due : {{#form.is_period_start_at_due}}oui{{/form.is_period_start_at_due}}{{^form.is_period_start_at_due}}non{{/form.is_period_start_at_due}}</li>
+        <li>Start at form : {{#form.is_period_start_at_form}}oui{{/form.is_period_start_at_form}}{{^form.is_period_start_at_form}}non{{/form.is_period_start_at_form}}</li>
+        <li>Crée le : {{form.pretty_created}}</li>
       </ul>
     </div>
   </div>

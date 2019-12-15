@@ -63,9 +63,16 @@ class Model_Form extends ORM{
 	{
 		return array(
 			'title' => array(
-				array('not_empty'),
+        array('not_empty'),
+        array('max_length', array(':value', 35)),
 				array(array($this, 'unique'), array(':field', ':value')),
-			),
+      ),
+      'heading' => array(
+        array('not_empty'),
+      ),
+      // 'duration' => array(
+      //   array('not_empty')
+      // ),
 			'period_start' => array(
 				array('date'),
 			),
@@ -89,6 +96,36 @@ class Model_Form extends ORM{
             $this->slug = URL::title($value);
           }
 
+          return $value;
+        }),
+      ),
+      'heading' => array(
+        array(function($value) {
+          if ( ! $value)
+          {
+            $value = $this->title;
+          }
+
+          return $value;
+        })
+      ),
+      'price' => array(
+        array(function($value) {
+          if ( ! $value)
+          {
+            $value = 0;
+          }
+
+          return $value;
+        }),
+      ),
+      'duration' => array(
+        array(function($value) {
+
+          if ( ! $value)
+          {
+            $value = '3 month';
+          }
           return $value;
         }),
       ),
@@ -119,7 +156,8 @@ class Model_Form extends ORM{
 	public function labels()
 	{
 		return array(
-			'title' => __('titre'),
+			'title' => __('Titre'),
+			'heading' => __('Intitulé'),
 			'period_start' => __('début de la période'),
 			'start_at_due' => __('valide à partir de la date d\'adhésion'),
 		);
@@ -171,32 +209,86 @@ class Model_Form extends ORM{
 		return URL::site(Route::get('form.edit')->uri(array('form_id' => $this->id)), TRUE);
   }
 
-	/**
+  /**
+   *
+   * date_start  start_at_due   description
+   * NULL        1              Commence à la date de cotisation, fini à durée
+   * NULL        0              Idem
+   * Date        1              Commence à la date de cotisation, fini à form
+   * Date        0              commence à la date de form, fini à form
+   *
+   */
+  /**
+   * Period will start at date start form.
+   *
+   * @return Boolean
+   */
+  public function is_period_start_at_form()
+  {
+    return $this->date_start && ! $this->start_at_due;
+  }
+
+  /**
+   * Period will start at due creation
+   *
+   * @return Boolean
+   */
+  public function is_period_start_at_due()
+  {
+    return ! $this->is_period_start_at_form();
+  }
+
+  /**
+   * Due can start anytime
+   *
+   * @return Boolean
+   */
+  // public function free_period_start()
+  // {
+  //   return $this->date_start !== NULL && $this->start_at_due;
+  // }
+
+  /**
+   * Due will end at start date + period
+   *
+   * @return Boolean
+   */
+  public function is_due_end_at_period()
+  {
+    return $this->date_start === NULL;
+  }
+
+  /**
+   * Due will end at date end form
+   *
+   * @return Boolean
+   */
+  public function is_due_end_at_form()
+  {
+    return ! $this->is_due_end_at_period();
+  }
+
+  /**
+   * Period due
+   *
+   * Required for form date : date_start and ! start_at_due
+   * Required for due date : start_at_due
+   */
+  public function period_type()
+  {
+    return $this->is_period_start_at_due() ? 'due' : 'form';
+  }
+
+  /**
 	 * Pretty period type
 	 *
 	 * @return String
 	 */
 	public function pretty_period_type()
 	{
-    return $this->period_type() === 'due'
-      ? __('à la date de signature de l\'adhésion')
-      : __('à la date du bulletin');
+    return __('period.type.' . $this->period_type());
   }
 
-  public function period_type()
-  {
-    if ($this->date_start !== NULL)
-    {
-      return 'form';
-    }
-
-    return 'due';
-  }
-
-  public function free_period_start()
-  {
-    return $this->date_start !== NULL && $this->start_at_due;
-  }
 
 	/**
 	 * Pretty period start
@@ -205,7 +297,7 @@ class Model_Form extends ORM{
 	 */
 	public function pretty_date_start()
 	{
-		return strftime(__('date.medium'), strtotime($this->date_start));
+		return trim(strftime(__('date.medium'), strtotime($this->date_start)));
 	}
 
 	/**
@@ -215,25 +307,31 @@ class Model_Form extends ORM{
 	 */
 	public function pretty_date_end()
 	{
-		return strftime(__('date.medium'), strtotime($this->date_end()));
+		return trim(strftime(__('date.medium'), strtotime($this->date_end())));
 	}
 
 	/**
 	 * Formattted duration, fun with time span!
 	 *
-	 * @return string
+   * @todo  Trop complexe et impréçis, se contenter de traduire le format de
+   * date textuel PHP (en entrée et en sortie). Cela permettras d'améliorer le
+   * formulaire d'édition du butlletin d'adhésion.
+	 * @return String
 	 */
 	public function pretty_duration()
 	{
     $date_span = Date::span($this->duration(), $this->duration() + $this->duration());
 		$years = $date_span['years'];
 		$months = $date_span['months'];
+		$weeks = $date_span['weeks'];
 		$days = $date_span['days'];
 		$formatted_years = NULL;
 		$formatted_months = NULL;
+		$formatted_weeks = NULL;
 		$formatted_days = NULL;
 		$after_years_sep = NULL;
 		$after_months_sep = NULL;
+		$after_weeks_sep = NULL;
 
 		if ($years > 1)
 		{
@@ -253,6 +351,15 @@ class Model_Form extends ORM{
 			$formatted_months = $months . ' ' . __('month'); // French language exception
 		}
 
+    if ($weeks > 1)
+    {
+      $formatted_weeks = $weeks . ' ' . __('weeks');
+    }
+    elseif ($weeks > 0)
+    {
+      $formated_weeks = $weeks . ' ' . __('week');
+    }
+
 		if ($days > 1)
 		{
 			$formatted_days = $days . ' ' . __('days');
@@ -262,29 +369,44 @@ class Model_Form extends ORM{
 			$formatted_days = $days . ' ' . __('day');
 		}
 
-		// 1, 1, 1
-		if ($years > 0 AND $months > 0 AND $days > 0)
+		// 1, 1, 1, 1
+		if ($years > 0 AND $months > 0 AND $weeks > 0 AND $days > 0)
+		{
+			$after_years_sep = ', ';
+			$after_months_sep = ', ';
+			$after_weeks_sep = ' ' . __('and') . ' ';
+		}
+		// 1, 1, 1, 0
+		elseif ($years > 0 AND $months > 0 AND $weeks > 0 AND $days == 0)
 		{
 			$after_years_sep = ', ';
 			$after_months_sep = ' ' . __('and') . ' ';
 		}
-		// 1, 1, 0
-		elseif ($years > 0 AND $months > 0 AND $days == 0)
+		// 1, 1, 0, 1
+		elseif ($years > 0 AND $months > 0 AND $weeks == 0 AND $days > 0)
 		{
-			$after_years_sep = ' ' . __(' and ') . ' ';
+			$after_years_sep = ', ';
+			$after_months_sep = ' ' . __('and') . ' ';
 		}
-		// 1, 0, 1
-		elseif ($years > 0 AND $months == 0 AND $days > 0)
+		// 1, 0, 1, 1
+		elseif ($years > 0 AND $months == 0 AND $weeks > 0 AND $days > 0)
+		{
+			$after_years_sep = ', ';
+			$after_weeks_sep = ' ' . __('and') . ' ';
+    }
+    // 0, 1, 1, 1
+    elseif($years == 0 AND $months > 0 AND $weeks > 0 AND $days > 0)
+    {
+      $after_months_sep = ', ';
+      $after_weeks_sep = ' ' . __('and') . ' ';
+    }
+    // 1, 1, 0, 0
+		elseif ($years > 0 AND $months > 0 AND $weeks == 0 AND $days == 0)
 		{
 			$after_years_sep = ' ' . __('and') . ' ';
 		}
-		// 0, 1, 1
-		elseif ($years == 0 AND $months > 0 AND $days > 0)
-		{
-			$after_months_sep = ' ' . __('and') . ' ';
-		}
 
-		$result = $formatted_years . $after_years_sep . $formatted_months . $after_months_sep . $formatted_days;
+		$result = $formatted_years . $after_years_sep . $formatted_months . $after_months_sep . $formatted_weeks . $after_weeks_sep . $formatted_days;
 		return $result ? $result : 0 . ' ' . __('day');
 	}
 
@@ -311,11 +433,18 @@ class Model_Form extends ORM{
   /**
    * Durée du bulletin
    *
+   * @todo  À améliorer, tenir compte des années bisextilles
+   * // Vrai nombres de jours dans l'année (date('z', mktime(0, 0, 0, 12, 31, Date::YEAR)) + 1 ) * 24 * 60 * 60; ou Date::YEAR
+   * Exploiter le calcul de mysql : https://www.php.net/manual/fr/function.strtotime.php#111989
+   * SELECT DATE_ADD( '2009-01-31', INTERVAL 1 MONTH );
+   * Exploiter : https://www.php.net/manual/fr/class.dateperiod.php
    * @return String
    */
-  public function duration($output = "years,months,weeks,days,hours,minutes,seconds")
+  public function duration()
   {
-    return strtotime($this->duration) - time();
+    return strtotime($this->duration, 0);
+    // return strtotime(date('Y', Date::YEAR) . '-03-01' . ' ' . $this->duration) - strtotime(date('Y', Date::YEAR) . '-03-01');
+    // return strtotime(date('Y') . ' ' . $this->duration) - strtotime(date('Y'));
   }
 
   /**
@@ -436,28 +565,30 @@ class Model_Form extends ORM{
       'title' => 'Ajouter un bulletin',
       'title_loaded' => 'Modififier le bulletin "' . $this->title .'"',
       'action' => $this->url_edit() . '#form_form',
-      'form_id' => 'edit_member_' . $this->pk(),
+      'html_form_id' => 'edit_form_' . $this->pk(),
+      'form_id' => $this->pk(),
       'loaded' => $this->loaded(),
       'data' => array(
         'title' => array(
           'field' => array(
             'label'     => __('Titre'),
-            'help'      => '35 caractère maximum',
-            'maxlenght' => 35,
+            'help'      => '35 caractères maximum',
+            'maxlength' => 35,
             'name'      => 'title',
             'id'        => 'title',
             'value'     => $this->title,
+            'required'  => 'required',
+            'error'     => Arr::get($errors, 'title'),
           )
         ),
         'heading' =>  array(
           'field' => array(
             'label'     => __('Intitulé'),
-            'help'      => 'Ce champ apparaitras sur les factures (70 carcatère maximum)',
-            'length'    => 70,
+            'help'      => 'Ce champ apparaitras sur les factures (70 caractères maximum)',
+            'maxlength' => 70,
             'name'      => 'heading',
             'id'        => 'heading',
             'value'     => $this->heading,
-            'required'  => 'required',
             'error'     => Arr::get($errors, 'heading'),
           )
         ),
@@ -547,9 +678,13 @@ class Model_Form extends ORM{
     $object['currency'] = $this->currency();
 		// Periods stuffs
 		$object['pretty_period_type'] = $this->pretty_period_type();
-		$object['free_period_start'] = $this->free_period_start();
+		$object['is_period_start_at_due'] = $this->is_period_start_at_due();
+		$object['is_period_start_at_form'] = $this->is_period_start_at_form();
+		$object['is_due_end_at_period'] = $this->is_due_end_at_period();
+		$object['is_due_end_at_form'] = $this->is_due_end_at_form();
 		$object['is_renewable'] = $this->is_renewable();
 		$object['date_end'] = $this->date_end();
+		$object['pretty_created'] = $this->pretty_created();
 		$object['pretty_date_start'] = $this->pretty_date_start();
 		$object['pretty_date_end'] = $this->pretty_date_end();
     $object['pretty_duration'] = $this->pretty_duration();
