@@ -27,8 +27,12 @@
         </ul>
       </div>
       <footer class="card-footer">
-        <a class="card-footer-item" href="{{due.form.url}}" title="Bulletn d'adhésion de référence : {{due.form.title}}">Bulletin : {{due.form.title}}</a>
-        <a class="card-footer-item" href="{{due.member.url}}" title="Adhérent de référence : {{due.member.fullname}}">Adhérent : {{due.member.fullname}}</a>
+        <div class="card-footer-item">
+          <span>Bulletin : <a href="{{due.form.url}}" title="Bulletn d'adhésion de référence : {{due.form.title}}">{{due.form.title}}</a></span>
+        </div>
+        <div class="card-footer-item">
+          <span>Adhérent : <a href="{{due.member.url}}" title="Adhérent de référence : {{due.member.fullname}}">{{due.member.fullname}}</a></span>
+        </div>
       </footer>
   </article>
 </div>

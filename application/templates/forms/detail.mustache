@@ -1,57 +1,47 @@
-<article class="card">
-  <div class="card-content">
-    <div class="media">
-      <header class="media-content">
-        <h1 class="title"><a href="{{form.url}}">{{form.title}}</a> <small>{{form.price}} {{form.currency.entity}}</small></h1>
-        <h2 class="subtitle">{{form.heading}}</h2>
+<div class="columns has-items-centered">
+  <div class="column is-half">
+    <article class="card">
+      <header class="card-header">
+        <h1 class="card-header-title">Bulletin d'adhésion : {{form.title}}</h1>
       </header>
-    </div>
-    <div class="content">
-      <p>{{form.description}}</p>
-      <p>
-        Adhésion
-        {{#form.date_start}}
-        du {{form.pretty_date_start}}
-        au {{form.pretty_date_end}}
-        ({{form.pretty_duration}})
-        {{/form.date_start}}
-        {{^form.date_start}}
-        d'une durée de {{form.pretty_duration}}
-        {{/form.date_start}}
-      </p>
-      <p>
-        Commence à la date
-        {{#form.is_period_start_at_due}}
-        de cotisation
-        {{/form.is_period_start_at_due}}
-        {{#form.is_period_start_at_form}}
-        du bulletin ({{form.pretty_date_start}})
-        {{/form.is_period_start_at_form}}
+      <div class="card-content">
+        <h2 class="title">{{form.heading}}</h2>
+        <p class="subtitle">
+          Commence à la date
+          {{#form.is_period_start_at_due}}
+          de cotisation
+          {{/form.is_period_start_at_due}}
+          {{#form.is_period_start_at_form}}
+          du bulletin ({{form.pretty_date_start}})
+          {{/form.is_period_start_at_form}}
 
-        {{#form.is_due_end_at_form}}
-        jusqu'au {{form.pretty_date_end}}
-        {{/form.is_due_end_at_form}}
-        {{#form.is_due_end_at_period}}
-        pour une durée de {{form.pretty_duration}}
-        {{/form.is_due_end_at_period}}
-
-      </p>
-      <p>
-        {{form.dues_all.records_count}} adhérents dont {{form.dues.records_count}} actifs.
-      </p>
-      <p>
-        <a href="{{form.url_edit}}">Éditer</a>
-        <a href="">Supprimer</a>
-      </p>
-      <ul>
-        <li>Actif : {{#form.is_active}}oui{{/form.is_active}}{{^form.is_active}}non{{/form.is_active}}</li>
-        <li>Date start : {{form.date_start}}</li>
-        <li>Duration : {{form.pretty_duration}}</li>
-        <li>Period : {{form.pretty_period_type}}</li>
-        <li>Start at due : {{#form.is_period_start_at_due}}oui{{/form.is_period_start_at_due}}{{^form.is_period_start_at_due}}non{{/form.is_period_start_at_due}}</li>
-        <li>Start at form : {{#form.is_period_start_at_form}}oui{{/form.is_period_start_at_form}}{{^form.is_period_start_at_form}}non{{/form.is_period_start_at_form}}</li>
-        <li>Crée le : {{form.pretty_created}}</li>
-      </ul>
-    </div>
+          {{#form.is_due_end_at_form}}
+          jusqu'au {{form.pretty_date_end}}
+          {{/form.is_due_end_at_form}}
+          {{#form.is_due_end_at_period}}
+          pour une durée de {{form.pretty_duration}}
+          {{/form.is_due_end_at_period}}
+        </p>
+        <div class="content">
+          <p>{{form.description}}</p>
+          <ul>
+            <li>Actif : {{#form.is_active}}oui{{/form.is_active}}{{^form.is_active}}non{{/form.is_active}}</li>
+            <li>
+              Montant : {{form.price}} {{form.currency.entity}}
+            </li>
+            <li>Durée : {{form.pretty_duration}}</li>
+            <li>Validité : à {{form.pretty_period_type}}</li>
+            <li>
+              Adhérent : {{form.dues_all.records_count}} adhérents dont {{form.dues_all.records_active_count}} actifs.
+            </li>
+            <li>Crée le : {{form.pretty_created}}</li>
+          </ul>
+        </div>
+      </div>
+      <footer class="card-footer">
+          <a class="card-footer-item" href="{{form.url_edit}}">Éditer</a>
+          <a class="card-footer-item" href="">Supprimer</a>
+      </footer>
+    </article>
   </div>
-</article>
+</div>

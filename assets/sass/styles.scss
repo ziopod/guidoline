@@ -29,25 +29,25 @@ ul.is-unstyled {
   margin-top: 0;
 }
 
-.box.is-light {
-  box-shadow: none;
-  background-color: $primary;
-  // background-color: transparentize($white, 0.7);
-  & table.table {
-    background: none;
+// .box.is-light {
+//   box-shadow: none;
+//   background-color: $primary;
+//   // background-color: transparentize($white, 0.7);
+//   & table.table {
+//     background: none;
 
-    tr {
-      // background: $primary;
-      & td {
-        border-color: desaturate($primary, 20%);
-      }
-    }
-  }
-  & table.table.is-hoverable tbody tr:hover {
-    background-color: desaturate($primary, 15%);
-    color: $black;
-  }
-}
+//     tr {
+//       // background: $primary;
+//       & td {
+//         border-color: desaturate($primary, 20%);
+//       }
+//     }
+//   }
+//   & table.table.is-hoverable tbody tr:hover {
+//     background-color: desaturate($primary, 15%);
+//     color: $black;
+//   }
+// }
 
 table.table tr.faded {
   opacity: .5;
@@ -100,4 +100,9 @@ input.checkbox-button { display: none;}
 .navbar-menu:target {
   color:red;
   display: block;
+}
+
+
+.columns.has-items-centered {
+  justify-content: center;
 }

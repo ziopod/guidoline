@@ -7588,10 +7588,6 @@ label.panel-block {
   .is-radiusless-mobile {
     border-radius: 0; } }
 
-@media screen and (max-width: 768px) {
-  .level {
-    padding: 0 1.5em; } }
-
 legend {
   text-transform: uppercase;
   margin-bottom: 0.75em; }
@@ -7600,17 +7596,6 @@ ul.is-unstyled {
   list-style: none !important;
   margin-left: 0;
   margin-top: 0; }
-
-.box.is-light {
-  box-shadow: none;
-  background-color: #00d1b2; }
-  .box.is-light table.table {
-    background: none; }
-    .box.is-light table.table tr td {
-      border-color: #15bca3; }
-  .box.is-light table.table.is-hoverable tbody tr:hover {
-    background-color: #10c1a7;
-    color: #0a0a0a; }
 
 table.table tr.faded {
   opacity: .5; }
@@ -7659,5 +7644,8 @@ input.checkbox-button {
 .navbar-menu:target {
   color: red;
   display: block; }
+
+.columns.has-items-centered {
+  justify-content: center; }
 
 /*# sourceMappingURL=styles.css.map */
