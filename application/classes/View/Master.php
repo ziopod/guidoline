@@ -56,7 +56,7 @@ class View_Master {
 	public function __construct()
 	{
 		$this->lang = I18n::lang();
-		$this->profiler = View::factory('profiler/stats');
+		$this->profiler = Kohana::$environment !== Kohana::PRODUCTION ? View::factory('profiler/stats') : NULL;
 	}
 
   /**
