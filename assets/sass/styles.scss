@@ -1,8 +1,13 @@
 /* Sass here */
 @charset "utf-8";
+
+$box-radius: 0;
+$footer-padding: 1rem 1.5rem 0.8rem;
+
 @import "../../node_modules/bulma/bulma.sass";
 @import "../../node_modules/bulma-switch/dist/css/bulma-switch.sass";
 @import "custom.sass";
+
 
 // $color-primary: #58b792; // cf. https://duckduckgo.com/
 // Fail to add custom scss
@@ -29,25 +34,25 @@ ul.is-unstyled {
   margin-top: 0;
 }
 
-// .box.is-light {
-//   box-shadow: none;
-//   background-color: $primary;
-//   // background-color: transparentize($white, 0.7);
-//   & table.table {
-//     background: none;
+.box.is-light {
+  box-shadow: none;
+  background-color: $primary;
+  // background-color: transparentize($white, 0.7);
+  & table.table {
+    background: none;
 
-//     tr {
-//       // background: $primary;
-//       & td {
-//         border-color: desaturate($primary, 20%);
-//       }
-//     }
-//   }
-//   & table.table.is-hoverable tbody tr:hover {
-//     background-color: desaturate($primary, 15%);
-//     color: $black;
-//   }
-// }
+    tr {
+      // background: $primary;
+      & td {
+        border-color: desaturate($primary, 20%);
+      }
+    }
+  }
+  & table.table.is-hoverable tbody tr:hover {
+    background-color: desaturate($primary, 15%);
+    color: $black;
+  }
+}
 
 table.table tr.faded {
   opacity: .5;
@@ -102,7 +107,10 @@ input.checkbox-button { display: none;}
   display: block;
 }
 
-
 .columns.has-items-centered {
   justify-content: center;
+}
+
+.navbar-brand {
+  align-items: center;
 }
