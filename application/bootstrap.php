@@ -199,6 +199,7 @@ Kohana::init(array(
   'caching'    => Kohana::$environment === Kohana::PRODUCTION,
   'profile'    => Kohana::$environment !== Kohana::PRODUCTION,
   'errors'     => Kohana::$environment !== Kohana::PRODUCTION,
+  'expose'     => Kohana::$environment !== Kohana::PRODUCTION,
 ));
 
 /**
