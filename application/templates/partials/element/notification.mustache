@@ -1,6 +1,13 @@
-<div class="notification is-{{notification.kind}}">
+<div class="notification is-{{notification.kind}} media">
+  <div class="media-left">
+    <span class="icon is-large">
+      <img class="icon-injector" src="/assets/svg/{{notification.kind}}.svg" alt="Icon {{notification.kind}}">
+    </span>
+  </div>
+  <div class="media-content">
+    {{{notification.content}}}
+  </div>
   {{#notification.deletable}}
   <button class="delete"></button>
   {{/notification.deletable}}
-  {{{notification.content}}}
 </div>

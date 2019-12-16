@@ -37,7 +37,7 @@
           <tr {{^form.is_active}}class="faded"{{/form.is_active}}>
             <td><a href="{{form.url}}">{{form.title}}</a></td>
             <td class="is-hidden-mobile">{{form.description}}</td>
-            <td>{{form.price}} {{form.currency.entity}}</td>
+            <td class="nowrap">{{form.price}} {{form.currency.entity}}</td>
             <td class="is-hidden-mobile">
               À partir de {{form.pretty_period_type}}
               {{#form.is_period_start_at_form}}
@@ -46,7 +46,7 @@
               {{#form.is_due_end_at_form}}jusqu'au {{form.pretty_date_end}}{{/form.is_due_end_at_form}}
               {{#form.is_due_end_at_period}}pour une durée de {{form.pretty_duration}}{{/form.is_due_end_at_period}}
             </td>
-            <td>
+            <td class="nowrap">
               {{form.dues_all.records_active_count}} / {{form.dues_all.records_count}}
             </td>
           </tr>

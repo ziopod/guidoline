@@ -114,3 +114,15 @@ input.checkbox-button { display: none;}
 .navbar-brand {
   align-items: center;
 }
+
+.icon {
+  fill: $dark;
+}
+a .icon {
+  fill: $primary;
+}
+
+.notification.is-info .icon { fill: darken($info, 20); }
+.notification.is-success .icon { fill: darken($success, 20); }
+.notification.is-warning .icon { fill: darken($warning, 35); }
+.notification.is-danger .icon { fill: darken($danger, 20); }

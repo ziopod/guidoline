@@ -5,27 +5,31 @@
       {{member.fullname}}
     </a>
   </td>
-  <td>
+  <td class="is-hidden-mobile">
     {{#member.email}}
     <a href="mailto:{{member.email}}?body=Bonjour {{member.firstname}},&subject=Message de Guidoline" title="Écrire à {{member.fullname}}">
-      <span class="is-hidden-tablet icon is-medium">
-        <img class="icon-injector" src="/assets/svg/at.svg" alt="icon name">
-      </span>
-      <span class="is-hidden-mobile">{{member.email}}</span>
+      {{member.email}}
     </a>
     {{/member.email}}
   </td>
-  <td>
+  <td class="nowrap">
+    {{#member.email}}
+    <a href="mailto:{{member.email}}?body=Bonjour {{member.firstname}},&subject=Message de Guidoline" title="Écrire à {{member.fullname}}">
+      <span class="is-hidden-tablet icon is-medium">
+        <img class="icon-injector" src="/assets/svg/at.svg" alt="Email">
+      </span>
+    </a>
+    {{/member.email}}
     {{#member.phone}}
     <a href="tel:+{{member.phone}}">
       <span class="is-hidden-tablet icon is-medium">
-        <img class="icon-injector" src="/assets/svg/call.svg" alt="icon name">
+        <img class="icon-injector" src="/assets/svg/call.svg" alt="Téléphone">
       </span>
       <span class="nowrap is-hidden-mobile">{{member.phone}}</span>
     </a>
     <a class="is-hidden-tablet" href="sms:+{{member.phone}}?body=Bonjour {{member.firstname}},%0a">
       <span class="is-hidden-tablet icon is-medium">
-        <img class="icon-injector" src="/assets/svg/text.svg" alt="icon name">
+        <img class="icon-injector" src="/assets/svg/text.svg" alt="SMS">
       </span>
     </a>
     {{/member.phone}}

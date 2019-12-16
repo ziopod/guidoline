@@ -7666,4 +7666,22 @@ input.checkbox-button {
 .navbar-brand {
   align-items: center; }
 
+.icon {
+  fill: #363636; }
+
+a .icon {
+  fill: #00d1b2; }
+
+.notification.is-info .icon {
+  fill: #186090; }
+
+.notification.is-success .icon {
+  fill: #288147; }
+
+.notification.is-warning .icon {
+  fill: #a38300; }
+
+.notification.is-danger .icon {
+  fill: #c20f33; }
+
 /*# sourceMappingURL=styles.css.map */
