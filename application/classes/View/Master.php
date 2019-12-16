@@ -158,23 +158,18 @@ class View_Master {
           'href' => Route::url('forms'),
           'label' => 'Bulletins',
         )),
-        // array('item' => array(
-        //   'is_active' => $current_route === 'dues',
-        //   'href' => Route::url('dues'),
-        //   'label' => 'Adhésions',
-        // )),
-        )),
-        'footer' => array(
-          'text' => array(
-            'content' => 'Version ' . $this->version(),
-          ),
-          'links' => array(
-            array('link' => array(
-              'href' => Route::url('page.about'),
-              'name' => "À propos de Guidoline",
-            )),
-          )
-        )
+      )),
+      'footer' => array(
+        'text' => array(
+          'content' => 'Version ' . $this->version(),
+        ),
+        // 'links' => array(
+        //   array('link' => array(
+        //     'href' => Route::url('page.about'),
+        //     'name' => "À propos de Guidoline",
+        //   )),
+        // )
+      )
     );
 		$items = array(
       array('separator' => array(
