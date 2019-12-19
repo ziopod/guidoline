@@ -1,5 +1,4 @@
 #Specific files
-.htaccess
 .env
 composer.lock
 package-lock.json
