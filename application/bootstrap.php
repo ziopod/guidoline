@@ -135,7 +135,7 @@ I18n::lang('fr-fr');
 **/
 Cookie::$salt = getEnv('COOKIE_SALT');
 Cookie::$httponly = TRUE;
-Cookie::$secure = filter_var(getEnv('COOKIE_SECURE'), FILTER_VALIDATE_BOOLEAN);;
+Cookie::$secure = filter_var(getEnv('COOKIE_SECURE'), FILTER_VALIDATE_BOOLEAN);
 Cookie::$domain = getEnv('COOKIE_DOMAIN');
 
 /**
