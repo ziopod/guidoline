@@ -134,9 +134,9 @@ I18n::lang('fr-fr');
 * Set cookie salt
 **/
 Cookie::$salt = getEnv('COOKIE_SALT');
-Cookie::$httponly = TRUE;
-Cookie::$secure = filter_var(getEnv('COOKIE_SECURE'), FILTER_VALIDATE_BOOLEAN);
-Cookie::$domain = getEnv('COOKIE_DOMAIN');
+//Cookie::$httponly = TRUE;
+//Cookie::$secure = filter_var(getEnv('COOKIE_SECURE'), FILTER_VALIDATE_BOOLEAN);
+//Cookie::$domain = getEnv('COOKIE_DOMAIN');
 
 /**
  * @todo améliorer la sécurité
