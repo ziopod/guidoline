@@ -766,7 +766,7 @@ class Model_Member extends ORM {
     return  array(
       'action' => $this->url_edit() . '#form_member',
       'member_id' => $this->pk(),
-      'idm' => $this->idm,
+      'idm' => $this->idm ? $this->idm : $this->next_idm(),
       'form_id' => 'form_member',
       // 'notifications' => array(
       //     array('notification' => array(
