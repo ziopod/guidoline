@@ -83,18 +83,18 @@ class View_Members_Index extends View_Master {
    */
   protected function _members_query()
   {
-    // Add query here
-    $filters = array(
-      'actifs' => 1,
-      'inactifs' => 0,
-    );
-
-    $is_active = Arr::get($filters, $this->current_filter());
+    $is_active = $this->current_filter() === 'actifs';
+    $is_volunteer = $this->current_filter() === 'benevoles';
     $members = ORM::factory('Member');
 
-    if ($is_active !== NULL)
+    if ($is_active !== NULL AND ! $is_volunteer)
     {
       $members->where('is_active', '=', $is_active);
+    }
+
+    if ($is_volunteer)
+    {
+      $members->where('is_volunteer', '=', 1);
     }
 
     // Requête de recherche

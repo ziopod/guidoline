@@ -119,7 +119,30 @@ input.checkbox-button { display: none;}
   fill: $dark;
 }
 a .icon {
-  fill: $primary;
+  fill: $dark;
+}
+
+
+a.icon.is-active {
+  fill: $yellow;
+  #hovered { fill-opacity: 1; }
+  #default { fill-opacity: 0; }
+  // &:hover {
+  //   fill: $grey-light;
+  //   #hovered { fill-opacity: 0; }
+  //   #default { fill-opacity: 1; }
+  // }
+}
+
+a.icon.is-inactive {
+  fill: $grey-lighter;
+  #hovered { fill-opacity: 0; }
+  #default { fill-opacity: 1; }
+  // &:hover {
+  //   fill: $orange;
+  //   #hovered { fill-opacity: 1; }
+  //   #default { fill-opacity: 0; }
+  // }
 }
 
 .notification.is-info .icon { fill: darken($info, 20); }

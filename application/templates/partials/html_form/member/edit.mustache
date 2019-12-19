@@ -1,5 +1,8 @@
 <form class="is-marginless" id="{{html_form.form_id}}" action="{{html_form.action}}" method="post">
-
+  <h2 class="is-size-4">
+    {{^member.loaded}}Ajouter l'adhérent #{{member.idm}}{{/member.loaded}}
+    {{#member.loaded}}{{member.fullname}} (#{{member.idm}}){{/member.loaded}}
+  </h2>
   {{#html_form.notifications}}
   {{>element/notification}}
   {{/html_form.notifications}}
@@ -9,7 +12,7 @@
 
   <fieldset>
     <legend>Identité</legend>
-    <div class="field columns">
+    <div class="columns">
       <div class="column">
         {{#html_form.data.firstname}}
         {{>html_form/fields/text}}
@@ -21,7 +24,7 @@
         {{/html_form.data.lastname}}
       </div>
     </div>
-    <div class="field columns">
+    <div class="columns">
       <div class="column">
         {{#html_form.data.birthdate}}
         {{>html_form/fields/date}}
@@ -36,7 +39,7 @@
   </fieldset>
   <fieldset>
     <legend>Contact</legend>
-    <div class="field columns">
+    <div class="columns">
       <div class="column">
         {{#html_form.data.email}}
         {{>html_form/fields/email}}
@@ -51,7 +54,7 @@
   </fieldset>
   <fieldset>
     <legend>Addresse</legend>
-    <div class="field columns is-multiline">
+    <div class="columns is-multiline">
       <div class="column is-full">
         {{#html_form.data.address.street}}
         {{>html_form/fields/text}}
@@ -71,6 +74,16 @@
         {{#html_form.data.address.country}}
         {{>html_form/fields/text}}
         {{/html_form.data.address.country}}
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Activité</legend>
+    <div class="columns">
+      <div class="column">
+        {{#html_form.data.is_volunteer}}
+        {{>html_form/fields/checkbox}}
+        {{/html_form.data.is_volunteer}}
       </div>
     </div>
   </fieldset>
@@ -127,10 +140,11 @@
         {{/member.forms_all.records_count}}
       </ul>
     </fieldset>
-    {{#member.forms.records}}
     <div class="column">
       <legend>Cotisation actives</legend>
+      {{#member.forms.records_count}}
       <ul class="is-unstyled">
+        {{#member.forms.records}}
         <li class="field">
         <span class="button is-fullwidth-mobile is-warning is-hovered is-large has-cursor-default">
               <span class="icon is-large is-hidden-mobile">
@@ -150,9 +164,13 @@
           </ul>
           {{/member_form.dues.records_count}}
         </li>
+        {{/member.forms.records}}
       </ul>
+    {{/member.forms.records_count}}
+    {{^member.forms.records_count}}
+    <div class="notification is-warning has-text-centered">— Aucune cotisation active —</div>
+    {{/member.forms.records_count}}
     </div>
-    {{/member.forms.records}}
   </div>
 
   <div class="field is-grouped is-grouped-right">

@@ -7670,7 +7670,21 @@ input.checkbox-button {
   fill: #363636; }
 
 a .icon {
-  fill: #00d1b2; }
+  fill: #363636; }
+
+a.icon.is-active {
+  fill: #ffdd57; }
+  a.icon.is-active #hovered {
+    fill-opacity: 1; }
+  a.icon.is-active #default {
+    fill-opacity: 0; }
+
+a.icon.is-inactive {
+  fill: #dbdbdb; }
+  a.icon.is-inactive #hovered {
+    fill-opacity: 0; }
+  a.icon.is-inactive #default {
+    fill-opacity: 1; }
 
 .notification.is-info .icon {
   fill: #186090; }

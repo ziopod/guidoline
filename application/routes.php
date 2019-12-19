@@ -10,7 +10,7 @@
 * GET  /<folio>         : Pagination
 */
 Route::set('members', 'adherents(/<filter>)(/<folio>)', array(
-  'filter' => '(actifs|inactifs)',
+  'filter' => '(actifs|inactifs|benevoles)',
   'folio' => '\d+',
   ))
   ->filter(function($route, $params, $request) {
@@ -129,6 +129,17 @@ Route::set('auth.logout', 'deconnexion')
 //     'controller' => 'Dashboard',
 //     'action'     => 'index',
 //   ));
+
+
+/**
+ * API
+ */
+Route::set('action', 'action/<do>(/<id>)')
+->defaults(array(
+  'controller' => 'MVVM_Private',
+  'action'     => 'instanciate',
+  'view'       => 'Action',
+));
 
 // Tente de capturer une vue par défaut
 // Un format de rendu peut être choisi

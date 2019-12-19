@@ -40,7 +40,7 @@ class View_Members_Edit extends View_Master {
       $post = Request::current()->post();
       $post = array_merge($post, $post['address']);
       unset($post['address']);
-
+      $post['is_volunteer'] = Arr::get($post, 'is_volunteer', 0);
       // Save model
       $this->_orm_member()
       ->values(
@@ -57,6 +57,7 @@ class View_Members_Edit extends View_Master {
           'city',
           'country',
           'birthdate',
+          'is_volunteer',
         )
       );
       try

@@ -168,7 +168,7 @@ class Model_Member extends ORM {
           return preg_replace('/(\w{2})(\w{2})(\w{2})(\w{2})(\w{2})$/i', '$1 $2 $3 $4 $5', $value);
         }),
         array('ORM::nullish'),
-      ),
+      )
 		);
 	}
 
@@ -798,7 +798,7 @@ class Model_Member extends ORM {
               'id'    => 'firstname',
               'value' => $this->firstname,
               'error' => Arr::get($errors, 'firstname'),
-              // 'required' => 'required',
+              'required' => 'required',
           )
         ),
         'birthdate' => array(
@@ -862,6 +862,15 @@ class Model_Member extends ORM {
             'value' => $this->country,
           ))
         ),
+        'is_volunteer' => array(
+          'field' => array(
+            'label'   => 'Bénévole',
+            'name'    => 'is_volunteer',
+            'id'      => 'is_volunteer',
+            'value'   => 1,
+            'checked' => $this->is_volunteer ? 'checked' : NULL,
+          )
+        )
       ),
     );
   }

@@ -100,7 +100,7 @@ class View_Master {
   {
     return array(
       array('script' => array(
-        'src' => '/assets/scripts/general.js',
+        'src' => '/assets/scripts/main.js',
         'defer' => 'defer',
       )),
       array('script' => array(

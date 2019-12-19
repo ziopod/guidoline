@@ -1,6 +1,13 @@
 <tr {{^member.is_active}}class="faded"{{/member.is_active}}>
   <td class="is-hidden-mobile">#{{member.idm}}</td>
   <td>
+    <a
+      class="member_set_volunteer is-hidden-mobile icon is-medium {{#member.is_volunteer}}is-active{{/member.is_volunteer}}{{^member.is_volunteer}}is-inactive{{/member.is_volunteer}} ajax-action"
+      data-action_do="member_set_volunteer"
+      data-action_id="{{member.id}}"
+      title="Marquer comme {{#member.is_volunteer}}non-{{/member.is_volunteer}}bénévole">
+      <img class="icon-injector" src="/assets/svg/crown.svg" alt="Bénévole">
+    </a>
     <a href="{{member.url}}" title="Afficher la fiche de {{member.fullname}}">
       {{member.fullname}}
     </a>
@@ -8,7 +15,9 @@
   <td class="is-hidden-mobile">
     {{#member.email}}
     <a href="mailto:{{member.email}}?body=Bonjour {{member.firstname}},&subject=Message de Guidoline" title="Écrire à {{member.fullname}}">
-      {{member.email}}
+      <span class="icon is-medium">
+        <img class="icon-injector" src="/assets/svg/mail.svg" alt="{{member.email}}">
+      </span>
     </a>
     {{/member.email}}
   </td>
@@ -16,7 +25,7 @@
     {{#member.email}}
     <a href="mailto:{{member.email}}?body=Bonjour {{member.firstname}},&subject=Message de Guidoline" title="Écrire à {{member.fullname}}">
       <span class="is-hidden-tablet icon is-medium">
-        <img class="icon-injector" src="/assets/svg/at.svg" alt="Email">
+        <img class="icon-injector" src="/assets/svg/mail.svg" alt="Email">
       </span>
     </a>
     {{/member.email}}
