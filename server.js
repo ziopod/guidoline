@@ -8,7 +8,7 @@ const port = process.argv[3];
 // Sass configuration
 const sass_source = "assets/sass/";
 const sass_glob = "**/*.scss";
-const sass_destination = "assets/css/";
+const sass_destination = "public/assets/css/";
 // Template configuration
 const template_source = "application/templates/";
 const template_glob = "**/*.mustache";
