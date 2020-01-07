@@ -140,6 +140,7 @@
         {{/member.forms_all.records_count}}
       </ul>
     </fieldset>
+    {{#member.loaded}}
     <div class="column">
       <legend>Cotisation actives</legend>
       {{#member.forms.records_count}}
@@ -166,13 +167,13 @@
         </li>
         {{/member.forms.records}}
       </ul>
-    {{/member.forms.records_count}}
-    {{^member.forms.records_count}}
-    <div class="notification is-warning has-text-centered">— Aucune cotisation active —</div>
-    {{/member.forms.records_count}}
+      {{/member.forms.records_count}}
+      {{^member.forms.records_count}}
+      <div class="notification is-warning has-text-centered">— Aucune cotisation active —</div>
+      {{/member.forms.records_count}}
     </div>
+    {{/member.loaded}}
   </div>
-
   <div class="field is-grouped is-grouped-right">
     {{#member.loaded}}
     <div class="control">
