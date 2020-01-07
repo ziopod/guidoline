@@ -198,6 +198,9 @@ class View_Members_Index extends View_Master {
       $members->and_where_close();
     }
 
+    // Ordering
+    $members->order_by('idm', 'desc');
+
     return $members;
   }
 
