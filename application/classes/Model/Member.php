@@ -286,6 +286,16 @@ class Model_Member extends ORM {
   }
 
   /**
+   * Contact
+   *
+   * @return String
+   */
+  public function contact()
+  {
+    return $this->phone ? $this->phone : $this->email ? $this->email : NULL;
+  }
+
+  /**
    * Pretty format address
    */
   public function raw_address()
