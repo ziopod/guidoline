@@ -99,6 +99,11 @@ class View_Members_Edit extends View_Master {
           // On ne peux pas utiliser ORM::add()
           ORM::factory('Due')
           ->values(array(
+            'title' => $member_form->title,
+            'heading' => $member_form->heading,
+            'to_name' => $this->_orm_member()->fullname(),
+            'to_address' => $this->_orm_member()->raw_address(),
+            'to_contact'  => $this->_orm_member()->contact() ? $this->_orm_member()->contact() : '-',
             'member_id' => $this->_orm_member()->pk(),
             'form_id' => $member_form->pk(),
             'amount' => $member_form->price,
