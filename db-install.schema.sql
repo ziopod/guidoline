@@ -1,203 +1,233 @@
--- MySQL Workbench Synchronization
--- Generated: 2019-12-10 18:09
--- Model: New Model
--- Version: 1.0
--- Project: Name of the project
--- Author: Ziopod
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4541
+#
+# http://www.sequelpro.com/
+# https://github.com/sequelpro/sequelpro
+#
+# Hôte: 127.0.0.1 (MySQL 5.7.26)
+# Base de données: guidoline-export
+# Temps de génération: 2019-12-13 11:07:52 +0000
+# ************************************************************
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-CREATE TABLE IF NOT EXISTS `guidoline-export`.`members` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `idm` INT(11) NOT NULL,
-  `user_id` INT(11) UNSIGNED NULL DEFAULT NULL,
-  `gender` ENUM('m','f') NULL DEFAULT 'm',
-  `firstname` VARCHAR(45) NOT NULL,
-  `lastname` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(128) NULL DEFAULT NULL,
-  `phone` VARCHAR(19) NULL DEFAULT NULL,
-  `street` VARCHAR(45) NULL DEFAULT NULL,
-  `zipcode` VARCHAR(5) NULL DEFAULT NULL,
-  `city` VARCHAR(45) NULL DEFAULT NULL,
-  `country` VARCHAR(2) NULL DEFAULT 'FR',
-  `birthdate` DATE NULL DEFAULT NULL,
-  `updated` TIMESTAMP NULL DEFAULT NULL,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_active` INT(1) NOT NULL DEFAULT 1,
-  `is_volunteer` INT(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `idm_UNIQUE` (`idm` ASC),
-  INDEX `fk_members_users_idx` (`user_id` ASC),
-  CONSTRAINT `fk_members_users`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `guidoline-export`.`users` (`id`)
-    ON DELETE SET NULL
-    ON UPDATE RESTRICT)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE TABLE IF NOT EXISTS `guidoline-export`.`roles` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(32) NOT NULL,
-  `description` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `uniq_name` (`name` ASC))
-ENGINE = InnoDB
-AUTO_INCREMENT = 3
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
 
-CREATE TABLE IF NOT EXISTS `guidoline-export`.`roles_users` (
-  `user_id` INT(10) UNSIGNED NOT NULL,
-  `role_id` INT(10) UNSIGNED UNSIGNED NOT NULL,
-  PRIMARY KEY (`user_id`, `role_id`),
-  INDEX `fk_role_id` (`role_id` ASC),
-  CONSTRAINT `fk_roles_uses_user`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `guidoline-export`.`users` (`id`)
-    ON DELETE CASCADE,
-  CONSTRAINT `fk_roles_users_role`
-    FOREIGN KEY (`role_id`)
-    REFERENCES `guidoline-export`.`roles` (`id`)
-    ON DELETE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
+# Affichage de la table currencies
+# ------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS `guidoline-export`.`forms` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(35) NOT NULL,
-  `heading` VARCHAR(70) NOT NULL,
-  `slug` VARCHAR(70) NOT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  `price` FLOAT(5,2) NOT NULL DEFAULT 0.00,
-  `currency_code` VARCHAR(3) NOT NULL DEFAULT 'EUR',
-  `free_price` INT(1) NOT NULL DEFAULT 1,
-  `date_start` DATE NULL DEFAULT NULL,
-  `duration` VARCHAR(10) NOT NULL DEFAULT '1 year',
-  `start_at_due` INT(1) NOT NULL DEFAULT 1,
-  `is_active` INT(1) NOT NULL DEFAULT 1,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`, `currency_code`),
-  INDEX `fk_forms_currency_id` (`currency_code` ASC),
-  CONSTRAINT `fk_forms_currencies`
-    FOREIGN KEY (`currency_code`)
-    REFERENCES `guidoline-export`.`currencies` (`code`)
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
+DROP TABLE IF EXISTS `currencies`;
 
-CREATE TABLE IF NOT EXISTS `guidoline-export`.`dues` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `member_id` INT(11) UNSIGNED NOT NULL,
-  `form_id` INT(11) UNSIGNED NOT NULL,
-  `title` VARCHAR(35) NOT NULL,
-  `to_name` VARCHAR(80) NOT NULL,
-  `to_address` TINYTEXT NOT NULL,
-  `to_contact` VARCHAR(128) NOT NULL,
-  `heading` VARCHAR(70) NOT NULL,
-  `date_start` DATE NULL DEFAULT NULL,
-  `date_end` DATE NULL DEFAULT NULL,
-  `amount` FLOAT(5,2) NOT NULL DEFAULT 0.00,
-  `currency` VARCHAR(1) NOT NULL DEFAULT '€',
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`, `member_id`, `form_id`),
-  INDEX `fk_dues_form_id` (`form_id` ASC),
-  INDEX `fk_dues_member_idx` (`member_id` ASC),
-  CONSTRAINT `fk_dues_member`
-    FOREIGN KEY (`member_id`)
-    REFERENCES `guidoline-export`.`members` (`id`)
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT,
-  CONSTRAINT `fk_dues_forms`
-    FOREIGN KEY (`form_id`)
-    REFERENCES `guidoline-export`.`forms` (`id`)
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-CREATE TABLE IF NOT EXISTS `guidoline-export`.`user_tokens` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` INT(11) UNSIGNED NOT NULL,
-  `user_agent` VARCHAR(40) NOT NULL,
-  `token` VARCHAR(40) NOT NULL,
-  `created` INT(10) UNSIGNED NOT NULL,
-  `expires` INT(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `uniq_token` (`token` ASC),
-  INDEX `fk_user_id` (`user_id` ASC),
-  INDEX `expires` (`expires` ASC),
-  CONSTRAINT `fk_user_token`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `guidoline-export`.`users` (`id`)
-    ON DELETE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-CREATE TABLE IF NOT EXISTS `guidoline-export`.`users` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `email` VARCHAR(254) NOT NULL,
-  `username` VARCHAR(32) NOT NULL,
-  `password` VARCHAR(64) NOT NULL,
-  `logins` INT(10) UNSIGNED NOT NULL DEFAULT 0,
-  `last_login` INT(10) UNSIGNED NULL DEFAULT NULL,
-  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` TIMESTAMP NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `uniq_username` (`username` ASC),
-  UNIQUE INDEX `uniq_email` (`email` ASC))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-CREATE TABLE IF NOT EXISTS `guidoline-export`.`currencies` (
-  `code` VARCHAR(3) NOT NULL,
-  `name` VARCHAR(16) NOT NULL,
-  `entity` VARCHAR(1) NOT NULL,
+CREATE TABLE `currencies` (
+  `code` varchar(3) NOT NULL,
+  `name` varchar(16) NOT NULL,
+  `entity` varchar(1) NOT NULL,
   PRIMARY KEY (`code`),
-  UNIQUE INDEX `id_UNIQUE` (`code` ASC))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
+  UNIQUE KEY `id_UNIQUE` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `guidoline-export`.`skills` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+
+
+# Affichage de la table dues
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `dues`;
+
+CREATE TABLE `dues` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `member_id` int(11) unsigned NOT NULL,
+  `form_id` int(11) unsigned NOT NULL,
+  `title` varchar(35) NOT NULL,
+  `to_name` varchar(80) NOT NULL,
+  `to_address` tinytext NOT NULL,
+  `to_contact` varchar(128) NOT NULL,
+  `heading` varchar(70) NOT NULL,
+  `date_start` date DEFAULT NULL,
+  `date_end` date DEFAULT NULL,
+  `amount` float(5,2) NOT NULL DEFAULT '0.00',
+  `currency` varchar(1) NOT NULL DEFAULT '€',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`,`member_id`,`form_id`),
+  KEY `fk_dues_form_id` (`form_id`),
+  KEY `fk_dues_member_idx` (`member_id`),
+  CONSTRAINT `fk_dues_forms` FOREIGN KEY (`form_id`) REFERENCES `forms` (`id`),
+  CONSTRAINT `fk_dues_member` FOREIGN KEY (`member_id`) REFERENCES `members` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Affichage de la table forms
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `forms`;
+
+CREATE TABLE `forms` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(35) NOT NULL,
+  `heading` varchar(70) NOT NULL,
+  `slug` varchar(70) NOT NULL,
+  `description` text,
+  `price` float(5,2) NOT NULL DEFAULT '0.00',
+  `currency_code` varchar(3) NOT NULL DEFAULT 'EUR',
+  `free_price` int(1) NOT NULL DEFAULT '1',
+  `date_start` date DEFAULT NULL,
+  `duration` varchar(10) NOT NULL DEFAULT '1 year',
+  `start_at_due` int(1) NOT NULL DEFAULT '1',
+  `is_active` int(1) NOT NULL DEFAULT '1',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`,`currency_code`),
+  KEY `fk_forms_currency_id` (`currency_code`),
+  CONSTRAINT `fk_forms_currencies` FOREIGN KEY (`currency_code`) REFERENCES `currencies` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Affichage de la table members
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `members`;
+
+CREATE TABLE `members` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `idm` int(11) NOT NULL,
+  `user_id` int(11) unsigned DEFAULT NULL,
+  `gender` enum('m','f') DEFAULT 'm',
+  `firstname` varchar(45) NOT NULL,
+  `lastname` varchar(45) NOT NULL,
+  `email` varchar(128) DEFAULT NULL,
+  `phone` varchar(19) DEFAULT NULL,
+  `street` varchar(45) DEFAULT NULL,
+  `zipcode` varchar(5) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `country` varchar(2) DEFAULT 'FR',
+  `birthdate` date DEFAULT NULL,
+  `updated` timestamp NULL DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_active` int(1) NOT NULL DEFAULT '1',
+  `is_volunteer` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
-
-CREATE TABLE IF NOT EXISTS `guidoline-export`.`members_skills` (
-  `member_id` INT(11) UNSIGNED NOT NULL,
-  `skill_id` INT(11) UNSIGNED NOT NULL,
-  PRIMARY KEY (`member_id`, `skill_id`),
-  INDEX `fk_members_skills_skill_id` (`skill_id` ASC),
-  INDEX `fk_members_skills_member_id` (`member_id` ASC),
-  CONSTRAINT `fk_members_skills_members`
-    FOREIGN KEY (`member_id`)
-    REFERENCES `guidoline-export`.`members` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE RESTRICT,
-  CONSTRAINT `fk_members_skils_skills`
-    FOREIGN KEY (`skill_id`)
-    REFERENCES `guidoline-export`.`skills` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE RESTRICT)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_general_ci;
+  UNIQUE KEY `idm_UNIQUE` (`idm`),
+  KEY `fk_members_users_idx` (`user_id`),
+  CONSTRAINT `fk_members_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+# Affichage de la table members_skills
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `members_skills`;
+
+CREATE TABLE `members_skills` (
+  `member_id` int(11) unsigned NOT NULL,
+  `skill_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`member_id`,`skill_id`),
+  KEY `fk_members_skills_skill_id` (`skill_id`),
+  KEY `fk_members_skills_member_id` (`member_id`),
+  CONSTRAINT `fk_members_skills_members` FOREIGN KEY (`member_id`) REFERENCES `members` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_members_skils_skills` FOREIGN KEY (`skill_id`) REFERENCES `skills` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Affichage de la table roles
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `roles`;
+
+CREATE TABLE `roles` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Affichage de la table roles_users
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `roles_users`;
+
+CREATE TABLE `roles_users` (
+  `user_id` int(10) unsigned NOT NULL,
+  `role_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`user_id`,`role_id`),
+  KEY `fk_role_id` (`role_id`),
+  CONSTRAINT `fk_roles_users_role` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_roles_uses_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Affichage de la table skills
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `skills`;
+
+CREATE TABLE `skills` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Affichage de la table user_tokens
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `user_tokens`;
+
+CREATE TABLE `user_tokens` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL,
+  `user_agent` varchar(40) NOT NULL,
+  `token` varchar(40) NOT NULL,
+  `created` int(10) unsigned NOT NULL,
+  `expires` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_token` (`token`),
+  KEY `fk_user_id` (`user_id`),
+  KEY `expires` (`expires`),
+  CONSTRAINT `fk_user_token` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Affichage de la table users
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `users` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(254) NOT NULL,
+  `username` varchar(32) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  `logins` int(10) unsigned NOT NULL DEFAULT '0',
+  `last_login` int(10) unsigned DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_username` (`username`),
+  UNIQUE KEY `uniq_email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
