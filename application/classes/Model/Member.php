@@ -163,6 +163,9 @@ class Model_Member extends ORM {
         }),
         array('ORM::nullish'),
       ),
+      'country' => array(
+        array('ORM::nullish'),
+      ),
       'phone' => array(
         array(function($value) {
           return preg_replace('/(\w{2})(\w{2})(\w{2})(\w{2})(\w{2})$/i', '$1 $2 $3 $4 $5', $value);
