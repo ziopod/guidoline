@@ -7667,6 +7667,7 @@ input.checkbox-button {
   align-items: center; }
 
 .icon {
+  display: inline-block;
   fill: #363636; }
 
 a .icon {
