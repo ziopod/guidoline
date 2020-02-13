@@ -1,5 +1,5 @@
 ---
-name: "Rapport de bug \U0001F41E"
+name: "Rapporter un bug \U0001F41E"
 about: "Quelque chose ne fonctionne pas comme convenu \U0001F62B."
 title: Description du bug en quelques mots
 labels: bug
