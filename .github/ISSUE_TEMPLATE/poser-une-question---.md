@@ -1,5 +1,5 @@
 ---
-name: "Question \U0001F4AC"
+name: "Poser une question \U0001F4AC"
 about: "J'ai une question sur l'utilisation du logiciel ou sur un autre sujet en relation
   avec ce projet \U0001F914."
 title: Votre question
