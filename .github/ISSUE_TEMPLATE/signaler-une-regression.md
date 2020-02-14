@@ -10,7 +10,7 @@ assignees: ''
 
 ## Version du logiciel
 
-L'éventuelle version qui a introduit le bug de régression ([ajouter un lien vers la version](https://help.github.com/en/github/writing-on-github/autolinked-references-and-urls#commit-shas)). 
+[L'éventuelle version](https://github.com/ziopod/guidoline/releases) qui a introduit le bug de régression ([ajouter un lien vers la version](https://help.github.com/en/github/writing-on-github/autolinked-references-and-urls#commit-shas)).
 
 ## Description de la régression
 
