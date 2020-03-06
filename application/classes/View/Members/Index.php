@@ -88,7 +88,7 @@ class View_Members_Index extends View_Master {
     $is_volunteer = $this->current_filter() === 'benevoles';
     $members = ORM::factory('Member');
 
-    if ($is_active !== NULL)
+    if ($is_active !== NULL AND $is_active !== "benevoles")
     {
       $members->where('is_active', '=', $is_active === 'actifs');
     }
