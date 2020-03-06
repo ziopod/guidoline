@@ -112,12 +112,9 @@ class View_Members_Edit extends View_Master {
             'date_end' => $member_form->date_end(),
           ))
           ->save();
-          // $f = $this->_orm_member()->add('forms', $member_form);
-          // $member_form->due->set('amount', $member_form->price)->save();
-          // echo Debug::vars($member_form->due);
+          $this->_orm_member()->set('is_active', TRUE)->save();
         }
 
-        // echo Debug::vars($member_forms_to_add);
         // Enregistrement des métas
 
         $this->_notifications[] = array('notification' => array(
