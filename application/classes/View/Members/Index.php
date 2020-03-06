@@ -29,7 +29,8 @@ class View_Members_Index extends View_Master {
    */
   public function current_filter()
   {
-    return Request::current()->param('filter');
+    $filter = Request::current()->param('filter');
+    return $filter ? $filter : NULL;
   }
 
   /**
@@ -83,13 +84,13 @@ class View_Members_Index extends View_Master {
    */
   protected function _members_query()
   {
-    $is_active = $this->current_filter() === 'actifs';
+    $is_active = $this->current_filter();
     $is_volunteer = $this->current_filter() === 'benevoles';
     $members = ORM::factory('Member');
 
-    if ($is_active !== NULL AND ! $is_volunteer)
+    if ($is_active !== NULL)
     {
-      $members->where('is_active', '=', $is_active);
+      $members->where('is_active', '=', $is_active === 'actifs');
     }
 
     if ($is_volunteer)
