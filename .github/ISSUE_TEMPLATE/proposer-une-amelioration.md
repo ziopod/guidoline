@@ -14,7 +14,7 @@ Veuillez décrire de façon claire et précise quel genre de problème vous renc
 Décrivez ce que vous estimez être l'amélioration idéale pour corriger ce problème, les avantages que cette solution apporterais.
 
 ## Solution alternative
-Pensez-vous à une autre solution, ou à l'amélioration d'une solution alternative que vous utilisez déjà.
+Pensez-vous à une autre solution, ou à l'amélioration d'une solution alternative que vous utilisez déjà. Prenez en compte les alternatives humaine qui sont bien souvent les plus simple et économique à mettre en œuvre (par exemple via, des consignes, une documentation, une formation, etc.).
 
 ## Apprentissage, documentation, adoption, stratégie d'implémentation
 
