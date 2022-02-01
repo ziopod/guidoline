@@ -234,6 +234,54 @@ class Model_Member extends ORM {
 		);
 	}
 
+  /**
+   * Action when saving member
+   */
+	public function save(Validation $validation = NULL)
+	{
+
+    // Synchroniser les données avec un service externe
+    if (count(array_intersect(array(
+      'email',
+      'firstname',
+      'lastname',
+      'is_volunteer',
+      'is_active',
+      'idm'
+    ), array_keys($this->_changed))))
+    {
+
+      // Récupérer la dernière adhésion valide
+      $active_forms = array_map(
+        function($f){
+          return array(
+            'title' => $f['member_form']['title'],
+            'created' => $f['member_form']['created']
+          );
+        },
+        $this->forms()['records']
+      );
+      usort($active_forms, function($a, $b) {
+        if ($a['created'] == $b['created']) return 0;
+        return $a['created'] < $b['created'] ? -1 : 1;
+      });
+      $last_form = array_shift($active_forms);
+
+      // Mise à jour du contact
+      $external = new External_Contact();
+      $external->save($this->email, array(
+        'fullname' => $this->fullname(),
+        'firstname' => $this->firstname,
+        'lastname' => $this->lastname,
+        'last_membership' => $last_form['title'],
+        'is_volunteer' => $this->is_volunteer,
+        'is_active' => $this->is_active
+      ));
+    }
+
+		parent::save();
+	}
+
 	/**
 	 * Member card URL
  	 *

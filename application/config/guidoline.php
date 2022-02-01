@@ -22,5 +22,8 @@ return array(
       'email' =>'ziopod@gmail.com',
       'name'  => 'Ziopod',
     ),
+  ),
+  'api_drivers' => array(
+    'contact' => 'Mailjet'
   )
 );
