@@ -136,9 +136,9 @@ class External_Driver_Contact_Mailjet implements External_Driver_Contact_Interfa
    * @param String $email Identifiant email du contact
    * @param String $list Nom de la liste (fichier de configuration)
    */
-  public function moveToList($email, $list = 'members') {
+  public function moveToList($email) {
 
-    $listID = $this->_config->list[$list];
+    $listID = $this->_config->list_id;
     $this->_open();
     curl_setopt_array($this->_cURL, array(
       CURLOPT_URL => $this->_config->url . 'listrecipient',
@@ -194,6 +194,10 @@ class External_Driver_Contact_Mailjet implements External_Driver_Contact_Interfa
             'Name' => 'volunteer',
             'Value' => $data['is_volunteer']
           ),
+          array(
+            'Name' => 'idm',
+            'value' => $data['idm']
+          )
         )
       ))
     ));
@@ -255,7 +259,7 @@ class External_Driver_Contact_Mailjet implements External_Driver_Contact_Interfa
     $this->saveData($email, $data);
 
     // Déplacer le contact dans la liste de contact membres si besoin
-    if (!in_array($this->_config->list['members'], array_map(
+    if (!in_array($this->_config->list_id, array_map(
       function($e) { return $e->ListID; },
       $this->getContactsLists($email)
     )))
