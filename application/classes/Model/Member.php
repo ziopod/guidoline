@@ -265,7 +265,7 @@ class Model_Member extends ORM {
         'fullname' => $this->fullname(),
         'firstname' => $this->firstname,
         'lastname' => $this->lastname,
-        'last_membership' => $forms,
+        'memberships' => $forms,
         'is_volunteer' => $this->is_volunteer,
         'is_active' => $this->is_active,
         'idm' => $this->idm

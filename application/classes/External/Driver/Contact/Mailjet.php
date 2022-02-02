@@ -183,8 +183,8 @@ class External_Driver_Contact_Mailjet implements External_Driver_Contact_Interfa
             'Value' => $data['lastname']
           ),
           array(
-            'Name' => 'last_membership',
-            'Value' => $data['last_membership']
+            'Name' => 'memberships',
+            'Value' => $data['memberships']
           ),
           array(
             'Name' => 'active_membership',
