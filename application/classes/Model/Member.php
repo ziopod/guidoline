@@ -247,25 +247,17 @@ class Model_Member extends ORM {
       'lastname',
       'is_volunteer',
       'is_active',
-      'idm'
+      'idm',
+      'updated'
     ), array_keys($this->_changed))))
     {
 
-      // Récupérer la dernière adhésion valide
-      $active_forms = array_map(
-        function($f){
-          return array(
-            'title' => $f['member_form']['title'],
-            'created' => $f['member_form']['created']
-          );
+      // Récupérer les dernières adhésions valides
+      $forms = implode(', ', array_map(function($form) {
+          return $form['member_form']['title'];
         },
         $this->forms()['records']
-      );
-      usort($active_forms, function($a, $b) {
-        if ($a['created'] == $b['created']) return 0;
-        return $a['created'] < $b['created'] ? -1 : 1;
-      });
-      $last_form = array_shift($active_forms);
+      ));
 
       // Mise à jour du contact
       $external = new External_Contact();
@@ -275,7 +267,8 @@ class Model_Member extends ORM {
         'lastname' => $this->lastname,
         'last_membership' => $last_form['title'],
         'is_volunteer' => $this->is_volunteer,
-        'is_active' => $this->is_active
+        'is_active' => $this->is_active,
+        'idm' => $this->idm
       ));
     }
 
