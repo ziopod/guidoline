@@ -28,7 +28,7 @@ Expliquer la tâche que vous vouliez accomplir lorsque le bug est survenu.
 
 ## Comportement obtenu
 
-Veuillez décrire clairemement et de façon conscise ce que vous avez obtenu.
+Veuillez décrire clairement et de façon concise ce que vous avez obtenu.
 
 ## Solution temporaire
 
